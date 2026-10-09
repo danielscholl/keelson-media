@@ -6,7 +6,7 @@ The method lives in the `demo-shorts` skill (`skills/demo-shorts`; link it into 
 
 ```
 assets/          reusable pieces: intro clips, voice auditions, anything worth using twice
-shorts/<date>-<slug>/
+shorts/<act>/fig-NN-<slug>/   one folder per act (act-0-the-plate ... act-4-raise-the-ribs, codas), one per figure inside
   final.mp4      the master cut (local only; media/ holds the web encode)
   script.json    narration lines, in order
   narr/ cards/   rendered narration clips and overlay cards

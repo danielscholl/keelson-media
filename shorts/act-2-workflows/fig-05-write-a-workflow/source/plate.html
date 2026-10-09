@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../../../tools/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+  :root { --keel:#1e3a5f; --rib:#2f6fb0; --brass:#b5803a; --brass-ink:#8a5a1f; --ink:#0f1b2d; --muted:#51607a; --green:#2f8f5b; }
+  * { margin:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; }
+  body {
+    font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; color: var(--ink);
+    background:
+      linear-gradient(rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(90deg, rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      linear-gradient(90deg, rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      radial-gradient(circle at 74% 0%, rgba(255,255,255,.9), transparent 700px),
+      linear-gradient(180deg, #f3f5f8 0%, #e6eaf0 100%);
+  }
+  .crop { position:absolute; width:26px; height:26px; border:0 solid rgba(30,58,95,.5); }
+  #header { position:absolute; left:128px; right:128px; top:34px; height:44px; display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1.5px solid rgba(30,58,95,.45); font-family:"JetBrains Mono", monospace; font-size:18px; letter-spacing:.2em; color:var(--keel); }
+  #header .left { display:flex; align-items:center; gap:16px; }
+  #boardName { position:relative; width:520px; height:24px; color:var(--muted); }
+  #boardName span { position:absolute; right:0; top:0; opacity:0; white-space:nowrap; }
+  svg text { font-family: Inter, sans-serif; }
+  svg .mono { font-family: "JetBrains Mono", monospace; white-space: pre; }
+  .draw { stroke-dasharray:1; stroke-dashoffset:1; }
+</style>
+</head>
+<body>
+<div class="crop" style="left:40px;top:14px;border-left-width:2px;border-top-width:2px"></div>
+<div class="crop" style="right:40px;top:14px;border-right-width:2px;border-top-width:2px"></div>
+<div class="crop" style="left:40px;bottom:14px;border-left-width:2px;border-bottom-width:2px"></div>
+<div class="crop" style="right:40px;bottom:14px;border-right-width:2px;border-bottom-width:2px"></div>
+<div id="header">
+  <div class="left">
+    <svg width="30" height="30" viewBox="0 0 34 34" fill="none"><line x1="11.5" y1="7" x2="11.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="22.5" y1="7" x2="22.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="20" x2="29" y2="20" stroke="#b5803a" stroke-width="2.6" stroke-linecap="round"/></svg>
+    <span><b>KEELSON</b> &nbsp;·&nbsp; FIG. 05 &nbsp;·&nbsp; WRITE A WORKFLOW</span>
+  </div>
+  <div id="boardName"><span id="bn-graph">A FILE THAT IS A GRAPH</span><span id="bn-check">WHAT VALIDATE CHECKS</span><span id="bn-why">WHY WRITE IT DOWN</span></div>
+</div>
+
+<svg id="stage" viewBox="0 0 1920 1080" width="1920" height="1080" style="position:absolute;inset:0">
+  <defs>
+    <marker id="ah" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#8a5a1f"/></marker>
+    <marker id="ahn" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#1e3a5f"/></marker>
+    <marker id="ahr" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#b8433a"/></marker>
+  </defs>
+
+  <!-- A FILE THAT IS A GRAPH -->
+  <g id="graph" opacity="0">
+    <g id="g-chat" opacity="0">
+      <rect x="700" y="260" width="300" height="56" rx="14" fill="#e8eef8" stroke="#2f6fb0" stroke-width="1.5"/>
+      <rect x="880" y="340" width="340" height="56" rx="14" fill="#dfe6f0"/>
+      <rect x="700" y="420" width="260" height="56" rx="14" fill="#e8eef8" stroke="#2f6fb0" stroke-width="1.5"/>
+      <path d="M1000,440 C1100,500 1060,560 1160,560 C1240,560 1220,480 1300,500" fill="none" stroke="#51607a" stroke-width="2" stroke-dasharray="6 6"/>
+      <text x="960" y="620" text-anchor="middle" class="mono" font-size="22" letter-spacing="4" fill="#51607a">CHAT · THE MODEL DECIDES WHAT'S NEXT</text>
+    </g>
+    <g id="g-file" opacity="0">
+      <rect x="150" y="190" width="620" height="560" rx="12" fill="#0d1429"/>
+      <text x="180" y="240" class="mono" font-size="22" fill="#9aa3c0">tide-check.yaml</text>
+      <text x="180" y="300" class="mono" font-size="26" fill="#dfe6f0">nodes:</text>
+      <text id="g-y1" x="180" y="350" class="mono" font-size="26" fill="#dfe6f0" opacity="0">  - id: <tspan fill="#f2c66d">test</tspan></text>
+      <text id="g-y1b" x="180" y="390" class="mono" font-size="26" fill="#9aa3c0" opacity="0">    bash: bun test</text>
+      <text id="g-y2" x="180" y="440" class="mono" font-size="26" fill="#dfe6f0" opacity="0">  - id: <tspan fill="#f2c66d">tides</tspan></text>
+      <text id="g-y2b" x="180" y="480" class="mono" font-size="26" fill="#9aa3c0" opacity="0">    bash: bun run tides</text>
+      <text id="g-y3" x="180" y="530" class="mono" font-size="26" fill="#dfe6f0" opacity="0">  - id: <tspan fill="#7aa2ff">report</tspan></text>
+      <text id="g-y3b" x="180" y="570" class="mono" font-size="26" fill="#9aa3c0" opacity="0">    prompt: …</text>
+      <g id="g-dep" opacity="0"><rect x="166" y="588" width="590" height="52" rx="6" fill="rgba(181,128,58,.22)"/>
+      <text x="180" y="624" class="mono" font-size="26" fill="#dfe6f0">    depends_on: [test, tides]</text></g>
+    </g>
+    <g id="g-dag">
+      <g id="g-n1" opacity="0"><rect x="1000" y="260" width="300" height="110" rx="12" fill="#fff" stroke="#1e3a5f" stroke-width="3"/><rect id="g-n1f" x="1000" y="260" width="10" height="110" fill="#2f8f5b" opacity="0"/><text x="1150" y="300" text-anchor="middle" class="mono" font-size="18" letter-spacing="3" fill="#8a5a1f">BASH</text><text x="1150" y="343" text-anchor="middle" font-size="34" font-weight="600" fill="#0f1b2d">test</text></g>
+      <g id="g-n2" opacity="0"><rect x="1420" y="260" width="300" height="110" rx="12" fill="#fff" stroke="#1e3a5f" stroke-width="3"/><rect id="g-n2f" x="1420" y="260" width="10" height="110" fill="#2f8f5b" opacity="0"/><text x="1570" y="300" text-anchor="middle" class="mono" font-size="18" letter-spacing="3" fill="#8a5a1f">BASH</text><text x="1570" y="343" text-anchor="middle" font-size="34" font-weight="600" fill="#0f1b2d">tides</text></g>
+      <g id="g-n3" opacity="0"><rect x="1210" y="560" width="300" height="110" rx="12" fill="#fff" stroke="#1e3a5f" stroke-width="3"/><rect id="g-n3f" x="1210" y="560" width="10" height="110" fill="#2f8f5b" opacity="0"/><text x="1360" y="600" text-anchor="middle" class="mono" font-size="18" letter-spacing="3" fill="#2f6fb0">PROMPT</text><text x="1360" y="643" text-anchor="middle" font-size="34" font-weight="600" fill="#0f1b2d">report</text></g>
+      <path id="g-e1" class="draw" pathLength="1" d="M1150,372 C1150,470 1300,470 1320,552" stroke="#8a5a1f" stroke-width="3.5" fill="none" marker-end="url(#ah)" opacity="0"/>
+      <path id="g-e2" class="draw" pathLength="1" d="M1570,372 C1570,470 1420,470 1400,552" stroke="#8a5a1f" stroke-width="3.5" fill="none" marker-end="url(#ah)" opacity="0"/>
+      <text id="g-order" x="1360" y="740" text-anchor="middle" class="mono" font-size="22" letter-spacing="4" fill="#2f8f5b" opacity="0">IN DEPENDENCY ORDER · EVERY TIME</text>
+    </g>
+  </g>
+
+  <!-- WHAT VALIDATE CHECKS -->
+  <g id="check" opacity="0">
+    <g id="c-dag" opacity="0">
+      <rect x="170" y="220" width="250" height="96" rx="12" fill="#fff" stroke="#1e3a5f" stroke-width="3"/><text x="295" y="280" text-anchor="middle" font-size="30" font-weight="600" fill="#0f1b2d">test</text>
+      <rect x="520" y="220" width="250" height="96" rx="12" fill="#fff" stroke="#1e3a5f" stroke-width="3"/><text x="645" y="280" text-anchor="middle" font-size="30" font-weight="600" fill="#0f1b2d">tides</text>
+      <rect x="345" y="500" width="250" height="96" rx="12" fill="#fff" stroke="#1e3a5f" stroke-width="3"/><text x="470" y="560" text-anchor="middle" font-size="30" font-weight="600" fill="#0f1b2d">report</text>
+      <path d="M295,318 C295,410 440,410 450,492" stroke="#1e3a5f" stroke-width="3" fill="none" marker-end="url(#ahn)"/>
+    </g>
+    <g id="c-ghost" opacity="0">
+      <rect x="760" y="380" width="200" height="86" rx="12" fill="none" stroke="#b8433a" stroke-width="3" stroke-dasharray="10 8"/>
+      <text x="860" y="434" text-anchor="middle" class="mono" font-size="28" fill="#b8433a">tide ?</text>
+      <path d="M760,430 C680,440 620,470 590,500" stroke="#b8433a" stroke-width="3" stroke-dasharray="8 6" fill="none" marker-end="url(#ahr)"/>
+    </g>
+    <g id="c-list">
+      <g id="c-1" opacity="0"><text x="1060" y="270" font-size="30" fill="#0f1b2d"><tspan id="c-1m" class="mono" fill="#b8433a" font-weight="700">✗</tspan>  every edge lands on a real node</text></g>
+      <g id="c-2" opacity="0"><text x="1060" y="350" font-size="30" fill="#0f1b2d"><tspan class="mono" fill="#2f8f5b" font-weight="700">✓</tspan>  every <tspan class="mono" font-size="26">$id.output</tspan> has a source</text></g>
+      <g id="c-3" opacity="0"><text x="1060" y="430" font-size="30" fill="#0f1b2d"><tspan class="mono" fill="#2f8f5b" font-weight="700">✓</tspan>  no cycles</text></g>
+      <g id="c-4" opacity="0"><text x="1060" y="510" font-size="30" fill="#51607a"><tspan class="mono" fill="#8a5a1f" font-weight="700">!</tspan>  an unknown field only warns</text></g>
+    </g>
+    <g id="c-run" opacity="0">
+      <line x1="1060" y1="610" x2="1760" y2="610" stroke="#c8d2e0" stroke-width="2"/>
+      <text x="1060" y="660" class="mono" font-size="20" letter-spacing="3" fill="#51607a">IF IT WERE FOUND AT RUN TIME</text>
+      <g id="c-r1" opacity="0"><rect x="1060" y="690" width="190" height="64" rx="10" fill="#e8f3ec" stroke="#2f8f5b" stroke-width="2"/><text x="1155" y="731" text-anchor="middle" class="mono" font-size="22" fill="#2f8f5b">test ✓</text></g>
+      <g id="c-r2" opacity="0"><rect x="1280" y="690" width="190" height="64" rx="10" fill="#e8f3ec" stroke="#2f8f5b" stroke-width="2"/><text x="1375" y="731" text-anchor="middle" class="mono" font-size="22" fill="#2f8f5b">tides ✓</text></g>
+      <g id="c-r3" opacity="0"><rect x="1500" y="690" width="210" height="64" rx="10" fill="#f8e4e1" stroke="#b8433a" stroke-width="2"/><text x="1605" y="731" text-anchor="middle" class="mono" font-size="22" fill="#b8433a">report ✗</text></g>
+      <text id="c-half" x="1060" y="800" class="mono" font-size="22" font-weight="700" letter-spacing="3" fill="#b8433a" opacity="0">STOPPED HALFWAY</text>
+    </g>
+  </g>
+
+  <!-- WHY WRITE IT DOWN -->
+  <g id="why" opacity="0">
+    <g id="w-cols">
+      <g id="w-c1" opacity="0"><rect x="200" y="200" width="420" height="300" rx="14" fill="#0d1429"/><text x="230" y="260" class="mono" font-size="24" fill="#dfe6f0">nodes:</text><text x="230" y="304" class="mono" font-size="24" fill="#9aa3c0">  - id: test</text><text x="230" y="348" class="mono" font-size="24" fill="#9aa3c0">  - id: tides</text><text x="230" y="392" class="mono" font-size="24" fill="#9aa3c0">  - id: report</text>
+        <text x="410" y="560" text-anchor="middle" font-size="32" font-weight="600" fill="#0f1b2d">a file</text><text x="410" y="600" text-anchor="middle" font-size="24" fill="#51607a">you can read</text></g>
+      <g id="w-c2" opacity="0"><circle cx="880" cy="270" r="30" fill="#fff" stroke="#1e3a5f" stroke-width="3"/><circle cx="1040" cy="270" r="30" fill="#fff" stroke="#1e3a5f" stroke-width="3"/><circle cx="960" cy="420" r="30" fill="#fff" stroke="#1e3a5f" stroke-width="3"/><path d="M890,298 L948,392 M1030,298 L972,392" stroke="#8a5a1f" stroke-width="3"/>
+        <text x="960" y="560" text-anchor="middle" font-size="32" font-weight="600" fill="#0f1b2d">a graph</text><text x="960" y="600" text-anchor="middle" font-size="24" fill="#51607a">Keelson can check</text></g>
+      <g id="w-c3" opacity="0"><rect x="1310" y="230" width="120" height="60" rx="8" fill="#e8f3ec" stroke="#2f8f5b" stroke-width="2"/><rect x="1450" y="230" width="120" height="60" rx="8" fill="#e8f3ec" stroke="#2f8f5b" stroke-width="2"/><rect x="1380" y="360" width="120" height="60" rx="8" fill="#e8eef8" stroke="#2f6fb0" stroke-width="2"/><text x="1440" y="398" text-anchor="middle" class="mono" font-size="20" fill="#2f6fb0">model</text>
+        <text x="1440" y="560" text-anchor="middle" font-size="32" font-weight="600" fill="#0f1b2d">a run</text><text x="1440" y="600" text-anchor="middle" font-size="24" fill="#51607a">the same every time</text></g>
+      <g id="w-flow" opacity="0">
+        <text x="200" y="700" class="mono" font-size="22" letter-spacing="3" fill="#51607a">CHAT</text><text x="420" y="700" font-size="26" fill="#0f1b2d">the model decides the control flow</text>
+        <text x="200" y="760" class="mono" font-size="22" letter-spacing="3" fill="#8a5a1f">WORKFLOW</text><text x="420" y="760" font-size="26" fill="#0f1b2d">the file does; the model gets only the steps that need one</text>
+      </g>
+    </g>
+    <g id="w-recap" opacity="0">
+      <rect x="400" y="260" width="1120" height="320" fill="rgba(243,245,248,.95)" stroke="#1e3a5f" stroke-width="2"/>
+      <text id="w-r1" x="960" y="370" text-anchor="middle" font-size="54" font-weight="300" letter-spacing="9" fill="#1e3a5f" opacity="0">WRITE IT</text>
+      <text id="w-r2" x="960" y="450" text-anchor="middle" font-size="54" font-weight="300" letter-spacing="9" fill="#1e3a5f" opacity="0">CHECK IT</text>
+      <text id="w-r3" x="960" y="530" text-anchor="middle" font-size="54" font-weight="300" letter-spacing="9" fill="#8a5a1f" opacity="0">RUN IT</text>
+    </g>
+  </g>
+</svg>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+const norm = (w) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+window.setup = (T, words) => {
+  const tl = gsap.timeline({ paused: true });
+  window.tl = tl;
+  const lineAt = {};
+  for (const b of Object.values(T)) for (const [id, l] of Object.entries(b.lines)) lineAt[id] = l.n;
+  const W = (id, phrase, k = 0) => {
+    const ws = words[id], want = phrase.split(/\s+/).map(norm);
+    for (let i = 0, hit = 0; i < ws.length; i++) {
+      if (want.every((w, j) => ws[i + j] && norm(ws[i + j][0]) === w) && hit++ === k) return lineAt[id] + ws[i][1];
+    }
+    throw new Error(`phrase "${phrase}" not in ${id}`);
+  };
+  const show = (e, at, d = 0.4) => tl.to(e, { opacity: 1, duration: d }, at);
+  const draw = (e, at, d = 0.8) => {
+    const mk = e.getAttribute("marker-end");
+    if (mk) { e.removeAttribute("marker-end"); tl.set(e, { attr: { "marker-end": mk } }, at + d * 0.9); }
+    tl.set(e, { opacity: 1 }, at); tl.to(e, { strokeDashoffset: 0, duration: d, ease: "power1.inOut" }, at);
+  };
+  for (const id of Object.keys(T)) {
+    tl.set($(id), { opacity: 1 }, T[id].s); tl.set($(id), { opacity: 0 }, T[id].e);
+    tl.set($(`bn-${id}`), { opacity: 1 }, T[id].s); tl.set($(`bn-${id}`), { opacity: 0 }, T[id].e);
+  }
+
+  // A FILE THAT IS A GRAPH
+  { const s = T.graph.s;
+    show($("g-chat"), s + 0.2, 0.5);
+    const wd = W("n1", "write it down");
+    tl.to($("g-chat"), { opacity: 0, duration: 0.5 }, wd - 0.3);
+    show($("g-file"), wd);
+    const nd = W("n1", "file of nodes");
+    ["g-y1", "g-y1b", "g-y2", "g-y2b", "g-y3", "g-y3b"].forEach((id, i) => show($(id), nd - 0.2 + i * 0.12, 0.25));
+    show($("g-n1"), nd + 0.1); show($("g-n2"), nd + 0.3); show($("g-n3"), nd + 0.5);
+    const de = W("n1", "depends on");
+    show($("g-dep"), de - 0.1, 0.3);
+    draw($("g-e1"), W("n1", "draws the edges") - 0.1, 0.6); draw($("g-e2"), W("n1", "draws the edges") + 0.1, 0.6);
+    const ro = W("n1", "runs it");
+    show($("g-n1f"), ro, 0.2); show($("g-n2f"), ro, 0.2);
+    tl.to([$("g-n1").querySelector("rect"), $("g-n2").querySelector("rect")], { attr: { stroke: "#2f8f5b" }, duration: 0.3 }, ro);
+    show($("g-n3f"), ro + 1.0, 0.2); tl.to($("g-n3").querySelector("rect"), { attr: { stroke: "#2f8f5b" }, duration: 0.3 }, ro + 1.0);
+    show($("g-order"), W("n1", "every time", 1) - 0.2);
+  }
+
+  // WHAT VALIDATE CHECKS
+  { const s = T.check.s;
+    show($("c-dag"), s + 0.1, 0.4); show($("c-ghost"), s + 0.5, 0.4);
+    tl.to($("c-ghost"), { opacity: 0.35, duration: 0.25, yoyo: true, repeat: 3 }, s + 1.0);
+    show($("c-1"), W("n4", "every edge") - 0.2);
+    show($("c-2"), W("n4", "every output") - 0.2);
+    show($("c-3"), W("n4", "no cycles") - 0.2);
+    show($("c-4"), W("n4", "unknown field") - 0.2);
+    const be = W("n4", "But a broken edge");
+    show($("c-run"), be - 0.2);
+    show($("c-r1"), W("n4", "at run time") - 0.1, 0.25); show($("c-r2"), W("n4", "at run time") + 0.2, 0.25);
+    show($("c-r3"), W("n4", "stop the run") - 0.1, 0.25);
+    show($("c-half"), W("n4", "halfway") - 0.1, 0.3);
+  }
+
+  // WHY WRITE IT DOWN
+  { show($("w-c1"), W("n9", "a file") - 0.1);
+    show($("w-c2"), W("n9", "a graph") - 0.1);
+    show($("w-c3"), W("n9", "a run") - 0.1);
+    show($("w-flow"), W("n9", "Chat leaves") - 0.1);
+    const wi = W("n10", "Write it");
+    tl.to($("w-cols"), { opacity: 0.15, duration: 0.5 }, wi - 0.5);
+    show($("w-recap"), wi - 0.5, 0.4);
+    show($("w-r1"), wi - 0.1); show($("w-r2"), W("n10", "check it") - 0.1); show($("w-r3"), W("n10", "run it") - 0.1);
+  }
+  return tl.duration();
+};
+</script>
+</body>
+</html>

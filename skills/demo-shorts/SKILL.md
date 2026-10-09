@@ -37,7 +37,7 @@ Bookends are the one thing allowed to repeat, so they must stay light:
 5. **Compose.** Place each narration line against the logged action timestamps, assert lines never overlap, overlay cards and captions rendered as PNGs, crossfade scenes, normalize loudness. `videos/tools/compose.py <short-dir>` does all of this from the manifest (times are written against capture marks, and it refuses overlapping lines). Details: `references/compose.md`.
 6. **QA before showing anyone.** Contact sheet of frames at key moments (look at it), silence map, integrated loudness, check that no private paths, tokens, chats, or internal model names are on screen. `PHONE=<t> videos/tools/qa.sh final.mp4 <times>` also writes one frame at 405 px wide; read it, since that is the size most viewers see.
 7. **Hand it over.** Open it with `open <file>` (afplay and in-shell players are silent for the user). Say what is weak in this cut, not just what is in it.
-8. **Record it.** Save to `videos/shorts/<date>-<slug>/` (short.yaml, final.mp4, final.srt, narr/, cards/, source/, raw/, NOTES.md), add a LEDGER row, and commit the library (masters, raw footage, and WAVs are ignored). Reusable pieces (an intro clip, a voice audition, a music bed) go in `videos/assets/` with a note on how they were made.
+8. **Record it.** Save to `videos/shorts/<act>/fig-NN-<slug>/` (e.g. `act-2-workflows/fig-06-the-approval-gate`, `codas/` for codas) (short.yaml, final.mp4, final.srt, narr/, cards/, source/, raw/, NOTES.md), add a LEDGER row, and commit the library (masters, raw footage, and WAVs are ignored). Reusable pieces (an intro clip, a voice audition, a music bed) go in `videos/assets/` with a note on how they were made.
 
 ## Defaults the user has chosen
 

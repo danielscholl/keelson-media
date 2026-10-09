@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../../../tools/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+  :root { --keel:#1e3a5f; --rib:#2f6fb0; --brass:#b5803a; --brass-ink:#8a5a1f; --ink:#0f1b2d; --muted:#51607a; --green:#2f8f5b; }
+  * { margin:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; }
+  body {
+    font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; color: var(--ink);
+    background:
+      linear-gradient(rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(90deg, rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      linear-gradient(90deg, rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      radial-gradient(circle at 74% 0%, rgba(255,255,255,.9), transparent 700px),
+      linear-gradient(180deg, #f3f5f8 0%, #e6eaf0 100%);
+  }
+  .crop { position:absolute; width:26px; height:26px; border:0 solid rgba(30,58,95,.5); }
+  #header { position:absolute; left:128px; right:128px; top:34px; height:44px; display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1.5px solid rgba(30,58,95,.45); font-family:"JetBrains Mono", monospace; font-size:18px; letter-spacing:.2em; color:var(--keel); }
+  #header .left { display:flex; align-items:center; gap:16px; }
+  #boardName { position:relative; width:520px; height:24px; color:var(--muted); }
+  #boardName span { position:absolute; right:0; top:0; opacity:0; white-space:nowrap; }
+  svg text { font-family: Inter, sans-serif; }
+  svg .mono { font-family: "JetBrains Mono", monospace; white-space: pre; }
+  .draw { stroke-dasharray:1; stroke-dashoffset:1; }
+</style>
+</head>
+<body>
+<div class="crop" style="left:40px;top:14px;border-left-width:2px;border-top-width:2px"></div>
+<div class="crop" style="right:40px;top:14px;border-right-width:2px;border-top-width:2px"></div>
+<div class="crop" style="left:40px;bottom:14px;border-left-width:2px;border-bottom-width:2px"></div>
+<div class="crop" style="right:40px;bottom:14px;border-right-width:2px;border-bottom-width:2px"></div>
+<div id="header">
+  <div class="left">
+    <svg width="30" height="30" viewBox="0 0 34 34" fill="none"><line x1="11.5" y1="7" x2="11.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="22.5" y1="7" x2="22.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="20" x2="29" y2="20" stroke="#b5803a" stroke-width="2.6" stroke-linecap="round"/></svg>
+    <span><b>KEELSON</b> &nbsp;·&nbsp; FIG. 11 &nbsp;·&nbsp; THE RIB MODEL</span>
+  </div>
+  <div id="boardName"><span id="bn-pkg">PACKAGES, NOT FORKS</span><span id="bn-disc">INSTALLED, THEN ACTIVE</span><span id="bn-contrib">WHAT A RIB CONTRIBUTES</span><span id="bn-bound">THE BOUNDARY</span><span id="bn-path">ZERO WIRING</span></div>
+</div>
+
+<svg id="stage" viewBox="0 0 1920 1080" width="1920" height="1080" style="position:absolute;inset:0">
+  <defs>
+    <marker id="ah" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#8a5a1f"/></marker>
+    <marker id="ahn" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#1e3a5f"/></marker>
+    <g id="ribshape"><path d="M0,0 C-10,-60 -10,-130 30,-190" fill="none" stroke="#b5803a" stroke-width="9" stroke-linecap="round"/><path d="M60,0 C70,-60 70,-130 30,-190" fill="none" stroke="#b5803a" stroke-width="9" stroke-linecap="round"/></g>
+  </defs>
+
+  <!-- PACKAGES, NOT FORKS -->
+  <g id="pkg" opacity="0">
+    <g id="k-keel" opacity="0">
+      <rect x="260" y="640" width="1400" height="46" rx="10" fill="#1e3a5f"/>
+      <text x="960" y="671" text-anchor="middle" class="mono" font-size="22" letter-spacing="6" fill="#fff">KEELSON · THE HARNESS</text>
+      <text x="960" y="735" text-anchor="middle" class="mono" font-size="21" fill="#2f8f5b">✓ works on its own</text>
+    </g>
+    <g id="k-alts"></g>
+    <g id="k-rib" opacity="0">
+      <use href="#ribshape" transform="translate(900,560)"/>
+      <rect x="760" y="290" width="400" height="96" rx="12" fill="#fff" stroke="#b5803a" stroke-width="3"/>
+      <text x="960" y="330" text-anchor="middle" class="mono" font-size="24" fill="#8a5a1f">@keelson/rib-beads</text>
+      <text x="960" y="366" text-anchor="middle" class="mono" font-size="19" fill="#51607a">its own package · its own version</text>
+    </g>
+    <g id="k-bolt" opacity="0"><circle cx="930" cy="640" r="9" fill="#b5803a"/><circle cx="990" cy="640" r="9" fill="#b5803a"/></g>
+    <g id="k-dep" opacity="0"><rect x="1240" y="380" width="360" height="70" rx="35" fill="#fff" stroke="#2f8f5b" stroke-width="3"/><text x="1420" y="424" text-anchor="middle" class="mono" font-size="22" fill="#2f8f5b">add · remove</text></g>
+  </g>
+
+  <!-- INSTALLED, THEN ACTIVE -->
+  <g id="disc" opacity="0">
+    <g id="d-cmd" opacity="0"><rect x="140" y="200" width="1000" height="80" rx="12" fill="#0d1429"/>
+      <text x="170" y="250" class="mono" font-size="25" fill="#dfe6f0"><tspan fill="#b5803a">$</tspan> keelson rib add github.com/…/keelson-rib-beads</text></g>
+    <g id="d-bun" opacity="0"><path d="M640,285 L640,345" stroke="#8a5a1f" stroke-width="3" marker-end="url(#ah)"/>
+      <rect x="140" y="355" width="1000" height="200" rx="14" fill="rgba(255,255,255,.8)" stroke="#1e3a5f" stroke-width="3"/>
+      <text x="170" y="400" class="mono" font-size="20" letter-spacing="3" fill="#51607a">KEELSON HOME · node_modules/@keelson/</text>
+      <text x="200" y="450" class="mono" font-size="23" fill="#0f1b2d">rib-beads</text><text x="200" y="490" class="mono" font-size="23" fill="#0f1b2d">rib-swarm</text><text x="200" y="530" class="mono" font-size="23" fill="#0f1b2d">rib-broken</text>
+      <text x="1110" y="400" text-anchor="end" class="mono" font-size="19" fill="#51607a">installed</text></g>
+    <g id="d-boot" opacity="0"><rect x="1220" y="200" width="560" height="355" rx="14" fill="#fff" stroke="#1e3a5f" stroke-width="3"/>
+      <text x="1250" y="245" class="mono" font-size="20" letter-spacing="3" fill="#51607a">AT BOOT · CHECKED</text>
+      <text x="1250" y="295" class="mono" font-size="20" fill="#0f1b2d">id matches the package</text><text x="1250" y="335" class="mono" font-size="20" fill="#0f1b2d">default export is a rib</text><text x="1250" y="375" class="mono" font-size="20" fill="#0f1b2d">hooks are functions</text>
+      <line x1="1250" y1="400" x2="1750" y2="400" stroke="#c8d2e0" stroke-width="2"/>
+      <text x="1250" y="445" class="mono" font-size="22" fill="#2f8f5b">✓ beads   registered</text><text x="1250" y="485" class="mono" font-size="22" fill="#2f8f5b">✓ swarm   registered</text></g>
+    <g id="d-skip" opacity="0"><text x="1250" y="525" class="mono" font-size="22" fill="#b8433a">✗ broken  skipped · 1 warning</text></g>
+    <path id="d-arr" class="draw" pathLength="1" d="M1145,450 L1210,450" stroke="#8a5a1f" stroke-width="3" fill="none" marker-end="url(#ah)" opacity="0"/>
+    <g id="d-up" opacity="0"><rect x="260" y="640" width="1400" height="46" rx="10" fill="#1e3a5f"/><text x="960" y="671" text-anchor="middle" class="mono" font-size="22" letter-spacing="6" fill="#fff">THE HARNESS STAYS UP</text></g>
+  </g>
+
+  <!-- WHAT A RIB CONTRIBUTES -->
+  <g id="contrib" opacity="0">
+    <g id="c-rib" opacity="0"><rect x="140" y="230" width="380" height="430" rx="16" fill="#fff" stroke="#b5803a" stroke-width="3"/>
+      <text x="330" y="280" text-anchor="middle" class="mono" font-size="22" letter-spacing="3" fill="#8a5a1f">ONE RIB</text>
+      <text x="330" y="320" text-anchor="middle" class="mono" font-size="18" fill="#51607a">every hook optional</text></g>
+    <g id="c-hooks"></g>
+    <g id="c-dests"></g>
+    <g id="c-own" opacity="0"><text x="960" y="745" text-anchor="middle" class="mono" font-size="23" fill="#8a5a1f">rib: data + declarations   ·   harness: the machinery</text></g>
+  </g>
+
+  <!-- THE BOUNDARY -->
+  <g id="bound" opacity="0">
+    <g id="b-ns"></g>
+    <g id="b-wall" opacity="0"><line x1="960" y1="200" x2="960" y2="560" stroke="#b8433a" stroke-width="4" stroke-dasharray="12 8"/><text x="960" y="590" text-anchor="middle" class="mono" font-size="20" fill="#b8433a">can't read across</text></g>
+    <g id="b-tool" opacity="0"><rect x="560" y="630" width="800" height="70" rx="12" fill="#fff" stroke="#1e3a5f" stroke-width="2.5"/>
+      <text x="590" y="674" class="mono" font-size="22" fill="#0f1b2d">tool <tspan fill="#2f6fb0">beads_ready</tspan>   first ✓   second <tspan fill="#b8433a">✗ skipped</tspan></text></g>
+    <g id="b-sand" opacity="0"><text x="960" y="760" text-anchor="middle" class="mono" font-size="22" fill="#8a5a1f">not a sandbox · runs in the server's process</text></g>
+  </g>
+
+  <!-- ZERO WIRING -->
+  <g id="path" opacity="0">
+    <g id="z-flow"></g>
+    <circle id="z-dot" cx="200" cy="420" r="14" fill="#b5803a" opacity="0"/>
+    <g id="z-none" opacity="0"><text x="960" y="620" text-anchor="middle" class="mono" font-size="24" fill="#2f8f5b">nothing on the path is rib-specific</text></g>
+    <g id="z-recap" opacity="0">
+      <rect x="400" y="280" width="1120" height="240" fill="rgba(243,245,248,.95)" stroke="#1e3a5f" stroke-width="2"/>
+      <text id="z-r1" x="960" y="385" text-anchor="middle" font-size="42" font-weight="300" letter-spacing="5" fill="#1e3a5f" opacity="0">ADD A PACKAGE · GET A CAPABILITY</text>
+      <text id="z-r2" x="960" y="465" text-anchor="middle" font-size="40" font-weight="300" letter-spacing="7" fill="#8a5a1f" opacity="0">THE KEEL STAYS THE SAME</text>
+    </g>
+  </g>
+</svg>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+const norm = (w) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+window.setup = (T, words) => {
+  const tl = gsap.timeline({ paused: true });
+  window.tl = tl;
+  const lineAt = {};
+  for (const b of Object.values(T)) for (const [id, l] of Object.entries(b.lines)) lineAt[id] = l.n;
+  const W = (id, phrase, k = 0) => {
+    const ws = words[id], want = phrase.split(/\s+/).map(norm);
+    for (let i = 0, hit = 0; i < ws.length; i++) {
+      if (want.every((w, j) => ws[i + j] && norm(ws[i + j][0]) === w) && hit++ === k) return lineAt[id] + ws[i][1];
+    }
+    throw new Error(`phrase "${phrase}" not in ${id}`);
+  };
+  const show = (e, at, d = 0.4) => tl.to(e, { opacity: 1, duration: d }, at);
+  const draw = (e, at, d = 0.8) => {
+    const mk = e.getAttribute("marker-end");
+    if (mk) { e.removeAttribute("marker-end"); tl.set(e, { attr: { "marker-end": mk } }, at + d * 0.9); }
+    tl.set(e, { opacity: 1 }, at); tl.to(e, { strokeDashoffset: 0, duration: d, ease: "power1.inOut" }, at);
+  };
+  for (const id of Object.keys(T)) {
+    tl.set($(id), { opacity: 1 }, T[id].s); tl.set($(id), { opacity: 0 }, T[id].e);
+    tl.set($(`bn-${id}`), { opacity: 1 }, T[id].s); tl.set($(`bn-${id}`), { opacity: 0 }, T[id].e);
+  }
+
+  const box = (parent, x, y, w, h, label, sub, col) => { const g = el("g", { opacity: 0 }, parent);
+    el("rect", { x, y, width: w, height: h, rx: 12, fill: "#fff", stroke: col, "stroke-width": 2.5 }, g);
+    el("text", { x: x + w / 2, y: y + (sub ? h / 2 - 4 : h / 2 + 8), "text-anchor": "middle", "font-size": 24, "font-weight": 600, fill: "#0f1b2d" }, g, label);
+    if (sub) el("text", { x: x + w / 2, y: y + h / 2 + 26, "text-anchor": "middle", class: "mono", "font-size": 17, fill: "#51607a" }, g, sub);
+    return g; };
+
+  // PACKAGES, NOT FORKS
+  { const s = T.pkg.s;
+    show($("k-keel"), W("n1", "Keelson works") - 0.3);
+    const alts = [["a fork", "you maintain", 300, "Not a fork"], ["a plugin", "waiting on review", 780, "not a plugin"], ["a sidecar", "its own protocol", 1260, "not a sidecar"]];
+    const ag = alts.map(([a, b, x, ph]) => { const g = box($("k-alts"), x, 130, 360, 110, a, b, "#51607a");
+      const st = el("line", { x1: x + 20, y1: 240, x2: x + 340, y2: 130, stroke: "#b8433a", "stroke-width": 5, opacity: 0 }, g);
+      show(g, W("n1", ph) - 0.1, 0.25); show(st, W("n1", ph) + 0.5, 0.2); return g; });
+    const cap = W("n1", "a capability");
+    tl.to(ag, { opacity: 0, duration: 0.3 }, W("n1", "A dependency") - 0.6);
+    show($("k-rib"), W("n1", "own package") - 0.4);
+    tl.set($("k-rib"), { y: -60 }, s); tl.to($("k-rib"), { y: 0, duration: 0.6, ease: "power2.out" }, W("n1", "bolted onto") - 0.2);
+    show($("k-bolt"), W("n1", "bolted onto") + 0.4, 0.2);
+    show($("k-dep"), W("n1", "A dependency") - 0.1);
+  }
+
+  // INSTALLED, THEN ACTIVE
+  { show($("d-cmd"), W("n2", "Keelson rib add") - 0.2);
+    show($("d-bun"), W("n2", "to bun") - 0.2);
+    draw($("d-arr"), W("n2", "discovers") - 0.2, 0.4);
+    show($("d-boot"), W("n2", "checks each") - 0.3);
+    show($("d-skip"), W("n2", "is skipped") - 0.2);
+    show($("d-up"), W("n2", "never the harness") - 0.3);
+  }
+
+  // WHAT A RIB CONTRIBUTES
+  { show($("c-rib"), W("n3", "one interface") - 0.2);
+    const hooks = ["registerTools", "composeBundle · surfaces", "contributeWorkflows", "policies · docs", "agents · commands"];
+    const dests = [["tool registry", "chat · workflow nodes", "Tools land"], ["live boards · a tab", "in the browser", "Snapshots and surfaces"], ["workflow catalog", "", "Workflows join"], ["policy engine · docs", "", "Policies"], ["chat composer", "agents · slash commands", "agents and commands"]];
+    hooks.forEach((h, i) => { const y = 360 + i * 58; const g = el("g", { opacity: 0 }, $("c-hooks"));
+      el("text", { x: 170, y, class: "mono", "font-size": 19, fill: "#0f1b2d" }, g, h); show(g, W("n3", dests[i][2]) - 0.3, 0.2); });
+    dests.forEach(([a, b, ph], i) => { const y = 200 + i * 104; const g = el("g", { opacity: 0 }, $("c-dests"));
+      el("path", { d: `M525,${355 + i * 58 - 6} C700,${355 + i * 58 - 6} 760,${y + 40} 1000,${y + 40}`, stroke: "#8a5a1f", "stroke-width": 2.5, fill: "none", "marker-end": "url(#ah)" }, g);
+      el("rect", { x: 1010, y, width: 560, height: 84, rx: 12, fill: "#fff", stroke: "#1e3a5f", "stroke-width": 2.5 }, g);
+      el("text", { x: 1035, y: y + (b ? 36 : 50), "font-size": 24, "font-weight": 600, fill: "#0f1b2d" }, g, a);
+      if (b) el("text", { x: 1035, y: y + 66, class: "mono", "font-size": 17, fill: "#51607a" }, g, b);
+      show(g, W("n3", ph) - 0.15, 0.3); });
+    show($("c-own"), W("n3", "data and declarations") - 0.2);
+  }
+
+  // THE BOUNDARY
+  { const ns = $("b-ns");
+    [["rib:beads:*", "rib_beads_token", 260], ["rib:swarm:*", "rib_swarm_token", 1080]].forEach(([k, c, x], i) => { const g = el("g", { opacity: 0 }, ns);
+      el("rect", { x, y: 220, width: 580, height: 320, rx: 16, fill: "rgba(255,255,255,.8)", stroke: "#b5803a", "stroke-width": 3 }, g);
+      el("text", { x: x + 30, y: 270, class: "mono", "font-size": 20, "letter-spacing": 3, fill: "#8a5a1f" }, g, i ? "RIB · SWARM" : "RIB · BEADS");
+      el("text", { x: x + 30, y: 340, class: "mono", "font-size": 22, fill: "#0f1b2d" }, g, `snapshots  ${k}`);
+      el("text", { x: x + 30, y: 400, class: "mono", "font-size": 22, fill: "#0f1b2d" }, g, `secret     ${c}`);
+      show(g, W("n4", "snapshot keys") - 0.2 + i * 0.3, 0.3); });
+    show($("b-wall"), W("n4", "can't read") - 0.2);
+    show($("b-tool"), W("n4", "Tool names") - 0.2);
+    show($("b-sand"), W("n4", "isn't a sandbox") - 0.2);
+  }
+
+  // ZERO WIRING
+  { const steps = [["registry", 140, "gathers tools"], ["provider", 450, "provider hands"], ["agent", 760, "the agent calls"], ["rib code", 1070, "rib's code"], ["result", 1380, "streams back"]];
+    const sub = ["shared tools", "typed tool", "calls it", "its own context", "like any other"];
+    steps.forEach(([l, x, ph], i) => { const g = box($("z-flow"), x, 360, 260, 120, l, sub[i], i === 3 ? "#b5803a" : "#1e3a5f");
+      if (i) { const a = el("path", { d: `M${x - 44},420 L${x - 6},420`, stroke: "#1e3a5f", "stroke-width": 3, "marker-end": "url(#ahn)", opacity: 0 }, $("z-flow")); show(a, W("n5", ph) - 0.2, 0.2); }
+      show(g, W("n5", ph) - 0.2, 0.25); });
+    const dot = $("z-dot");
+    tl.set(dot, { opacity: 1, attr: { cx: 270, cy: 330 } }, W("n5", "gathers tools"));
+    [["provider hands", 580], ["the agent calls", 890], ["rib's code", 1200], ["streams back", 1510]].forEach(([ph, cx]) => tl.to(dot, { attr: { cx }, duration: 0.6, ease: "power1.inOut" }, W("n5", ph) - 0.3));
+    tl.to(dot, { opacity: 0, duration: 0.3 }, W("n5", "Nothing on"));
+    show($("z-none"), W("n5", "Nothing on") - 0.1);
+    const ad = W("n6", "Add a package");
+    tl.to([$("z-flow"), $("z-none")], { opacity: 0.15, duration: 0.5 }, ad - 0.5);
+    show($("z-recap"), ad - 0.5, 0.4); show($("z-r1"), ad - 0.1); show($("z-r2"), W("n6", "The keel") - 0.1);
+  }
+  return tl.duration();
+};
+</script>
+</body>
+</html>

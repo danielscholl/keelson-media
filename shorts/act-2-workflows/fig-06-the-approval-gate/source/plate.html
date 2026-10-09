@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../../../tools/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+  :root { --keel:#1e3a5f; --rib:#2f6fb0; --brass:#b5803a; --brass-ink:#8a5a1f; --ink:#0f1b2d; --muted:#51607a; --green:#2f8f5b; }
+  * { margin:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; }
+  body {
+    font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; color: var(--ink);
+    background:
+      linear-gradient(rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(90deg, rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      linear-gradient(90deg, rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      radial-gradient(circle at 74% 0%, rgba(255,255,255,.9), transparent 700px),
+      linear-gradient(180deg, #f3f5f8 0%, #e6eaf0 100%);
+  }
+  .crop { position:absolute; width:26px; height:26px; border:0 solid rgba(30,58,95,.5); }
+  #header { position:absolute; left:128px; right:128px; top:34px; height:44px; display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1.5px solid rgba(30,58,95,.45); font-family:"JetBrains Mono", monospace; font-size:18px; letter-spacing:.2em; color:var(--keel); }
+  #header .left { display:flex; align-items:center; gap:16px; }
+  #boardName { position:relative; width:520px; height:24px; color:var(--muted); }
+  #boardName span { position:absolute; right:0; top:0; opacity:0; white-space:nowrap; }
+  svg text { font-family: Inter, sans-serif; }
+  svg .mono { font-family: "JetBrains Mono", monospace; white-space: pre; }
+  .draw { stroke-dasharray:1; stroke-dashoffset:1; }
+</style>
+</head>
+<body>
+<div class="crop" style="left:40px;top:14px;border-left-width:2px;border-top-width:2px"></div>
+<div class="crop" style="right:40px;top:14px;border-right-width:2px;border-top-width:2px"></div>
+<div class="crop" style="left:40px;bottom:14px;border-left-width:2px;border-bottom-width:2px"></div>
+<div class="crop" style="right:40px;bottom:14px;border-right-width:2px;border-bottom-width:2px"></div>
+<div id="header">
+  <div class="left">
+    <svg width="30" height="30" viewBox="0 0 34 34" fill="none"><line x1="11.5" y1="7" x2="11.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="22.5" y1="7" x2="22.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="20" x2="29" y2="20" stroke="#b5803a" stroke-width="2.6" stroke-linecap="round"/></svg>
+    <span><b>KEELSON</b> &nbsp;·&nbsp; FIG. 06 &nbsp;·&nbsp; THE APPROVAL GATE</span>
+  </div>
+  <div id="boardName"><span id="bn-engine">ONE POLICY ENGINE</span><span id="bn-gate">A GATE IN THE GRAPH</span><span id="bn-why">WHY ASK FIRST</span></div>
+</div>
+
+<svg id="stage" viewBox="0 0 1920 1080" width="1920" height="1080" style="position:absolute;inset:0">
+  <defs>
+    <marker id="ah" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#8a5a1f"/></marker>
+    <marker id="ahn" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#1e3a5f"/></marker>
+    <marker id="ahg" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2f8f5b"/></marker>
+    <marker id="ahr" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#b8433a"/></marker>
+  </defs>
+
+  <!-- ONE POLICY ENGINE -->
+  <g id="engine" opacity="0">
+    <g id="e-src"></g>
+    <g id="e-box" opacity="0">
+      <rect x="720" y="200" width="460" height="460" rx="16" fill="#fff" stroke="#1e3a5f" stroke-width="3.5"/>
+      <text x="950" y="252" text-anchor="middle" class="mono" font-size="22" letter-spacing="4" fill="#51607a">POLICY ENGINE</text>
+      <g id="e-stack"></g>
+    </g>
+    <g id="e-dec">
+      <g id="e-allow" opacity="0"><path d="M1182,330 L1330,270" stroke="#2f8f5b" stroke-width="3" marker-end="url(#ahg)"/><rect x="1340" y="236" width="170" height="60" rx="30" fill="#e8f3ec" stroke="#2f8f5b" stroke-width="2.5"/><text x="1425" y="275" text-anchor="middle" class="mono" font-size="26" font-weight="700" fill="#2f8f5b">allow</text></g>
+      <g id="e-deny" opacity="0"><path d="M1182,430 L1330,430" stroke="#b8433a" stroke-width="3" marker-end="url(#ahr)"/><rect x="1340" y="400" width="170" height="60" rx="30" fill="#f8e4e1" stroke="#b8433a" stroke-width="2.5"/><text x="1425" y="439" text-anchor="middle" class="mono" font-size="26" font-weight="700" fill="#b8433a">deny</text></g>
+      <g id="e-ask" opacity="0"><path d="M1182,530 L1330,590" stroke="#8a5a1f" stroke-width="3" marker-end="url(#ah)"/><rect x="1340" y="560" width="170" height="60" rx="30" fill="#f6ead8" stroke="#b5803a" stroke-width="2.5"/><text x="1425" y="599" text-anchor="middle" class="mono" font-size="26" font-weight="700" fill="#8a5a1f">ask</text></g>
+      <g id="e-human" opacity="0">
+        <circle cx="1640" cy="560" r="26" fill="none" stroke="#1e3a5f" stroke-width="3"/><path d="M1594,650 C1594,610 1686,610 1686,650" fill="none" stroke="#1e3a5f" stroke-width="3"/>
+        <path d="M1512,590 L1594,590" stroke="#8a5a1f" stroke-width="3" marker-end="url(#ah)"/>
+        <text x="1640" y="700" text-anchor="middle" class="mono" font-size="19" fill="#1e3a5f">a person</text>
+      </g>
+      <g id="e-timeout" opacity="0"><text x="1640" y="745" text-anchor="middle" class="mono" font-size="19" fill="#b8433a">no answer in 5 min</text><text x="1640" y="772" text-anchor="middle" class="mono" font-size="19" fill="#b8433a">→ rejected</text></g>
+    </g>
+  </g>
+
+  <!-- A GATE IN THE GRAPH -->
+  <g id="gate" opacity="0">
+    <g id="g-nodes"></g>
+    <g id="g-gate" opacity="0">
+      <rect x="1000" y="300" width="280" height="140" rx="14" fill="#f6ead8" stroke="#b5803a" stroke-width="3.5"/>
+      <text x="1140" y="350" text-anchor="middle" class="mono" font-size="20" letter-spacing="3" fill="#8a5a1f">APPROVAL</text>
+      <text x="1140" y="400" text-anchor="middle" font-size="34" font-weight="600" fill="#0f1b2d">gate</text>
+      <rect x="1052" y="190" width="40" height="80" rx="6" fill="#1e3a5f"/><rect x="1188" y="190" width="40" height="80" rx="6" fill="#1e3a5f"/>
+    </g>
+    <g id="g-held" opacity="0"><text x="890" y="500" text-anchor="middle" class="mono" font-size="22" fill="#8a5a1f">run held here</text></g>
+    <g id="g-person" opacity="0">
+      <circle cx="1140" cy="610" r="28" fill="none" stroke="#1e3a5f" stroke-width="3"/><path d="M1090,705 C1090,662 1190,662 1190,705" fill="none" stroke="#1e3a5f" stroke-width="3"/>
+      <path d="M1140,575 L1140,450" stroke="#1e3a5f" stroke-width="3" marker-end="url(#ahn)"/>
+    </g>
+    <g id="g-out" opacity="0">
+      <rect x="1360" y="520" width="380" height="64" rx="10" fill="#0d1429"/><text x="1380" y="561" class="mono" font-size="24" fill="#dfe6f0">$gate.output = <tspan fill="#5fd7a7">"approve"</tspan></text>
+      <path d="M1550,518 C1550,470 1520,440 1480,432" stroke="#2f8f5b" stroke-width="3" fill="none" stroke-dasharray="6 6"/>
+    </g>
+  </g>
+
+  <!-- WHY ASK FIRST -->
+  <g id="why" opacity="0">
+    <g id="w-l1" opacity="0">
+      <rect x="230" y="220" width="660" height="300" rx="16" fill="rgba(255,255,255,.8)" stroke="#1e3a5f" stroke-width="3"/>
+      <text x="560" y="280" text-anchor="middle" class="mono" font-size="24" letter-spacing="5" fill="#51607a">POLICIES</text>
+      <text x="560" y="350" text-anchor="middle" font-size="34" font-weight="600" fill="#0f1b2d">gate the calls</text>
+      <text x="560" y="420" text-anchor="middle" class="mono" font-size="22" fill="#8a5a1f">chat · workflow · rib · MCP</text>
+    </g>
+    <g id="w-l2" opacity="0">
+      <rect x="1030" y="220" width="660" height="300" rx="16" fill="rgba(255,255,255,.8)" stroke="#b5803a" stroke-width="3"/>
+      <text x="1360" y="280" text-anchor="middle" class="mono" font-size="24" letter-spacing="5" fill="#8a5a1f">APPROVAL NODES</text>
+      <text x="1360" y="350" text-anchor="middle" font-size="34" font-weight="600" fill="#0f1b2d">gate the run</text>
+      <text x="1360" y="420" text-anchor="middle" class="mono" font-size="22" fill="#8a5a1f">before the step you can't undo</text>
+    </g>
+    <g id="w-rec" opacity="0">
+      <rect x="560" y="590" width="800" height="70" rx="10" fill="#fff" stroke="#c8d2e0" stroke-width="2"/>
+      <text x="590" y="635" class="mono" font-size="22" fill="#0f1b2d">gate  <tspan fill="#51607a">approval</tspan>   <tspan fill="#2f8f5b">answered: approve</tspan>   <tspan fill="#51607a">11.3s</tspan></text>
+    </g>
+    <g id="w-recap" opacity="0">
+      <rect x="460" y="300" width="1000" height="220" fill="rgba(243,245,248,.95)" stroke="#1e3a5f" stroke-width="2"/>
+      <text id="w-r1" x="960" y="400" text-anchor="middle" font-size="58" font-weight="300" letter-spacing="10" fill="#1e3a5f" opacity="0">ASK FIRST</text>
+      <text id="w-r2" x="960" y="480" text-anchor="middle" font-size="58" font-weight="300" letter-spacing="10" fill="#8a5a1f" opacity="0">THEN ACT</text>
+    </g>
+  </g>
+</svg>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+const norm = (w) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+window.setup = (T, words) => {
+  const tl = gsap.timeline({ paused: true });
+  window.tl = tl;
+  const lineAt = {};
+  for (const b of Object.values(T)) for (const [id, l] of Object.entries(b.lines)) lineAt[id] = l.n;
+  const W = (id, phrase, k = 0) => {
+    const ws = words[id], want = phrase.split(/\s+/).map(norm);
+    for (let i = 0, hit = 0; i < ws.length; i++) {
+      if (want.every((w, j) => ws[i + j] && norm(ws[i + j][0]) === w) && hit++ === k) return lineAt[id] + ws[i][1];
+    }
+    throw new Error(`phrase "${phrase}" not in ${id}`);
+  };
+  const show = (e, at, d = 0.4) => tl.to(e, { opacity: 1, duration: d }, at);
+  const draw = (e, at, d = 0.8) => {
+    const mk = e.getAttribute("marker-end");
+    if (mk) { e.removeAttribute("marker-end"); tl.set(e, { attr: { "marker-end": mk } }, at + d * 0.9); }
+    tl.set(e, { opacity: 1 }, at); tl.to(e, { strokeDashoffset: 0, duration: d, ease: "power1.inOut" }, at);
+  };
+  for (const id of Object.keys(T)) {
+    tl.set($(id), { opacity: 1 }, T[id].s); tl.set($(id), { opacity: 0 }, T[id].e);
+    tl.set($(`bn-${id}`), { opacity: 1 }, T[id].s); tl.set($(`bn-${id}`), { opacity: 0 }, T[id].e);
+  }
+
+  // ONE POLICY ENGINE
+  { const s = T.engine.s, src = $("e-src");
+    const srcs = ["chat", "workflow node", "rib agent", "MCP caller"];
+    const srcG = [];
+    srcs.forEach((n, i) => {
+      const y = 230 + i * 120, g = el("g", { opacity: 0 }, src);
+      el("rect", { x: 200, y, width: 300, height: 84, rx: 12, fill: "#fff", stroke: "#1e3a5f", "stroke-width": 2.5 }, g);
+      el("text", { x: 350, y: y + 52, "text-anchor": "middle", class: "mono", "font-size": 24, fill: "#0f1b2d" }, g, n);
+      el("path", { d: `M502,${y + 42} C610,${y + 42} 620,${430} 716,${430}`, stroke: "#1e3a5f", "stroke-width": 2.5, fill: "none", "marker-end": "url(#ahn)" }, g);
+      srcG.push(g);
+    });
+    srcG.forEach((g, i) => { tl.set(g, { opacity: 0.25 }, s + 0.3 + i * 0.12); });
+    show(srcG[0], W("n1", "from chat") - 0.1, 0.3);
+    show(srcG[1], W("n1", "a workflow") - 0.1, 0.3);
+    show(srcG[2], W("n1", "a rib") - 0.1, 0.3);
+    show(srcG[3], W("n1", "over MCP") - 0.1, 0.3);
+    show($("e-box"), W("n1", "one policy engine") - 0.2);
+    const st = $("e-stack");
+    ["operator denylist", "ask on shell", "budgets", "redaction", "rib policies"].forEach((n, i) => {
+      const y = 290 + i * 70, g = el("g", { opacity: 0 }, st);
+      el("rect", { x: 760, y, width: 380, height: 54, rx: 8, fill: i === 1 ? "#f6ead8" : "#e8eef8", stroke: i === 1 ? "#b5803a" : "#c8d2e0", "stroke-width": 2 }, g);
+      el("text", { x: 950, y: y + 35, "text-anchor": "middle", class: "mono", "font-size": 21, fill: "#0f1b2d" }, g, n);
+      show(g, W("n1", "one policy engine") + 0.2 + i * 0.15, 0.25);
+    });
+    show($("e-allow"), W("n1", "allow") - 0.1, 0.3);
+    show($("e-deny"), W("n1", "deny") - 0.1, 0.3);
+    show($("e-ask"), W("n1", "or ask") - 0.1, 0.3);
+    show($("e-human"), W("n1", "for a human") - 0.2);
+    show($("e-timeout"), W("n1", "five minutes") - 0.2);
+  }
+
+  // A GATE IN THE GRAPH
+  { const s = T.gate.s, nodes = $("g-nodes");
+    const mk = (x, label, kind, color) => { const g = el("g", { opacity: 0 }, nodes);
+      el("rect", { x, y: 300, width: 220, height: 140, rx: 14, fill: "#fff", stroke: color, "stroke-width": 3 }, g);
+      el("text", { x: x + 110, y: 350, "text-anchor": "middle", class: "mono", "font-size": 18, "letter-spacing": 3, fill: color }, g, kind);
+      el("text", { x: x + 110, y: 400, "text-anchor": "middle", "font-size": 32, "font-weight": 600, fill: "#0f1b2d" }, g, label); return g; };
+    const n1 = mk(220, "test", "BASH", "#8a5a1f"), n2 = mk(580, "plan", "PROMPT", "#2f6fb0"), n4 = mk(1440, "ship", "BASH", "#8a5a1f");
+    const e = (x1, x2) => el("path", { d: `M${x1},370 L${x2},370`, stroke: "#1e3a5f", "stroke-width": 3, "marker-end": "url(#ahn)", opacity: 0 }, nodes);
+    const e1 = e(442, 572), e2 = e(802, 992), e3 = e(1282, 1432);
+    const tag = el("text", { x: 1550, y: 480, "text-anchor": "middle", class: "mono", "font-size": 20, fill: "#b8433a", opacity: 0 }, nodes, "git tag · can't undo");
+    show(n1, s + 0.2, 0.3); show(e1, s + 0.4, 0.3); show(n2, s + 0.5, 0.3);
+    const wf = W("n4", "in the graph");
+    show(e2, wf - 0.2, 0.3); show($("g-gate"), wf, 0.4);
+    show(e3, W("n4", "before the step") - 0.2, 0.3); show(n4, W("n4", "before the step"), 0.3);
+    show(tag, W("n4", "can't take back") - 0.2, 0.3);
+    show($("g-held"), W("n4", "holds the run") - 0.1, 0.3);
+    show($("g-person"), W("n4", "the reply") - 0.3, 0.3);
+    show($("g-out"), W("n4", "that node's output") - 0.2, 0.3);
+  }
+
+  // WHY ASK FIRST
+  { show($("w-l1"), W("n10", "Policies gate") - 0.1);
+    show($("w-l2"), W("n10", "approval nodes") - 0.1);
+    show($("w-rec"), W("n10", "into the record") - 0.2);
+    const af = W("n11", "Ask first");
+    tl.to([$("w-l1"), $("w-l2"), $("w-rec")], { opacity: 0.15, duration: 0.5 }, af - 0.5);
+    show($("w-recap"), af - 0.5, 0.4);
+    show($("w-r1"), af - 0.1); show($("w-r2"), W("n11", "Then act") - 0.1);
+  }
+  return tl.duration();
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../../../tools/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+  :root { --keel:#1e3a5f; --rib:#2f6fb0; --brass:#b5803a; --brass-ink:#8a5a1f; --ink:#0f1b2d; --muted:#51607a; --green:#2f8f5b; }
+  * { margin:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; }
+  body {
+    font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; color: var(--ink);
+    background:
+      linear-gradient(rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(90deg, rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      linear-gradient(90deg, rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      radial-gradient(circle at 74% 0%, rgba(255,255,255,.9), transparent 700px),
+      linear-gradient(180deg, #f3f5f8 0%, #e6eaf0 100%);
+  }
+  .crop { position:absolute; width:26px; height:26px; border:0 solid rgba(30,58,95,.5); }
+  #header { position:absolute; left:128px; right:128px; top:34px; height:44px; display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1.5px solid rgba(30,58,95,.45); font-family:"JetBrains Mono", monospace; font-size:18px; letter-spacing:.2em; color:var(--keel); }
+  #header .left { display:flex; align-items:center; gap:16px; }
+  #boardName { position:relative; width:520px; height:24px; color:var(--muted); }
+  #boardName span { position:absolute; right:0; top:0; opacity:0; white-space:nowrap; }
+  svg text { font-family: Inter, sans-serif; }
+  svg .mono { font-family: "JetBrains Mono", monospace; white-space: pre; }
+  .draw { stroke-dasharray:1; stroke-dashoffset:1; }
+</style>
+</head>
+<body>
+<div class="crop" style="left:40px;top:14px;border-left-width:2px;border-top-width:2px"></div>
+<div class="crop" style="right:40px;top:14px;border-right-width:2px;border-top-width:2px"></div>
+<div class="crop" style="left:40px;bottom:14px;border-left-width:2px;border-bottom-width:2px"></div>
+<div class="crop" style="right:40px;bottom:14px;border-right-width:2px;border-bottom-width:2px"></div>
+<div id="header">
+  <div class="left">
+    <svg width="30" height="30" viewBox="0 0 34 34" fill="none"><line x1="11.5" y1="7" x2="11.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="22.5" y1="7" x2="22.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="20" x2="29" y2="20" stroke="#b5803a" stroke-width="2.6" stroke-linecap="round"/></svg>
+    <span><b>KEELSON</b> &nbsp;·&nbsp; FIG. 04 &nbsp;·&nbsp; FIRST WORKFLOW</span>
+  </div>
+  <div id="boardName"><span id="bn-halves">WHO DECIDES WHAT RUNS</span><span id="bn-families">THREE FAMILIES OF NODES</span><span id="bn-record">A RUN IS A RECORD</span></div>
+</div>
+
+<svg id="stage" viewBox="0 0 1920 1080" width="1920" height="1080" style="position:absolute;inset:0">
+  <defs>
+    <marker id="ah" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#8a5a1f"/></marker>
+    <marker id="ahn" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#1e3a5f"/></marker>
+  </defs>
+
+  <!-- WHO DECIDES WHAT RUNS -->
+  <g id="halves" opacity="0">
+    <line id="h-div" x1="960" y1="170" x2="960" y2="780" stroke="#1e3a5f" stroke-width="2" stroke-dasharray="6 8" opacity="0"/>
+    <g id="h-chat" opacity="0">
+      <text x="530" y="210" text-anchor="middle" class="mono" font-size="24" letter-spacing="5" fill="#51607a">CHAT</text>
+      <circle cx="530" cy="330" r="60" fill="#e8eef8" stroke="#2f6fb0" stroke-width="3"/>
+      <text x="530" y="340" text-anchor="middle" font-size="26" font-weight="600" fill="#2f6fb0">agent</text>
+      <g id="h-turns" stroke="#51607a" stroke-width="2.5" fill="none" stroke-dasharray="7 6">
+        <path d="M480,380 C400,470 330,470 300,560" marker-end="url(#ahn)"/>
+        <path d="M530,392 L530,560" marker-end="url(#ahn)"/>
+        <path d="M580,380 C660,470 730,470 760,560" marker-end="url(#ahn)"/>
+      </g>
+      <text x="300" y="610" text-anchor="middle" class="mono" font-size="22" fill="#51607a">answer?</text>
+      <text x="530" y="610" text-anchor="middle" class="mono" font-size="22" fill="#51607a">a tool?</text>
+      <text x="760" y="610" text-anchor="middle" class="mono" font-size="22" fill="#51607a">a file?</text>
+      <text x="530" y="700" text-anchor="middle" font-size="28" fill="#0f1b2d">decided every turn</text>
+    </g>
+    <g id="h-wf" opacity="0">
+      <text x="1390" y="210" text-anchor="middle" class="mono" font-size="24" letter-spacing="5" fill="#8a5a1f">WORKFLOW</text>
+      <rect x="1180" y="250" width="420" height="80" rx="10" fill="#0d1429"/>
+      <text x="1210" y="300" class="mono" font-size="24" fill="#dfe6f0">smoke-test.yaml</text>
+      <g id="h-wfg">
+        <rect x="1190" y="400" width="150" height="60" rx="8" fill="#fff" stroke="#1e3a5f" stroke-width="2.5"/><text x="1265" y="438" text-anchor="middle" class="mono" font-size="20" fill="#8a5a1f">bash</text>
+        <rect x="1440" y="400" width="150" height="60" rx="8" fill="#e8eef8" stroke="#2f6fb0" stroke-width="2.5"/><text x="1515" y="438" text-anchor="middle" class="mono" font-size="20" fill="#2f6fb0">agent</text>
+        <rect x="1315" y="540" width="150" height="60" rx="8" fill="#fff" stroke="#1e3a5f" stroke-width="2.5"/><text x="1390" y="578" text-anchor="middle" class="mono" font-size="20" fill="#8a5a1f">bash</text>
+        <path d="M1265,462 L1360,536 M1515,462 L1420,536" stroke="#1e3a5f" stroke-width="2.5"/>
+        <path d="M1390,332 L1390,396" stroke="#8a5a1f" stroke-width="3" marker-end="url(#ah)"/>
+      </g>
+      <text id="h-what" x="1390" y="660" text-anchor="middle" font-size="26" fill="#0f1b2d" opacity="0">what runs · in what order · and when</text>
+      <g id="h-leash" opacity="0"><rect x="1430" y="390" width="170" height="80" rx="12" fill="none" stroke="#b5803a" stroke-width="3" stroke-dasharray="8 6"/><text x="1515" y="500" text-anchor="middle" class="mono" font-size="19" fill="#8a5a1f">leash in the file</text></g>
+      <text x="1390" y="720" text-anchor="middle" font-size="28" fill="#0f1b2d">decided once, in the file</text>
+    </g>
+  </g>
+
+  <!-- THREE FAMILIES OF NODES -->
+  <g id="families" opacity="0">
+    <g id="f-a" opacity="0">
+      <rect x="170" y="180" width="480" height="440" rx="16" fill="rgba(255,255,255,.8)" stroke="#2f6fb0" stroke-width="3"/>
+      <text x="410" y="240" text-anchor="middle" class="mono" font-size="24" letter-spacing="5" fill="#2f6fb0">AGENT</text>
+      <text x="410" y="300" text-anchor="middle" class="mono" font-size="26" fill="#0f1b2d">prompt · command · loop</text>
+      <circle cx="410" cy="420" r="56" fill="#e8eef8" stroke="#2f6fb0" stroke-width="3"/><text x="410" y="430" text-anchor="middle" font-size="24" font-weight="600" fill="#2f6fb0">model</text>
+      <text x="410" y="560" text-anchor="middle" font-size="27" fill="#0f1b2d">judgment</text>
+    </g>
+    <g id="f-d" opacity="0">
+      <rect x="720" y="180" width="480" height="440" rx="16" fill="rgba(255,255,255,.8)" stroke="#8a5a1f" stroke-width="3"/>
+      <text x="960" y="240" text-anchor="middle" class="mono" font-size="24" letter-spacing="5" fill="#8a5a1f">DETERMINISTIC</text>
+      <text x="960" y="300" text-anchor="middle" class="mono" font-size="26" fill="#0f1b2d">bash · script</text>
+      <rect x="860" y="372" width="200" height="96" rx="10" fill="#0d1429"/><text x="884" y="430" class="mono" font-size="24" fill="#dfe6f0"><tspan fill="#b5803a">$</tspan> exit 0</text>
+      <text x="960" y="560" text-anchor="middle" font-size="27" fill="#0f1b2d">fact · no model</text>
+    </g>
+    <g id="f-c" opacity="0">
+      <rect x="1270" y="180" width="480" height="440" rx="16" fill="rgba(255,255,255,.8)" stroke="#1e3a5f" stroke-width="3"/>
+      <text x="1510" y="240" text-anchor="middle" class="mono" font-size="24" letter-spacing="5" fill="#1e3a5f">CONTROL</text>
+      <text x="1510" y="300" text-anchor="middle" class="mono" font-size="26" fill="#0f1b2d">approval · cancel</text>
+      <rect x="1440" y="372" width="40" height="96" rx="6" fill="#1e3a5f"/><rect x="1540" y="372" width="40" height="96" rx="6" fill="#1e3a5f"/>
+      <text x="1510" y="560" text-anchor="middle" font-size="27" fill="#0f1b2d">a human, or a deliberate stop</text>
+    </g>
+    <g id="f-dial" opacity="0">
+      <line x1="300" y1="720" x2="1620" y2="720" stroke="#c8d2e0" stroke-width="6" stroke-linecap="round"/>
+      <text x="300" y="770" class="mono" font-size="21" letter-spacing="3" fill="#8a5a1f">ALL FACT · A BUILD SYSTEM</text>
+      <text x="1620" y="770" text-anchor="end" class="mono" font-size="21" letter-spacing="3" fill="#2f6fb0">ALL JUDGMENT · A SUPERVISED AGENT</text>
+      <circle id="f-knob" cx="300" cy="720" r="18" fill="#b5803a"/>
+    </g>
+  </g>
+
+  <!-- A RUN IS A RECORD -->
+  <g id="record" opacity="0">
+    <g id="r-run" opacity="0">
+      <rect x="170" y="180" width="760" height="90" rx="12" fill="#fff" stroke="#1e3a5f" stroke-width="3"/>
+      <text x="200" y="236" class="mono" font-size="24" fill="#51607a">run</text>
+      <text x="270" y="236" class="mono" font-size="26" font-weight="700" fill="#0f1b2d">smoke-test</text>
+      <text x="530" y="236" class="mono" font-size="22" fill="#2f8f5b">succeeded</text>
+      <text id="r-hash" x="700" y="236" class="mono" font-size="22" fill="#8a5a1f" opacity="0">def 7ab4b5f3</text>
+    </g>
+    <g id="r-nodes"></g>
+    <g id="r-head" opacity="0">
+      <text x="230" y="318" class="mono" font-size="18" letter-spacing="3" fill="#51607a">NODE</text>
+      <text id="r-h1" x="470" y="318" class="mono" font-size="18" letter-spacing="3" fill="#51607a">OUTPUT</text>
+      <text id="r-h2" x="680" y="318" class="mono" font-size="18" letter-spacing="3" fill="#51607a" opacity="0">TIME</text>
+      <text id="r-h3" x="790" y="318" class="mono" font-size="18" letter-spacing="3" fill="#51607a" opacity="0">MODEL</text>
+    </g>
+    <g id="r-resume" opacity="0">
+      <rect x="1060" y="180" width="690" height="560" rx="14" fill="rgba(255,255,255,.75)" stroke="#1e3a5f" stroke-width="2.5"/>
+      <text x="1090" y="230" class="mono" font-size="20" letter-spacing="4" fill="#51607a">A FAILED RUN, RESUMED</text>
+      <g id="r-steps"></g>
+      <text id="r-skip" x="1405" y="700" text-anchor="middle" class="mono" font-size="22" font-weight="700" letter-spacing="3" fill="#2f8f5b" opacity="0">FINISHED WORK IS NOT REDONE</text>
+    </g>
+    <g id="r-recap" opacity="0">
+      <rect x="400" y="290" width="1120" height="260" fill="rgba(243,245,248,.95)" stroke="#1e3a5f" stroke-width="2"/>
+      <text id="r-r1" x="960" y="400" text-anchor="middle" font-size="54" font-weight="300" letter-spacing="9" fill="#1e3a5f" opacity="0">THE FILE DECIDES</text>
+      <text id="r-r2" x="960" y="490" text-anchor="middle" font-size="54" font-weight="300" letter-spacing="9" fill="#8a5a1f" opacity="0">THE RUN REMEMBERS</text>
+    </g>
+  </g>
+</svg>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+const norm = (w) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+window.setup = (T, words) => {
+  const tl = gsap.timeline({ paused: true });
+  window.tl = tl;
+  const lineAt = {};
+  for (const b of Object.values(T)) for (const [id, l] of Object.entries(b.lines)) lineAt[id] = l.n;
+  const W = (id, phrase, k = 0) => {
+    const ws = words[id], want = phrase.split(/\s+/).map(norm);
+    for (let i = 0, hit = 0; i < ws.length; i++) {
+      if (want.every((w, j) => ws[i + j] && norm(ws[i + j][0]) === w) && hit++ === k) return lineAt[id] + ws[i][1];
+    }
+    throw new Error(`phrase "${phrase}" not in ${id}`);
+  };
+  const show = (e, at, d = 0.4) => tl.to(e, { opacity: 1, duration: d }, at);
+  const draw = (e, at, d = 0.8) => {
+    const mk = e.getAttribute("marker-end");
+    if (mk) { e.removeAttribute("marker-end"); tl.set(e, { attr: { "marker-end": mk } }, at + d * 0.9); }
+    tl.set(e, { opacity: 1 }, at); tl.to(e, { strokeDashoffset: 0, duration: d, ease: "power1.inOut" }, at);
+  };
+  for (const id of Object.keys(T)) {
+    tl.set($(id), { opacity: 1 }, T[id].s); tl.set($(id), { opacity: 0 }, T[id].e);
+    tl.set($(`bn-${id}`), { opacity: 1 }, T[id].s); tl.set($(`bn-${id}`), { opacity: 0 }, T[id].e);
+  }
+
+  // WHO DECIDES WHAT RUNS
+  { const s = T.halves.s;
+    show($("h-chat"), s + 0.2, 0.5);
+    tl.fromTo($("h-turns"), { opacity: 0.2 }, { opacity: 1, duration: 0.4, repeat: 3, yoyo: true, immediateRender: false }, W("n1", "every turn") - 0.2);
+    show($("h-div"), W("n1", "That's wrong") - 0.2);
+    show($("h-wf"), W("n1", "hands the control") - 0.2);
+    show($("h-what"), W("n1", "what runs") - 0.1);
+    show($("h-leash"), W("n1", "on a leash") - 0.1);
+  }
+
+  // THREE FAMILIES OF NODES
+  { show($("f-a"), W("n4", "Agent nodes") - 0.1);
+    show($("f-d"), W("n4", "Deterministic nodes") - 0.1);
+    show($("f-c"), W("n4", "Control nodes") - 0.1);
+    const mx = W("n4", "The mix");
+    show($("f-dial"), mx - 0.2);
+    tl.to($("f-knob"), { attr: { cx: 1100 }, duration: 1.2, ease: "power1.inOut" }, mx + 0.2);
+    tl.to($("f-knob"), { attr: { cx: 780 }, duration: 1.0, ease: "power1.inOut" }, mx + 1.6);
+  }
+
+  // A RUN IS A RECORD
+  { const s = T.record.s, nodes = $("r-nodes");
+    show($("r-run"), W("n8", "a row for the run") - 0.2);
+    show($("r-head"), W("n8", "one per node") - 0.2);
+    const rows = [["prompt-node", "ok", "2.4s", "copilot"], ["command-node", "command-echo", "3.1s", "copilot"], ["bash-json-node", '{"status":"ok"}', "8ms", "—"], ["script-bun-node", '{"echoed":…}', "27ms", "—"], ["assert", "PASS", "7ms", "—"]];
+    const cols = [];
+    rows.forEach(([n, o, t, m], i) => {
+      const y = 370 + i * 72, g = el("g", { opacity: 0 }, nodes);
+      el("rect", { x: 170, y: y - 40, width: 760, height: 60, rx: 8, fill: "#fff", stroke: "#c8d2e0", "stroke-width": 1.5 }, g);
+      el("text", { x: 190, y: y - 2, class: "mono", "font-size": 21, fill: "#0f1b2d" }, g, n);
+      el("text", { x: 470, y: y - 2, class: "mono", "font-size": 19, fill: "#51607a" }, g, o.length > 14 ? o.slice(0, 13) + "…" : o);
+      const tt = el("text", { x: 680, y: y - 2, class: "mono", "font-size": 19, fill: "#51607a", opacity: 0 }, g, t);
+      const mm = el("text", { x: 790, y: y - 2, class: "mono", "font-size": 19, fill: "#2f6fb0", opacity: 0 }, g, m);
+      cols.push([tt, mm]);
+      show(g, W("n8", "one per node") + i * 0.15, 0.25);
+    });
+    show($("r-h2"), W("n8", "its timing") - 0.1); cols.forEach(([tt]) => show(tt, W("n8", "its timing"), 0.25));
+    show($("r-h3"), W("n8", "the model") - 0.1); cols.forEach(([, mm]) => show(mm, W("n8", "the model"), 0.25));
+    show($("r-hash"), W("n8", "a hash") - 0.1);
+    const fr = W("n8", "A failed run");
+    show($("r-resume"), fr - 0.2);
+    const steps = $("r-steps");
+    const st = [["fetch", "done"], ["build", "done"], ["deploy", "failed"]];
+    const marks = [];
+    st.forEach(([n, state], i) => {
+      const y = 290 + i * 110, g = el("g", { opacity: 0 }, steps);
+      const fill = state === "done" ? "#e8f3ec" : "#f8e4e1", stroke = state === "done" ? "#2f8f5b" : "#b8433a";
+      const r = el("rect", { x: 1100, y, width: 300, height: 80, rx: 10, fill, stroke, "stroke-width": 2.5 }, g);
+      el("text", { x: 1130, y: y + 50, class: "mono", "font-size": 24, fill: "#0f1b2d" }, g, n);
+      const lbl = el("text", { x: 1380, y: y + 50, "text-anchor": "end", class: "mono", "font-size": 20, fill: stroke }, g, state);
+      marks.push([r, lbl]);
+      show(g, fr + i * 0.2, 0.25);
+    });
+    const res = W("n8", "resumes from");
+    const arrow = el("path", { d: "M1560,510 L1420,510", stroke: "#8a5a1f", "stroke-width": 4, "marker-end": "url(#ah)", opacity: 0 }, steps);
+    const rl = el("text", { x: 1580, y: 518, class: "mono", "font-size": 22, fill: "#8a5a1f", opacity: 0 }, steps, "resume");
+    show(arrow, res, 0.3); show(rl, res, 0.3);
+    tl.to(marks[2][0], { attr: { fill: "#e8f3ec", stroke: "#2f8f5b" }, duration: 0.4 }, res + 0.9);
+    tl.set(marks[2][1], { textContent: "done", attr: { fill: "#2f8f5b" } }, res + 0.9);
+    show($("r-skip"), W("n8", "without redoing") - 0.1);
+    const fd = W("n9", "The file decides");
+    tl.to([$("r-run"), $("r-nodes"), $("r-head"), $("r-resume")], { opacity: 0.15, duration: 0.5 }, fd - 0.4);
+    show($("r-recap"), fd - 0.4, 0.4);
+    show($("r-r1"), fd - 0.1); show($("r-r2"), W("n9", "The run remembers") - 0.1);
+  }
+  return tl.duration();
+};
+</script>
+</body>
+</html>

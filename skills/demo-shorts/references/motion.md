@@ -1,6 +1,6 @@
 # Motion graphics explainers
 
-Used for FIG. 00 (`videos/shorts/2026-10-08-what-keelson-is/source/`, one continuous plate) and FIG. 01 (boards interleaved with terminal footage). `videos/tools/plate.mjs` is the shared renderer: boards declared in `short.yaml`, timed by narration, with `W(lineId, phrase)` giving real spoken times from `narr/words.json`. Read FIG. 01's `source/plate.html` for a working board page, then build a different shape.
+Used for FIG. 00 (`videos/shorts/act-0-the-plate/fig-00-what-keelson-is/source/`, one continuous plate) and FIG. 01 (boards interleaved with terminal footage). `videos/tools/plate.mjs` is the shared renderer: boards declared in `short.yaml`, timed by narration, with `W(lineId, phrase)` giving real spoken times from `narr/words.json`. Read FIG. 01's `source/plate.html` for a working board page, then build a different shape.
 
 ## How it works
 

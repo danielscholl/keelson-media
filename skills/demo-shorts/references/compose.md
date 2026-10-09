@@ -14,7 +14,7 @@ Homebrew ffmpeg here has no `drawtext` or `subtitles` filter (no freetype or lib
 - Captions: one PNG per line, `overlay=enable='between(t,a,b)'`, with a short alpha fade (`fade=in:...:alpha=1`) on a looped image input.
 - Fade in from black at the start and out at the end. Output `libx264 -crf 18 -preset slow -pix_fmt yuv420p -c:a aac -b:a 192k -movflags +faststart`.
 
-`videos/tools/compose.py` implements all of the above from `short.yaml`; FIG. 04 (`videos/shorts/2026-10-08-first-workflow/short.yaml`) is a worked manifest. The manifest fixes plumbing, never shape: borrow its fields, not its four-scene layout.
+`videos/tools/compose.py` implements all of the above from `short.yaml`; FIG. 04 (`videos/shorts/act-2-workflows/fig-04-first-workflow/short.yaml`) is a worked manifest. The manifest fixes plumbing, never shape: borrow its fields, not its four-scene layout.
 
 Gotchas the composer already handles, worth knowing when extending it:
 - ffmpeg 9 dropped `-filter_complex_script`; pass a filter file with `-/filter_complex <file>`.
