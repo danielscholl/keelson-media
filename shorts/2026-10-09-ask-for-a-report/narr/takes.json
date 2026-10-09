@@ -1,0 +1,52 @@
+{
+ "n0": [
+  "Figure seventeen. Ask for a report.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "Chat answers are text, and they scroll away. Sometimes what you want is a page: a run report, a briefing, a chart, laid out to be read and kept. In Keelson, the agent can author one and publish it to the canvas, a drawer in the browser, with a single tool.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "Ask for it in one line. A report on the harbor backlog, published to the canvas.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "The agent gathers the facts first, from the beads tools.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "Then it reads Keelson's design guide, and publishes.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "The drawer opens on the page. The state of the work up top, what's ready, what to start first, and what waits on what, in Keelson's own palette.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "Three things keep those pages honest. A design guide in the prompt sets the contract: theme tokens, no outside resources, Keelson's palette. Publishing checks chart colors by computation, for contrast and color blindness, and rejects a page that fails so the agent fixes it in the same turn. And every page renders in a sandboxed frame that can't make a network request.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "The page is saved as a plain HTML file in Keelson's home. It survives restarts, and republishing the same name updates it in place. So the answer you'd scroll past becomes something you can keep and share.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "Ask once. Keep the page.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

@@ -1,0 +1,648 @@
+<title>Keelson Shorts Framework</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column, diagrams full width, appendix below a heavy rule. Actor colors are the blueprint's own: navy library, brass skill, ocean docs, slate channels. */
+:root{
+  --bg:#f3f5f7; --surface:#ffffff; --surface-2:#e9edf2; --line:#d3dae3; --line-strong:#97a5b5;
+  --ink:#16202c; --ink-2:#46546a; --ink-3:#76839a;
+  --o1:#1e3a5f;  --o1-bg:#e4ebf4;  --o1-ink:#1b3356;
+  --o2:#b5803a;  --o2-bg:#f6ecdc;  --o2-ink:#7a5020;
+  --o3:#2f6fb0;  --o3-bg:#e2edf9;  --o3-ink:#1f5088;
+  --o4:#5f6f7a;  --o4-bg:#e9edf0;  --o4-ink:#45535c;
+  --ok:#2f8f5b; --ok-bg:#dff0e5; --bad:#a83a2f; --bad-bg:#f5dcd8;
+  --term:#0f1b2d; --term-ink:#dfe6ef; --term-dim:#8d9db3; --term-green:#7fd1a0; --term-cyan:#8cc4e8;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#121820; --surface:#1a222c; --surface-2:#222d3a; --line:#303d4d; --line-strong:#5b6c80;
+    --ink:#e6ecf2; --ink-2:#b3bfcc; --ink-3:#7f8da0;
+    --o1:#8fb0dc;  --o1-bg:#1f2f45;  --o1-ink:#c5d8f0;
+    --o2:#d7a35c;  --o2-bg:#3a2d1a;  --o2-ink:#f0d4a8;
+    --o3:#6fa6e0;  --o3-bg:#1b2f47;  --o3-ink:#b8d4f2;
+    --o4:#93a3ad;  --o4-bg:#242d33;  --o4-ink:#c4cfd6;
+    --ok:#7fd1a0; --ok-bg:#173226; --bad:#f08a7e; --bad-bg:#3d1f1b;
+    --term:#0a121c;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#121820; --surface:#1a222c; --surface-2:#222d3a; --line:#303d4d; --line-strong:#5b6c80;
+  --ink:#e6ecf2; --ink-2:#b3bfcc; --ink-3:#7f8da0;
+  --o1:#8fb0dc;  --o1-bg:#1f2f45;  --o1-ink:#c5d8f0;
+  --o2:#d7a35c;  --o2-bg:#3a2d1a;  --o2-ink:#f0d4a8;
+  --o3:#6fa6e0;  --o3-bg:#1b2f47;  --o3-ink:#b8d4f2;
+  --o4:#93a3ad;  --o4-bg:#242d33;  --o4-ink:#c4cfd6;
+  --ok:#7fd1a0; --ok-bg:#173226; --bad:#f08a7e; --bad-bg:#3d1f1b;
+  --term:#0a121c;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
+.wrap{max-width:1120px;margin:0 auto;padding-block:32px 64px;padding-inline:20px}
+h1{font-size:clamp(26px,4vw,36px);font-weight:600;letter-spacing:-.01em;margin:0 0 10px;text-wrap:balance}
+h2{font-size:22px;font-weight:600;margin:0 0 8px;text-wrap:balance}
+h3{font-size:15px;font-weight:600;margin:0 0 6px}
+p{margin:0 0 10px;max-width:72ch;color:var(--ink-2)}
+p.lead{font-size:17px;color:var(--ink);max-width:66ch}
+.eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:0 0 6px}
+section{margin-top:48px;padding-top:30px;border-top:1px solid var(--line)}
+code{font-family:var(--mono);font-size:.92em}
+a{color:var(--o3-ink)}
+.problem{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.problem p{max-width:78ch}
+.problem p b{color:var(--ink);font-weight:500}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;font-size:13.5px}
+.owner{display:inline-flex;align-items:center;gap:7px;font-weight:600;white-space:nowrap}
+.owner::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--c);flex:none}
+.o-o1{--c:var(--o1);color:var(--o1-ink)} .o-o2{--c:var(--o2);color:var(--o2-ink)} .o-o3{--c:var(--o3);color:var(--o3-ink)} .o-o4{--c:var(--o4);color:var(--o4-ink)}
+.owner.mute::before{background:transparent;border:1.5px dashed var(--line-strong)}
+.owner.mute{color:var(--ink-3)}
+
+.flow{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 16px;overflow-x:auto}
+.flow svg{display:block;width:100%;height:auto;min-width:820px}
+.flow text{font-family:var(--sans);fill:var(--ink);font-size:12px}
+.flow .t{font-size:14px;font-weight:600}
+.flow .mono{font-family:var(--mono)}
+.flow .sub{fill:var(--ink-2)}
+.flow .tiny{fill:var(--ink-3);font-size:11px}
+.flow .box{rx:8;stroke-width:1.3}
+.flow .b-o1{fill:var(--o1-bg);stroke:var(--o1)}
+.flow .b-o2{fill:var(--o2-bg);stroke:var(--o2)}
+.flow .b-o3{fill:var(--o3-bg);stroke:var(--o3)}
+.flow .b-o4{fill:var(--o4-bg);stroke:var(--o4)}
+.flow .b-mute{fill:var(--surface-2);stroke:var(--line-strong);stroke-dasharray:4 3}
+.flow .arrow{stroke:var(--line-strong);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.flow .lanebg{fill:none;stroke:var(--line);stroke-dasharray:3 4}
+.flow .lanelbl{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;fill:var(--ink-3)}
+.note{font-size:13px;color:var(--ink-3);margin-top:10px;max-width:none}
+
+.tbl{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:14px;margin-top:16px}
+.tbl th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:600;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.tbl td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2);overflow-wrap:anywhere}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td b{color:var(--ink);font-weight:500}
+.tblwrap{overflow-x:auto;margin-top:16px}
+.tblwrap .tbl{margin-top:0;min-width:640px}
+.tbl.compact td{padding:8px 12px;font-size:13.5px}
+.tbl td.mono{font-family:var(--mono);font-size:12.5px;color:var(--ink);white-space:nowrap}
+
+pre.cond{font-family:var(--mono);font-size:12.5px;line-height:1.5;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;margin:12px 0 0;color:var(--ink)}
+.callout{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--o2);border-radius:10px;padding:12px 16px;margin-top:14px;font-size:14px;color:var(--ink-2)}
+.callout b{color:var(--ink)}
+.appendix{margin-top:56px;padding-top:30px;border-top:3px solid var(--line)}
+.appendix h2{font-size:18px}
+.appendix section{margin-top:32px;padding-top:22px}
+
+/* Mock of the docs embed: fixed colors, it is a picture of the docs page's dark screenshot frame. */
+.mock{margin-top:18px;max-width:720px;background:#0f1b2d;border:1px solid #27405f;border-radius:10px;padding:14px}
+.mock .poster{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:6px;overflow:hidden;background:linear-gradient(160deg,#16294a 0%,#0d1a30 60%,#0a1424 100%)}
+.mock .poster::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(140,170,210,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(140,170,210,.12) 1px,transparent 1px);background-size:36px 36px}
+.mock .figtag{position:absolute;left:14px;top:12px;font:500 10.5px/1 var(--mono);letter-spacing:.14em;color:#d9c08f}
+.mock .dur{position:absolute;right:14px;bottom:12px;font:500 11px/1 var(--mono);color:#b7c6d8;background:rgba(0,0,0,.35);padding:4px 7px;border-radius:4px}
+.mock .keel{position:absolute;left:12%;right:12%;bottom:30%;height:3px;background:#dfe6ef;border-radius:2px}
+.mock .rib{position:absolute;bottom:30%;width:3px;height:26%;background:#b5803a;border-radius:2px;transform-origin:bottom}
+.mock .play{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(15,27,45,.72);border:1.5px solid #b5803a;display:grid;place-items:center}
+.mock .play::after{content:"";margin-left:5px;border-left:18px solid #f1e7d2;border-top:11px solid transparent;border-bottom:11px solid transparent}
+.mock figcaption{margin-top:12px;font-size:13.5px;color:#b7c6d8;line-height:1.5}
+.mock figcaption b{color:#e8eef5;font-weight:500}
+.mock details{margin-top:8px;font-size:13px;color:#8d9db3}
+.mock summary{cursor:pointer;color:#d9c08f}
+.mock details p{color:#b7c6d8;margin:6px 0 0;font-size:13px}
+
+/* Mock of one video frame: fixed colors, it is the drafting sheet the shorts are drawn on. */
+.frame{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto}
+.frame svg{display:block;width:100%;height:auto;max-width:960px;margin:0 auto;min-width:0}
+@media (max-width:520px){ .wrap{padding-inline:16px} }
+@media (prefers-reduced-motion: reduce){ *{animation:none!important;transition:none!important} }
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">keelson · shorts · proposal</p>
+  <h1>Keelson Shorts Framework</h1>
+  <p class="lead">How the shorts become one numbered series that walks the Keelson journey, lives inside the docs, and can be made one per sitting.</p>
+
+  <div class="problem">
+    <p><b>Today</b> two shorts exist, FIG. 00 (what Keelson is, two minutes of motion graphics across eleven boards) and FIG. 01 (first workflow, 56 seconds of real footage). They were made by hand with the <code>demo-shorts</code> skill: five helper scripts plus a compose script rewritten for each short. The library sits outside the repo, the docs have no video on any page, and nothing records which short a reader should watch at which point in the journey. The first demo cut opens on a workflow, where the docs open on chat. FIG. 01 still has two quiet gaps and browser text that is unreadable on a phone; FIG. 00 sits low in the frame with labels too small to read.</p>
+    <p><b>This framework</b> fixes the series before it grows. A series bible maps the figures onto the docs: sixteen in four acts (the plate, chat and projects, workflows, memory and usage, ribs) plus four standalone codas, so each short answers the question its docs page opens with. A short manifest replaces the per-short compose script, so a new short is a capture plus one YAML file. A publish step turns a finished master into a YouTube upload, a poster, a transcript, and an entry in a docs manifest that a <code>&lt;Short&gt;</code> component reads, putting the figure on its page and on a new Watch hub. The two existing shorts are re-cut through the rig first, which is how the rig gets proven.</p>
+    <p><b>Not in this change:</b> the anti-sameness rule stays and the manifest fixes plumbing, never shape, so no two shorts share a structure by default. No 9:16 cuts until the 16:9 rail is done. The pipeline is not wrapped as a Keelson workflow until Act I is cut and the manifest has stopped changing. Production stops after every video for Daniel's review, and nothing posts anywhere without it. The FIG. 00 narration is not rewritten here; it is still waiting on his read.</p>
+  </div>
+
+  <p class="eyebrow" style="margin-top:28px">Colors identify who owns each piece</p>
+  <div class="legend">
+    <span class="owner o-o1">Library · the shorts, assets, manifests, and ledger in ~/workspace/videos</span>
+    <span class="owner o-o2">Skill · the method in demo-shorts; the shared tools live in the library under tools/</span>
+    <span class="owner o-o3">Docs · the Starlight site in keelson/docs</span>
+    <span class="owner o-o4">Channels · YouTube and X</span>
+    <span class="owner mute">Dashed · a figure not yet cut</span>
+  </div>
+
+  <section>
+    <h2>The journey</h2>
+    <p>The series is one sequence of figures in viewing order, grouped into acts that follow the shape of the product rather than the order of the docs sidebar: the plate, then chat and projects, then workflows, then what the harness keeps (memory and usage), then ribs. Chat comes first because it is the live half the docs introduce first, and a reader with nothing installed gets a real answer back before a YAML file is mentioned. Every figure maps to one or more docs pages, and the figure's opening line is the problem that page opens with. The mapping lives in each short's manifest, not in the figure number, so a tutorial stop that deserves two shorts gets two, and a concept or guide page with no stop (projects, governance, usage) gets its own.</p>
+    <p>Two forms carry the series, chosen per beat rather than per video. A <b>plate</b> beat is motion graphics drawn on the blueprint sheet, for an idea (FIG. 00 and the rib model are all plate). A <b>demo</b> beat is real footage of the product doing real work. A short may mix the two wherever a board explains a concept better than footage can, or footage proves what a board only claims; the form on each box below is the dominant one. Every short opens and closes with the series bookends and carries the FIG tag; the structure, opener, and devices vary per the ledger.</p>
+
+    <div class="flow">
+      <svg viewBox="0 0 1130 738" role="img" aria-label="Twenty figures in six lanes: the plate; Act I chat and projects with three figures; Act II workflows with five; Act III memory and usage with two; Act IV ribs with five; and four standalone codas. FIG. 00 and FIG. 04 are cut; the rest are dashed.">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--line-strong)"/></marker>
+        </defs>
+
+        <rect x="8" y="8" width="1114" height="112" class="lanebg" rx="10"/>
+        <text x="22" y="30" class="lanelbl">Act 0 · the plate</text>
+        <rect x="20" y="42" width="142" height="78" class="box b-o1"/>
+        <text x="32" y="66" class="t">FIG. 00 · plate</text>
+        <text x="32" y="86" class="sub">What Keelson is</text>
+        <text x="32" y="105" class="tiny">concept · what it is</text>
+        <text x="178" y="86" class="sub">The keel is laid once. Every later figure bolts onto this drawing.</text>
+        <rect x="8" y="130" width="1114" height="112" class="lanebg" rx="10"/>
+        <text x="22" y="152" class="lanelbl">Act I · chat and projects (the live half)</text>
+        <rect x="20" y="164" width="142" height="78" class="box b-mute"/>
+        <text x="32" y="188" class="t">FIG. 01 · demo</text>
+        <text x="32" y="208" class="sub">First run</text>
+        <text x="32" y="227" class="tiny">stop 1 · install guide</text>
+        <path d="M162 203 L178 203" class="arrow"/>
+        <rect x="178" y="164" width="142" height="78" class="box b-mute"/>
+        <text x="190" y="188" class="t">FIG. 02 · demo</text>
+        <text x="190" y="208" class="sub">Chat three ways</text>
+        <text x="190" y="227" class="tiny">stop 2 · concept chat</text>
+        <path d="M320 203 L336 203" class="arrow"/>
+        <rect x="336" y="164" width="142" height="78" class="box b-mute"/>
+        <text x="348" y="188" class="t">FIG. 03 · demo</text>
+        <text x="348" y="208" class="sub">A place to work</text>
+        <text x="348" y="227" class="tiny">concept · projects</text>
+        <text x="494" y="208" class="sub">The agent decides each turn. Where it works is a project you name once.</text>
+        <rect x="8" y="252" width="1114" height="112" class="lanebg" rx="10"/>
+        <text x="22" y="274" class="lanelbl">Act II · workflows (the deterministic half)</text>
+        <rect x="20" y="286" width="142" height="78" class="box b-o1"/>
+        <text x="32" y="310" class="t">FIG. 04 · demo</text>
+        <text x="32" y="330" class="sub">First workflow</text>
+        <text x="32" y="349" class="tiny">stop 3 · workflows</text>
+        <path d="M162 325 L178 325" class="arrow"/>
+        <rect x="178" y="286" width="142" height="78" class="box b-mute"/>
+        <text x="190" y="310" class="t">FIG. 05 · demo</text>
+        <text x="190" y="330" class="sub">Write a workflow</text>
+        <text x="190" y="349" class="tiny">stop 3 · authoring</text>
+        <path d="M320 325 L336 325" class="arrow"/>
+        <rect x="336" y="286" width="142" height="78" class="box b-mute"/>
+        <text x="348" y="310" class="t">FIG. 06 · demo</text>
+        <text x="348" y="330" class="sub">The approval gate</text>
+        <text x="348" y="349" class="tiny">guide · governance</text>
+        <path d="M478 325 L494 325" class="arrow"/>
+        <rect x="494" y="286" width="142" height="78" class="box b-mute"/>
+        <text x="506" y="310" class="t">FIG. 07 · demo</text>
+        <text x="506" y="330" class="sub">Many models</text>
+        <text x="506" y="349" class="tiny">stop 5 · providers</text>
+        <path d="M636 325 L652 325" class="arrow"/>
+        <rect x="652" y="286" width="142" height="78" class="box b-mute"/>
+        <text x="664" y="310" class="t">FIG. 08 · demo</text>
+        <text x="664" y="330" class="sub">Issue to draft PR</text>
+        <text x="664" y="349" class="tiny">catalog · fix-issue</text>
+        <rect x="8" y="374" width="1114" height="112" class="lanebg" rx="10"/>
+        <text x="22" y="396" class="lanelbl">Act III · what the harness keeps</text>
+        <rect x="20" y="408" width="142" height="78" class="box b-mute"/>
+        <text x="32" y="432" class="t">FIG. 09 · demo</text>
+        <text x="32" y="452" class="sub">Make it remember</text>
+        <text x="32" y="471" class="tiny">stop 4 · memory guide</text>
+        <path d="M162 447 L178 447" class="arrow"/>
+        <rect x="178" y="408" width="142" height="78" class="box b-mute"/>
+        <text x="190" y="432" class="t">FIG. 10 · demo</text>
+        <text x="190" y="452" class="sub">Where the tokens went</text>
+        <text x="190" y="471" class="tiny">concept · usage</text>
+        <text x="336" y="452" class="sub">What it learned, and what it spent. Both are rows you can read.</text>
+        <rect x="8" y="496" width="1114" height="112" class="lanebg" rx="10"/>
+        <text x="22" y="518" class="lanelbl">Act IV · raise the ribs</text>
+        <rect x="20" y="530" width="142" height="78" class="box b-mute"/>
+        <text x="32" y="554" class="t">FIG. 11 · plate</text>
+        <text x="32" y="574" class="sub">The rib model</text>
+        <text x="32" y="593" class="tiny">concept · ribs</text>
+        <path d="M162 569 L178 569" class="arrow"/>
+        <rect x="178" y="530" width="142" height="78" class="box b-mute"/>
+        <text x="190" y="554" class="t">FIG. 12 · demo</text>
+        <text x="190" y="574" class="sub">Add a capability</text>
+        <text x="190" y="593" class="tiny">guide · managing ribs</text>
+        <path d="M320 569 L336 569" class="arrow"/>
+        <rect x="336" y="530" width="142" height="78" class="box b-mute"/>
+        <text x="348" y="554" class="t">FIG. 13 · demo</text>
+        <text x="348" y="574" class="sub">Plan the backlog</text>
+        <text x="348" y="593" class="tiny">stop 6 · backlog</text>
+        <path d="M478 569 L494 569" class="arrow"/>
+        <rect x="494" y="530" width="142" height="78" class="box b-mute"/>
+        <text x="506" y="554" class="t">FIG. 14 · demo</text>
+        <text x="506" y="574" class="sub">The software factory</text>
+        <text x="506" y="593" class="tiny">stop 7 · factory</text>
+        <path d="M636 569 L652 569" class="arrow"/>
+        <rect x="652" y="530" width="142" height="78" class="box b-mute"/>
+        <text x="664" y="554" class="t">FIG. 15 · demo</text>
+        <text x="664" y="574" class="sub">Your agent drives it</text>
+        <text x="664" y="593" class="tiny">guide · using MCP</text>
+        <rect x="8" y="618" width="1114" height="112" class="lanebg" rx="10"/>
+        <text x="22" y="640" class="lanelbl">Codas · standalone</text>
+        <rect x="20" y="652" width="142" height="78" class="box b-mute"/>
+        <text x="32" y="676" class="t">FIG. 16 · demo</text>
+        <text x="32" y="696" class="sub">No paid keys</text>
+        <text x="32" y="715" class="tiny">guide · configuration</text>
+        <path d="M162 691 L178 691" class="arrow"/>
+        <rect x="178" y="652" width="142" height="78" class="box b-mute"/>
+        <text x="190" y="676" class="t">FIG. 17 · demo</text>
+        <text x="190" y="696" class="sub">Ask for a report</text>
+        <text x="190" y="715" class="tiny">guide · canvas</text>
+        <path d="M320 691 L336 691" class="arrow"/>
+        <rect x="336" y="652" width="142" height="78" class="box b-mute"/>
+        <text x="348" y="676" class="t">FIG. 18 · demo</text>
+        <text x="348" y="696" class="sub">Did that change help?</text>
+        <text x="348" y="715" class="tiny">guide · evals</text>
+        <path d="M478 691 L494 691" class="arrow"/>
+        <rect x="494" y="652" width="142" height="78" class="box b-mute"/>
+        <text x="506" y="676" class="t">FIG. 19 · demo</text>
+        <text x="506" y="696" class="sub">Shorts, by Keelson</text>
+        <text x="506" y="715" class="tiny">catalog · the rig</text>
+        <text x="652" y="696" class="sub">Cut whenever the feature is worth showing. No act depends on them.</text>
+      </svg>
+    </div>
+    <p class="note">Viewing order is the number; the docs page is in the manifest. The existing first-workflow short becomes FIG. 04: it never speaks its number, so the change is one tag card, re-rendered in the re-cut it already needs. The tutorial rail keeps its own numbering.</p>
+
+    <h3 style="margin-top:22px">The acts against the docs</h3>
+    <p>Each act covers one cluster of docs pages, so the Watch hub's chapters and the docs sidebar name the same things. A reader who arrives from a concept page finds that act's shorts; a viewer who arrives from the playlist finds the pages the act was cut from. The one place the journey departs from the tutorial rail is memory: the rail teaches it at stop 4, between workflows and the multi-model build, and the series holds it until Act III so it sits beside usage as the two things the harness keeps. The rail is not reordered to match.</p>
+    <div class="tblwrap"><table class="tbl compact">
+      <thead><tr><th>Act</th><th>Figures</th><th>Concept pages</th><th>Tutorial stops</th><th>Guides and catalog</th></tr></thead>
+      <tbody>
+        <tr><td><b>0 · The plate</b></td><td class="mono">00</td><td>what-keelson-is, architecture</td><td></td><td></td></tr>
+        <tr><td><b>I · Chat and projects</b></td><td class="mono">01 to 03</td><td>chat, projects</td><td>1 first run, 2 talk to the agent</td><td>installation, operating the server</td></tr>
+        <tr><td><b>II · Workflows</b></td><td class="mono">04 to 08</td><td>workflows, providers</td><td>3 run and author, 5 many models</td><td>authoring workflows, governance, the starter catalog, workflow-nodes reference</td></tr>
+        <tr><td><b>III · What the harness keeps</b></td><td class="mono">09 to 10</td><td>memory-and-state, usage</td><td>4 make it remember</td><td>managing memory</td></tr>
+        <tr><td><b>IV · Raise the ribs</b></td><td class="mono">11 to 15</td><td>the-rib-model, snapshots-and-surfaces</td><td>6 plan the backlog, 7 run the factory</td><td>managing ribs, using MCP</td></tr>
+        <tr><td><b>Codas</b></td><td class="mono">16 to 19</td><td>providers</td><td></td><td>configuration, canvas artifacts, evaluating workflows, the catalog page</td></tr>
+      </tbody>
+    </table></div>
+
+    <p style="margin-top:18px">Every short makes clear what the concept is, why it exists, and how it works; it is not a recipe, and a viewer should leave understanding the thing rather than holding a list of steps. Each figure follows one spoken form so the series reads as one voice. Over the opener: "Figure N. Title." and the builder's problem in one sentence. Over the closer: the one-sentence answer, then the sign-off, "Keelson. Lay the keel, raise the ribs." A sheet card, "SHEET 04 · ACT II", is rendered per short like the fig tag and overlaid on the closer; it names the sheet and the act rather than a count, so a coda can be added without touching any other short. The shared closer clip and its close card are not changed. The bible that holds this, with the money shot and docs page per figure, is <code>videos/SERIES.md</code>; appendix A is its first version.</p>
+  </section>
+
+  <section>
+    <h2>Where a short lives in the docs</h2>
+    <p>A finished short is one master file: 16:9, 1080p, burned-in captions, loudness at -16 LUFS. The publish step takes that master and produces everything the docs and the channels need, so a page author writes one tag and nothing else. The docs never hold the video itself; they hold a poster, a transcript, and an id.</p>
+
+    <div class="flow">
+      <svg viewBox="0 0 1000 420" role="img" aria-label="One short flows through the publish step to YouTube and X, and into a docs manifest that feeds the page embed, the Watch hub, and the navigation.">
+        <rect x="24" y="120" width="210" height="96" class="box b-o1"/>
+        <text x="36" y="144" class="t">One short</text>
+        <text x="36" y="164" class="sub">final.mp4 · short.yaml</text>
+        <text x="36" y="181" class="sub">script.json · capture marks</text>
+        <text x="36" y="202" class="tiny">videos/shorts/&lt;date&gt;-&lt;slug&gt;/</text>
+        <path d="M234 168 L270 168" class="arrow"/>
+        <rect x="270" y="120" width="210" height="96" class="box b-o2"/>
+        <text x="282" y="144" class="t">publish step</text>
+        <text x="282" y="164" class="sub">uploads the master</text>
+        <text x="282" y="181" class="sub">writes poster, transcript, srt</text>
+        <text x="282" y="202" class="tiny">adds the LEDGER row</text>
+
+        <path d="M480 150 C 500 150, 500 54, 520 54" class="arrow"/>
+        <rect x="520" y="16" width="200" height="76" class="box b-o4"/>
+        <text x="532" y="40" class="t">YouTube</text>
+        <text x="532" y="60" class="sub">unlisted until the act ships</text>
+        <text x="532" y="79" class="tiny">captions from the srt, chapters</text>
+
+        <path d="M480 166 L520 148" class="arrow"/>
+        <rect x="520" y="108" width="200" height="76" class="box b-o4"/>
+        <text x="532" y="132" class="t">X</text>
+        <text x="532" y="152" class="sub">the same master, native</text>
+        <text x="532" y="171" class="tiny">posted by hand, never automated</text>
+
+        <path d="M480 186 C 500 186, 500 248, 520 248" class="arrow"/>
+        <rect x="520" y="200" width="200" height="96" class="box b-o3"/>
+        <text x="532" y="224" class="t">shorts.json</text>
+        <text x="532" y="244" class="sub">fig, title, youtubeId, poster</text>
+        <text x="532" y="261" class="sub">docs pages, transcript lines</text>
+        <text x="532" y="282" class="tiny">docs/src/data, one entry per figure</text>
+
+        <path d="M720 236 L760 230" class="arrow"/>
+        <rect x="760" y="200" width="216" height="60" class="box b-o3"/>
+        <text x="772" y="224" class="t mono">&lt;Short fig="04" /&gt;</text>
+        <text x="772" y="244" class="sub">poster, play, caption, transcript</text>
+
+        <path d="M720 252 C 740 252, 740 302, 760 302" class="arrow"/>
+        <rect x="760" y="272" width="216" height="60" class="box b-o3"/>
+        <text x="772" y="296" class="t">Watch hub</text>
+        <text x="772" y="316" class="sub">/docs/watch/, act by act</text>
+
+        <path d="M720 266 C 740 266, 740 374, 760 374" class="arrow"/>
+        <rect x="760" y="344" width="216" height="60" class="box b-o3"/>
+        <text x="772" y="368" class="t">Nav and sidebar</text>
+        <text x="772" y="388" class="sub">a Watch entry beside Guides</text>
+      </svg>
+    </div>
+    <p class="note">The mp4 never enters the repo. The docs manifest is written by the publish step, so the library stays the source of truth and the docs cannot drift from it.</p>
+
+    <h3 style="margin-top:22px">The embed</h3>
+    <p>The <code>&lt;Short&gt;</code> component is an Astro component that reads the manifest by figure number and renders the dark <code>screenshot-figure</code> frame the style guide already reserves for app footage. It shows the poster with the FIG tag and duration, plays on click through the privacy-enhanced YouTube endpoint so no YouTube script or cookie loads until the viewer asks, and writes the numbered figcaption from the manifest's concept line, which keeps the style guide's lead-in-plus-caption rule enforced by the component. Below the player a transcript disclosure carries the narration, so Starlight's search index and the generated llms.txt both learn what the short says. The page's own figure numbering stays as it is; the caption names the series number in its text.</p>
+
+    <figure class="mock" aria-label="Mock of the Short component as it would render on the Run and author a workflow tutorial page.">
+      <div class="poster">
+        <span class="figtag">FIG. 04 · FIRST WORKFLOW</span>
+        <span class="keel"></span>
+        <span class="rib" style="left:30%"></span><span class="rib" style="left:50%"></span><span class="rib" style="left:70%"></span>
+        <span class="play" aria-hidden="true"></span>
+        <span class="dur">0:56</span>
+      </div>
+      <figcaption><b>Figure 1.</b> FIG. 04 of the series, 56 seconds. Start the server, run the smoke test in the terminal, then run it again in the browser and watch the DAG fill in.</figcaption>
+      <details>
+        <summary>Transcript</summary>
+        <p>This is Keelson. An agent harness that runs on your own machine. Start the server with keelson start. Now run a workflow. The smoke test exercises every node type…</p>
+      </details>
+    </figure>
+
+    <div class="tblwrap">
+    <table class="tbl">
+      <thead><tr><th>Surface</th><th>What it shows</th><th>Where it comes from</th></tr></thead>
+      <tbody>
+        <tr><td><b>Docs page</b></td><td>One <code>&lt;Short&gt;</code> under the opening paragraph, before the first step. A page lists more than one figure only when the manifest maps more than one to it.</td><td>shorts.json, by fig</td></tr>
+        <tr><td><b>Watch hub</b> <code>/docs/watch/</code></td><td>The journey act by act: poster, title, duration, the one-sentence problem, a link to the figure's page. The tutorial rail figure sits at the top with the stops that have a short marked.</td><td>shorts.json, all entries</td></tr>
+        <tr><td><b>Navigation</b></td><td>"Watch" in the Starlight sidebar above Concepts and in the landing header beside Concepts, Guides, Reference. The landing hero is unchanged.</td><td>astro.config, index.html</td></tr>
+        <tr><td><b>YouTube</b></td><td>One playlist in series order, with the acts as sections. Chapters from the manifest's scene marks. Captions from the srt.</td><td>publish step</td></tr>
+        <tr><td><b>X</b></td><td>The master uploaded natively with the figure's docs page as the link. Daniel posts; the publish step only drafts the post text next to the master.</td><td>by hand</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p style="margin-top:18px">YouTube hosts the masters because GitHub Pages serves the docs and a 10 MB master per figure would put well over 150 MB into git history by FIG. 19, with Pages' bandwidth allowance on top. YouTube also gives captions, chapters, and a playlist that is itself the journey. Unlisted videos embed normally, so an act can be on its docs pages before its playlist goes public. Committed posters are small webp files, about 40 KB each, under <code>docs/public/assets/shorts/</code>.</p>
+  </section>
+
+  <section>
+    <h2>The production line</h2>
+    <p>Today the method is in the skill and the plumbing is rebuilt per short: FIG. 00 and the first-workflow short each carry their own compose script, card renderer, and timeline math. The change moves everything that does not vary into shared tools driven by one manifest, and leaves the creative choices where the ledger wants them.</p>
+
+    <div class="flow">
+      <svg viewBox="0 0 1130 270" role="img" aria-label="Two lanes, today and proposal, with the same seven steps left to right. The proposal replaces the per-short compose script with a manifest and shared tools, and adds a publish step.">
+        <rect x="8" y="8" width="1114" height="118" class="lanebg" rx="10"/>
+        <text x="22" y="30" class="lanelbl">Today</text>
+        <rect x="20" y="42" width="142" height="78" class="box b-o1"/>
+        <text x="32" y="66" class="t">concept</text>
+        <text x="32" y="86" class="sub">one money shot</text>
+        <text x="32" y="105" class="tiny">from the ledger</text>
+        <path d="M162 81 L178 81" class="arrow"/>
+        <rect x="178" y="42" width="142" height="78" class="box b-o1"/>
+        <text x="190" y="66" class="t">script.json</text>
+        <text x="190" y="86" class="sub">lines in order</text>
+        <path d="M320 81 L336 81" class="arrow"/>
+        <rect x="336" y="42" width="142" height="78" class="box b-o2"/>
+        <text x="348" y="66" class="t">tts.py</text>
+        <text x="348" y="86" class="sub">one wav per line</text>
+        <text x="348" y="105" class="tiny">durations only</text>
+        <path d="M478 81 L494 81" class="arrow"/>
+        <rect x="494" y="42" width="142" height="78" class="box b-o2"/>
+        <text x="506" y="66" class="t">capture</text>
+        <text x="506" y="86" class="sub">vhs tape, playwright</text>
+        <text x="506" y="105" class="tiny">marks logged</text>
+        <path d="M636 81 L652 81" class="arrow"/>
+        <rect x="652" y="42" width="142" height="78" class="box b-o1"/>
+        <text x="664" y="66" class="t">compose.py</text>
+        <text x="664" y="86" class="sub">rewritten per short</text>
+        <text x="664" y="105" class="tiny">timeline math by hand</text>
+        <path d="M794 81 L810 81" class="arrow"/>
+        <rect x="810" y="42" width="142" height="78" class="box b-o2"/>
+        <text x="822" y="66" class="t">qa.sh</text>
+        <text x="822" y="86" class="sub">sheet, gaps, LUFS</text>
+        <path d="M952 81 L968 81" class="arrow"/>
+        <rect x="968" y="42" width="142" height="78" class="box b-o1"/>
+        <text x="980" y="66" class="t">NOTES, LEDGER</text>
+        <text x="980" y="86" class="sub">written by hand</text>
+        <text x="980" y="105" class="tiny">no docs step</text>
+
+        <rect x="8" y="140" width="1114" height="118" class="lanebg" rx="10"/>
+        <text x="22" y="162" class="lanelbl">Proposal</text>
+        <rect x="20" y="174" width="142" height="78" class="box b-o1"/>
+        <text x="32" y="198" class="t">concept</text>
+        <text x="32" y="218" class="sub">one money shot</text>
+        <text x="32" y="237" class="tiny">from SERIES.md</text>
+        <path d="M162 213 L178 213" class="arrow"/>
+        <rect x="178" y="174" width="142" height="78" class="box b-o1"/>
+        <text x="190" y="198" class="t">short.yaml</text>
+        <text x="190" y="218" class="sub">scenes, lines, cards</text>
+        <text x="190" y="237" class="tiny">fig, docs page, poster</text>
+        <path d="M320 213 L336 213" class="arrow"/>
+        <rect x="336" y="174" width="142" height="78" class="box b-o2"/>
+        <text x="348" y="198" class="t">tts.py</text>
+        <text x="348" y="218" class="sub">wav plus word times</text>
+        <text x="348" y="237" class="tiny">srt comes free</text>
+        <path d="M478 213 L494 213" class="arrow"/>
+        <rect x="494" y="174" width="142" height="78" class="box b-o2"/>
+        <text x="506" y="198" class="t">capture</text>
+        <text x="506" y="218" class="sub">same, plus zoom boxes</text>
+        <text x="506" y="237" class="tiny">neutral stage path</text>
+        <path d="M636 213 L652 213" class="arrow"/>
+        <rect x="652" y="174" width="142" height="78" class="box b-o2"/>
+        <text x="664" y="198" class="t">compose</text>
+        <text x="664" y="218" class="sub">reads the manifest</text>
+        <text x="664" y="237" class="tiny">bookends, cards, music</text>
+        <path d="M794 213 L810 213" class="arrow"/>
+        <rect x="810" y="174" width="142" height="78" class="box b-o2"/>
+        <text x="822" y="198" class="t">qa</text>
+        <text x="822" y="218" class="sub">plus a phone frame</text>
+        <text x="822" y="237" class="tiny">gaps, paths, loudness</text>
+        <path d="M952 213 L968 213" class="arrow"/>
+        <rect x="968" y="174" width="142" height="78" class="box b-o2"/>
+        <text x="980" y="198" class="t">publish</text>
+        <text x="980" y="218" class="sub">poster, srt, upload</text>
+        <text x="980" y="237" class="tiny">LEDGER + shorts.json</text>
+      </svg>
+    </div>
+    <p class="note">The manifest describes a timeline, not a template: which scenes exist, where each line lands relative to a capture mark, which cards appear when. Structure, opener, and devices are still chosen per figure against the ledger.</p>
+
+    <div class="tblwrap">
+    <table class="tbl">
+      <thead><tr><th>Upgrade</th><th>What it fixes</th><th>Lands in</th></tr></thead>
+      <tbody>
+        <tr><td><b>Short manifest and shared compose</b></td><td>Every short rewrote the timeline math. Compose reads scenes, marks, lines, cards, bookends, and music from <code>short.yaml</code> and asserts no two lines overlap. A line carries an optional SSML override, which is how YAML is read as "yammel" today and how any misread word is fixed without changing voice. Appendix B has the shape.</td><td>skill scripts</td></tr>
+        <tr><td><b>Word-level narration timing</b></td><td>FIG. 00 estimates word positions from character counts, so highlights land early or late. The Speech SDK's word boundary events give real times per word, so motion beats land on the word, captions can be kinetic, and the srt is a by-product. The Harper voice emits no word boundary events (a standard neural voice does), so tts.py instead aligns Azure fast transcription of each rendered line back to its known text, which gives the same word times for any voice.</td><td>tts.py</td></tr>
+        <tr><td><b>One card renderer</b></td><td>Captions, FIG tags, callouts, and end cards came from three different scripts, which is how the off-palette v1 cards happened. The bookends' <code>cards.mjs</code> becomes the one renderer, keyed to the docs palette and type.</td><td>skill scripts</td></tr>
+        <tr><td><b>Music bed with ducking</b></td><td>Both shorts have 3 to 5 second stalls that only music can carry. One licensed bed per act, ducked under narration with <code>sidechaincompress</code>, so the identity is in the sound as well as the sting.</td><td>videos/assets/music, compose</td></tr>
+        <tr><td><b>Legibility rig</b></td><td>Browser text is unreadable at phone size. Capture the SPA at a 1280 by 720 viewport with a 1.5 scale factor so the UI is large in frame, log a zoom box with every mark, and have QA render one frame at 405 px wide to look at.</td><td>capture.md, qa.sh</td></tr>
+        <tr><td><b>Drawing viewport framing</b></td><td>Plates sit on the sheet; demos were full-bleed dark UI, so the two forms looked like two brands. Demo footage now sits inside the thin navy viewport the landing uses for its hero figure, with the grid behind it and callouts drafted in monospace with leader lines. The opener's drawing opens the viewport; the closer closes it.</td><td>compose, cards</td></tr>
+        <tr><td><b>Neutral stage path</b></td><td>Home paths print in the run view and the terminal. Captures run from <code>/Users/Shared/keelson-demo</code>, which reads as a real path with no name in it.</td><td>capture.md</td></tr>
+        <tr><td><b>Publish step</b></td><td>Poster at the manifest's poster time, transcript and srt from the script and word times, YouTube upload, LEDGER row, shorts.json entry, and a draft X post beside the master.</td><td>new skill script</td></tr>
+        <tr><td><b>Library under git</b></td><td>Sources, manifests, prompts, and cards are tracked; masters, raw frames, and wavs are ignored. The docs manifest can then cite a library commit, and the shared tools move from the skill into the library's <code>tools/</code> so they version with the shorts that use them. The skill stays method only.</td><td>videos repo</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>The look of a demo short</h2>
+    <p>One frame of FIG. 02 as the rig would compose it. The sheet, the header with the figure tag and progress counter, and the caption panel are the same chrome FIG. 00 already uses, so a demo and a plate read as the same series. The footage is cropped to the region the narration is about, not the whole window.</p>
+    <div class="frame">
+      <svg viewBox="0 0 960 540" role="img" aria-label="A 16:9 frame: pale drafting sheet with a faint grid, a header line with the figure tag and a progress counter, a navy-ruled viewport holding cropped app footage, a monospace callout with a leader line, and a navy caption panel with a brass rule at the bottom.">
+        <defs>
+          <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#c9d3e3" stroke-width=".6"/></pattern>
+          <pattern id="grid2" width="120" height="120" patternUnits="userSpaceOnUse"><path d="M120 0H0V120" fill="none" stroke="#b3c0d6" stroke-width=".8"/></pattern>
+        </defs>
+        <rect width="960" height="540" fill="#f4f6fa"/>
+        <rect width="960" height="540" fill="url(#grid)"/>
+        <rect width="960" height="540" fill="url(#grid2)"/>
+        <path d="M14 36V14H36 M924 14H946V36 M14 504V526H36 M924 526H946V504" fill="none" stroke="#1e3a5f" stroke-width="1.2"/>
+        <text x="40" y="34" font-family="IBM Plex Mono, Menlo, monospace" font-size="9.5" letter-spacing="2.2" fill="#1e3a5f">⌗ KEELSON · FIG. 02 · CHAT THREE WAYS</text>
+        <text x="760" y="34" font-family="IBM Plex Mono, Menlo, monospace" font-size="9.5" letter-spacing="2.2" fill="#51607a">04 / 14</text>
+        <g transform="translate(828 26)">
+          <rect x="0" y="0" width="7" height="7" fill="#1e3a5f"/><rect x="10" y="0" width="7" height="7" fill="#1e3a5f"/><rect x="20" y="0" width="7" height="7" fill="#1e3a5f"/><rect x="30" y="0" width="7" height="7" fill="#1e3a5f"/>
+          <rect x="40" y="0" width="7" height="7" fill="none" stroke="#1e3a5f" stroke-width=".8"/><rect x="50" y="0" width="7" height="7" fill="none" stroke="#1e3a5f" stroke-width=".8"/><rect x="60" y="0" width="7" height="7" fill="none" stroke="#1e3a5f" stroke-width=".8"/><rect x="70" y="0" width="7" height="7" fill="none" stroke="#1e3a5f" stroke-width=".8"/><rect x="80" y="0" width="7" height="7" fill="none" stroke="#1e3a5f" stroke-width=".8"/><rect x="90" y="0" width="7" height="7" fill="none" stroke="#1e3a5f" stroke-width=".8"/>
+        </g>
+        <rect x="150" y="70" width="660" height="330" fill="#0f1b2d" stroke="#1e3a5f" stroke-width="1.4"/>
+        <rect x="150" y="70" width="660" height="28" fill="#15243a"/>
+        <text x="166" y="88" font-family="IBM Plex Mono, Menlo, monospace" font-size="9" fill="#8d9db3">Keelson   Chat   Workflows   Memory   Usage</text>
+        <rect x="170" y="120" width="300" height="14" rx="3" fill="#2a3c56"/>
+        <rect x="170" y="146" width="420" height="14" rx="3" fill="#2a3c56"/>
+        <rect x="170" y="172" width="240" height="14" rx="3" fill="#2a3c56"/>
+        <rect x="420" y="214" width="360" height="54" rx="6" fill="#1a2b44" stroke="#2f6fb0" stroke-width="1"/>
+        <rect x="436" y="228" width="200" height="10" rx="3" fill="#8cc4e8"/>
+        <rect x="436" y="246" width="300" height="10" rx="3" fill="#3f5878"/>
+        <rect x="170" y="330" width="540" height="40" rx="6" fill="#15243a" stroke="#2a3c56"/>
+        <text x="186" y="355" font-family="IBM Plex Mono, Menlo, monospace" font-size="11" fill="#dfe6ef">Ask it again. Same session.</text>
+        <rect x="724" y="330" width="56" height="40" rx="6" fill="#b5803a"/>
+        <text x="737" y="355" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" font-weight="600" fill="#1a1308">Send</text>
+        <text x="166" y="386" font-family="IBM Plex Mono, Menlo, monospace" font-size="8.5" fill="#6d7d94">real footage, cropped to the chat pane, pushed in 1.2x over the send</text>
+        <path d="M780 241 L846 206" fill="none" stroke="#8a5a1f" stroke-width="1.1"/>
+        <circle cx="780" cy="241" r="2.6" fill="#b5803a"/>
+        <text x="850" y="200" font-family="IBM Plex Mono, Menlo, monospace" font-size="9.5" fill="#8a5a1f">same session</text>
+        <text x="850" y="213" font-family="IBM Plex Mono, Menlo, monospace" font-size="8.5" fill="#51607a">next: terminal</text>
+        <rect x="150" y="432" width="660" height="60" fill="#1e3a5f"/>
+        <rect x="150" y="432" width="660" height="2" fill="#b5803a"/>
+        <text x="480" y="468" text-anchor="middle" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="17" fill="#f1f4f8">Ask it in the browser. Then ask it again in the terminal. Same session.</text>
+      </svg>
+    </div>
+    <p class="note">Three forms share this chrome: a plate draws on the sheet, a demo opens the viewport on the sheet, and a cold open can run full-bleed for two seconds before the sheet arrives. Full-bleed throughout stays a legitimate ledger choice for an X-first cut.</p>
+  </section>
+
+  <section>
+    <h2>Bringing the two existing shorts up</h2>
+    <p>Both are re-cut through the rig before any new figure is started. That is the rig's acceptance test: if the manifest and shared compose cannot reproduce two shorts that already exist, they are not ready for twelve more.</p>
+    <div class="tblwrap">
+    <table class="tbl">
+      <thead><tr><th>Short</th><th>Fix</th><th>What stays</th></tr></thead>
+      <tbody>
+        <tr><td><b>FIG. 00</b> What Keelson is</td><td>Re-cut the current eleven-board version, which already opens on lay-the-keel with a spoken "Figure zero". Center the drawing vertically (the upper third is empty on most boards). Lift every label that carries meaning to 18 px or more. Re-time the word highlights from real word times. Lay the Act 0 music bed under the two-second pauses.</td><td>Script and board order (chat before workflows; browser, CLI, and MCP access all covered), Harper, the hull reveal, the closer. The narration content is awaiting Daniel's review and is not changed by this work.</td></tr>
+        <tr><td><b>FIG. 04</b> First workflow (today tagged FIG. 01)</td><td>Promote v2 to final. Re-render the tag card as FIG. 04 and add the sheet card, SHEET 04 · ACT II, over the closer. Close the two gaps (about 3 and 5 seconds) with a line or a tighter cut. Punch into the DAG while it fills. Mask the home paths that show, since a re-capture from the neutral stage path would cost more than it saves. Re-render the FIG tag and captions with the one card renderer, inside the viewport.</td><td>The body footage, the bookends, the spoken sign-off. Closing the gaps takes about three seconds out, so the cut lands near 53 seconds. The narration never speaks the number, so no line is re-rendered.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sequence</h2>
+    <div class="tblwrap">
+    <table class="tbl">
+      <thead><tr><th>Phase</th><th>Delivers</th><th>Done when</th></tr></thead>
+      <tbody>
+        <tr><td><b>1 · The rig</b></td><td>SERIES.md, the manifest and shared compose, the card renderer, word timing, the legibility rig, the publish step, the library under git with the shared tools in its tools/ directory. FIG. 00 and FIG. 04 re-cut through it. In the docs: shorts.json, the <code>&lt;Short&gt;</code> component, the Watch hub, the nav entries, a Video section in STYLE.md. A YouTube channel with the two uploads.</td><td>Both existing shorts play on their docs pages from the rig's output, and a new short needs only a capture and a manifest.</td></tr>
+        <tr><td><b>2 · Acts I to III</b></td><td>FIG. 01 to FIG. 10 less the re-cut FIG. 04, nine shorts, one per sitting, in viewing order so the Watch hub fills from the top, each stopping for review before the next starts. The music beds chosen at FIG. 01. Each lands on its docs pages as it is cut.</td><td>Tutorial stops 1 to 5 each carry a short, the chat, projects, workflows, memory, and usage concept pages each carry one, and the first three acts are public playlists.</td></tr>
+        <tr><td><b>3 · Act IV and codas</b></td><td>FIG. 11 to FIG. 19. The rig wrapped as a Keelson workflow with an approval gate before publish; FIG. 19 films that workflow cutting a short. 9:16 cuts of the three strongest figures.</td><td>The series is public end to end and a short can be cut by running a workflow and approving the result.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="callout"><b>One rule the rig cannot enforce.</b> Every short still starts from a concept and the ledger, and must differ from the last few on at least three columns. The manifest makes the plumbing free so the effort goes into that choice.</div>
+  </section>
+
+  <div class="appendix">
+    <p class="eyebrow">Appendix · reference material</p>
+    <h2>Reference detail</h2>
+
+    <section>
+      <h3>A · The series map, as SERIES.md will carry it</h3>
+      <div class="tblwrap"><table class="tbl compact">
+        <thead><tr><th>Fig</th><th>Title</th><th>Form</th><th>The money shot</th><th>Docs page</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">00</td><td><b>What Keelson is</b></td><td>plate</td><td>Eleven boards resolve into the hull</td><td>concepts/what-keelson-is, concepts/architecture</td><td>cut, 121 s, approved for now</td></tr>
+          <tr><td class="mono">01</td><td><b>First run</b></td><td>mixed</td><td>A cold open on the real chat answer, then boards and terminal takes for doctor, start, and one turn</td><td>tutorials/first-run, guides/installation, guides/operating-the-server</td><td>cut, 101 s, in review</td></tr>
+          <tr><td class="mono">02</td><td><b>Chat three ways</b></td><td>demo</td><td>Browser, terminal, and script share one session id</td><td>tutorials/talk-to-the-agent, concepts/chat</td><td>planned</td></tr>
+          <tr><td class="mono">03</td><td><b>A place to work</b></td><td>demo</td><td>A chat bound to a repo reads it, writes the notebook, and the next chat opens already knowing</td><td>concepts/projects, concepts/memory-and-state#projects-and-notebooks</td><td>planned</td></tr>
+          <tr><td class="mono">04</td><td><b>First workflow</b></td><td>demo</td><td>The DAG lights up node by node in the browser</td><td>tutorials/run-a-workflow, concepts/workflows</td><td>re-cut through the rig, 53 s, in review</td></tr>
+          <tr><td class="mono">05</td><td><b>Write a workflow</b></td><td>demo</td><td>A broken depends_on is caught by validation, fixed, and runs</td><td>tutorials/run-a-workflow, guides/authoring-workflows, reference/workflow-nodes</td><td>planned</td></tr>
+          <tr><td class="mono">06</td><td><b>The approval gate</b></td><td>demo</td><td>A chat shell call asks first; a run pauses on its gate, a human reads the plan, the run resumes</td><td>guides/governance, reference/workflow-nodes</td><td>planned</td></tr>
+          <tr><td class="mono">07</td><td><b>Many models</b></td><td>demo</td><td>One build, each phase on a different model, and a one-line swap</td><td>tutorials/frontend-mix, concepts/providers</td><td>planned</td></tr>
+          <tr><td class="mono">08</td><td><b>Issue to draft PR</b></td><td>demo</td><td>A starter takes an issue to a draft PR in its own worktree; the working tree never changes</td><td>workflows/fix-issue, workflows/index, concepts/projects#worktree-isolation-for-runs</td><td>planned</td></tr>
+          <tr><td class="mono">09</td><td><b>Make it remember</b></td><td>demo</td><td>A fresh session recalls a fact only after the memory is approved</td><td>tutorials/remember-across-sessions, guides/managing-memory, concepts/memory-and-state</td><td>planned</td></tr>
+          <tr><td class="mono">10</td><td><b>Where the tokens went</b></td><td>demo</td><td>The source-to-model ribbon and the cost view, right after the Act II runs</td><td>concepts/usage</td><td>planned</td></tr>
+          <tr><td class="mono">11</td><td><b>The rib model</b></td><td>plate</td><td>A rib bolts onto the keel and three things appear: tools, a workflow, a surface</td><td>concepts/the-rib-model, concepts/snapshots-and-surfaces</td><td>planned</td></tr>
+          <tr><td class="mono">12</td><td><b>Add a capability</b></td><td>demo</td><td>rib add, restart, a new tab is in the browser</td><td>guides/managing-ribs, concepts/snapshots-and-surfaces</td><td>planned</td></tr>
+          <tr><td class="mono">13</td><td><b>Plan the backlog</b></td><td>demo</td><td>Eleven beads with dependencies, the board says what can start now</td><td>tutorials/plan-the-backlog</td><td>planned</td></tr>
+          <tr><td class="mono">14</td><td><b>The software factory</b></td><td>demo</td><td>A swarm drains the board in dependency order with a reviewer on every merge</td><td>tutorials/run-the-factory</td><td>planned</td></tr>
+          <tr><td class="mono">15</td><td><b>Your agent drives it</b></td><td>demo</td><td>Split screen: Claude Code calls Keelson over MCP, the run appears live</td><td>guides/using-mcp</td><td>planned</td></tr>
+          <tr><td class="mono">16</td><td><b>No paid keys</b></td><td>demo</td><td>A gateway points at a local model and a chat answers with no sign-in</td><td>guides/configuration, concepts/providers</td><td>coda</td></tr>
+          <tr><td class="mono">17</td><td><b>Ask for a report</b></td><td>demo</td><td>One chat line, and a designed page opens in the canvas drawer</td><td>guides/canvas-artifacts</td><td>coda</td></tr>
+          <tr><td class="mono">18</td><td><b>Did that change help?</b></td><td>demo</td><td>An eval case set grades two versions and the compare verdict says keep</td><td>guides/evaluating-workflows, workflows/hillclimb</td><td>coda</td></tr>
+          <tr><td class="mono">19</td><td><b>Shorts, by Keelson</b></td><td>demo</td><td>The rig as a workflow pauses at the approval gate with the contact sheet</td><td>workflows/index</td><td>after phase 3</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section>
+      <h3>B · The short manifest</h3>
+      <p>One file per short. Times are relative to capture marks so a re-capture does not move the narration. The composer asserts every line ends before the next starts and refuses to render otherwise.</p>
+<pre class="cond">fig: 02
+slug: chat-three-ways
+title: Chat three ways
+problem: One persisted store backs the browser, the terminal, and a script.
+docs: [tutorials/talk-to-the-agent]
+aspect: "16:9"
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+music: { bed: act-one, duck_db: -12 }
+poster_at: 31.5
+
+scenes:
+  - id: web
+    source: raw/web.mp4
+    marks: source/web-meta.json
+    frame: viewport                      # viewport | full
+    zoom: { at: send, box: [420, 180, 900, 520], over: 1.2 }
+  - id: term
+    source: raw/term.mp4
+    marks: source/term-marks.json
+    frame: viewport
+
+cards:
+  - { kind: figtag, text: "FIG. 02 · CHAT THREE WAYS" }
+  - { kind: callout, scene: web, at: "send + 0.4", text: "same session id", anchor: [780, 241] }
+
+lines:
+  - { id: n1, scene: web,  at: "load + 0.5", text: "Ask it in the browser." }
+  - { id: n2, scene: web,  at: "send - 0.3", text: "Then ask it again in the terminal. Same session." }
+  - { id: n3, scene: term, at: "prompt + 0.2", text: "One store, three doors.",
+      ssml: "One store, three doors. Not three copies of a <sub alias=\"yammel\">YAML</sub> file." }</pre>
+    </section>
+
+    <section>
+      <h3>C · Alternatives not chosen</h3>
+      <div class="tblwrap"><table class="tbl compact">
+        <thead><tr><th>Alternative</th><th>Why not</th></tr></thead>
+        <tbody>
+          <tr><td><b>Self-host the masters</b> on Azure Blob or in the Pages site</td><td>No captions, chapters, or discovery; repo and Pages bandwidth grow with every figure; a second place to keep in sync with YouTube anyway.</td></tr>
+          <tr><td><b>Git LFS</b> for masters in the docs</td><td>GitHub Pages does not serve LFS objects.</td></tr>
+          <tr><td><b>Number figures to match the tutorial rail</b> one to one</td><td>Stop 3 wants two shorts, and projects, governance, and usage have no stop at all; the manifest's docs field carries the mapping without constraining the numbering.</td></tr>
+          <tr><td><b>Open the demos on the first-workflow short</b> as FIG. 01, since it is already cut</td><td>The docs introduce chat before workflows and a new reader has nothing to run a workflow against; the short never speaks its number, so moving it to FIG. 04 costs one tag card.</td></tr>
+          <tr><td><b>Remotion</b> as the compose engine</td><td>It would unify plate and demo rendering in React and replace the ffmpeg filter graph. It also replaces a pipeline two shorts have already proven. Worth revisiting if captions, kinetic text, and overlays outgrow what the manifest composer can express.</td></tr>
+          <tr><td><b>Wrap the pipeline as a Keelson workflow now</b></td><td>Locks the first shape in before the manifest has settled. After Act I, when six more shorts have exercised it.</td></tr>
+          <tr><td><b>Inline autoplaying video</b> on docs pages</td><td>Bandwidth on every page view and a moving element beside the prose. Click-to-play on a poster, and the hub links to pages rather than playing.</td></tr>
+          <tr><td><b>Rely on YouTube captions</b> and burn nothing in</td><td>X viewers watch muted and X has no caption track for native uploads. Burned-in stays; the srt is extra.</td></tr>
+          <tr><td><b>9:16 from the start</b></td><td>Vertical is its own layout, not a crop. After the 16:9 rail exists, for the figures that earn it.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section>
+      <h3>D · Choices this page assumes</h3>
+      <p>Each of these is a call Daniel can flip without changing the rest of the design.</p>
+      <div class="tblwrap"><table class="tbl compact">
+        <thead><tr><th>Assumed</th><th>If flipped</th></tr></thead>
+        <tbody>
+          <tr><td><b>A Keelson YouTube channel</b> under Daniel's account hosts the masters</td><td>Self-hosting is in appendix C; the component would read a file URL instead of an id.</td></tr>
+          <tr><td><b>The library becomes a git repository</b>, private to start</td><td>The docs manifest loses its library commit reference; the shared tools stay in the skill.</td></tr>
+          <tr><td><b>A licensed music bed</b> (a library subscription or one commissioned loop per act)</td><td>Shorts stay dry; the stall problem is solved with tighter cuts and extra lines instead.</td></tr>
+          <tr><td><b>Chat and projects open the demos</b>, then workflows, then memory and usage, then ribs</td><td>Daniel's order; it also matches the concept tier's reading order. The first-workflow short becomes FIG. 04.</td></tr>
+          <tr><td><b>Harper narrates every figure</b> unless a ledger row chooses otherwise</td><td>No design change; the manifest's voice field already allows it.</td></tr>
+          <tr><td><b>Fourteen figures</b> is the first edition</td><td>SERIES.md grows; nothing else cares about the count except the closer's title block.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+1
+00:00:02,400 --> 00:00:05,102
+Figure four. First workflow.
+
+2
+00:00:07,800 --> 00:00:27,732
+In chat, the agent decides what happens next, every turn. That's wrong for work you want done the same way every time. A workflow hands the control flow to a file instead: what runs, in what order, and when. The agent still works inside it, on a leash the file declares.
+
+3
+00:00:28,432 --> 00:00:33,692
+Keelson ships starter workflows. The smoke test runs one of every kind of node.
+
+4
+00:00:35,432 --> 00:00:39,830
+Nine nodes, all green, in a few seconds. Several started at once.
+
+5
+00:00:40,992 --> 00:01:02,268
+Those nodes come in three families. Agent nodes run model turns: a prompt, a named command, a loop. Deterministic nodes, bash and scripts, run code with no model at all. Control nodes pause for a human, or end a branch on purpose. The mix sets how much is judgment, and how much is fact.
+
+6
+00:01:03,494 --> 00:01:07,810
+The browser runs the same workflow, and shows the executor at work.
+
+7
+00:01:09,247 --> 00:01:15,483
+Every node whose dependencies are met starts right away, and the rest start the moment theirs settle.
+
+8
+00:01:16,566 --> 00:01:20,370
+And both runs are still here: the one from the terminal, and this one.
+
+9
+00:01:22,353 --> 00:01:41,693
+Because a run is a record. Keelson stores a row for the run and one per node: its output, its timing, the model it really ran on, and a hash of the exact definition. A failed run resumes from the first unfinished node, without redoing finished work.
+
+10
+00:01:42,293 --> 00:01:45,497
+The file decides. The run remembers.
+
+11
+00:01:48,197 --> 00:01:51,777
+Keelson. Lay the keel, raise the ribs.
+

@@ -1,0 +1,312 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../../tools/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+  :root { --keel:#1e3a5f; --rib:#2f6fb0; --brass:#b5803a; --brass-ink:#8a5a1f; --ink:#0f1b2d; --muted:#51607a; --green:#2f8f5b; }
+  * { margin:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; }
+  body {
+    font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; color: var(--ink);
+    background:
+      linear-gradient(rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(90deg, rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      linear-gradient(90deg, rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      radial-gradient(circle at 74% 0%, rgba(255,255,255,.9), transparent 700px),
+      linear-gradient(180deg, #f3f5f8 0%, #e6eaf0 100%);
+  }
+  .crop { position:absolute; width:26px; height:26px; border:0 solid rgba(30,58,95,.5); }
+  #header { position:absolute; left:128px; right:128px; top:34px; height:44px; display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1.5px solid rgba(30,58,95,.45); font-family:"JetBrains Mono", monospace; font-size:18px; letter-spacing:.2em; color:var(--keel); }
+  #header .left { display:flex; align-items:center; gap:16px; }
+  #boardName { position:relative; width:420px; height:24px; color:var(--muted); }
+  #boardName span { position:absolute; right:0; top:0; opacity:0; white-space:nowrap; }
+  svg text { font-family: Inter, sans-serif; }
+  svg .mono { font-family: "JetBrains Mono", monospace; }
+  .draw { stroke-dasharray:1; stroke-dashoffset:1; }
+</style>
+</head>
+<body>
+<div class="crop" style="left:40px;top:14px;border-left-width:2px;border-top-width:2px"></div>
+<div class="crop" style="right:40px;top:14px;border-right-width:2px;border-top-width:2px"></div>
+<div class="crop" style="left:40px;bottom:14px;border-left-width:2px;border-bottom-width:2px"></div>
+<div class="crop" style="right:40px;bottom:14px;border-right-width:2px;border-bottom-width:2px"></div>
+<div id="header">
+  <div class="left">
+    <svg width="30" height="30" viewBox="0 0 34 34" fill="none"><line x1="11.5" y1="7" x2="11.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="22.5" y1="7" x2="22.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="20" x2="29" y2="20" stroke="#b5803a" stroke-width="2.6" stroke-linecap="round"/></svg>
+    <span><b>KEELSON</b> &nbsp;·&nbsp; FIG. 01 &nbsp;·&nbsp; FIRST RUN</span>
+  </div>
+  <div id="boardName"><span id="bn-home">THE HOME</span><span id="bn-doctor">THE HEALTH CHECK</span><span id="bn-server">THE SERVER</span><span id="bn-path">ONE TURN</span></div>
+</div>
+
+<svg id="stage" viewBox="0 0 1920 1080" width="1920" height="1080" style="position:absolute;inset:0">
+  <defs>
+    <marker id="ah" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#8a5a1f"/></marker>
+    <marker id="ahn" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#1e3a5f"/></marker>
+    <clipPath id="typeClip"><rect id="typeRect" x="190" y="420" width="0" height="90"/></clipPath>
+  </defs>
+
+  <!-- THE HOME -->
+  <g id="home" opacity="0">
+    <rect class="draw" id="h-machine" pathLength="1" x="110" y="140" width="1290" height="720" rx="18" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-dasharray="1"/>
+    <text id="h-machineLbl" x="146" y="186" class="mono" font-size="22" letter-spacing="4" fill="#51607a" opacity="0">YOUR MACHINE</text>
+    <g id="h-term" opacity="0">
+      <rect x="170" y="420" width="470" height="90" rx="10" fill="#0d1429"/>
+      <text x="196" y="474" class="mono" font-size="25" fill="#dfe6f0" clip-path="url(#typeClip)"><tspan fill="#b5803a">$</tspan> curl …/install.sh | sh</text>
+      <text x="405" y="552" text-anchor="middle" class="mono" font-size="20" fill="#51607a" letter-spacing="2">ONE LINE</text>
+    </g>
+    <path id="h-arrow" class="draw" pathLength="1" d="M650,465 L752,465" stroke="#8a5a1f" stroke-width="3" fill="none" marker-end="url(#ah)" opacity="0"/>
+    <path id="h-folder" class="draw" pathLength="1" d="M790,250 L1030,250 L1062,292 L1340,292 L1340,800 L770,800 L770,270 Q770,250 790,250 Z" fill="rgba(255,255,255,.7)" stroke="#1e3a5f" stroke-width="3"/>
+    <text id="h-folderLbl" x="806" y="356" class="mono" font-size="36" font-weight="700" fill="#1e3a5f" opacity="0">~/.keelson</text>
+    <g id="h-row1" opacity="0"><rect x="808" y="418" width="18" height="18" fill="#1e3a5f"/><text x="844" y="436" class="mono" font-size="28" fill="#0f1b2d">keelson</text><text x="1060" y="436" font-size="24" fill="#51607a">the command line</text></g>
+    <g id="h-row2" opacity="0"><rect x="808" y="508" width="18" height="18" fill="#1e3a5f"/><text x="844" y="526" class="mono" font-size="28" fill="#0f1b2d">workflows/</text><text x="1060" y="526" font-size="24" fill="#51607a">starters, ready to run</text></g>
+    <g id="h-row3" opacity="0"><rect x="808" y="598" width="18" height="18" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-dasharray="4 3"/><text x="844" y="616" class="mono" font-size="28" fill="#51607a">keelson.db</text><text x="1060" y="616" font-size="24" font-style="italic" fill="#51607a">after the first start</text></g>
+    <g id="h-row4" opacity="0"><rect x="808" y="688" width="18" height="18" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-dasharray="4 3"/><text x="844" y="706" class="mono" font-size="28" fill="#51607a">ribs/</text><text x="1060" y="706" font-size="24" font-style="italic" fill="#51607a">when you add them</text></g>
+    <g id="h-cloud" opacity="0">
+      <path d="M1540,470 C1490,470 1490,400 1545,398 C1550,340 1630,330 1655,372 C1680,330 1770,340 1765,400 C1820,405 1815,470 1765,470 Z" fill="none" stroke="#51607a" stroke-width="2.5" stroke-dasharray="8 6"/>
+      <line id="h-strike" class="draw" pathLength="1" x1="1515" y1="490" x2="1795" y2="345" stroke="#8a5a1f" stroke-width="4"/>
+      <text x="1655" y="540" text-anchor="middle" class="mono" font-size="22" letter-spacing="3" fill="#8a5a1f">NO HOSTED SERVICE</text>
+    </g>
+    <text id="h-noacct" x="1655" y="580" text-anchor="middle" class="mono" font-size="22" letter-spacing="3" fill="#8a5a1f" opacity="0">NO KEELSON ACCOUNT</text>
+  </g>
+
+  <!-- THE HEALTH CHECK -->
+  <g id="doctor" opacity="0">
+    <g id="d-title" opacity="0">
+      <text x="180" y="214" class="mono" font-size="38" font-weight="700" fill="#1e3a5f">keelson doctor</text>
+      <text x="180" y="256" font-size="25" fill="#51607a">one pass over every category</text>
+    </g>
+    <g id="d-rows"></g>
+    <text id="d-summary" x="180" y="800" class="mono" font-size="27" fill="#0f1b2d" opacity="0">20 ok · <tspan fill="#8a5a1f" font-weight="700">2 warn</tspan> · 0 fail · 1 skip</text>
+    <text id="d-hint1" x="1040" y="398" class="mono" font-size="23" fill="#8a5a1f" opacity="0">hint: run keelson start</text>
+    <text id="d-hint2" x="1040" y="462" class="mono" font-size="23" fill="#8a5a1f" opacity="0">hint: start creates it</text>
+    <path id="d-arr1" class="draw" pathLength="1" d="M1380,390 C1440,390 1450,425 1500,425" stroke="#8a5a1f" stroke-width="3" fill="none" marker-end="url(#ah)" opacity="0"/>
+    <path id="d-arr2" class="draw" pathLength="1" d="M1350,455 C1430,455 1450,430 1500,430" stroke="#8a5a1f" stroke-width="3" fill="none" marker-end="url(#ah)" opacity="0"/>
+    <g id="d-fix" opacity="0">
+      <rect x="1512" y="392" width="300" height="72" rx="36" fill="#fff" stroke="#b5803a" stroke-width="3"/>
+      <text x="1662" y="438" text-anchor="middle" class="mono" font-size="28" font-weight="700" fill="#8a5a1f">keelson start</text>
+    </g>
+  </g>
+
+  <!-- THE SERVER -->
+  <g id="server" opacity="0">
+    <rect class="draw" id="s-machine" pathLength="1" x="110" y="140" width="1700" height="720" rx="18" fill="none" stroke="#1e3a5f" stroke-width="2"/>
+    <text id="s-machineLbl" x="146" y="186" class="mono" font-size="22" letter-spacing="4" fill="#51607a" opacity="0">YOUR MACHINE</text>
+    <g id="s-cmd" opacity="0">
+      <rect x="810" y="196" width="300" height="64" rx="32" fill="#fff" stroke="#b5803a" stroke-width="3"/>
+      <text x="960" y="238" text-anchor="middle" class="mono" font-size="26" font-weight="700" fill="#8a5a1f">keelson start</text>
+    </g>
+    <path id="s-cmdLine" class="draw" pathLength="1" d="M960,262 L960,402" stroke="#8a5a1f" stroke-width="3" fill="none" marker-end="url(#ah)" opacity="0"/>
+    <g id="s-links" stroke="#1e3a5f" stroke-width="2.5" fill="none">
+      <path id="s-l1" class="draw" pathLength="1" d="M760,450 L600,330"/>
+      <path id="s-l2" class="draw" pathLength="1" d="M760,540 L600,690"/>
+      <path id="s-l3" class="draw" pathLength="1" d="M1160,450 L1320,330"/>
+      <path id="s-l4" class="draw" pathLength="1" d="M1160,540 L1320,690"/>
+    </g>
+    <g id="s-box" opacity="0">
+      <rect x="760" y="410" width="400" height="160" rx="12" fill="#fff" stroke="#1e3a5f" stroke-width="3.5"/>
+      <text x="960" y="478" text-anchor="middle" font-size="36" font-weight="600" fill="#0f1b2d">keelson server</text>
+      <text id="s-port" x="960" y="526" text-anchor="middle" class="mono" font-size="24" fill="#51607a">127.0.0.1 · one port</text>
+    </g>
+    <g id="s-store" opacity="0">
+      <rect x="250" y="250" width="350" height="140" rx="10" fill="#fff" stroke="#1e3a5f" stroke-width="2.5"/>
+      <ellipse cx="310" cy="294" rx="28" ry="9" fill="none" stroke="#2f6fb0" stroke-width="2.5"/><path d="M282,294 L282,338 A28,9 0 0 0 338,338 L338,294" fill="none" stroke="#2f6fb0" stroke-width="2.5"/>
+      <text x="360" y="312" font-size="30" font-weight="600" fill="#0f1b2d">the store</text>
+      <text x="360" y="350" font-size="22" fill="#51607a">chats, runs, memory</text>
+    </g>
+    <g id="s-agents" opacity="0">
+      <rect x="250" y="620" width="350" height="150" rx="10" fill="#fff" stroke="#1e3a5f" stroke-width="2.5"/>
+      <text x="278" y="670" font-size="30" font-weight="600" fill="#0f1b2d">the agents</text>
+      <text x="278" y="712" class="mono" font-size="21" fill="#51607a">Copilot · Claude</text>
+      <text x="278" y="744" class="mono" font-size="21" fill="#51607a">Codex · Pi</text>
+    </g>
+    <g id="s-browser" opacity="0">
+      <rect x="1320" y="250" width="350" height="140" rx="10" fill="#fff" stroke="#1e3a5f" stroke-width="2.5"/>
+      <line x1="1320" y1="286" x2="1670" y2="286" stroke="#1e3a5f" stroke-width="1.5"/>
+      <circle cx="1340" cy="268" r="5" fill="#b5803a"/><circle cx="1358" cy="268" r="5" fill="#51607a"/>
+      <text x="1344" y="334" font-size="30" font-weight="600" fill="#0f1b2d">the browser app</text>
+      <text x="1344" y="370" font-size="22" fill="#51607a">chat, workflows, memory</text>
+    </g>
+    <g id="s-mcp" opacity="0">
+      <rect x="1320" y="620" width="350" height="150" rx="10" fill="#fff" stroke="#1e3a5f" stroke-width="2.5"/>
+      <text x="1348" y="672" font-size="30" font-weight="600" fill="#0f1b2d">MCP endpoint</text>
+      <text x="1348" y="712" font-size="22" fill="#51607a">so other agents</text>
+      <text x="1348" y="744" font-size="22" fill="#51607a">can call it</text>
+    </g>
+  </g>
+
+  <!-- ONE TURN -->
+  <g id="path" opacity="0">
+    <g id="p-scene">
+      <rect class="draw" id="p-machine" pathLength="1" x="110" y="140" width="1290" height="720" rx="18" fill="none" stroke="#1e3a5f" stroke-width="2"/>
+      <text id="p-machineLbl" x="146" y="186" class="mono" font-size="22" letter-spacing="4" fill="#51607a" opacity="0">YOUR MACHINE</text>
+      <g id="p-cli" opacity="0">
+        <rect x="170" y="420" width="380" height="90" rx="10" fill="#0d1429"/>
+        <text x="196" y="474" class="mono" font-size="26" fill="#dfe6f0"><tspan fill="#b5803a">$</tspan> keelson chat</text>
+      </g>
+      <g id="p-srv" opacity="0">
+        <rect x="660" y="400" width="360" height="130" rx="12" fill="#fff" stroke="#1e3a5f" stroke-width="3.5"/>
+        <text x="840" y="474" text-anchor="middle" font-size="34" font-weight="600" fill="#0f1b2d">keelson server</text>
+      </g>
+      <g id="p-cloud" opacity="0">
+        <path d="M1560,520 C1500,520 1500,440 1565,438 C1572,370 1665,360 1690,410 C1720,360 1820,372 1812,440 C1872,446 1866,520 1810,520 Z" fill="#fff" stroke="#1e3a5f" stroke-width="2.5"/>
+        <text x="1686" y="490" text-anchor="middle" font-size="32" font-weight="600" fill="#0f1b2d">Copilot</text>
+        <text x="1686" y="566" text-anchor="middle" class="mono" font-size="20" letter-spacing="2" fill="#51607a">THE AGENT</text>
+      </g>
+      <g stroke="#51607a" stroke-width="2" stroke-dasharray="6 6" fill="none">
+        <path id="p-t1" opacity="0" d="M552,465 L658,465"/>
+        <path id="p-t2" opacity="0" d="M1022,465 L1500,465"/>
+        <path id="p-t3" opacity="0" d="M840,532 L840,640"/>
+        <path id="p-t4" opacity="0" d="M1000,690 C1140,690 1190,560 1190,382"/>
+      </g>
+      <circle id="p-dot" cx="552" cy="465" r="13" fill="#b5803a" opacity="0"/>
+      <g id="p-answer" opacity="0">
+        <rect x="170" y="540" width="420" height="112" rx="10" fill="#fff" stroke="#2f8f5b" stroke-width="2.5"/>
+        <text x="192" y="584" font-size="22" fill="#0f1b2d">Keelson is a local agent</text>
+        <text x="192" y="618" font-size="22" fill="#0f1b2d">workbench that makes work…</text>
+      </g>
+      <g id="p-store" opacity="0">
+        <ellipse cx="840" cy="660" rx="80" ry="20" fill="#fff" stroke="#2f6fb0" stroke-width="2.5"/>
+        <path d="M760,660 L760,760 A80,20 0 0 0 920,760 L920,660" fill="#fff" stroke="#2f6fb0" stroke-width="2.5"/>
+        <ellipse cx="840" cy="660" rx="80" ry="20" fill="none" stroke="#2f6fb0" stroke-width="2.5"/>
+        <text x="840" y="818" text-anchor="middle" class="mono" font-size="21" letter-spacing="2" fill="#51607a">THE STORE</text>
+      </g>
+      <g id="p-saved" opacity="0"><rect x="790" y="704" width="100" height="22" rx="4" fill="#2f8f5b"/><text x="840" y="721" text-anchor="middle" class="mono" font-size="16" fill="#fff">1 turn</text></g>
+      <g id="p-browser" opacity="0">
+        <rect x="1060" y="200" width="300" height="180" rx="10" fill="#fff" stroke="#1e3a5f" stroke-width="2.5"/>
+        <line x1="1060" y1="234" x2="1360" y2="234" stroke="#1e3a5f" stroke-width="1.5"/>
+        <circle cx="1080" cy="217" r="5" fill="#b5803a"/><circle cx="1098" cy="217" r="5" fill="#51607a"/>
+        <rect x="1180" y="252" width="160" height="34" rx="8" fill="#dfe6f0"/>
+        <rect x="1080" y="300" width="230" height="58" rx="8" fill="#e8f3ec" stroke="#2f8f5b" stroke-width="1.5"/>
+        <text x="1210" y="414" text-anchor="middle" class="mono" font-size="20" letter-spacing="2" fill="#51607a">SAME CONVERSATION</text>
+      </g>
+    </g>
+    <g id="p-recap" opacity="0">
+      <rect x="400" y="300" width="1120" height="340" fill="rgba(243,245,248,.95)" stroke="#1e3a5f" stroke-width="2"/>
+      <text id="p-r1" x="960" y="402" text-anchor="middle" font-size="54" font-weight="300" letter-spacing="9" fill="#1e3a5f" opacity="0">ONE FOLDER</text>
+      <text id="p-r2" x="960" y="488" text-anchor="middle" font-size="54" font-weight="300" letter-spacing="9" fill="#1e3a5f" opacity="0">ONE SERVER</text>
+      <text id="p-r3" x="960" y="574" text-anchor="middle" font-size="34" font-weight="400" letter-spacing="4" fill="#8a5a1f" opacity="0">A DOCTOR THAT NAMES THE NEXT MOVE</text>
+    </g>
+  </g>
+</svg>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+const norm = (w) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+window.setup = (T, words) => {
+  const tl = gsap.timeline({ paused: true });
+  window.tl = tl;
+  const lineAt = {};
+  for (const b of Object.values(T)) for (const [id, l] of Object.entries(b.lines)) lineAt[id] = l.n;
+  // Time a phrase is spoken: the k-th occurrence of its word sequence in the line, on the plate clock.
+  const W = (id, phrase, k = 0) => {
+    const ws = words[id], want = phrase.split(/\s+/).map(norm);
+    for (let i = 0, hit = 0; i < ws.length; i++) {
+      if (want.every((w, j) => ws[i + j] && norm(ws[i + j][0]) === w) && hit++ === k) return lineAt[id] + ws[i][1];
+    }
+    throw new Error(`phrase "${phrase}" not in ${id}`);
+  };
+  const show = (e, at, d = 0.4) => tl.to(e, { opacity: 1, duration: d }, at);
+  const draw = (e, at, d = 0.8) => { tl.set(e, { opacity: 1 }, at); tl.to(e, { strokeDashoffset: 0, duration: d, ease: "power1.inOut" }, at); };
+  const board = (id) => {
+    tl.set($(id), { opacity: 1 }, T[id].s);
+    tl.set($(id), { opacity: 0 }, T[id].e);
+    tl.set($(`bn-${id}`), { opacity: 1 }, T[id].s);
+    tl.set($(`bn-${id}`), { opacity: 0 }, T[id].e);
+  };
+  for (const id of Object.keys(T)) board(id);
+
+  // THE HOME
+  { const s = T.home.s;
+    draw($("h-machine"), s + 0.05, 1.0); show($("h-machineLbl"), s + 0.4);
+    const t1 = W("n1", "One line");
+    show($("h-term"), t1 - 0.2, 0.3); tl.to($("typeRect"), { attr: { width: 440 }, duration: 1.0, ease: "none" }, t1);
+    draw($("h-arrow"), W("n1", "installs"), 0.5);
+    draw($("h-folder"), W("n1", "into a single") , 1.0); show($("h-folderLbl"), W("n1", "folder"));
+    show($("h-row1"), W("n1", "command line") - 0.1);
+    show($("h-row2"), W("n1", "workflows") - 0.1);
+    show($("h-row3"), W("n1", "database") - 0.1);
+    show($("h-row4"), W("n1", "ribs") - 0.1);
+    const nh = W("n1", "No hosted");
+    show($("h-cloud"), nh - 0.1, 0.3); draw($("h-strike"), nh + 0.3, 0.4);
+    show($("h-noacct"), W("n1", "Keelson account") - 0.2);
+  }
+
+  // THE HEALTH CHECK
+  { const s = T.doctor.s, rows = $("d-rows");
+    const cats = [["toolchain", "ok"], ["server", "warn"], ["db", "warn"], ["auth", "ok"], ["workflows", "ok"], ["providers", "ok"], ["ribs", "skip"]];
+    show($("d-title"), s + 0.1);
+    const warnBg = [];
+    cats.forEach(([name, st], i) => {
+      const y = 326 + i * 64, g = el("g", { opacity: 0 }, rows);
+      const bg = el("rect", { x: 170, y: y - 30, width: 840, height: 52, rx: 6, fill: "#f6ead8", opacity: 0 }, g);
+      if (st === "warn") warnBg.push(bg);
+      el("text", { x: 196, y: y + 7, class: "mono", "font-size": 28, fill: "#0f1b2d" }, g, name);
+      const c = { ok: ["#2f8f5b", "#e8f3ec"], warn: ["#8a5a1f", "#fff"], skip: ["#51607a", "#fff"] }[st];
+      el("rect", { x: 860, y: y - 20, width: 120, height: 38, rx: 19, fill: c[1], stroke: c[0], "stroke-width": 2 }, g);
+      el("text", { x: 920, y: y + 7, "text-anchor": "middle", class: "mono", "font-size": 22, "font-weight": 700, fill: c[0] }, g, st);
+      show(g, s + 0.35 + i * 0.12, 0.25);
+    });
+    show($("d-summary"), s + 1.3);
+    const tw = W("n3", "Two warnings");
+    warnBg.forEach((bg) => show(bg, tw, 0.3));
+    show($("d-hint1"), W("n3", "no server") - 0.1);
+    show($("d-hint2"), W("n3", "no database") - 0.1);
+    const ew = W("n3", "Each warning");
+    tl.to([$("d-hint1"), $("d-hint2")], { opacity: 0.35, duration: 0.25, yoyo: true, repeat: 1 }, ew);
+    const st = W("n3", "start the server");
+    draw($("d-arr1"), st - 0.3, 0.5); draw($("d-arr2"), st - 0.3, 0.5); show($("d-fix"), st + 0.1, 0.35);
+  }
+
+  // THE SERVER
+  { const s = T.server.s;
+    draw($("s-machine"), s + 0.05, 1.0); show($("s-machineLbl"), s + 0.4);
+    show($("s-cmd"), W("n4", "That one command") - 0.1);
+    const srv = W("n4", "single local server");
+    draw($("s-cmdLine"), srv - 0.4, 0.4); show($("s-box"), srv);
+    draw($("s-l1"), W("n4", "the store") - 0.2, 0.4); show($("s-store"), W("n4", "store"));
+    draw($("s-l2"), W("n4", "the agents") - 0.2, 0.4); show($("s-agents"), W("n4", "agents"));
+    draw($("s-l3"), W("n4", "the browser") - 0.2, 0.4); show($("s-browser"), W("n4", "browser app"));
+    draw($("s-l4"), W("n4", "an endpoint") - 0.2, 0.4); show($("s-mcp"), W("n4", "endpoint"));
+    const port = W("n4", "one port");
+    tl.to($("s-port"), { fill: "#8a5a1f", duration: 0.3 }, port);
+    tl.to($("s-links"), { attr: { stroke: "#b5803a" }, duration: 0.3, yoyo: true, repeat: 1 }, port);
+  }
+
+  // ONE TURN
+  { const s = T.path.s, dot = $("p-dot");
+    draw($("p-machine"), s + 0.05, 0.9); show($("p-machineLbl"), s + 0.3);
+    show($("p-cli"), s + 0.2); show($("p-srv"), s + 0.4); show($("p-cloud"), s + 0.6); show($("p-store"), s + 0.8);
+    ["p-t1", "p-t2", "p-t3", "p-t4"].forEach((id, i) => show($(id), s + 0.3 + i * 0.15, 0.4));
+    const toSrv = W("n8", "to the server");
+    tl.set(dot, { opacity: 1, attr: { cx: 552, cy: 465 } }, toSrv - 0.6);
+    tl.to(dot, { attr: { cx: 840 }, duration: 0.6, ease: "power1.inOut" }, toSrv - 0.5);
+    const out = W("n8", "out to");
+    tl.to(dot, { attr: { cx: 1560 }, duration: 0.8, ease: "power1.inOut" }, out);
+    const back = W("n8", "and back");
+    tl.to(dot, { attr: { cx: 552 }, duration: 1.1, ease: "power1.inOut" }, back - 0.1);
+    show($("p-answer"), back + 0.9, 0.3);
+    const saved = W("n8", "saved locally");
+    tl.set(dot, { attr: { cx: 840, cy: 465 } }, saved - 0.6);
+    tl.to(dot, { attr: { cy: 700 }, duration: 0.6, ease: "power1.in" }, saved - 0.5);
+    tl.to(dot, { opacity: 0, duration: 0.2 }, saved + 0.1);
+    show($("p-saved"), saved + 0.1, 0.3);
+    const br = W("n8", "browser already");
+    show($("p-browser"), br - 0.1);
+    tl.to($("p-t4"), { attr: { stroke: "#2f8f5b", "stroke-width": 3 }, duration: 0.3 }, br - 0.1);
+    tl.to($("p-scene"), { opacity: 0.18, duration: 0.6 }, W("n9", "That's a first run"));
+    show($("p-recap"), W("n9", "That's a first run"), 0.6);
+    show($("p-r1"), W("n9", "One folder") - 0.1);
+    show($("p-r2"), W("n9", "one server") - 0.1);
+    show($("p-r3"), W("n9", "a doctor") - 0.1);
+  }
+  return tl.duration();
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+[
+ {"scene":"intro","id":"n1","text":"This is Keelson. An agent harness that runs on your own machine."},
+ {"scene":"term","id":"n2","text":"Start the server with keelson start."},
+ {"scene":"term","id":"n3","text":"Now run a workflow. The smoke test exercises every node type. Prompts, commands, loops, bash, and scripts, wired together as a DAG."},
+ {"scene":"term","id":"n4","text":"Nine nodes, a few seconds, all green."},
+ {"scene":"web","id":"n5","text":"Every workflow is also in the browser. Find the smoke test, and hit Run."},
+ {"scene":"web","id":"n6","text":"The graph lights up as each node finishes. You can see which model answered, how long it took, and the output."},
+ {"scene":"web","id":"n7","text":"And it's all stored locally, so nothing is lost when you close the tab."},
+ {"scene":"outro","id":"n8","text":"Keelson. Install it with one line, and run your first workflow."}
+]

@@ -1,0 +1,96 @@
+fig: "01"
+slug: first-run
+title: First run
+act: I
+problem: What does Keelson put on your machine, how do you know it is healthy, and what happens when you talk to it?
+docs: [tutorials/first-run, guides/installation, guides/operating-the-server]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: home, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: doctor, lines: [n3], lead: 0.4, tail: 1.2 }
+    - { id: server, lines: [n4], lead: 0.4, tail: 1.2 }
+    - { id: path, lines: [n8, n9], lead: 0.4, gap: 0.7, tail: 1.6 }
+
+scenes:
+  - id: b-home
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [home, home.end]
+    xfade: 0.8
+  - id: doctor-before
+    source: raw/doctor-before.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { enter: 1.87, output: 3.36 }
+    trim: [0.3, end]
+    zoom:
+      - { at: -1, until: output - 0.1, over: 0.5, box: [0, 0, 1100, 619] }
+      - { at: output + 0.6, until: 99, over: 1.0, box: [0, 500, 1040, 585] }
+  - id: b-doctor
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [doctor, doctor.end]
+  - id: b-server
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [server, server.end]
+  - id: start
+    source: raw/start-doctor.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { enter: 1.82, started: 2.24 }
+    trim: [0.3, 4.1]
+    zoom:
+      - { at: -1, until: 99, over: 0.5, box: [0, 0, 1000, 562] }
+  - id: doctor-after
+    source: raw/start-doctor.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { enter: 6.7, output: 8.04 }
+    trim: [6.1, output + 4.3]
+    zoom:
+      - { at: -1, until: output - 0.2, over: 0.5, box: [0, 0, 1000, 562] }
+      - { at: output + 0.4, until: 99, over: 1.0, box: [0, 420, 1040, 585] }
+  - id: chat-ask
+    source: raw/chat.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { enter: 3.7, answer: 13.52 }
+    trim: [0.9, enter + 3.2]
+  - id: chat-answer
+    source: raw/chat.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { enter: 3.7, answer: 13.52 }
+    trim: [answer - 0.6, answer + 2.9]
+    xfade: 0.3
+  - id: b-path
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [path, path.end]
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure one. First run." }
+  - { id: n1, scene: b-home, at: n1, text: "One line installs Keelson into a single folder on your machine. The command line and your workflows live there now, and your database and ribs will too. No hosted service, and no Keelson account." }
+  - { id: n2, scene: doctor-before, at: enter - 0.9, text: "So, is it healthy? Keelson doctor checks the toolchain, the store, your credentials, and your workflows, in one pass." }
+  - { id: n3, scene: b-doctor, at: n3, text: "Two warnings, and both are expected. There's no server yet, and no database. Each warning names its own fix, and here it's the same one: start the server." }
+  - { id: n4, scene: b-server, at: n4, text: "That one command is the heart of it. It runs a single local server that owns the store, the agents, the browser app, and an endpoint other agents can call, all on one port." }
+  - { id: n5, scene: start, at: enter - 0.4, text: "Start the server, then ask again." }
+  - { id: n6, scene: doctor-after, at: output + 0.3, text: "Zero warnings. Zero failures." }
+  - { id: n7, scene: chat-ask, at: enter - 2.3, text: "Copilot is the default agent, so once you're signed in to it, send one real message.",
+      ssml: "Co Pilot is the default agent, so once you're signed in to it, send one real message." }
+  - { id: n8, scene: b-path, at: n8, text: "That question went from the command line to the server, out to Copilot, and back. And the turn was saved locally, so the browser already shows the same conversation.",
+      ssml: "That question went from the command line to the server, out to Co Pilot, and back. And the turn was saved locally, so the browser already shows the same conversation." }
+  - { id: n9, scene: b-path, at: n9, text: "That's a first run. One folder, one server, and a doctor that tells you what to do next." }
+  - { id: n10, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

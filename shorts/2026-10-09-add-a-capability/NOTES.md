@@ -1,0 +1,9 @@
+# add-a-capability (FIG. 12)
+
+**Concept (what, why, how):** what: installing a rib adds a capability to Keelson without changing Keelson. Why: a capability should be a dependency you add and remove, not a fork or integration project. How: `keelson rib add <github url>` lets bun install the package into Keelson's home pinned to a release; a restart discovers, validates and registers it; its tools land in the shared registry (chat uses them at once) and its snapshots render as live boards in a new tab, the rib supplying only data and declarations.
+
+**Structure:** before and after on one repo. The lay-the-keel opener with "Figure twelve. Add a capability.", a board of harbor's beads backlog beside a Keelson that knows nothing about it (19 tools, no beads), `rib list` empty, `rib add` the beads rib, `keelson restart`, `rib show beads` (15 tools, 4 views), a board of the snapshot path (rib to `rib:beads:*` keys to live boards; never pixels, ports or the database), the new Beads tab already showing harbor's tracker and next-up bead, a chat that calls `beads_projects` and `beads_ready` and names the two ready items, then a why board and "A capability is a dependency." Closer with SHEET 12 · ACT IV.
+
+**Capture:** the isolated stage `/Users/Shared/keelson-demo` (port 7979). harbor got a bd tracker (`bd init`, four beads with two dependencies) seeded from `source/harbor-graph.json`. The public npm registry is unreachable from this machine, so for the install take the demo home's `.npmrc` pointed at Daniel's usual feed and was restored right after (the take shows only bun's output). Conversations were cleared before the chat take. Terminal `source/add.tape`; browser `source/rec.mjs` (modes tab and chat).
+
+**Weak:** 112 s. The bead rows show the git author name `daniel.scholl`. The add output prints the release tarball URLs.

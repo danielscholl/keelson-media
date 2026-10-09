@@ -1,0 +1,134 @@
+fig: "02"
+slug: chat-three-ways
+title: Chat three ways
+act: I
+problem: If you can talk to the agent from the browser, a terminal, and a script, where does the conversation actually live?
+docs: [tutorials/talk-to-the-agent, concepts/chat]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: doors, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: store, lines: [n4], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n11, n12], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - id: b-doors
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [doors, doors.end]
+    xfade: 0.8
+  - id: script-ask
+    source: raw/script.mp4
+    frame: viewport
+    label: SCRIPT
+    marks: { typed: 5.1, enter: 5.7 }
+    trim: [0.3, enter + 0.5]
+  - id: script-out
+    source: raw/script.mp4
+    frame: viewport
+    label: SCRIPT
+    xfade: 0.3
+    marks: { back: 9.7, jq: 10.5, output: 13.9 }
+    trim: [back - 0.2, output + 4.0]
+    zoom:
+      - { at: output + 0.4, until: 99, over: 1.0, box: [20, 50, 1300, 720] }
+  - id: b-store
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [store, store.end]
+  - id: web-open
+    source: raw/web-ask.mp4
+    frame: viewport
+    label: BROWSER
+    marks: { open: 2.65, shown: 4.48, type: 5.54 }
+    trim: [0.6, type - 0.3]
+    hold: 4.0
+    zoom:
+      - { at: -1, until: shown - 0.3, over: 0.8, box: [0, 100, 1200, 675] }
+      - { at: shown - 0.3, until: 99, over: 1.0, box: [400, 90, 1430, 804] }
+  - id: web-ask
+    source: raw/web-ask.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: { type: 5.54, send: 7.26 }
+    trim: [type - 0.5, send + 1.3]
+    zoom:
+      - { at: -1, until: 99, over: 0.5, box: [400, 250, 1460, 821] }
+  - id: web-answer
+    source: raw/web-ask.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: { answer: 11.0 }
+    trim: [answer - 0.4, end]
+    hold: 0.8
+    zoom:
+      - { at: -1, until: 99, over: 0.5, box: [400, 250, 1460, 821] }
+  - id: tui-ask
+    source: raw/tui.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { enter: 5.2, card: 5.4 }
+    trim: [0.3, card + 1.6]
+    masks: [{ box: [262, 768, 270, 52], color: "0x0d1429" }]
+    zoom:
+      - { at: -1, until: 99, over: 0.5, box: [0, 30, 1700, 956] }
+  - id: tui-type
+    source: raw/tui.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { typing: 8.6, typed: 10.9, send: 11.4 }
+    trim: [typing - 0.4, send + 0.8]
+    masks: [{ box: [262, 768, 270, 52], color: "0x0d1429" }]
+    zoom:
+      - { at: -1, until: 99, over: 0.5, box: [0, 30, 1700, 956] }
+  - id: tui-answer
+    source: raw/tui.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { send: 11.4, answer: 16.2 }
+    trim: [answer - 0.5, answer + 4.8]
+    masks: [{ box: [262, 768, 270, 52], color: "0x0d1429" }]
+    zoom:
+      - { at: -1, until: answer + 0.4, over: 0.5, box: [0, 30, 1700, 956] }
+      - { at: answer + 0.4, until: 99, over: 0.9, box: [0, 415, 1100, 619] }
+  - id: web-reload
+    source: raw/web-reload.mp4
+    frame: viewport
+    label: BROWSER
+    marks: { open: 2.66, shown: 4.48, scroll: 5.42 }
+    trim: [1.2, scroll + 3.0]
+    zoom:
+      - { at: scroll - 0.2, until: 99, over: 0.8, box: [400, 120, 1460, 821] }
+  - id: b-why
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [why, why.end]
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure two. Chat three ways." }
+  - { id: n1, scene: b-doors, at: n1, text: "In many agent tools, a conversation belongs to the window you typed it in. Keelson gives you three ways in: the browser, an interactive terminal, and a one-line command you can script. All three reach the same conversation." }
+  - { id: n2, scene: script-ask, at: 0.6, text: "Start with the script. Ask for a codename, and add dash dash json." }
+  - { id: n3, scene: script-out, at: jq + 0.2, text: "One envelope comes back. Its mode says the server ran it, and the conversation ID is the row it wrote." }
+  - { id: n4, scene: b-store, at: n4, text: "Here's how. None of the three is the app. Each is a client of one local server, which runs the turn with Copilot and writes the conversation, every message, and the agent's session to SQLite. So the next turn picks up the same thread, whichever way it comes in.",
+      ssml: "Here's how. None of the three is the app. Each is a client of one local server, which runs the turn with Co Pilot and writes the conversation, every message, and the agent's session to SQLite. So the next turn picks up the same thread, whichever way it comes in." }
+  - { id: n5, scene: web-open, at: open - 1.7, text: "So open the browser. The scripted turn is already here. It never lived in the terminal. It lived in the store." }
+  - { id: n6, scene: web-ask, at: type - 0.3, text: "Ask why that name, and the agent answers from the same thread." }
+  - { id: n7, scene: tui-ask, at: 0.5, text: "Now the terminal. Hand the interactive chat that same ID, straight from the envelope." }
+  - { id: n8, scene: tui-type, at: typing, text: "Ask for a tagline." }
+  - { id: n9, scene: tui-answer, at: answer - 0.1, text: "Breakwater again. The agent never lost the thread." }
+  - { id: n10, scene: web-reload, at: shown - 2.0, text: "And back in the browser, all three turns sit in one conversation." }
+  - { id: n11, scene: b-why, at: n11, text: "Why three? Each is good at something. The browser is for reading and exploring. The terminal keeps you in the shell, and can switch models mid-session. And the script makes a chat a building block, with JSON to pipe and an exit code to branch on." }
+  - { id: n12, scene: b-why, at: n12, text: "Three ways in, one store behind them. Everything after this builds on that store." }
+  - { id: n13, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

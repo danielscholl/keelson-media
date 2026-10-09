@@ -1,0 +1,3 @@
+model: sora-2, 4s, 1280x720
+
+Macro dolly shot across a drafting table. A blueprint of a Basque fishing boat hull in deep navy ink lies flat on pale grid paper, with brass dividers and a mechanical pencil beside it. As the camera glides, the drawing lifts off the paper into a translucent three-dimensional wireframe of the hull: first the keel beam glows navy, then warm brass ribs rise from it and curve into the shape of the hull, frame by frame. Behind, through a window, the harbor of San Sebastián is a soft out-of-focus wash of blue water and morning light. Clean, precise, quietly magical. Palette of navy, brass and off-white. No text, no letters, no logos.

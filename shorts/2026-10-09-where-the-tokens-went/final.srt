@@ -1,0 +1,48 @@
+1
+00:00:02,400 --> 00:00:05,438
+Figure ten. Where the tokens went.
+
+2
+00:00:07,800 --> 00:00:28,916
+Chat and workflows tell you what an agent did. Usage tells you what each turn consumed. Every turn that spends tokens, from a chat, a workflow node, or a rib, writes one row to a single ledger: the provider, the model that actually served it, input, output, and cache, and the run or conversation it came from.
+
+3
+00:00:30,416 --> 00:00:40,588
+This is everything the series so far has run on this machine. Three million tokens, seventy eight agent turns, about two dollars, and two thirds of the input served from cache.
+
+4
+00:00:40,658 --> 00:00:48,142
+The flow traces each source to the models it drove. By tokens, GPT-6 Luna carried the most.
+
+5
+00:00:48,615 --> 00:00:54,579
+Switch to cost, and the picture flips. Opus did a fraction of the work, and most of the spending.
+
+6
+00:00:55,159 --> 00:01:14,771
+That cost isn't a bill. It's an estimate, worked out when you look: each row's tokens times the per million rates of the model that served it, from your provider's catalog or a price you set. Change a price and history reprices. A model with no price reads unpriced, never free.
+
+7
+00:01:16,071 --> 00:01:24,387
+The model roster puts a price card under each model: cache read, input, cache write, and output.
+
+8
+00:01:24,637 --> 00:01:31,769
+Jobs rank each workflow by what a run costs. The issue to PR run from figure eight came to about a dollar.
+
+9
+00:01:32,203 --> 00:01:36,439
+And the ledger is the raw rows underneath it all, one per turn.
+
+10
+00:01:39,370 --> 00:01:52,198
+Usage watches. It never stops a turn; the budget gate is what says no. But when you ask which model is worth it, or which workflow got expensive, the answer is a row you can read.
+
+11
+00:01:52,798 --> 00:01:54,914
+Every turn, one row.
+
+12
+00:01:57,614 --> 00:02:00,730
+Keelson. Lay the keel, raise the ribs.
+

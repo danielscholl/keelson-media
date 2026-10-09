@@ -1,0 +1,62 @@
+{
+ "n0": [
+  "Figure thirteen. Plan the backlog.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "One plan and one order suits an experiment. It isn't how a team builds software. A team keeps a backlog of small units of work, knows which ones wait on which, and starts whatever's ready. Two people can take two ready units at once, and nobody builds the detail page before the API it calls.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "This sample repo carries a whole app build, Cosmos, as data. Clone it, and start a beads tracker inside it.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "One command files the whole plan in a single transaction: eleven beads, each with acceptance criteria, and every dependency between them.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "And the tracker says exactly one can start. Register the repo as a project, so Keelson can see it.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "That ratio is the graph doing its job. Until the scaffold lands, nothing else can safely start. When it does, three beads open up and can be built side by side. Then the API, the visuals, and the store, and finally the two views, a polish pass, and an end to end test. Ready means every bead it waits on is closed.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "The Beads tab picks up the new tracker. Next up is the scaffold, ranked by how much it unlocks: three beads now, seven more behind them.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "Ask chat what can start, and it answers from the tracker's own tools, not by reading your files.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7b": [
+  "One bead now, three right behind it, and the chain after that.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "Nothing has been built, and no model planned it. The plan is data you can read, edit, and seed again. That's the point: once the work is a graph, agents can work it the way a team would.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "Plan the graph. Let the graph say what's next.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

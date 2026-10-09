@@ -1,0 +1,101 @@
+fig: "09"
+slug: make-it-remember
+title: Make it remember
+act: III
+problem: How does a fresh session learn what an earlier run found, without an unattended run teaching it something wrong?
+docs: [tutorials/remember-across-sessions, guides/managing-memory, concepts/memory-and-state]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: tiers, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: gate, lines: [n5], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n8, n9], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - id: b-tiers
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [tiers, tiers.end]
+    xfade: 0.8
+  - id: audit
+    source: raw/audit.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { enter: 4.2, done: 11.5 }
+    trim: [0.3, done + 0.2]
+    hold: 0.4
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 20, 1300, 731] }
+  - id: ask1
+    source: raw/ask1.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/ask1-meta.json
+    trim: [1.0, send + 1.2]
+  - id: ask1-answer
+    source: raw/ask1.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/ask1-meta.json
+    trim: [answered - 2.6, end]
+    hold: 2.2
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [330, 60, 1300, 731] }
+  - id: b-gate
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [gate, gate.end]
+  - id: review
+    source: raw/review.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/review-meta.json
+    trim: [ledger - 0.8, end]
+    hold: 1.2
+    zoom:
+      - { at: expand + 0.4, until: 9999, over: 0.9, box: [0, 330, 1300, 731] }
+  - id: ask2
+    source: raw/ask2.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/ask2-meta.json
+    trim: [1.6, send + 1.0]
+  - id: ask2-answer
+    source: raw/ask2.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/ask2-meta.json
+    trim: [answered - 2.0, end]
+    hold: 0.8
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [330, 60, 1300, 731] }
+  - id: b-why
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [why, why.end]
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure nine. Make it remember." }
+  - { id: n1, scene: b-tiers, at: n1, text: "Every new session starts cold. The notebook from figure three is what you tell the agent. Memory is what it learns on its own, from runs you weren't watching. That needs a rule: writing a memory and trusting it are two separate events, and only you connect them." }
+  - { id: n2, scene: audit, at: 0.4, text: "This workflow audits the tide model, and its node declares a memory writeback. When it finishes, it drafts what it found as a lesson." }
+  - { id: n3, scene: ask1, at: type - 1.2, text: "Ask a brand new chat what the audit found." }
+  - { id: n4, scene: ask1-answer, at: answered - 2.4, text: "It has no idea. The lesson is recorded, but it's pending, so it can't reach the agent." }
+  - { id: n5, scene: b-gate, at: n5, text: "Every draft starts as evidence. Its provenance is fixed as generated, guardrails screen out secrets and duplicates, and it lands pending. Only a person promotes it. Confirm makes it instruction grade, evidence only keeps it searchable but never injected, and reject discards it. Every decision goes into an audit journal." }
+  - { id: n6a, scene: review, at: ledger - 0.6, text: "Open the review queue." }
+  - { id: n6, scene: review, at: expand + 0.3, text: "It shows the draft, what it says, and where it came from. Confirm it." }
+  - { id: n6b, scene: review, at: confirm + 0.3, text: "Confirmed. Now it's instruction grade." }
+  - { id: n7, scene: ask2, at: type - 0.4, text: "Same question, another new chat." }
+  - { id: n8a, scene: ask2-answer, at: answered - 1.8, text: "Now it knows: about eleven minutes early, each lunar month." }
+  - { id: n8, scene: b-why, at: n8, text: "Recall is scoped to the project, ranked by relevance, and fades on a thirty day half life. So the agent starts warm, and no unattended run gets to teach the next one something you never checked." }
+  - { id: n9, scene: b-why, at: n9, text: "Remembered isn't believed. Not until you say so." }
+  - { id: n10, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

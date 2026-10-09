@@ -1,0 +1,10 @@
+{"commit_message":"Seed the harbor backlog","nodes":[
+ {"key":"days","title":"Print more than one day of tides","type":"feature","priority":1,"description":"Add --days N to bun run tides."},
+ {"key":"drift","title":"Correct the 0.2-minute cycle drift","type":"bug","priority":1,"description":"Use the 745.2-minute mean lunar semidiurnal period."},
+ {"key":"local","title":"Show local time beside UTC","type":"feature","priority":2,"description":"Keep UTC as the stored value; add a local column."},
+ {"key":"chart","title":"Render a weekly tide chart","type":"feature","priority":3,"description":"An SVG chart of one week of tides."}
+],"edges":[
+ {"from_key":"local","to_key":"days","type":"blocks"},
+ {"from_key":"chart","to_key":"days","type":"blocks"},
+ {"from_key":"chart","to_key":"drift","type":"blocks"}
+]}

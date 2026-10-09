@@ -1,0 +1,75 @@
+fig: "12"
+slug: add-a-capability
+title: Add a capability
+act: IV
+problem: What does it take to give Keelson a capability it didn't ship with?
+docs: [guides/managing-ribs, concepts/snapshots-and-surfaces]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: before, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: snap, lines: [n5], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n8, n9], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - { id: b-before, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [before, before.end], xfade: 0.8 }
+  - id: add
+    source: raw/add.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { list: 2.5, typing: 5.0, enter: 9.3, output: 10.5 }
+    trim: [0.3, output + 1.0]
+    zoom:
+      - { at: output + 0.4, until: 9999, over: 0.8, box: [0, 20, 1500, 844] }
+  - id: restart
+    source: raw/add.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { restart: 13.0, show: 16.8, shown: 19.1 }
+    trim: [restart - 0.2, shown + 3.2]
+    zoom:
+      - { at: shown + 0.6, until: 9999, over: 1.0, box: [0, 380, 1300, 731] }
+  - { id: b-snap, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [snap, snap.end] }
+  - id: tab
+    source: raw/tab.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/tab-meta.json
+    trim: [0.8, scroll + 1.6]
+  - id: chat
+    source: raw/chat.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/chat-meta.json
+    trim: [1.2, send + 1.4]
+  - id: chat-answer
+    source: raw/chat.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/chat-meta.json
+    trim: [answered - 1.2, end]
+    hold: 0.6
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [330, 220, 1500, 844] }
+  - { id: b-why, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [why, why.end] }
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure twelve. Add a capability." }
+  - { id: n1, scene: b-before, at: n1, text: "The harbor repo has a backlog in beads, a dependency-aware issue tracker. Keelson knows nothing about it. The browser has Chat and Workflows, and the agent has nineteen tools, none of them for beads. Here is everything it takes to change that." }
+  - { id: n2, scene: add, at: 0.4, text: "No ribs installed. Add the beads rib from its GitHub repo. Bun installs it into Keelson's home, pinned to a release." }
+  - { id: n3, scene: restart, at: restart - 0.1, text: "Restart, and the server discovers it, checks it, and registers it." }
+  - { id: n4, scene: restart, at: shown - 0.2, text: "Fifteen tools, and four views." }
+  - { id: n5, scene: b-snap, at: n5, text: "Those views ride on snapshots. A rib publishes data under its own keys, and the browser renders it as live boards. The rib never draws a pixel, opens a port, or touches the database. It hands over data and declarations, and the harness does the rest." }
+  - { id: n6, scene: tab, at: tab - 0.2, text: "So there's a Beads tab now. It found the harbor tracker on its own, and says what to start next." }
+  - { id: n7, scene: chat, at: type - 0.6, text: "And chat can use the tools right away. No wiring, no config." }
+  - { id: n7b, scene: chat-answer, at: answered - 1.0, text: "It called two beads tools, and named the same two ready items." }
+  - { id: n8, scene: b-why, at: n8, text: "One command and a restart. A tab, fifteen tools, and four live views, and Keelson itself didn't change. Remove the rib, and they're gone." }
+  - { id: n9, scene: b-why, at: n9, text: "A capability is a dependency." }
+  - { id: n10, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

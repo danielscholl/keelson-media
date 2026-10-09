@@ -1,0 +1,62 @@
+{
+ "n0": [
+  "Figure seven. Many models.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "Which model should do which job? Strong models are slow and costly on grind work, and fast models are careless on judgment calls. In a workflow you don't have to pick one. Each node pins its own model by class, fast, balanced, or deep, and Keelson resolves that class to a real model from your provider's catalog.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "Here a fast model maps the repo, a deep one plans a change, and a balanced one reviews the plan.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "Three phases, three models, one run.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "The run records which model really answered each node. Haiku explored, Opus planned, and Sonnet reviewed, and called the plan sound.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "They can be swapped because no node reads another's conversation. Each one writes its conclusions to a markdown file in the run's folder, and the next node opens that file with a fresh context. The file is the contract, so any phase can change models without the others noticing.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "So try a different reviewer. One line: replace balanced with a model from another vendor.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "And run it again.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "Same graph, same handoff. This reviewer, GPT-6 Luna, reads it differently, calls the plan unsound, and names the step it would fix.",
+  "Same graph, same handoff. This reviewer, GPT six Luna, reads it differently, calls the plan unsound, and names the step it would fix.",
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "That's the point. Stop arguing about which model is best for a job, and run the experiment. The pins live in the file, the run records what really answered, and a swap is one line.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "Right model, right phase.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n11": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

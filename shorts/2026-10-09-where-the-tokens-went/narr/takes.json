@@ -1,0 +1,62 @@
+{
+ "n0": [
+  "Figure ten. Where the tokens went.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "Chat and workflows tell you what an agent did. Usage tells you what each turn consumed. Every turn that spends tokens, from a chat, a workflow node, or a rib, writes one row to a single ledger: the provider, the model that actually served it, input, output, and cache, and the run or conversation it came from.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "This is everything the series so far has run on this machine. Three million tokens, seventy eight agent turns, about two dollars, and two thirds of the input served from cache.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "The flow traces each source to the models it drove. By tokens, GPT-6 Luna carried the most.",
+  "The flow traces each source to the models it drove. By tokens, GPT six Luna carried the most.",
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "Switch to cost, and the picture flips. Opus did a fraction of the work, and most of the spending.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "That cost isn't a bill. It's an estimate, worked out when you look: each row's tokens times the per million rates of the model that served it, from your provider's catalog or a price you set. Change a price and history reprices. A model with no price reads unpriced, never free.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "The model roster puts a price card under each model: cache read, input, cache write, and output.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "Jobs rank each workflow by what a run costs. The issue to PR run from figure eight came to about a dollar.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "And the ledger is the raw rows underneath it all, one per turn.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "Usage watches. It never stops a turn; the budget gate is what says no. But when you ask which model is worth it, or which workflow got expensive, the answer is a row you can read.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "Every turn, one row.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n11": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

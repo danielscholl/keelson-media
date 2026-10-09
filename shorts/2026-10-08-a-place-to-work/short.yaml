@@ -1,0 +1,103 @@
+fig: "03"
+slug: a-place-to-work
+title: A place to work
+act: I
+problem: Where does agent work happen, and how does the next chat know what the last one learned?
+docs: [concepts/projects, concepts/memory-and-state#projects-and-notebooks]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: pointer, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: notebook, lines: [n5], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n9, n10], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - id: b-pointer
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [pointer, pointer.end]
+    xfade: 0.8
+  - id: add
+    source: raw/add.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { enter: 3.2, output: 3.4 }
+    trim: [0.3, output + 2.0]
+    zoom:
+      - { at: output + 0.4, until: 99, over: 0.8, box: [0, 40, 1300, 731] }
+  - id: first-open
+    source: raw/first.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { enter: 2.0, card: 2.2, typing: 5.4, send: 11.1 }
+    trim: [0.3, send + 0.3]
+  - id: first-work
+    source: raw/first.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { preamble: 11.2, tools: 14.3, answer: 23.7 }
+    trim: [tools - 0.5, answer + 1.8]
+    masks:
+      - { box: [228, 597, 200, 40], color: "0x0d1429", from: 11.15, to: 16.85 }
+      - { box: [228, 711, 200, 40], color: "0x0d1429", from: 16.85, to: 18.55 }
+      - { box: [228, 827, 200, 40], color: "0x0d1429", from: 18.55, to: 21.75 }
+      - { box: [228, 903, 200, 40], color: "0x0d1429", from: 21.75, to: 23.75 }
+      - { box: [228, 941, 200, 40], color: "0x0d1429", from: 23.6, to: 23.85 }
+      - { box: [228, 980, 200, 40], color: "0x0d1429", from: 23.75, to: 99 }
+  - id: b-notebook
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [notebook, notebook.end]
+  - id: web-notebook
+    source: raw/web-notebook.mp4
+    frame: viewport
+    label: BROWSER
+    marks: { gear: 2.35, memory: 3.84, notebook: 3.89 }
+    trim: [1.0, notebook + 4.4]
+    hold: 0.4
+    zoom:
+      - { at: notebook + 0.6, until: 99, over: 1.0, box: [0, 100, 1500, 844] }
+  - id: second-open
+    source: raw/second.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { enter: 2.3, card: 2.5, typing: 5.8, send: 9.3 }
+    trim: [0.3, send + 0.1]
+  - id: second-answer
+    source: raw/second.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { answer: 19.2 }
+    trim: [answer - 0.6, end]
+    hold: 4.4
+    zoom:
+      - { at: answer + 0.6, until: 99, over: 0.9, box: [0, 40, 1440, 810] }
+  - id: b-why
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [why, why.end]
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure three. A place to work." }
+  - { id: n1, scene: b-pointer, at: n1, text: "Agent work has to happen somewhere on disk. In Keelson, that's a project: a name and a root path. Chats, workflow runs, and a notebook all attach to it, so you bind work to a folder once." }
+  - { id: n2, scene: add, at: enter - 2.2, text: "Register a repo, and that's the whole record." }
+  - { id: n3, scene: first-open, at: 1.5, text: "Start a chat inside the repo, and it binds to that project on its own. Ask about the tests, and tell it a decision you've made." }
+  - { id: n4, scene: first-work, at: tools + 0.2, text: "The agent works right in the project root. It reads the real files, then writes the test command and your decision into the project notebook." }
+  - { id: n5, scene: b-notebook, at: n5, text: "Here's how the notebook works. It's one markdown document per project, and before every chat turn there, Keelson puts it in front of the agent. The agent adds to it with a note tool, and you can edit it too. A conversation ends. The notebook stays." }
+  - { id: n6, scene: web-notebook, at: gear - 1.2, text: "In the browser, it's right there under Memory. Plain markdown, and it lives in Keelson, not in your repo." }
+  - { id: n7, scene: second-open, at: card - 0.4, text: "Now a brand new chat in the same repo. No history, and nothing read yet. Just ask." }
+  - { id: n8, scene: second-answer, at: answer - 0.3, text: "It already knows the test command and the UTC rule, because the notebook came in with its very first turn.",
+      ssml: "It already knows the test command and the U T C rule, because the notebook came in with its very first turn." }
+  - { id: n9, scene: b-why, at: n9, text: "Why work this way? The agent works in place, on your real checkout, so chat edits land in your working tree as if you made them. Workflow runs can isolate in a worktree instead, and that comes later. And the context you build up belongs to the project, not to one conversation." }
+  - { id: n10, scene: b-why, at: n10, text: "One name, one root, one notebook. A place to work." }
+  - { id: n11, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

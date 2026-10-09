@@ -1,0 +1,9 @@
+# where-the-tokens-went (FIG. 10)
+
+**Concept (what, why, how):** what: every turn that spends tokens, from chat, a workflow node or a rib, writes one row to a single usage ledger, and the Usage tab renders it as pulse, over time, source-to-model flow, model roster, jobs and the raw ledger. Why: chat and workflows say what an agent did; usage says what each turn consumed and on which model, so "which model is worth it" and "which workflow got expensive" become questions with a readable answer. How: rows carry the served model, token counts by type and attribution; cost is an estimate computed at read time from catalog or configured per-million rates, so a price change reprices history and an unpriced model never reads as free; usage observes and never blocks (the budget gate is the admission control).
+
+**Structure:** the bill after the work. The lay-the-keel opener with "Figure ten. Where the tokens went.", a board of the three capture seams feeding one ledger table, the demo instance's real Usage tab holding the whole series' spend (3M tokens, 78 turns, $2.13, 66% cache hit), the flow by tokens (GPT-6 Luna largest) flipping to cost (Opus largest), a board of the cost formula and its rules, the model roster's price cards, jobs ranked by cost per run (fix-issue about a dollar), the raw ledger, then a why board (usage watches, the budget gate says no) and "Every turn, one row." Closer with SHEET 10 · ACT III.
+
+**Capture:** the isolated stage `/Users/Shared/keelson-demo` (port 7979) after FIG. 02 to 09 were recorded on it, 7-day window. One browser take with `source/rec.mjs`; toggling the flow to Cost reflows the page, so the recorder scrolls back to it after the click.
+
+**Weak:** 124 s. Model ids are shown unmasked (they are the subject, and the bundled workflows that pin them are public). The over-time chart only has two days of data.

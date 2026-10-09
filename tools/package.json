@@ -1,0 +1,6 @@
+{
+  "name": "videos-tools",
+  "private": true,
+  "type": "module",
+  "dependencies": { "gsap": "3.13.0", "playwright": "1.55.0", "yaml": "2.8.1" }
+}

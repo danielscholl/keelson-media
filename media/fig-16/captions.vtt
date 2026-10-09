@@ -1,0 +1,40 @@
+WEBVTT
+
+00:02.400 --> 00:05.726
+Figure sixteen. No paid keys.
+
+00:07.800 --> 00:28.420
+Every turn so far ran on Copilot, through a subscription. It doesn't have to. A gateway points Keelson at any endpoint that speaks the OpenAI chat API, a local Ollama, vLLM, OpenRouter, or Azure, and registers it as a provider under its own name, right beside the built-in ones.
+
+00:29.220 --> 00:36.306
+Ollama is already running on this machine. One command adds it, keyless, with phi4 as its model.
+
+00:38.120 --> 00:41.268
+No sign-in, no key. Ask it something.
+
+00:43.120 --> 00:46.332
+That answer came from a model running on this laptop.
+
+00:47.565 --> 00:52.025
+In the browser it shows up in the model picker, with the models the endpoint reports.
+
+00:52.414 --> 00:55.596
+Pick phi4, and chat like any other provider.
+
+00:57.237 --> 01:00.881
+Three names, from phi4, on this machine.
+
+01:01.337 --> 01:07.109
+The ledger records every local turn too, and marks it unpriced. Not free.
+
+01:08.417 --> 01:32.029
+Be clear about what a gateway is today. A key, when an endpoint needs one, goes to your keychain, never the config, and only over HTTPS or loopback. Turns stream, but they don't get Keelson's tools, and they don't resume a session, so each turn starts fresh. A model with no price reads unpriced, so it never looks free by accident.
+
+01:33.129 --> 01:42.293
+So you can try the whole harness with nothing to buy, keep a conversation on your own machine, or point it at the endpoint your team already runs.
+
+01:42.893 --> 01:45.457
+Any endpoint, one more provider.
+
+01:48.157 --> 01:51.371
+Keelson. Lay the keel, raise the ribs.

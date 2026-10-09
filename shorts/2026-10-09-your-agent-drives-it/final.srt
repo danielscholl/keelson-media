@@ -1,0 +1,40 @@
+1
+00:00:02,400 --> 00:00:05,726
+Figure fifteen. Your agent drives it.
+
+2
+00:00:07,800 --> 00:00:30,692
+You don't have to leave the coding agent you already use. Keelson serves its tool registry over the Model Context Protocol, from the same server, at slash api slash mcp. Your agent gets the workflow tools and every installed rib's tools, and each call runs inside Keelson, with the rib's own credentials. The agent never sees the secrets behind them.
+
+3
+00:00:32,492 --> 00:00:37,480
+Here Claude Code, in the harbor repo, is told to use Keelson to run a workflow.
+
+4
+00:00:39,992 --> 00:00:44,068
+It lists the workflows over MCP, and starts tide-check.
+
+5
+00:00:44,792 --> 00:00:50,532
+In Keelson's browser the run appears, started by another agent, and runs like any other.
+
+6
+00:00:52,087 --> 00:00:55,875
+Then it reads the result back, and even questions the report.
+
+7
+00:00:56,587 --> 00:01:19,719
+Wiring an agent is one command. Keelson connect claude, or copilot, or codex, registers the endpoint in that agent's own config, and drops a small skill that tells it when to reach for Keelson. Disconnect removes exactly what it added. On loopback the endpoint is open by default; you can make it read only, require a token, or hide tools by name.
+
+8
+00:01:20,819 --> 00:01:32,383
+So your agent keeps the conversation, and Keelson keeps the durable part: the workflows, the gates, the record of every run, and the ribs with their credentials.
+
+9
+00:01:32,983 --> 00:01:36,659
+Bring your agent. Keelson does the keeping.
+
+10
+00:01:39,359 --> 00:01:44,141
+Keelson. Lay the keel, raise the ribs.
+

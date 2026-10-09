@@ -1,0 +1,62 @@
+{
+ "n0": [
+  "Figure three. A place to work.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "Agent work has to happen somewhere on disk. In Keelson, that's a project: a name and a root path. Chats, workflow runs, and a notebook all attach to it, so you bind work to a folder once.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "Register a repo, and that's the whole record.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "Start a chat inside the repo, and it binds to that project on its own. Ask about the tests, and tell it a decision you've made.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "The agent works right in the project root. It reads the real files, then writes the test command and your decision into the project notebook.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "Here's how the notebook works. It's one markdown document per project, and before every chat turn there, Keelson puts it in front of the agent. The agent adds to it with a note tool, and you can edit it too. A conversation ends. The notebook stays.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "In the browser, it's right there under Memory. Plain markdown, and it lives in Keelson, not in your repo.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "Now a brand new chat in the same repo. No history, and nothing read yet. Just ask.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "It already knows the test command and the UTC rule, because the notebook came in with its very first turn.",
+  "It already knows the test command and the U T C rule, because the notebook came in with its very first turn.",
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "Why work this way? The agent works in place, on your real checkout, so chat edits land in your working tree as if you made them. Workflow runs can isolate in a worktree instead, and that comes later. And the context you build up belongs to the project, not to one conversation.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "One name, one root, one notebook. A place to work.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n11": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

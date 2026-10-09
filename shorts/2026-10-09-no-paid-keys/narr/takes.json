@@ -1,0 +1,67 @@
+{
+ "n0": [
+  "Figure sixteen. No paid keys.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "Every turn so far ran on Copilot, through a subscription. It doesn't have to. A gateway points Keelson at any endpoint that speaks the OpenAI chat API, a local Ollama, vLLM, OpenRouter, or Azure, and registers it as a provider under its own name, right beside the built-in ones.",
+  "Every turn so far ran on Co Pilot, through a subscription. It doesn't have to. A gateway points Keelson at any endpoint that speaks the OpenAI chat API, a local Ollama, vLLM, OpenRouter, or Azure, and registers it as a provider under its own name, right beside the built-in ones.",
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "Ollama is already running on this machine. One command adds it, keyless, with phi4 as its model.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "No sign-in, no key. Ask it something.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3b": [
+  "That answer came from a model running on this laptop.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "In the browser it shows up in the model picker, with the models the endpoint reports.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "Pick phi4, and chat like any other provider.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5c": [
+  "Three names, from phi4, on this machine.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5b": [
+  "The ledger records every local turn too, and marks it unpriced. Not free.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "Be clear about what a gateway is today. A key, when an endpoint needs one, goes to your keychain, never the config, and only over HTTPS or loopback. Turns stream, but they don't get Keelson's tools, and they don't resume a session, so each turn starts fresh. A model with no price reads unpriced, so it never looks free by accident.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "So you can try the whole harness with nothing to buy, keep a conversation on your own machine, or point it at the endpoint your team already runs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "Any endpoint, one more provider.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

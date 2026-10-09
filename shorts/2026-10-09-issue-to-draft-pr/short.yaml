@@ -1,0 +1,114 @@
+fig: "08"
+slug: issue-to-draft-pr
+title: Issue to draft PR
+act: II
+problem: How do you hand an agent real code work without letting it loose on your checkout?
+docs: [workflows/fix-issue, workflows/index, concepts/projects#worktree-isolation-for-runs]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: seam, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: worktree, lines: [n5], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n9, n10], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - id: b-seam
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [seam, seam.end]
+    xfade: 0.8
+  - id: fx-start
+    source: raw/fix.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { status: 2.4, enter: 10.2 }
+    trim: [1.8, 10.8]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 20, 1300, 731] }
+  - id: fx-pause
+    source: raw/fix.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { paused: 66.4 }
+    trim: [paused - 4.5, paused + 5.0]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 349, 1300, 731] }
+  - id: web-gate
+    source: raw/gate.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/gate-meta.json
+    trim: [1.6, approve + 1.4]
+    zoom:
+      - { at: paused + 0.4, until: approve - 1.6, over: 0.9, box: [400, 40, 1120, 630] }
+      - { at: approve - 1.6, until: 9999, over: 0.8, box: [0, 0, 1920, 1080] }
+  - id: b-worktree
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [worktree, worktree.end]
+  - id: fx-pr
+    source: raw/fix.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { pr: 369.0 }
+    trim: [pr - 1.5, pr + 7.0]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 349, 1300, 731] }
+  - id: fx-review
+    source: raw/fix.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { reviews: 426.0 }
+    trim: [reviews - 1.0, reviews + 10.5]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 349, 1300, 731] }
+  - id: fx-end
+    source: raw/fix.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { done: 604.4, status: 609.0, prs: 614.6 }
+    trim: [done - 1.2, done + 0.6]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 20, 1300, 731] }
+  - id: fx-after
+    source: raw/fix.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { status: 609.0, prs: 614.6 }
+    trim: [606.0, end]
+    hold: 0.6
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 20, 1100, 619] }
+  - id: b-why
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [why, why.end]
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure eight. Issue to draft PR." }
+  - { id: n1, scene: b-seam, at: n1, text: "Now the agent writes real code. fix-issue takes a GitHub issue to a draft pull request. Before its gate, it reads and thinks. After it, it writes: a branch, commits, a push, a pull request. The gate sits on that seam." }
+  - { id: n2, scene: fx-start, at: 3.6, text: "The checkout is clean, on main. Hand it the issue number." }
+  - { id: n3, scene: fx-pause, at: paused - 4.2, text: "It fetched the issue, called it a feature, wrote a plan, and checked that every acceptance criterion maps to a step. Then it stopped." }
+  - { id: n4, scene: web-gate, at: paused + 2.2, text: "The plan even keeps tide times in UTC, the convention from the project notebook. Approve, and only now does any code get written." }
+  - { id: n5, scene: b-worktree, at: n5, text: "Your checkout stays safe because the run gets its own git worktree: a second working tree of the repo, on a branch named for the run. Every node runs there. It implements, runs the project's own checks, fixes what fails, and a hard gate refuses to open a PR over broken checks." }
+  - { id: n6, scene: fx-pr, at: pr - 1.2, text: "Checks pass. It pushes the branch, opens the pull request, and makes sure it's a draft." }
+  - { id: n7, scene: fx-review, at: reviews - 0.8, text: "Three reviewers then read the diff for correctness, conventions, and coverage, and a judge keeps only what it can confirm. Nothing needed fixing." }
+  - { id: n8, scene: fx-end, at: done - 1.0, text: "There's no CI on this sandbox, so the PR stays a draft." }
+  - { id: n8b, scene: fx-after, at: status - 0.2, text: "Your checkout is still main, still clean." }
+  - { id: n8c, scene: fx-after, at: prs - 0.4, text: "And the draft is waiting on GitHub." }
+  - { id: n9, scene: b-why, at: n9, text: "So the agent can't write before you approve, can't touch your checkout, and can't open a PR over failing checks. You review a draft, not a surprise." }
+  - { id: n10, scene: b-why, at: n10, text: "Read, approve, then write, somewhere else." }
+  - { id: n11, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

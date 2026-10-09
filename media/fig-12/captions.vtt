@@ -1,0 +1,37 @@
+WEBVTT
+
+00:02.400 --> 00:04.996
+Figure twelve. Add a capability.
+
+00:07.800 --> 00:25.684
+The harbor repo has a backlog in beads, a dependency-aware issue tracker. Keelson knows nothing about it. The browser has Chat and Workflows, and the agent has nineteen tools, none of them for beads. Here is everything it takes to change that.
+
+00:26.284 --> 00:34.568
+No ribs installed. Add the beads rib from its GitHub repo. Bun installs it into Keelson's home, pinned to a release.
+
+00:37.184 --> 00:42.092
+Restart, and the server discovers it, checks it, and registers it.
+
+00:43.184 --> 00:45.940
+Fifteen tools, and four views.
+
+00:46.484 --> 01:06.560
+Those views ride on snapshots. A rib publishes data under its own keys, and the browser renders it as live boards. The rib never draws a pixel, opens a port, or touches the database. It hands over data and declarations, and the harness does the rest.
+
+01:08.512 --> 01:14.892
+So there's a Beads tab now. It found the harbor tracker on its own, and says what to start next.
+
+01:16.968 --> 01:21.636
+And chat can use the tools right away. No wiring, no config.
+
+01:22.313 --> 01:26.631
+It called two beads tools, and named the same two ready items.
+
+01:28.070 --> 01:39.666
+One command and a restart. A tab, fifteen tools, and four live views, and Keelson itself didn't change. Remove the rib, and they're gone.
+
+01:40.266 --> 01:42.670
+A capability is a dependency.
+
+01:45.370 --> 01:48.808
+Keelson. Lay the keel, raise the ribs.

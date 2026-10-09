@@ -1,0 +1,68 @@
+fig: "17"
+slug: ask-for-a-report
+title: Ask for a report
+act: Coda
+problem: How does a chat answer become a designed page someone will read, keep, or share?
+docs: [guides/canvas-artifacts]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: what, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: gates, lines: [n6], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n7, n8], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - { id: b-what, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [what, what.end], xfade: 0.8 }
+  - id: ask
+    source: raw/chat.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/chat-meta.json
+    trim: [1.2, send + 1.4]
+    zoom:
+      - { at: type + 0.4, until: 9999, over: 0.8, box: [300, 480, 1620, 1080] }
+  - id: tools
+    source: raw/chat.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: { calls: 26.0 }
+    trim: [calls, calls + 4.6]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [300, 120, 1620, 862] }
+  - id: design
+    source: raw/chat.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: { guide: 62.0, drawer: 69.0 }
+    trim: [guide, drawer - 0.4]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [300, 120, 1620, 862] }
+  - id: drawer
+    source: raw/chat.mp4
+    frame: viewport
+    label: BROWSER · CANVAS
+    xfade: 0.3
+    marks: { drawer: 69.0, scroll: 76.54 }
+    trim: [drawer - 0.2, end]
+    hold: 0.8
+  - { id: b-gates, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [gates, gates.end] }
+  - { id: b-why, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [why, why.end] }
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure seventeen. Ask for a report." }
+  - { id: n1, scene: b-what, at: n1, text: "Chat answers are text, and they scroll away. Sometimes what you want is a page: a run report, a briefing, a chart, laid out to be read and kept. In Keelson, the agent can author one and publish it to the canvas, a drawer in the browser, with a single tool." }
+  - { id: n2, scene: ask, at: type - 0.4, text: "Ask for it in one line. A report on the harbor backlog, published to the canvas." }
+  - { id: n3, scene: tools, at: calls + 0.2, text: "The agent gathers the facts first, from the beads tools." }
+  - { id: n4, scene: design, at: guide + 0.2, text: "Then it reads Keelson's design guide, and publishes." }
+  - { id: n5, scene: drawer, at: drawer + 0.4, text: "The drawer opens on the page. The state of the work up top, what's ready, what to start first, and what waits on what, in Keelson's own palette." }
+  - { id: n6, scene: b-gates, at: n6, text: "Three things keep those pages honest. A design guide in the prompt sets the contract: theme tokens, no outside resources, Keelson's palette. Publishing checks chart colors by computation, for contrast and color blindness, and rejects a page that fails so the agent fixes it in the same turn. And every page renders in a sandboxed frame that can't make a network request." }
+  - { id: n7, scene: b-why, at: n7, text: "The page is saved as a plain HTML file in Keelson's home. It survives restarts, and republishing the same name updates it in place. So the answer you'd scroll past becomes something you can keep and share." }
+  - { id: n8, scene: b-why, at: n8, text: "Ask once. Keep the page." }
+  - { id: n9, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

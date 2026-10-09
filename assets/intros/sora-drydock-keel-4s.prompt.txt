@@ -1,0 +1,4 @@
+model: sora-2 (2025-12-08), 4s, 1280x720, has ambient audio
+used in: shorts/2026-10-08-first-workflow (slowed to 0.8x, title overlay)
+
+Cinematic macro shot at dusk: a sleek wooden ship's keel being laid in a quiet dry dock, warm work lights glowing, faint blue blueprint lines drawn in the air tracing the hull and connecting to small glowing nodes like a flowchart. Slow dolly forward. Calm, precise, crafted. No text, no logos.

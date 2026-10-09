@@ -1,0 +1,57 @@
+{
+ "n0": [
+  "Figure one. First run.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "One line installs Keelson into a single folder on your machine. The command line and your workflows live there now, and your database and ribs will too. No hosted service, and no Keelson account.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "So, is it healthy? Keelson doctor checks the toolchain, the store, your credentials, and your workflows, in one pass.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "Two warnings, and both are expected. There's no server yet, and no database. Each warning names its own fix, and here it's the same one: start the server.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "That one command is the heart of it. It runs a single local server that owns the store, the agents, the browser app, and an endpoint other agents can call, all on one port.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "Start the server, then ask again.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "Zero warnings. Zero failures.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "Copilot is the default agent, so once you're signed in to it, send one real message.",
+  "Co Pilot is the default agent, so once you're signed in to it, send one real message.",
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "That question went from the command line to the server, out to Copilot, and back. And the turn was saved locally, so the browser already shows the same conversation.",
+  "That question went from the command line to the server, out to Co Pilot, and back. And the turn was saved locally, so the browser already shows the same conversation.",
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "That's a first run. One folder, one server, and a doctor that tells you what to do next.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

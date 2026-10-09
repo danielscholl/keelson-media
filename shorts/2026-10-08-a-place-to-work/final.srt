@@ -1,0 +1,48 @@
+1
+00:00:02,400 --> 00:00:05,294
+Figure three. A place to work.
+
+2
+00:00:07,800 --> 00:00:21,380
+Agent work has to happen somewhere on disk. In Keelson, that's a project: a name and a root path. Chats, workflow runs, and a notebook all attach to it, so you bind work to a folder once.
+
+3
+00:00:22,580 --> 00:00:25,346
+Register a repo, and that's the whole record.
+
+4
+00:00:27,680 --> 00:00:35,804
+Start a chat inside the repo, and it binds to that project on its own. Ask about the tests, and tell it a decision you've made.
+
+5
+00:00:37,980 --> 00:00:46,296
+The agent works right in the project root. It reads the real files, then writes the test command and your decision into the project notebook.
+
+6
+00:00:48,880 --> 00:01:03,756
+Here's how the notebook works. It's one markdown document per project, and before every chat turn there, Keelson puts it in front of the agent. The agent adds to it with a note tool, and you can edit it too. A conversation ends. The notebook stays.
+
+7
+00:01:04,606 --> 00:01:12,090
+In the browser, it's right there under Memory. Plain markdown, and it lives in Keelson, not in your repo.
+
+8
+00:01:13,446 --> 00:01:19,714
+Now a brand new chat in the same repo. No history, and nothing read yet. Just ask.
+
+9
+00:01:20,746 --> 00:01:27,462
+It already knows the test command and the UTC rule, because the notebook came in with its very first turn.
+
+10
+00:01:28,186 --> 00:01:48,230
+Why work this way? The agent works in place, on your real checkout, so chat edits land in your working tree as if you made them. Workflow runs can isolate in a worktree instead, and that comes later. And the context you build up belongs to the project, not to one conversation.
+
+11
+00:01:48,830 --> 00:01:53,148
+One name, one root, one notebook. A place to work.
+
+12
+00:01:55,848 --> 00:01:59,572
+Keelson. Lay the keel, raise the ribs.
+

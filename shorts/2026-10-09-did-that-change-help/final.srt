@@ -1,0 +1,52 @@
+1
+00:00:02,400 --> 00:00:05,518
+Figure eighteen. Did that change help?
+
+2
+00:00:07,800 --> 00:00:28,212
+A workflow that runs isn't a workflow that works. When you change a prompt or a model pin, the only honest answer to did that help is a set of cases, run before and after and graded the same way. In Keelson that's a YAML case set: real inputs, a grader per case, and a train and test split.
+
+3
+00:00:28,912 --> 00:00:36,942
+Here's a small triage workflow, with twelve cases, six for train and six held out for test. Run the eval on today's prompt.
+
+4
+00:00:37,512 --> 00:00:49,268
+Zero for twelve. Every answer starts the same way: I'll help you, let me explore the repository. The prompt never said what it wanted.
+
+5
+00:00:49,572 --> 00:00:56,416
+So change one thing: the prompt. Give it the three labels, what each means, and ask for one word.
+
+6
+00:00:58,632 --> 00:01:00,452
+Run the same cases again.
+
+7
+00:01:01,632 --> 00:01:03,524
+Twelve for twelve.
+
+8
+00:01:04,732 --> 00:01:31,048
+But a better number isn't a decision. Compare pairs each case before and after, and a permutation test asks whether the change is bigger than chance. Only cases that moved count, so at least six must change before anything leaves within noise. And it keeps the change only if the train and test splits both moved up. A gain on train alone is overfitting, and that reverts.
+
+9
+00:01:32,248 --> 00:01:34,070
+Compare the two results files.
+
+10
+00:01:35,848 --> 00:01:41,174
+Improved on both splits, cheaper and faster per case. The decision: keep.
+
+11
+00:01:42,108 --> 00:01:53,192
+So the next prompt tweak is measured, not eyeballed. And the hillclimb workflow runs this loop for you: one change per round, the eval, and the verdict deciding keep or revert.
+
+12
+00:01:53,792 --> 00:01:56,132
+Measure it. Then keep it.
+
+13
+00:01:58,832 --> 00:02:02,398
+Keelson. Lay the keel, raise the ribs.
+

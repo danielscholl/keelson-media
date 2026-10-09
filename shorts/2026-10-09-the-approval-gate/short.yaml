@@ -1,0 +1,100 @@
+fig: "06"
+slug: the-approval-gate
+title: The approval gate
+act: II
+problem: How do you keep an agent from taking a step you can't undo until a person says yes?
+docs: [guides/governance, reference/workflow-nodes]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: engine, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: gate, lines: [n4], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n10, n11], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - id: b-engine
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [engine, engine.end]
+    xfade: 0.8
+  - id: chat-ask
+    source: raw/chat.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/chat-meta.json
+    trim: [1.0, send + 1.0]
+  - id: chat
+    source: raw/chat.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/chat-meta.json
+    trim: [ask - 0.8, end]
+    hold: 0.8
+    zoom:
+      - { at: ask + 0.3, until: accept + 0.6, over: 0.8, box: [1120, 630, 800, 450] }
+      - { at: accept + 0.6, until: 99, over: 0.9, box: [360, 80, 1500, 844] }
+  - id: b-gate
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [gate, gate.end]
+  - id: release-run
+    source: raw/release.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { enter: 4.3, paused: 9.0 }
+    trim: [0.3, paused + 3.4]
+    zoom:
+      - { at: paused + 0.2, until: 99, over: 0.8, box: [0, 20, 1300, 731] }
+  - id: web-gate
+    source: raw/gate.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/gate-meta.json
+    trim: [1.0, end]
+    hold: 1.0
+    masks:
+      - { box: [1404, 147, 92, 23], color: "0x131a30", from: approve, to: 99 }
+      - { box: [1150, 418, 78, 22], color: "0x131a30", from: approve, to: 99 }
+    zoom:
+      - { at: paused + 0.4, until: approve - 1.6, over: 0.9, box: [400, 30, 1100, 619] }
+      - { at: approve - 1.6, until: 99, over: 0.8, box: [0, 0, 1920, 1080] }
+  - id: release-end
+    source: raw/release.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { resumed: 20.0, tag: 21.0 }
+    trim: [resumed - 0.6, end]
+    hold: 0.6
+    zoom:
+      - { at: -1, until: 99, over: 0.5, box: [0, 290, 1300, 731] }
+  - id: b-why
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [why, why.end]
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure six. The approval gate." }
+  - { id: n1, scene: b-engine, at: n1, text: "Some steps shouldn't happen until a person says yes. In Keelson, every tool call, from chat, a workflow, a rib, or another agent over MCP, passes through one policy engine. Each policy answers allow, deny, or ask. Ask pauses the call for a human, and if nobody answers in five minutes, it's rejected." }
+  - { id: n2, scene: chat-ask, at: type - 0.6, text: "Turn on ask on shell, then ask the agent to run the tests." }
+  - { id: n2b, scene: chat, at: ask + 0.4, caption: false, text: "The agent reached for bash, so Keelson paused it and asked." }
+  - { id: n3, scene: chat, at: accept + 0.4, text: "Accept, and only then does the command run." }
+  - { id: n4, scene: b-gate, at: n4, text: "Chat asks call by call. A workflow can put the person in the graph itself. An approval node holds the run before the step you can't take back, and the reply becomes that node's output, so the steps after it can act on what was said." }
+  - { id: n5, scene: release-run, at: 1.6, text: "This release workflow tests the repo, drafts a plan, and then stops." }
+  - { id: n6, scene: release-run, at: paused + 0.3, text: "Paused at the gate. The terminal just waits." }
+  - { id: n7, scene: web-gate, at: paused + 0.5, text: "In the browser, the plan opens for review: what passed, what ships, and the tag it will create." }
+  - { id: n8, scene: web-gate, at: approve + 0.3, text: "Approve, and the run picks up where it stopped." }
+  - { id: n9, scene: release-end, at: resumed + 0.2, text: "Back in the terminal, the run finished, and the tag is real." }
+  - { id: n10, scene: b-why, at: n10, text: "So nothing you can't undo happens on a model's say so. Policies gate the calls, approval nodes gate the run, and the person's answer goes into the record with everything else." }
+  - { id: n11, scene: b-why, at: n11, text: "Ask first. Then act." }
+  - { id: n12, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

@@ -1,0 +1,114 @@
+fig: "19"
+slug: shorts-by-keelson
+title: Shorts, by Keelson
+act: Coda
+problem: How do you make every short the same way, and still have a person decide what ships?
+docs: [workflows/index, reference/workflow-nodes]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: line, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: gate, lines: [n5], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n9, n10], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - id: b-line
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [line, line.end]
+    xfade: 0.8
+  - id: edit
+    source: raw/main.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { diff: 19.6 }
+    trim: [0.3, 6.4]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 0, 1500, 844] }
+  - id: edit-diff
+    source: raw/main.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { diff: 19.6 }
+    trim: [diff - 1.4, 23.4]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 0, 1500, 844] }
+  - id: run
+    source: raw/main.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { diff: 19.6, enter: 27.0, voiced: 30.8 }
+    trim: [25.4, voiced + 3.4]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 0, 1300, 731] }
+  - id: dag
+    source: raw/web.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/web-meta.json
+    trim: [boards-done - 3.0, boards-done + 3.4]
+    masks:
+      - { box: [70, 174, 340, 26], color: "0x0d1329", from: start, to: paused }
+  - id: dag2
+    source: raw/web.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/web-meta.json
+    trim: [compose-done - 2.8, compose-done + 5.0]
+    masks:
+      - { box: [70, 174, 340, 26], color: "0x0d1329", from: start, to: paused }
+  - id: b-gate
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [gate, gate.end]
+  - id: review
+    source: raw/web.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/web-meta.json
+    trim: [paused + 0.6, staged + 1.6]
+    zoom:
+      - { at: paused + 1.6, until: approve - 1.6, over: 0.9, box: [380, 60, 1160, 653] }
+      - { at: approve - 1.6, until: 9999, over: 0.8, box: [0, 0, 1920, 1080] }
+  - id: staged
+    source: raw/main.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { staged: 342.0 }
+    trim: [staged - 1.0, staged + 6.0]
+    hold: 0.6
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 349, 1300, 731] }
+  - id: b-why
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [why, why.end]
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure nineteen. Shorts, by Keelson." }
+  - { id: n1, scene: b-line, at: n1, text: "Every short in this series came off one production line. A script names the scenes and the narration. Then the same steps run every time: voice the lines, draw the boards, compose the cut, and check it. For the first eighteen figures, those steps ran by hand. Steps like that are a recipe, so now they're a Keelson workflow. Whether the cut is any good is a judgment, so that part is a gate." }
+  - { id: n2, scene: edit, at: 0.8, text: "This is figure sixteen's script. Change one line of narration." }
+  - { id: n2b, scene: edit-diff, at: diff + 0.2, text: "One word changed, one added. That's the whole edit." }
+  - { id: n3, scene: run, at: enter - 1.5, text: "Then hand the short to the workflow." }
+  - { id: n4, scene: run, at: voiced - 0.2, text: "It voices only the line that changed." }
+  - { id: n4b, scene: dag, at: boards-done - 2.7, text: "Then it draws the boards and composes the cut, the same steps every time." }
+  - { id: n4c, scene: dag2, at: compose-done - 2.3, text: "Composing takes a few minutes. Then QA checks the cut." }
+  - { id: n5, scene: b-gate, at: n5, text: "A check can measure a cut: its length, its loudness, any long silence. It can't see a cursor in the wrong place, or a caption over the answer. So QA writes a review page, a contact sheet of nine frames from across the cut, the numbers, and the script, and the run waits on it." }
+  - { id: n6, scene: review, at: paused + 1.0, text: "Paused, with the contact sheet open for review." }
+  - { id: n6b, scene: review, at: scroll + 0.2, text: "The numbers, and every line of the script." }
+  - { id: n7, scene: review, at: approve - 1.2, text: "It looks right. Approve." }
+  - { id: n8, scene: staged, at: staged - 0.6, text: "The cut is staged for upload. The upload itself stays a person's job." }
+  - { id: n9, scene: b-why, at: n9, text: "From here on, that's how a figure gets cut: fixed steps in a graph, a person wherever the call is judgment, and nothing leaving without a yes. It's the way Keelson runs any job." }
+  - { id: n10, scene: b-why, at: n10, text: "This figure was cut by it too." }
+  - { id: n11, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

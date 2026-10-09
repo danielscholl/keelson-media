@@ -1,0 +1,36 @@
+fig: "11"
+slug: the-rib-model
+title: The rib model
+act: IV
+problem: How do you add capability to Keelson without changing Keelson?
+docs: [concepts/the-rib-model, concepts/snapshots-and-surfaces]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: pkg, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: disc, lines: [n2], lead: 0.4, tail: 1.0 }
+    - { id: contrib, lines: [n3], lead: 0.4, tail: 1.0 }
+    - { id: bound, lines: [n4], lead: 0.4, tail: 1.0 }
+    - { id: path, lines: [n5, n6], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - { id: b-pkg, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [pkg, pkg.end], xfade: 0.8 }
+  - { id: b-disc, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [disc, disc.end] }
+  - { id: b-contrib, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [contrib, contrib.end] }
+  - { id: b-bound, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [bound, bound.end] }
+  - { id: b-path, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [path, path.end] }
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure eleven. The rib model." }
+  - { id: n1, scene: b-pkg, at: n1, text: "Everything so far ran with no rib installed. Keelson works on its own. A rib is how you extend it without changing it: a capability in its own package, on its own version, bolted onto a harness that stays the same. Not a fork you maintain, not a plugin waiting on review, not a sidecar with its own protocol. A dependency you add, and remove." }
+  - { id: n2, scene: b-disc, at: n2, text: "Installing one is dependency management. Keelson rib add hands the source to bun, and at the next boot the server discovers every rib package in its home, checks each one against the contract, and registers it. A rib that fails a check is skipped with one warning. A broken rib costs you that rib, never the harness." }
+  - { id: n3, scene: b-contrib, at: n3, text: "The contract is one interface, and every hook is optional. Tools land in the shared registry, so chat can call them at once, and a workflow node opts in by name. Snapshots and surfaces become live boards and tabs in the browser. Workflows join the catalog. Policies, docs, agents and commands land in registries of their own. The rib brings data and declarations. The harness owns the machinery." }
+  - { id: n4, scene: b-bound, at: n4, text: "And the boundary is checked, not trusted. A rib's snapshot keys and credentials live in its own namespace, and it can't read another rib's. Tool names are global, so a name that's already taken loses. It isn't a sandbox, though. A rib runs in the server's process, so choose sources the way you choose any package." }
+  - { id: n5, scene: b-path, at: n5, text: "Follow one rib tool through a chat turn. The server gathers tools from the registry, the provider hands the agent a typed tool, the agent calls it, the rib's code runs with its own context, and the result streams back like any other. Nothing on that path is rib specific." }
+  - { id: n6, scene: b-path, at: n6, text: "Add a package, get a capability. The keel stays the same." }
+  - { id: n7, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

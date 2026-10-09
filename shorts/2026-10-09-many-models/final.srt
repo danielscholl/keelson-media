@@ -1,0 +1,48 @@
+1
+00:00:02,400 --> 00:00:05,060
+Figure seven. Many models.
+
+2
+00:00:07,800 --> 00:00:28,612
+Which model should do which job? Strong models are slow and costly on grind work, and fast models are careless on judgment calls. In a workflow you don't have to pick one. Each node pins its own model by class, fast, balanced, or deep, and Keelson resolves that class to a real model from your provider's catalog.
+
+3
+00:00:30,612 --> 00:00:37,328
+Here a fast model maps the repo, a deep one plans a change, and a balanced one reviews the plan.
+
+4
+00:00:40,012 --> 00:00:43,312
+Three phases, three models, one run.
+
+5
+00:00:45,140 --> 00:00:54,688
+The run records which model really answered each node. Haiku explored, Opus planned, and Sonnet reviewed, and called the plan sound.
+
+6
+00:00:55,740 --> 00:01:14,488
+They can be swapped because no node reads another's conversation. Each one writes its conclusions to a markdown file in the run's folder, and the next node opens that file with a fresh context. The file is the contract, so any phase can change models without the others noticing.
+
+7
+00:01:18,288 --> 00:01:24,284
+So try a different reviewer. One line: replace balanced with a model from another vendor.
+
+8
+00:01:26,388 --> 00:01:28,208
+And run it again.
+
+9
+00:01:29,713 --> 00:01:39,613
+Same graph, same handoff. This reviewer, GPT-6 Luna, reads it differently, calls the plan unsound, and names the step it would fix.
+
+10
+00:01:40,513 --> 00:01:51,693
+That's the point. Stop arguing about which model is best for a job, and run the experiment. The pins live in the file, the run records what really answered, and a swap is one line.
+
+11
+00:01:52,293 --> 00:01:54,377
+Right model, right phase.
+
+12
+00:01:57,077 --> 00:02:00,769
+Keelson. Lay the keel, raise the ribs.
+

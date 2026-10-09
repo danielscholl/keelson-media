@@ -1,0 +1,72 @@
+{
+ "n0": [
+  "Figure six. The approval gate.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "Some steps shouldn't happen until a person says yes. In Keelson, every tool call, from chat, a workflow, a rib, or another agent over MCP, passes through one policy engine. Each policy answers allow, deny, or ask. Ask pauses the call for a human, and if nobody answers in five minutes, it's rejected.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "Turn on ask on shell, then ask the agent to run the tests.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2b": [
+  "The agent reached for bash, so Keelson paused it and asked.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "Accept, and only then does the command run.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "Chat asks call by call. A workflow can put the person in the graph itself. An approval node holds the run before the step you can't take back, and the reply becomes that node's output, so the steps after it can act on what was said.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "This release workflow tests the repo, drafts a plan, and then stops.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "Paused at the gate. The terminal just waits.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "In the browser, the plan opens for review: what passed, what ships, and the tag it will create.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "Approve, and the run picks up where it stopped.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "Back in the terminal, the run finished, and the tag is real.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "So nothing you can't undo happens on a model's say so. Policies gate the calls, approval nodes gate the run, and the person's answer goes into the record with everything else.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n11": [
+  "Ask first. Then act.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n12": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

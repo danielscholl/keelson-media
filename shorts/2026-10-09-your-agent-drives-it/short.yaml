@@ -1,0 +1,66 @@
+fig: "15"
+slug: your-agent-drives-it
+title: Your agent drives it
+act: IV
+problem: How does the coding agent you already use reach Keelson's workflows and ribs?
+docs: [guides/using-mcp]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: gateway, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: connect, lines: [n5], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n8, n9], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - { id: b-gateway, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [gateway, gateway.end], xfade: 0.8 }
+  - id: cc-ask
+    source: raw/cc.mp4
+    frame: viewport
+    label: CLAUDE CODE
+    marks: { enter: 8.6 }
+    trim: [0.3, enter + 0.6]
+  - id: cc-calls
+    source: raw/cc.mp4
+    frame: viewport
+    label: CLAUDE CODE
+    xfade: 0.3
+    marks: { list: 15.8, run: 17.5 }
+    trim: [list - 0.6, run + 2.4]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 20, 1300, 731] }
+  - id: web
+    source: raw/web.mp4
+    frame: viewport
+    label: KEELSON · BROWSER
+    xfade: 0.3
+    marks: source/web-meta.json
+    trim: [appear - 1.2, done + 1.8]
+  - id: cc-answer
+    source: raw/cc.mp4
+    frame: viewport
+    label: CLAUDE CODE
+    xfade: 0.3
+    marks: { answer: 31.6 }
+    trim: [answer - 0.6, answer + 3.4]
+    hold: 0.8
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 20, 1900, 1069] }
+  - { id: b-connect, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [connect, connect.end] }
+  - { id: b-why, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [why, why.end] }
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure fifteen. Your agent drives it." }
+  - { id: n1, scene: b-gateway, at: n1, text: "You don't have to leave the coding agent you already use. Keelson serves its tool registry over the Model Context Protocol, from the same server, at slash api slash mcp. Your agent gets the workflow tools and every installed rib's tools, and each call runs inside Keelson, with the rib's own credentials. The agent never sees the secrets behind them." }
+  - { id: n2, scene: cc-ask, at: 1.6, text: "Here Claude Code, in the harbor repo, is told to use Keelson to run a workflow." }
+  - { id: n3, scene: cc-calls, at: list - 0.4, text: "It lists the workflows over MCP, and starts tide-check." }
+  - { id: n4, scene: web, at: appear - 0.6, text: "In Keelson's browser the run appears, started by another agent, and runs like any other." }
+  - { id: n4b, scene: cc-answer, at: answer - 0.4, text: "Then it reads the result back, and even questions the report." }
+  - { id: n5, scene: b-connect, at: n5, text: "Wiring an agent is one command. Keelson connect claude, or copilot, or codex, registers the endpoint in that agent's own config, and drops a small skill that tells it when to reach for Keelson. Disconnect removes exactly what it added. On loopback the endpoint is open by default; you can make it read only, require a token, or hide tools by name." }
+  - { id: n8, scene: b-why, at: n8, text: "So your agent keeps the conversation, and Keelson keeps the durable part: the workflows, the gates, the record of every run, and the ribs with their credentials." }
+  - { id: n9, scene: b-why, at: n9, text: "Bring your agent. Keelson does the keeping." }
+  - { id: n10, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

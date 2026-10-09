@@ -1,0 +1,72 @@
+1
+00:00:02,400 --> 00:00:06,030
+Figure fourteen. The software factory.
+
+2
+00:00:07,800 --> 00:00:30,004
+The board from figure thirteen says one bead can start and ten wait. Something has to work it the way a team would: take what's ready, build it, have someone else read it before it lands, and pick up whatever that unblocked. In Keelson that's a swarm: a lead agent that owns the outcome, workers it spawns as the work calls for them, and a channel they all talk in.
+
+3
+00:00:30,804 --> 00:00:37,888
+In the swarm launcher, paste the brief and the factory prompt, and pick Fleet: a lead and up to seven workers.
+
+4
+00:00:38,493 --> 00:00:43,435
+Factory mode drops the turn and clock budgets. It runs as long as work keeps landing.
+
+5
+00:00:43,790 --> 00:00:48,844
+Writers may change files, each in its own git worktree, and the lead may use the tracker.
+
+6
+00:00:50,824 --> 00:00:52,644
+Start it.
+
+7
+00:00:54,324 --> 00:01:14,304
+The factory prompt asks for three things one agent can't do to itself. Others critique the plan before anyone builds. A design critic judges every visible change from screenshots, and sends back one fix at a time. And no head merges until an agent other than its writer approves it. These are real lines from the channel.
+
+8
+00:01:15,204 --> 00:01:22,112
+Twenty four minutes in, seven beads have shipped, and two writers build side by side as the graph widens.
+
+9
+00:01:22,604 --> 00:01:27,450
+Then the board drains. Eleven of eleven, shipped.
+
+10
+00:01:28,404 --> 00:01:33,392
+Forty six minutes, a hundred ninety turns, about twelve dollars at list price.
+
+11
+00:01:34,404 --> 00:01:37,792
+On main, the writers' branches merged one by one.
+
+12
+00:01:41,704 --> 00:01:44,076
+And a hundred twenty tests pass.
+
+13
+00:01:45,024 --> 00:01:55,708
+And this is what they built. Cosmos, a planetarium at night. The filters live in the URL, and every object has its own illustration.
+
+14
+00:01:57,837 --> 00:02:00,113
+Saturn, drawn as Saturn.
+
+15
+00:02:04,949 --> 00:02:07,321
+A chill, counted on the server.
+
+16
+00:02:08,727 --> 00:02:22,019
+A workflow runs one plan in one order, and that's right when you know the plan. A factory reads the graph, staffs itself, and checks its own work, so you get the review a team would give without being the bottleneck.
+
+17
+00:02:22,619 --> 00:02:25,311
+Ready work in. Reviewed work out.
+
+18
+00:02:28,011 --> 00:02:30,873
+Keelson. Lay the keel, raise the ribs.
+

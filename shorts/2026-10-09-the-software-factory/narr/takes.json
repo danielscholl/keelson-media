@@ -1,0 +1,92 @@
+{
+ "n0": [
+  "Figure fourteen. The software factory.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "The board from figure thirteen says one bead can start and ten wait. Something has to work it the way a team would: take what's ready, build it, have someone else read it before it lands, and pick up whatever that unblocked. In Keelson that's a swarm: a lead agent that owns the outcome, workers it spawns as the work calls for them, and a channel they all talk in.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "In the swarm launcher, paste the brief and the factory prompt, and pick Fleet: a lead and up to seven workers.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "Factory mode drops the turn and clock budgets. It runs as long as work keeps landing.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "Writers may change files, each in its own git worktree, and the lead may use the tracker.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "Start it.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "The factory prompt asks for three things one agent can't do to itself. Others critique the plan before anyone builds. A design critic judges every visible change from screenshots, and sends back one fix at a time. And no head merges until an agent other than its writer approves it. These are real lines from the channel.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "Twenty four minutes in, seven beads have shipped, and two writers build side by side as the graph widens.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "Then the board drains. Eleven of eleven, shipped.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "Forty six minutes, a hundred ninety turns, about twelve dollars at list price.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "On main, the writers' branches merged one by one.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n11": [
+  "And this is what they built. Cosmos, a planetarium at night. The filters live in the URL, and every object has its own illustration.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n12": [
+  "A workflow runs one plan in one order, and that's right when you know the plan. A factory reads the graph, staffs itself, and checks its own work, so you get the review a team would give without being the bottleneck.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n13": [
+  "Ready work in. Reviewed work out.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n14": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10b": [
+  "And a hundred twenty tests pass.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n11b": [
+  "A chill, counted on the server.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n11c": [
+  "Saturn, drawn as Saturn.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

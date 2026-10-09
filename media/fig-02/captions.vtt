@@ -1,0 +1,43 @@
+WEBVTT
+
+00:02.400 --> 00:06.028
+Figure two. Chat three ways.
+
+00:07.800 --> 00:21.492
+In many agent tools, a conversation belongs to the window you typed it in. Keelson gives you three ways in: the browser, an interactive terminal, and a one-line command you can script. All three reach the same conversation.
+
+00:22.292 --> 00:27.760
+Start with the script. Ask for a codename, and add dash dash json.
+
+00:28.792 --> 00:35.540
+One envelope comes back. Its mode says the server ran it, and the conversation ID is the row it wrote.
+
+00:35.892 --> 00:54.992
+Here's how. None of the three is the app. Each is a client of one local server, which runs the turn with Copilot and writes the conversation, every message, and the agent's session to SQLite. So the next turn picks up the same thread, whichever way it comes in.
+
+00:56.042 --> 01:03.798
+So open the browser. The scripted turn is already here. It never lived in the terminal. It lived in the store.
+
+01:04.232 --> 01:07.724
+Ask why that name, and the agent answers from the same thread.
+
+01:09.185 --> 01:14.655
+Now the terminal. Hand the interactive chat that same ID, straight from the envelope.
+
+01:15.785 --> 01:17.605
+Ask for a tagline.
+
+01:19.485 --> 01:23.323
+Breakwater again. The agent never lost the thread.
+
+01:25.165 --> 01:29.065
+And back in the browser, all three turns sit in one conversation.
+
+01:31.005 --> 01:46.729
+Why three? Each is good at something. The browser is for reading and exploring. The terminal keeps you in the shell, and can switch models mid-session. And the script makes a chat a building block, with JSON to pipe and an exit code to branch on.
+
+01:47.329 --> 01:52.797
+Three ways in, one store behind them. Everything after this builds on that store.
+
+01:55.497 --> 01:59.541
+Keelson. Lay the keel, raise the ribs.

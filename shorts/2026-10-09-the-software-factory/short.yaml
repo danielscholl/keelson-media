@@ -1,0 +1,131 @@
+fig: "14"
+slug: the-software-factory
+title: The software factory
+act: IV
+problem: Something has to work the board the way a team would, with someone else reading every change before it lands.
+docs: [tutorials/run-the-factory]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: team, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: rules, lines: [n6], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n12, n13], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - id: b-team
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [team, team.end]
+    xfade: 0.8
+  - id: l-fleet
+    source: raw/launch.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/launch-meta.json
+    trim: [0.9, fleet + 1.2]
+    hold: 2.6
+  - id: l-factory
+    source: raw/launch.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/launch-meta.json
+    trim: [fleet + 1.2, project - 0.2]
+    hold: 4.2
+    zoom:
+      - { at: -1, until: 9999, over: 0.6, box: [760, 200, 1160, 653] }
+  - id: l-write
+    source: raw/launch.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/launch-meta.json
+    trim: [project - 0.2, summary + 0.6]
+    hold: 1.6
+  - id: l-start
+    source: raw/launch.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/launch-meta.json
+    trim: [startclick - 1.6, startclick + 2.4]
+  - id: b-rules
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [rules, rules.end]
+  - id: mid
+    source: raw/watch-3-beads.mp4
+    frame: viewport
+    label: BROWSER
+    trim: [0.4, 8.2]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 60, 1920, 1080] }
+  - id: drained
+    source: raw/watch-7-beads.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.4
+    trim: [0.4, 6.4]
+  - id: done
+    source: raw/watch-7-swarm.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.4
+    trim: [0.4, 6.5]
+    zoom:
+      - { at: 0.6, until: 9999, over: 0.9, box: [760, 280, 1160, 653] }
+  - id: term
+    source: raw/term.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { log: 1.8, tests: 8.8 }
+    trim: [0.4, end]
+    hold: 1.2
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 0, 1300, 731] }
+  - id: app
+    source: raw/app.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/app-meta.json
+    trim: [0.2, detail + 1.2]
+  - id: app-chill
+    source: raw/app.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.4
+    marks: source/app-meta.json
+    trim: [chills - 1.4, end]
+    hold: 1.0
+  - id: b-why
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [why, why.end]
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure fourteen. The software factory." }
+  - { id: n1, scene: b-team, at: n1, text: "The board from figure thirteen says one bead can start and ten wait. Something has to work it the way a team would: take what's ready, build it, have someone else read it before it lands, and pick up whatever that unblocked. In Keelson that's a swarm: a lead agent that owns the outcome, workers it spawns as the work calls for them, and a channel they all talk in." }
+  - { id: n2, scene: l-fleet, at: 1.2, text: "In the swarm launcher, paste the brief and the factory prompt, and pick Fleet: a lead and up to seven workers." }
+  - { id: n3, scene: l-factory, at: fleet + 1.4, text: "Factory mode drops the turn and clock budgets. It runs as long as work keeps landing." }
+  - { id: n4, scene: l-write, at: project, text: "Writers may change files, each in its own git worktree, and the lead may use the tracker." }
+  - { id: n5, scene: l-start, at: startclick - 1.2, text: "Start it." }
+  - { id: n6, scene: b-rules, at: n6, text: "The factory prompt asks for three things one agent can't do to itself. Others critique the plan before anyone builds. A design critic judges every visible change from screenshots, and sends back one fix at a time. And no head merges until an agent other than its writer approves it. These are real lines from the channel." }
+  - { id: n7, scene: mid, at: 0.6, text: "Twenty four minutes in, seven beads have shipped, and two writers build side by side as the graph widens." }
+  - { id: n8, scene: drained, at: 0.6, text: "Then the board drains. Eleven of eleven, shipped." }
+  - { id: n9, scene: done, at: 0.8, text: "Forty six minutes, a hundred ninety turns, about twelve dollars at list price." }
+  - { id: n10, scene: term, at: log - 0.6, text: "On main, the writers' branches merged one by one." }
+  - { id: n10b, scene: term, at: tests - 0.3, text: "And a hundred twenty tests pass." }
+  - { id: n11, scene: app, at: 0.6, text: "And this is what they built. Cosmos, a planetarium at night. The filters live in the URL, and every object has its own illustration." }
+  - { id: n11c, scene: app, at: saturn + 0.3, text: "Saturn, drawn as Saturn." }
+  - { id: n11b, scene: app-chill, at: chills + 0.2, text: "A chill, counted on the server." }
+  - { id: n12, scene: b-why, at: n12, text: "A workflow runs one plan in one order, and that's right when you know the plan. A factory reads the graph, staffs itself, and checks its own work, so you get the review a team would give without being the bottleneck." }
+  - { id: n13, scene: b-why, at: n13, text: "Ready work in. Reviewed work out." }
+  - { id: n14, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

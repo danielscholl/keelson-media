@@ -1,0 +1,82 @@
+fig: "16"
+slug: no-paid-keys
+title: No paid keys
+act: Coda
+problem: Can Keelson run on a model you host yourself, with no account and no key?
+docs: [guides/configuration, concepts/providers]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: gw, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: limits, lines: [n6], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n7, n8], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - { id: b-gw, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [gw, gw.end], xfade: 0.8 }
+  - id: add
+    source: raw/gw.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { enter: 4.8, chat: 8.2, answer: 13.2 }
+    trim: [0.3, chat - 0.4]
+    hold: 1.6
+  - id: ask
+    source: raw/gw.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { chat: 8.2, answer: 13.2 }
+    trim: [chat - 0.2, answer + 5.0]
+    hold: 0.4
+    zoom:
+      - { at: answer - 0.4, until: 9999, over: 0.8, box: [0, 20, 1900, 1069] }
+  - id: web
+    source: raw/chat.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/chat-meta.json
+    trim: [1.4, send + 0.8]
+    zoom:
+      - { at: picker + 0.3, until: 9999, over: 0.8, box: [300, 480, 1300, 731] }
+  - id: web-answer
+    source: raw/chat.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/chat-meta.json
+    trim: [answered - 1.6, answered + 2.6]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [330, 60, 1500, 844] }
+  - id: usage
+    source: raw/usage.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/usage-meta.json
+    trim: [ledger - 0.6, row + 2.4]
+    hold: 0.6
+    zoom:
+      - { at: ledger + 1.2, until: 9999, over: 0.9, box: [0, 380, 1920, 1080] }
+  - { id: b-limits, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [limits, limits.end] }
+  - { id: b-why, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [why, why.end] }
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure sixteen. No paid keys." }
+  - { id: n1, scene: b-gw, at: n1, text: "Every turn so far ran on Copilot, through a subscription. It doesn't have to. A gateway points Keelson at any endpoint that speaks the OpenAI chat API, a local Ollama, vLLM, OpenRouter, or Azure, and registers it as a provider under its own name, right beside the built-in ones.",
+      ssml: "Every turn so far ran on Co Pilot, through a subscription. It doesn't have to. A gateway points Keelson at any endpoint that speaks the OpenAI chat API, a local Ollama, vLLM, OpenRouter, or Azure, and registers it as a provider under its own name, right beside the built-in ones." }
+  - { id: n2, scene: add, at: 0.6, text: "Ollama is already running on this machine. One command adds it, keyless, with phi4 as its model." }
+  - { id: n3, scene: ask, at: chat + 0.2, text: "No sign-in, no key. Ask it something." }
+  - { id: n3b, scene: ask, at: answer + 0.2, text: "That answer came from a model running on this laptop." }
+  - { id: n4, scene: web, at: picker - 1.0, text: "In the browser it shows up in the model picker, with the models the endpoint reports." }
+  - { id: n5, scene: web, at: pick + 1.0, text: "Pick phi4, and chat like any other provider." }
+  - { id: n5c, scene: web-answer, at: answered - 1.4, text: "Three names, from phi4, on this machine." }
+  - { id: n5b, scene: usage, at: ledger - 0.2, text: "The ledger records every local turn too, and marks it unpriced. Not free." }
+  - { id: n6, scene: b-limits, at: n6, text: "Be clear about what a gateway is today. A key, when an endpoint needs one, goes to your keychain, never the config, and only over HTTPS or loopback. Turns stream, but they don't get Keelson's tools, and they don't resume a session, so each turn starts fresh. A model with no price reads unpriced, so it never looks free by accident." }
+  - { id: n7, scene: b-why, at: n7, text: "So you can try the whole harness with nothing to buy, keep a conversation on your own machine, or point it at the endpoint your team already runs." }
+  - { id: n8, scene: b-why, at: n8, text: "Any endpoint, one more provider." }
+  - { id: n9, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

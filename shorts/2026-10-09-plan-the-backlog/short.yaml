@@ -1,0 +1,86 @@
+fig: "13"
+slug: plan-the-backlog
+title: Plan the backlog
+act: IV
+problem: How do you hand agents a build the way a team would work it, one ready unit at a time?
+docs: [tutorials/plan-the-backlog]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: team, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: graph, lines: [n5], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n8, n9], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - { id: b-team, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [team, team.end], xfade: 0.8 }
+  - id: clone
+    source: raw/seed.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { cloned: 5.2, init: 6.0 }
+    trim: [0.3, init + 4.4]
+  - id: create
+    source: raw/seed.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { create: 13.4, created: 16.6, ready: 21.0 }
+    trim: [create - 0.1, ready - 0.3]
+    hold: 1.6
+    zoom:
+      - { at: created + 0.3, until: 9999, over: 0.8, box: [0, 20, 1300, 731] }
+  - id: ready
+    source: raw/seed.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { ready: 21.0, added: 27.4 }
+    trim: [ready - 0.2, added + 1.2]
+    hold: 0.4
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 20, 1300, 731] }
+  - { id: b-graph, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [graph, graph.end] }
+  - id: tab
+    source: raw/tab.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/tab-meta.json
+    trim: [0.8, scroll + 0.6]
+    zoom:
+      - { at: tracker + 1.2, until: scroll - 0.4, over: 0.9, box: [0, 200, 1300, 731] }
+  - id: chat
+    source: raw/chat.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/chat-meta.json
+    trim: [1.2, send + 1.6]
+  - id: chat-answer
+    source: raw/chat.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/chat-meta.json
+    trim: [answered - 1.0, end]
+    hold: 0.8
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [330, 240, 1500, 844] }
+  - { id: b-why, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [why, why.end] }
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure thirteen. Plan the backlog." }
+  - { id: n1, scene: b-team, at: n1, text: "One plan and one order suits an experiment. It isn't how a team builds software. A team keeps a backlog of small units of work, knows which ones wait on which, and starts whatever's ready. Two people can take two ready units at once, and nobody builds the detail page before the API it calls." }
+  - { id: n2, scene: clone, at: 0.6, text: "This sample repo carries a whole app build, Cosmos, as data. Clone it, and start a beads tracker inside it." }
+  - { id: n3, scene: create, at: create + 0.2, text: "One command files the whole plan in a single transaction: eleven beads, each with acceptance criteria, and every dependency between them." }
+  - { id: n4, scene: ready, at: ready + 0.4, text: "And the tracker says exactly one can start. Register the repo as a project, so Keelson can see it." }
+  - { id: n5, scene: b-graph, at: n5, text: "That ratio is the graph doing its job. Until the scaffold lands, nothing else can safely start. When it does, three beads open up and can be built side by side. Then the API, the visuals, and the store, and finally the two views, a polish pass, and an end to end test. Ready means every bead it waits on is closed." }
+  - { id: n6, scene: tab, at: tab - 0.4, text: "The Beads tab picks up the new tracker. Next up is the scaffold, ranked by how much it unlocks: three beads now, seven more behind them." }
+  - { id: n7, scene: chat, at: type - 0.4, text: "Ask chat what can start, and it answers from the tracker's own tools, not by reading your files." }
+  - { id: n7b, scene: chat-answer, at: answered - 0.8, text: "One bead now, three right behind it, and the chain after that." }
+  - { id: n8, scene: b-why, at: n8, text: "Nothing has been built, and no model planned it. The plan is data you can read, edit, and seed again. That's the point: once the work is a graph, agents can work it the way a team would." }
+  - { id: n9, scene: b-why, at: n9, text: "Plan the graph. Let the graph say what's next." }
+  - { id: n10, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

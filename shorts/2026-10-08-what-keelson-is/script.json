@@ -1,0 +1,70 @@
+[
+ {
+  "id": "n0",
+  "scene": "opener",
+  "text": "Figure zero. What Keelson is."
+ },
+ {
+  "id": "n1",
+  "scene": "hook",
+  "text": "You already use a coding agent. It's sharp for an hour. Then the session ends, and what it learned goes with it."
+ },
+ {
+  "id": "n2",
+  "scene": "keel",
+  "text": "Keelson is the harness that sits under that agent. One small server, on your own machine. No hosted service, and nothing to sign in to."
+ },
+ {
+  "id": "n3",
+  "scene": "chat",
+  "text": "It starts with chat. You talk to your agent through Keelson, in the browser or the terminal."
+ },
+ {
+  "id": "n4",
+  "scene": "state",
+  "text": "And it keeps the state. Conversations, runs, and the memories you approve are saved locally, and your secrets stay in the keychain."
+ },
+ {
+  "id": "n5",
+  "scene": "workflows",
+  "text": "It makes work repeatable. A workflow is a small YAML graph of agent steps, shell steps, and approval gates, run in the same order every time.",
+  "ssml": "It makes work repeatable. A workflow is a small <sub alias=\"yammel\">YAML</sub> graph of agent steps, shell steps, and approval gates, run in the same order every time."
+ },
+ {
+  "id": "n6",
+  "scene": "providers",
+  "text": "It doesn't tie you to one model. Claude, Copilot, Codex, or Pi, chosen per chat, or per step.",
+  "ssml": "It doesn't tie you to one model. Claude, Co Pilot, Codex, or Pi, chosen per chat, or per step."
+ },
+ {
+  "id": "n7",
+  "scene": "ways",
+  "text": "There are three ways in. The browser, the keelson command line for your shell and scripts, and MCP, so the agent you already use can drive it too.",
+  "ssml": "There are three ways in. The browser, the Keelson command line for your shell and scripts, and MCP, so the agent you already use can drive it too."
+ },
+ {
+  "id": "n8",
+  "scene": "access",
+  "text": "Over MCP, you decide how much it can do. Read only, or full control, with a token when you want one."
+ },
+ {
+  "id": "n9",
+  "scene": "standalone",
+  "text": "That's the keel, and it's useful on its own."
+ },
+ {
+  "id": "n10",
+  "scene": "ribs",
+  "text": "When you need more, you raise ribs. A rib is a package that adds tools, workflows, and whole new screens, without forking the harness."
+ },
+ {
+  "id": "n11",
+  "scene": "reveal",
+  "text": "One backbone, many ribs. Every other figure in this series builds on this frame."
+ },
+ {
+  "id": "n12",
+  "scene": "close",
+  "text": "Keelson. Lay the keel, raise the ribs."
+ }
+]

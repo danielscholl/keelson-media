@@ -1,0 +1,37 @@
+WEBVTT
+
+00:02.400 --> 00:05.758
+Figure five. Write a workflow.
+
+00:07.800 --> 00:24.868
+Chat is improvisation. When work has to run the same way every time, you write it down as a workflow: a YAML file of nodes, where depends on draws the edges between them. Keelson reads the file as a graph, and runs it in that order, every time.
+
+00:25.468 --> 00:36.040
+Here's one for the harbor repo: run the tests, print the tides, then have an agent report on both. The last line points at a node called tide. There isn't one.
+
+00:36.268 --> 00:42.360
+Validate runs the same loader the server uses, and it names the problem before anything runs.
+
+00:43.668 --> 01:03.536
+That's why you validate first. The loader checks that every edge lands on a real node, every output a prompt reads comes from one, and there are no cycles. An unknown field is only a warning. But a broken edge found at run time would stop the run halfway, after earlier steps had already done their work.
+
+01:05.336 --> 01:08.372
+Add the missing letter, save, and validate again.
+
+01:10.336 --> 01:11.108
+Clean.
+
+01:12.536 --> 01:21.892
+Now run it. Test and tides depend on nothing, so they start together. Report waits for both, and their output is wired into its prompt.
+
+01:23.666 --> 01:31.902
+In the browser, the run is the same graph. The report read the two results it was handed, and kept the time exactly as printed.
+
+01:34.403 --> 01:49.231
+So a workflow is a file you can read, a graph Keelson can check, and a run that goes the same way every time. Chat leaves the control flow to the model. A workflow takes it back, and hands the model only the steps that need one.
+
+01:49.831 --> 01:52.523
+Write it, check it, run it.
+
+01:55.223 --> 01:58.739
+Keelson. Lay the keel, raise the ribs.

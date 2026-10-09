@@ -1,0 +1,32 @@
+1
+00:00:00,600 --> 00:00:05,620
+This is Keelson. An agent harness that runs on your own machine.
+
+2
+00:00:08,000 --> 00:00:10,276
+Start the server with keelson start.
+
+3
+00:00:10,800 --> 00:00:21,646
+Now run a workflow. The smoke test exercises every node type. Prompts, commands, loops, bash, and scripts, wired together as a DAG.
+
+4
+00:00:22,000 --> 00:00:25,164
+Nine nodes, a few seconds, all green.
+
+5
+00:00:25,420 --> 00:00:29,912
+Every workflow is also in the browser. Find the smoke test, and hit Run.
+
+6
+00:00:30,920 --> 00:00:38,164
+The graph lights up as each node finishes. You can see which model answered, how long it took, and the output.
+
+7
+00:00:40,176 --> 00:00:44,380
+And it's all stored locally, so nothing is lost when you close the tab.
+
+8
+00:00:46,358 --> 00:00:49,810
+Keelson. Lay the keel, raise the ribs.
+

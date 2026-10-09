@@ -1,0 +1,62 @@
+{
+ "n0": [
+  "Figure five. Write a workflow.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "Chat is improvisation. When work has to run the same way every time, you write it down as a workflow: a YAML file of nodes, where depends on draws the edges between them. Keelson reads the file as a graph, and runs it in that order, every time.",
+  "Chat is improvisation. When work has to run the same way every time, you write it down as a workflow: a <sub alias='yammel'>YAML</sub> file of nodes, where depends on draws the edges between them. Keelson reads the file as a graph, and runs it in that order, every time.",
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "Here's one for the harbor repo: run the tests, print the tides, then have an agent report on both. The last line points at a node called tide. There isn't one.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "Validate runs the same loader the server uses, and it names the problem before anything runs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "That's why you validate first. The loader checks that every edge lands on a real node, every output a prompt reads comes from one, and there are no cycles. An unknown field is only a warning. But a broken edge found at run time would stop the run halfway, after earlier steps had already done their work.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "Add the missing letter, save, and validate again.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "Clean.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "Now run it. Test and tides depend on nothing, so they start together. Report waits for both, and their output is wired into its prompt.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "In the browser, the run is the same graph. The report read the two results it was handed, and kept the time exactly as printed.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "So a workflow is a file you can read, a graph Keelson can check, and a run that goes the same way every time. Chat leaves the control flow to the model. A workflow takes it back, and hands the model only the steps that need one.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "Write it, check it, run it.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n11": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

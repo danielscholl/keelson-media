@@ -1,0 +1,42 @@
+{
+ "n1": [
+  "This is Keelson. An agent harness that runs on your own machine.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "Start the server with keelson start.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "Now run a workflow. The smoke test exercises every node type. Prompts, commands, loops, bash, and scripts, wired together as a DAG.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "Nine nodes, a few seconds, all green.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "Every workflow is also in the browser. Find the smoke test, and hit Run.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "The graph lights up as each node finishes. You can see which model answered, how long it took, and the output.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "And it's all stored locally, so nothing is lost when you close the tab.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

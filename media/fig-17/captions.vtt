@@ -1,0 +1,31 @@
+WEBVTT
+
+00:02.400 --> 00:05.788
+Figure seventeen. Ask for a report.
+
+00:07.800 --> 00:26.916
+Chat answers are text, and they scroll away. Sometimes what you want is a page: a run report, a briefing, a chart, laid out to be read and kept. In Keelson, the agent can author one and publish it to the canvas, a drawer in the browser, with a single tool.
+
+00:27.709 --> 00:32.985
+Ask for it in one line. A report on the harbor backlog, published to the canvas.
+
+00:33.991 --> 00:37.875
+The agent gathers the facts first, from the beads tools.
+
+00:38.291 --> 00:41.839
+Then it reads Keelson's design guide, and publishes.
+
+00:44.991 --> 00:54.523
+The drawer opens on the page. The state of the work up top, what's ready, what to start first, and what waits on what, in Keelson's own palette.
+
+00:56.824 --> 01:22.036
+Three things keep those pages honest. A design guide in the prompt sets the contract: theme tokens, no outside resources, Keelson's palette. Publishing checks chart colors by computation, for contrast and color blindness, and rejects a page that fails so the agent fixes it in the same turn. And every page renders in a sandboxed frame that can't make a network request.
+
+01:23.136 --> 01:36.732
+The page is saved as a plain HTML file in Keelson's home. It survives restarts, and republishing the same name updates it in place. So the answer you'd scroll past becomes something you can keep and share.
+
+01:37.332 --> 01:40.402
+Ask once. Keep the page.
+
+01:43.102 --> 01:46.842
+Keelson. Lay the keel, raise the ribs.

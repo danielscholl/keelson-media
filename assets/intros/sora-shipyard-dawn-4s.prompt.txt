@@ -1,0 +1,3 @@
+model: sora-2, 4s, 1280x720
+
+Cinematic slow push-in at dawn in a small shipwright's yard on the harbor of San Sebastián, Spain. A traditional Basque wooden fishing boat stands half-built on the slipway: a long oak keel with bare curved frames (ribs) rising from it like a skeleton, the raked stem already standing at the bow. Soft brass-gold morning light rakes across the timber; the bay and the hills behind are deep navy blue in early light, colorful fishing boats moored in soft focus. In the foreground on a workbench, a large blueprint sheet of the same hull, pinned flat, with brass dividers resting on it. Calm, crafted, documentary realism, shallow depth of field, muted navy and brass color grade. No people, no text, no logos.

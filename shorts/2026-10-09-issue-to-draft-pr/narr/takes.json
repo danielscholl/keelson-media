@@ -1,0 +1,72 @@
+{
+ "n0": [
+  "Figure eight. Issue to draft PR.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "Now the agent writes real code. fix-issue takes a GitHub issue to a draft pull request. Before its gate, it reads and thinks. After it, it writes: a branch, commits, a push, a pull request. The gate sits on that seam.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "The checkout is clean, on main. Hand it the issue number.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "It fetched the issue, called it a feature, wrote a plan, and checked that every acceptance criterion maps to a step. Then it stopped.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "The plan even keeps tide times in UTC, the convention from the project notebook. Approve, and only now does any code get written.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "Your checkout stays safe because the run gets its own git worktree: a second working tree of the repo, on a branch named for the run. Every node runs there. It implements, runs the project's own checks, fixes what fails, and a hard gate refuses to open a PR over broken checks.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "Checks pass. It pushes the branch, opens the pull request, and makes sure it's a draft.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "Three reviewers then read the diff for correctness, conventions, and coverage, and a judge keeps only what it can confirm. Nothing needed fixing.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "There's no CI on this sandbox, so the PR stays a draft.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8b": [
+  "Your checkout is still main, still clean.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8c": [
+  "And the draft is waiting on GitHub.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "So the agent can't write before you approve, can't touch your checkout, and can't open a PR over failing checks. You review a draft, not a surprise.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "Read, approve, then write, somewhere else.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n11": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

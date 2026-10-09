@@ -1,0 +1,24 @@
+# Brief
+
+What to build. This part is the same whether one agent builds it or a factory
+does, so it doubles as the eval prompt.
+
+```text
+Build Cosmos, the app described in spec.md, as a showcase site. spec.md owns the content, the canonical facts and the capabilities; this brief owns the quality bar.
+
+Stack: Bun and TypeScript, no frontend framework, no third-party runtime dependencies, Bun.serve with HTML imports, bun:sqlite for reactions, bun test for tests. bun run dev serves the app on port 3000.
+
+Art direction: a cinematic planetarium at night, not a dashboard. Near-black blue depth with layered gradients and a procedural starfield, one warm accent used sparingly, generous negative space, oversized display type, small uppercase eyebrow labels. One shared design system that every page is built from, so the landing page and the detail page read as one site. Every one of the 12 objects gets its own recognizable SVG illustration (Saturn's rings, Jupiter's bands and Great Red Spot, the black hole's lensed accretion ring, Andromeda's tilted spiral), never one generic sphere. System fonts only; no images, web fonts or CDNs.
+
+Behavior: every capability in spec.md works. The category filter and search live in the URL. The object of the day rolls over at the visitor's local midnight. The chills reaction persists server-side, refuses a same-day repeat with a calm message, and never races. A detail view walks the catalog with the arrow keys and returns with Escape. Layouts hold at 375px wide, focus is visible, contrast meets WCAG AA, and motion respects prefers-reduced-motion.
+
+Done means: bun test and bun run typecheck pass, tests cover the API, the store and the pure UI logic, and README.md says how to run the app.
+```
+
+How the factory works. You lead it, and the tracker is the plan.
+
+If the tracker holds no beads, plan first: cut the whole build into beads, each small enough for one writer, each with a description, acceptance criteria another agent can check against a diff, and dependencies that let independent work run in parallel. Settle in the beads what writers would otherwise argue about, such as file layout and the design system. Post the plan in the channel and have at least two agents critique it before anyone builds; revise the beads to settle what they raise. If the tracker already holds beads, critique and refine them the same way instead of starting over.
+
+Staff the factory as you judge best, within the plan's seats: writers, a design critic, a reviewer, whatever the work needs. Agents may talk among themselves, review each other's work against the brief and spec.md, and propose new or changed beads. Mark a bead in progress when a writer takes it. Writers run bun test and bun run typecheck before reporting. When you ask for a review, paste the bead's acceptance criteria into the request. Nothing merges until an agent other than its writer has approved that head. Judge pages by how they look, not only by their code: for any change a visitor can see, the writer runs the app on a free port and saves full-page screenshots at 1440px and 375px wide with whatever headless browser the machine has (letting entrance motion settle first), keeps them out of git, and names the image files in its report. A design critic opens those images, holds them to the brief's art direction, and sends back the one change that would most improve the page, until it approves. Merge each approved head and close its bead as it lands, so the board drains in dependency order.
+
+Conclude with the closed beads, what the reviewers pushed back on, what nobody checked, and the command to run the app.

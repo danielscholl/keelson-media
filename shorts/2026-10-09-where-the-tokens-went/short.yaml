@@ -1,0 +1,104 @@
+fig: "10"
+slug: where-the-tokens-went
+title: Where the tokens went
+act: III
+problem: After all that work, which turns spent what, on which model, and what did it cost?
+docs: [concepts/usage]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: ledger, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: priced, lines: [n5], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n9, n10], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - id: b-ledger
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [ledger, ledger.end]
+    xfade: 0.8
+  - id: u-pulse
+    source: raw/usage.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/usage-meta.json
+    trim: [usage - 0.6, ribbon + 0.2]
+    hold: 4.0
+    zoom:
+      - { at: usage + 0.8, until: 9999, over: 0.9, box: [0, 100, 1100, 619] }
+  - id: u-ribbon
+    source: raw/usage.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/usage-meta.json
+    trim: [ribbon + 0.4, cost + 0.1]
+    hold: 2.8
+  - id: u-cost
+    source: raw/usage.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/usage-meta.json
+    trim: [costview + 0.2, models - 0.5]
+    hold: 1.0
+  - id: b-priced
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [priced, priced.end]
+  - id: u-models
+    source: raw/usage.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/usage-meta.json
+    trim: [models - 0.4, jobs - 0.4]
+    hold: 2.4
+    zoom:
+      - { at: models + 0.8, until: 9999, over: 0.9, box: [0, 180, 1300, 731] }
+  - id: u-jobs
+    source: raw/usage.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/usage-meta.json
+    trim: [jobs - 0.4, ledger - 0.4]
+    hold: 2.4
+    zoom:
+      - { at: jobs + 0.6, until: 9999, over: 0.9, box: [0, 180, 1300, 731] }
+  - id: u-ledger
+    source: raw/usage.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/usage-meta.json
+    trim: [ledger - 0.4, end]
+    hold: 0.6
+    zoom:
+      - { at: ledger + 0.8, until: 9999, over: 0.9, box: [0, 170, 1400, 788] }
+  - id: b-why
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [why, why.end]
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure ten. Where the tokens went." }
+  - { id: n1, scene: b-ledger, at: n1, text: "Chat and workflows tell you what an agent did. Usage tells you what each turn consumed. Every turn that spends tokens, from a chat, a workflow node, or a rib, writes one row to a single ledger: the provider, the model that actually served it, input, output, and cache, and the run or conversation it came from." }
+  - { id: n2, scene: u-pulse, at: usage + 0.4, text: "This is everything the series so far has run on this machine. Three million tokens, seventy eight agent turns, about two dollars, and two thirds of the input served from cache." }
+  - { id: n3, scene: u-ribbon, at: ribbon + 1.6, text: "The flow traces each source to the models it drove. By tokens, GPT-6 Luna carried the most.",
+      ssml: "The flow traces each source to the models it drove. By tokens, GPT six Luna carried the most." }
+  - { id: n4, scene: u-cost, at: costview + 0.4, text: "Switch to cost, and the picture flips. Opus did a fraction of the work, and most of the spending." }
+  - { id: n5, scene: b-priced, at: n5, text: "That cost isn't a bill. It's an estimate, worked out when you look: each row's tokens times the per million rates of the model that served it, from your provider's catalog or a price you set. Change a price and history reprices. A model with no price reads unpriced, never free." }
+  - { id: n6, scene: u-models, at: models + 0.2, text: "The model roster puts a price card under each model: cache read, input, cache write, and output." }
+  - { id: n7, scene: u-jobs, at: jobs + 0.2, text: "Jobs rank each workflow by what a run costs. The issue to PR run from figure eight came to about a dollar." }
+  - { id: n8, scene: u-ledger, at: ledger + 0.2, text: "And the ledger is the raw rows underneath it all, one per turn." }
+  - { id: n9, scene: b-why, at: n9, text: "Usage watches. It never stops a turn; the budget gate is what says no. But when you ask which model is worth it, or which workflow got expensive, the answer is a row you can read." }
+  - { id: n10, scene: b-why, at: n10, text: "Every turn, one row." }
+  - { id: n11, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

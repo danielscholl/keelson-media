@@ -1,0 +1,72 @@
+{
+ "n0": [
+  "Figure nine. Make it remember.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "Every new session starts cold. The notebook from figure three is what you tell the agent. Memory is what it learns on its own, from runs you weren't watching. That needs a rule: writing a memory and trusting it are two separate events, and only you connect them.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "This workflow audits the tide model, and its node declares a memory writeback. When it finishes, it drafts what it found as a lesson.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "Ask a brand new chat what the audit found.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "It has no idea. The lesson is recorded, but it's pending, so it can't reach the agent.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "Every draft starts as evidence. Its provenance is fixed as generated, guardrails screen out secrets and duplicates, and it lands pending. Only a person promotes it. Confirm makes it instruction grade, evidence only keeps it searchable but never injected, and reject discards it. Every decision goes into an audit journal.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6a": [
+  "Open the review queue.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "It shows the draft, what it says, and where it came from. Confirm it.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6b": [
+  "Confirmed. Now it's instruction grade.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "Same question, another new chat.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8a": [
+  "Now it knows: about eleven minutes early, each lunar month.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "Recall is scoped to the project, ranked by relevance, and fades on a thirty day half life. So the agent starts warm, and no unattended run gets to teach the next one something you never checked.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "Remembered isn't believed. Not until you say so.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

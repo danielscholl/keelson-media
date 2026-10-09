@@ -1,0 +1,87 @@
+fig: "18"
+slug: did-that-change-help
+title: Did that change help?
+act: Coda
+problem: When you change a workflow's prompt, how do you know it got better and not just different?
+docs: [guides/evaluating-workflows, workflows/hillclimb]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: cases, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: verdict, lines: [n6], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n8, n9], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - { id: b-cases, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [cases, cases.end], xfade: 0.8 }
+  - id: run1
+    source: raw/before.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { enter: 6.3 }
+    trim: [0.3, enter + 0.6]
+    hold: 2.0
+  - id: run1-out
+    source: raw/before.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { out: 107.6 }
+    trim: [out - 0.3, end]
+    hold: 7.6
+    zoom:
+      - { at: out + 1.4, until: 9999, over: 0.9, box: [0, 60, 1300, 731] }
+  - id: fix
+    source: raw/fix.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { out: 6.0 }
+    trim: [2.2, end]
+    zoom:
+      - { at: out - 0.5, until: 9999, over: 0.8, box: [0, 20, 1500, 844] }
+  - id: run2
+    source: raw/after.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { enter: 7.8, out: 53.6 }
+    trim: [4.6, enter + 0.5]
+  - id: run2-out
+    source: raw/after.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { out: 53.6 }
+    trim: [out - 0.3, out + 1.9]
+    hold: 1.4
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 20, 1300, 731] }
+  - { id: b-verdict, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [verdict, verdict.end] }
+  - id: compare
+    source: raw/after.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { typing: 55.6, out: 58.8 }
+    trim: [typing - 0.3, end]
+    hold: 1.0
+    zoom:
+      - { at: out + 0.4, until: 9999, over: 0.9, box: [0, 20, 1500, 844] }
+  - { id: b-why, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [why, why.end] }
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure eighteen. Did that change help?" }
+  - { id: n1, scene: b-cases, at: n1, text: "A workflow that runs isn't a workflow that works. When you change a prompt or a model pin, the only honest answer to did that help is a set of cases, run before and after and graded the same way. In Keelson that's a YAML case set: real inputs, a grader per case, and a train and test split." }
+  - { id: n2, scene: run1, at: 0.5, text: "Here's a small triage workflow, with twelve cases, six for train and six held out for test. Run the eval on today's prompt." }
+  - { id: n3, scene: run1-out, at: out + 0.2, text: "Zero for twelve. Every answer starts the same way: I'll help you, let me explore the repository. The prompt never said what it wanted." }
+  - { id: n4, scene: fix, at: 2.6, text: "So change one thing: the prompt. Give it the three labels, what each means, and ask for one word." }
+  - { id: n5, scene: run2, at: 5.4, text: "Run the same cases again." }
+  - { id: n5b, scene: run2-out, at: out + 0.1, text: "Twelve for twelve." }
+  - { id: n6, scene: b-verdict, at: n6, text: "But a better number isn't a decision. Compare pairs each case before and after, and a permutation test asks whether the change is bigger than chance. Only cases that moved count, so at least six must change before anything leaves within noise. And it keeps the change only if the train and test splits both moved up. A gain on train alone is overfitting, and that reverts." }
+  - { id: n7, scene: compare, at: typing + 0.2, text: "Compare the two results files." }
+  - { id: n7b, scene: compare, at: out + 0.6, text: "Improved on both splits, cheaper and faster per case. The decision: keep." }
+  - { id: n8, scene: b-why, at: n8, text: "So the next prompt tweak is measured, not eyeballed. And the hillclimb workflow runs this loop for you: one change per round, the eval, and the verdict deciding keep or revert." }
+  - { id: n9, scene: b-why, at: n9, text: "Measure it. Then keep it." }
+  - { id: n10, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

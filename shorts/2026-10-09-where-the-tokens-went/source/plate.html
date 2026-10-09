@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../../tools/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+  :root { --keel:#1e3a5f; --rib:#2f6fb0; --brass:#b5803a; --brass-ink:#8a5a1f; --ink:#0f1b2d; --muted:#51607a; --green:#2f8f5b; }
+  * { margin:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; }
+  body {
+    font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; color: var(--ink);
+    background:
+      linear-gradient(rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(90deg, rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      linear-gradient(90deg, rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      radial-gradient(circle at 74% 0%, rgba(255,255,255,.9), transparent 700px),
+      linear-gradient(180deg, #f3f5f8 0%, #e6eaf0 100%);
+  }
+  .crop { position:absolute; width:26px; height:26px; border:0 solid rgba(30,58,95,.5); }
+  #header { position:absolute; left:128px; right:128px; top:34px; height:44px; display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1.5px solid rgba(30,58,95,.45); font-family:"JetBrains Mono", monospace; font-size:18px; letter-spacing:.2em; color:var(--keel); }
+  #header .left { display:flex; align-items:center; gap:16px; }
+  #boardName { position:relative; width:520px; height:24px; color:var(--muted); }
+  #boardName span { position:absolute; right:0; top:0; opacity:0; white-space:nowrap; }
+  svg text { font-family: Inter, sans-serif; }
+  svg .mono { font-family: "JetBrains Mono", monospace; white-space: pre; }
+  .draw { stroke-dasharray:1; stroke-dashoffset:1; }
+</style>
+</head>
+<body>
+<div class="crop" style="left:40px;top:14px;border-left-width:2px;border-top-width:2px"></div>
+<div class="crop" style="right:40px;top:14px;border-right-width:2px;border-top-width:2px"></div>
+<div class="crop" style="left:40px;bottom:14px;border-left-width:2px;border-bottom-width:2px"></div>
+<div class="crop" style="right:40px;bottom:14px;border-right-width:2px;border-bottom-width:2px"></div>
+<div id="header">
+  <div class="left">
+    <svg width="30" height="30" viewBox="0 0 34 34" fill="none"><line x1="11.5" y1="7" x2="11.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="22.5" y1="7" x2="22.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="20" x2="29" y2="20" stroke="#b5803a" stroke-width="2.6" stroke-linecap="round"/></svg>
+    <span><b>KEELSON</b> &nbsp;·&nbsp; FIG. 10 &nbsp;·&nbsp; WHERE THE TOKENS WENT</span>
+  </div>
+  <div id="boardName"><span id="bn-ledger">ONE LEDGER</span><span id="bn-priced">PRICED WHEN YOU LOOK</span><span id="bn-why">A ROW YOU CAN READ</span></div>
+</div>
+
+<svg id="stage" viewBox="0 0 1920 1080" width="1920" height="1080" style="position:absolute;inset:0">
+  <defs>
+    <marker id="ah" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#8a5a1f"/></marker>
+    <marker id="ahn" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#1e3a5f"/></marker>
+  </defs>
+
+  <!-- ONE LEDGER -->
+  <g id="ledger" opacity="0">
+    <g id="l-did" opacity="0">
+      <text x="480" y="210" text-anchor="middle" class="mono" font-size="22" letter-spacing="3" fill="#51607a">CHAT · WORKFLOWS: WHAT IT DID</text>
+      <text x="1440" y="210" text-anchor="middle" class="mono" font-size="22" letter-spacing="3" fill="#8a5a1f">USAGE: WHAT EACH TURN CONSUMED</text>
+      <line x1="960" y1="180" x2="960" y2="230" stroke="#c8d2e0" stroke-width="2"/>
+    </g>
+    <g id="l-seams"></g>
+    <g id="l-table" opacity="0">
+      <rect x="660" y="290" width="1120" height="420" rx="14" fill="#fff" stroke="#1e3a5f" stroke-width="3"/>
+      <text x="690" y="335" class="mono" font-size="20" letter-spacing="4" fill="#51607a">USAGE_EVENTS · ONE ROW PER TURN</text>
+      <g id="l-head" opacity="0">
+        <text x="690" y="385" class="mono" font-size="18" fill="#51607a">source</text>
+        <text x="800" y="385" class="mono" font-size="18" fill="#51607a">served model</text>
+        <text x="1040" y="385" class="mono" font-size="18" fill="#51607a">in</text>
+        <text x="1110" y="385" class="mono" font-size="18" fill="#51607a">out</text>
+        <text x="1190" y="385" class="mono" font-size="18" fill="#51607a">cache r/w</text>
+        <text x="1340" y="385" class="mono" font-size="18" fill="#51607a">from</text>
+      </g>
+      <g id="l-rows"></g>
+    </g>
+  </g>
+
+  <!-- PRICED WHEN YOU LOOK -->
+  <g id="priced" opacity="0">
+    <g id="p-bill" opacity="0">
+      <rect x="760" y="170" width="400" height="70" rx="35" fill="#fff" stroke="#b8433a" stroke-width="3"/>
+      <text x="960" y="215" text-anchor="middle" class="mono" font-size="24" fill="#b8433a">not a bill · an estimate</text>
+    </g>
+    <g id="p-f1" opacity="0"><rect x="250" y="320" width="330" height="140" rx="14" fill="#0d1429"/>
+      <text x="415" y="375" text-anchor="middle" class="mono" font-size="22" fill="#9aa3c0">row's tokens</text>
+      <text x="415" y="420" text-anchor="middle" class="mono" font-size="20" fill="#dfe6f0">in · out · cache</text></g>
+    <g id="p-x" opacity="0"><text x="640" y="410" text-anchor="middle" font-size="60" fill="#1e3a5f">×</text></g>
+    <g id="p-f2" opacity="0"><rect x="700" y="320" width="420" height="140" rx="14" fill="#fff" stroke="#1e3a5f" stroke-width="3"/>
+      <text x="910" y="375" text-anchor="middle" class="mono" font-size="22" fill="#0f1b2d">$ per million</text>
+      <text x="910" y="420" text-anchor="middle" class="mono" font-size="20" fill="#2f6fb0">for the model that served it</text></g>
+    <g id="p-eq" opacity="0"><text x="1180" y="410" text-anchor="middle" font-size="60" fill="#1e3a5f">=</text>
+      <rect x="1240" y="320" width="300" height="140" rx="14" fill="#e8f3ec" stroke="#2f8f5b" stroke-width="3"/>
+      <text x="1390" y="405" text-anchor="middle" class="mono" font-size="34" font-weight="700" fill="#2f8f5b">cost</text></g>
+    <g id="p-src" opacity="0">
+      <path d="M910,465 L910,540" stroke="#1e3a5f" stroke-width="2.5" marker-end="url(#ahn)"/>
+      <rect x="640" y="550" width="250" height="56" rx="10" fill="#fff" stroke="#51607a" stroke-width="2"/><text x="765" y="586" text-anchor="middle" class="mono" font-size="19" fill="#0f1b2d">provider catalog</text>
+      <rect x="930" y="550" width="250" height="56" rx="10" fill="#fff" stroke="#b5803a" stroke-width="2"/><text x="1055" y="586" text-anchor="middle" class="mono" font-size="19" fill="#8a5a1f">your price</text>
+    </g>
+    <g id="p-repr" opacity="0"><text x="1390" y="520" text-anchor="middle" class="mono" font-size="20" fill="#2f6fb0">change a price →</text><text x="1390" y="550" text-anchor="middle" class="mono" font-size="20" fill="#2f6fb0">history reprices</text></g>
+    <g id="p-unp" opacity="0">
+      <rect x="1250" y="620" width="290" height="64" rx="32" fill="#fff" stroke="#8a5a1f" stroke-width="2.5" stroke-dasharray="8 6"/>
+      <text x="1395" y="660" text-anchor="middle" class="mono" font-size="21" fill="#8a5a1f">unpriced ≠ $0.00</text>
+    </g>
+  </g>
+
+  <!-- A ROW YOU CAN READ -->
+  <g id="why" opacity="0">
+    <g id="y-cols">
+      <g id="y-a" opacity="0"><rect x="240" y="230" width="640" height="250" rx="16" fill="rgba(255,255,255,.8)" stroke="#1e3a5f" stroke-width="3"/>
+        <text x="560" y="290" text-anchor="middle" class="mono" font-size="22" letter-spacing="4" fill="#51607a">USAGE</text>
+        <text x="560" y="360" text-anchor="middle" font-size="34" font-weight="600" fill="#0f1b2d">watches</text>
+        <text x="560" y="420" text-anchor="middle" class="mono" font-size="20" fill="#51607a">after a turn settles</text></g>
+      <g id="y-b" opacity="0"><rect x="1040" y="230" width="640" height="250" rx="16" fill="rgba(246,234,216,.6)" stroke="#8a5a1f" stroke-width="3"/>
+        <text x="1360" y="290" text-anchor="middle" class="mono" font-size="22" letter-spacing="4" fill="#8a5a1f">BUDGET GATE</text>
+        <text x="1360" y="360" text-anchor="middle" font-size="34" font-weight="600" fill="#0f1b2d">says no</text>
+        <text x="1360" y="420" text-anchor="middle" class="mono" font-size="20" fill="#8a5a1f">before a turn runs</text></g>
+      <g id="y-q" opacity="0">
+        <text x="960" y="580" text-anchor="middle" font-size="28" fill="#0f1b2d">which model is worth it?  ·  which workflow got expensive?</text>
+        <text x="960" y="640" text-anchor="middle" class="mono" font-size="24" fill="#2f8f5b">→ a row you can read</text>
+      </g>
+    </g>
+    <g id="y-recap" opacity="0">
+      <rect x="460" y="300" width="1000" height="200" fill="rgba(243,245,248,.95)" stroke="#1e3a5f" stroke-width="2"/>
+      <text id="y-r1" x="960" y="420" text-anchor="middle" font-size="56" font-weight="300" letter-spacing="9" fill="#1e3a5f" opacity="0">EVERY TURN, ONE ROW</text>
+    </g>
+  </g>
+</svg>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+const norm = (w) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+window.setup = (T, words) => {
+  const tl = gsap.timeline({ paused: true });
+  window.tl = tl;
+  const lineAt = {};
+  for (const b of Object.values(T)) for (const [id, l] of Object.entries(b.lines)) lineAt[id] = l.n;
+  const W = (id, phrase, k = 0) => {
+    const ws = words[id], want = phrase.split(/\s+/).map(norm);
+    for (let i = 0, hit = 0; i < ws.length; i++) {
+      if (want.every((w, j) => ws[i + j] && norm(ws[i + j][0]) === w) && hit++ === k) return lineAt[id] + ws[i][1];
+    }
+    throw new Error(`phrase "${phrase}" not in ${id}`);
+  };
+  const show = (e, at, d = 0.4) => tl.to(e, { opacity: 1, duration: d }, at);
+  const draw = (e, at, d = 0.8) => {
+    const mk = e.getAttribute("marker-end");
+    if (mk) { e.removeAttribute("marker-end"); tl.set(e, { attr: { "marker-end": mk } }, at + d * 0.9); }
+    tl.set(e, { opacity: 1 }, at); tl.to(e, { strokeDashoffset: 0, duration: d, ease: "power1.inOut" }, at);
+  };
+  for (const id of Object.keys(T)) {
+    tl.set($(id), { opacity: 1 }, T[id].s); tl.set($(id), { opacity: 0 }, T[id].e);
+    tl.set($(`bn-${id}`), { opacity: 1 }, T[id].s); tl.set($(`bn-${id}`), { opacity: 0 }, T[id].e);
+  }
+
+  // ONE LEDGER
+  { const s = T.ledger.s, seams = $("l-seams");
+    show($("l-did"), W("n1", "what an agent did") - 0.2);
+    const sm = [["chat", 330, "from a chat"], ["workflow node", 470, "a workflow node"], ["rib turn", 610, "or a rib"]];
+    sm.forEach(([l, y, ph]) => { const g = el("g", { opacity: 0 }, seams);
+      el("rect", { x: 150, y: y - 40, width: 300, height: 76, rx: 12, fill: "#fff", stroke: "#1e3a5f", "stroke-width": 2.5 }, g);
+      el("text", { x: 300, y: y + 8, "text-anchor": "middle", class: "mono", "font-size": 23, fill: "#0f1b2d" }, g, l);
+      el("path", { d: `M452,${y} C560,${y} 560,500 650,500`, stroke: "#8a5a1f", "stroke-width": 3, fill: "none", "marker-end": "url(#ah)" }, g);
+      show(g, W("n1", ph) - 0.1, 0.3); });
+    show($("l-table"), W("n1", "single ledger") - 0.3);
+    show($("l-head"), W("n1", "the provider") - 0.1);
+    const rows = [["workflow", "claude-opus-5", "6", "847", "12k / 4k", "tide-feature · plan"], ["chat", "claude-sonnet-5.5", "8", "241", "45k / 23k", "conversation"], ["workflow", "gpt-6-luna", "6", "242", "3.9k / 6.2k", "tide-audit · audit"], ["workflow", "gpt-6.1-sol", "3", "34", "0 / 13k", "fix-issue · implement"]];
+    const rg = rows.map((r, i) => { const y = 435 + i * 62, g = el("g", { opacity: 0 }, $("l-rows"));
+      el("rect", { x: 676, y: y - 34, width: 1088, height: 50, rx: 6, fill: i % 2 ? "#f3f5f8" : "#e8eef8" }, g);
+      [[690, r[0]], [800, r[1]], [1040, r[2]], [1110, r[3]], [1190, r[4]], [1340, r[5]]].forEach(([x, t], k) =>
+        el("text", { x, y: y - 2, class: "mono", "font-size": 19, fill: k === 1 ? "#2f6fb0" : "#0f1b2d" }, g, t));
+      return g; });
+    rg.forEach((g, i) => show(g, W("n1", "actually served") - 0.3 + i * 0.25, 0.25));
+  }
+
+  // PRICED WHEN YOU LOOK
+  { const s = T.priced.s;
+    show($("p-bill"), W("n5", "isn't a bill") - 0.2);
+    show($("p-f1"), W("n5", "tokens") - 0.2);
+    show($("p-x"), W("n5", "times") - 0.1, 0.2);
+    show($("p-f2"), W("n5", "per million") - 0.2);
+    show($("p-eq"), W("n5", "model that served") + 0.3);
+    show($("p-src"), W("n5", "provider's catalog") - 0.3);
+    show($("p-repr"), W("n5", "history reprices") - 0.3);
+    show($("p-unp"), W("n5", "no price") - 0.2);
+  }
+
+  // A ROW YOU CAN READ
+  { show($("y-a"), W("n9", "Usage watches") - 0.1);
+    show($("y-b"), W("n9", "budget gate") - 0.1);
+    show($("y-q"), W("n9", "which model") - 0.2);
+    const er = W("n10", "Every turn");
+    tl.to($("y-cols"), { opacity: 0.15, duration: 0.5 }, er - 0.5);
+    show($("y-recap"), er - 0.5, 0.4); show($("y-r1"), er - 0.1);
+  }
+  return tl.duration();
+};
+</script>
+</body>
+</html>

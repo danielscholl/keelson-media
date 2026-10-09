@@ -1,0 +1,44 @@
+1
+00:00:02,400 --> 00:00:05,324
+Figure one. First run.
+
+2
+00:00:07,800 --> 00:00:20,596
+One line installs Keelson into a single folder on your machine. The command line and your workflows live there now, and your database and ribs will too. No hosted service, and no Keelson account.
+
+3
+00:00:21,766 --> 00:00:30,548
+So, is it healthy? Keelson doctor checks the toolchain, the store, your credentials, and your workflows, in one pass.
+
+4
+00:00:30,776 --> 00:00:42,084
+Two warnings, and both are expected. There's no server yet, and no database. Each warning names its own fix, and here it's the same one: start the server.
+
+5
+00:00:43,184 --> 00:00:54,572
+That one command is the heart of it. It runs a single local server that owns the store, the agents, the browser app, and an endpoint other agents can call, all on one port.
+
+6
+00:00:56,392 --> 00:00:58,700
+Start the server, then ask again.
+
+7
+00:01:01,012 --> 00:01:03,962
+Zero warnings. Zero failures.
+
+8
+00:01:05,012 --> 00:01:10,690
+Copilot is the default agent, so once you're signed in to it, send one real message.
+
+9
+00:01:13,612 --> 00:01:23,992
+That question went from the command line to the server, out to Copilot, and back. And the turn was saved locally, so the browser already shows the same conversation.
+
+10
+00:01:24,692 --> 00:01:29,968
+That's a first run. One folder, one server, and a doctor that tells you what to do next.
+
+11
+00:01:32,668 --> 00:01:36,216
+Keelson. Lay the keel, raise the ribs.
+

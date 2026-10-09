@@ -1,0 +1,43 @@
+name: cut-a-short
+description: |
+  Use when: a short's script or captures changed and it needs a new cut
+  Triggers: "cut FIG. 16", "recut a short"
+  Does: voices the lines that changed, renders the boards, composes, runs QA, waits for a person to approve the contact sheet, then writes the web encode into media/ for Pages
+  NOT for: publishing by itself; pushing media/ stays a manual step
+nodes:
+  - id: voice
+    bash: python3 tools/tts.py "$KEELSON_ARGUMENTS" --changed 2>&1 | tail -n 20
+    timeout: 900000
+  - id: boards
+    bash: |
+      set -euo pipefail
+      if grep -q '^plate:' "$KEELSON_ARGUMENTS/short.yaml"; then
+        node tools/plate.mjs "$KEELSON_ARGUMENTS" 2>&1 | tail -n 3
+      else
+        echo "no boards in this short"
+      fi
+    depends_on: [voice]
+    timeout: 900000
+  - id: compose
+    bash: python3 tools/compose.py "$KEELSON_ARGUMENTS" 2>&1 | grep -E "^total|loudness|wrote|error" | cut -c1-300
+    depends_on: [boards]
+    timeout: 900000
+  - id: qa
+    bash: |
+      set -euo pipefail
+      python3 tools/review.py "$KEELSON_ARGUMENTS" "$KEELSON_ARTIFACTS_DIR/review.md" http://127.0.0.1:7981
+      python3 tools/sheet-server.py "$KEELSON_ARTIFACTS_DIR" 7981
+    depends_on: [compose]
+  - id: gate
+    approval:
+      message: "Approve this cut for upload? $ARTIFACTS_DIR/review.md"
+      capture_response: true
+    depends_on: [qa]
+  - id: stage
+    bash: |
+      set -euo pipefail
+      pkill -f "sheet-server.py .* 7981" || true
+      tools/publish.sh "$KEELSON_ARGUMENTS"
+      echo "staged for Pages; commit and push media/ to publish"
+    depends_on: [gate]
+    timeout: 600000

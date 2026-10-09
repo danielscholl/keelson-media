@@ -1,0 +1,52 @@
+{
+ "n0": [
+  "Figure fifteen. Your agent drives it.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "You don't have to leave the coding agent you already use. Keelson serves its tool registry over the Model Context Protocol, from the same server, at slash api slash mcp. Your agent gets the workflow tools and every installed rib's tools, and each call runs inside Keelson, with the rib's own credentials. The agent never sees the secrets behind them.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "Here Claude Code, in the harbor repo, is told to use Keelson to run a workflow.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "It lists the workflows over MCP, and starts tide-check.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "In Keelson's browser the run appears, started by another agent, and runs like any other.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4b": [
+  "Then it reads the result back, and even questions the report.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "Wiring an agent is one command. Keelson connect claude, or copilot, or codex, registers the endpoint in that agent's own config, and drops a small skill that tells it when to reach for Keelson. Disconnect removes exactly what it added. On loopback the endpoint is open by default; you can make it read only, require a token, or hide tools by name.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "So your agent keeps the conversation, and Keelson keeps the durable part: the workflows, the gates, the record of every run, and the ribs with their credentials.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "Bring your agent. Keelson does the keeping.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

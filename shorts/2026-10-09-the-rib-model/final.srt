@@ -1,0 +1,32 @@
+1
+00:00:02,400 --> 00:00:05,252
+Figure eleven. The rib model.
+
+2
+00:00:07,800 --> 00:00:31,332
+Everything so far ran with no rib installed. Keelson works on its own. A rib is how you extend it without changing it: a capability in its own package, on its own version, bolted onto a harness that stays the same. Not a fork you maintain, not a plugin waiting on review, not a sidecar with its own protocol. A dependency you add, and remove.
+
+3
+00:00:32,232 --> 00:00:54,772
+Installing one is dependency management. Keelson rib add hands the source to bun, and at the next boot the server discovers every rib package in its home, checks each one against the contract, and registers it. A rib that fails a check is skipped with one warning. A broken rib costs you that rib, never the harness.
+
+4
+00:00:55,672 --> 00:01:22,948
+The contract is one interface, and every hook is optional. Tools land in the shared registry, so chat can call them at once, and a workflow node opts in by name. Snapshots and surfaces become live boards and tabs in the browser. Workflows join the catalog. Policies, docs, agents and commands land in registries of their own. The rib brings data and declarations. The harness owns the machinery.
+
+5
+00:01:23,848 --> 00:01:44,548
+And the boundary is checked, not trusted. A rib's snapshot keys and credentials live in its own namespace, and it can't read another rib's. Tool names are global, so a name that's already taken loses. It isn't a sandbox, though. A rib runs in the server's process, so choose sources the way you choose any package.
+
+6
+00:01:45,448 --> 00:02:04,580
+Follow one rib tool through a chat turn. The server gathers tools from the registry, the provider hands the agent a typed tool, the agent calls it, the rib's code runs with its own context, and the result streams back like any other. Nothing on that path is rib specific.
+
+7
+00:02:05,180 --> 00:02:09,368
+Add a package, get a capability. The keel stays the same.
+
+8
+00:02:12,068 --> 00:02:15,400
+Keelson. Lay the keel, raise the ribs.
+

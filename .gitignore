@@ -1,0 +1,14 @@
+# Masters, raw captures, frames, and narration audio stay local; sources, manifests, prompts, and cards are tracked.
+shorts/**/*.mp4
+shorts/**/*.wav
+shorts/**/frames/
+shorts/**/raw/
+*.qa.png
+.DS_Store
+node_modules/
+tools/__pycache__/
+*.phone.png
+shorts/**/build/filter.txt
+shorts/**/build/cards.json
+shorts/**/raw/plate-*
+tools/.env.local

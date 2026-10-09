@@ -1,0 +1,62 @@
+{
+ "n0": [
+  "Figure twelve. Add a capability.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "The harbor repo has a backlog in beads, a dependency-aware issue tracker. Keelson knows nothing about it. The browser has Chat and Workflows, and the agent has nineteen tools, none of them for beads. Here is everything it takes to change that.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "No ribs installed. Add the beads rib from its GitHub repo. Bun installs it into Keelson's home, pinned to a release.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "Restart, and the server discovers it, checks it, and registers it.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "Fifteen tools, and four views.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "Those views ride on snapshots. A rib publishes data under its own keys, and the browser renders it as live boards. The rib never draws a pixel, opens a port, or touches the database. It hands over data and declarations, and the harness does the rest.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "So there's a Beads tab now. It found the harbor tracker on its own, and says what to start next.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "And chat can use the tools right away. No wiring, no config.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7b": [
+  "It called two beads tools, and named the same two ready items.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "One command and a restart. A tab, fifteen tools, and four live views, and Keelson itself didn't change. Remove the rib, and they're gone.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "A capability is a dependency.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

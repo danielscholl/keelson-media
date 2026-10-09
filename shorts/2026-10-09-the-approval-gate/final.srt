@@ -1,0 +1,56 @@
+1
+00:00:02,400 --> 00:00:05,380
+Figure six. The approval gate.
+
+2
+00:00:07,800 --> 00:00:30,852
+Some steps shouldn't happen until a person says yes. In Keelson, every tool call, from chat, a workflow, a rib, or another agent over MCP, passes through one policy engine. Each policy answers allow, deny, or ask. Ask pauses the call for a human, and if nobody answers in five minutes, it's rejected.
+
+3
+00:00:31,642 --> 00:00:35,638
+Turn on ask on shell, then ask the agent to run the tests.
+
+4
+00:00:37,480 --> 00:00:41,556
+The agent reached for bash, so Keelson paused it and asked.
+
+5
+00:00:42,169 --> 00:00:45,413
+Accept, and only then does the command run.
+
+6
+00:00:48,325 --> 00:01:03,137
+Chat asks call by call. A workflow can put the person in the graph itself. An approval node holds the run before the step you can't take back, and the reply becomes that node's output, so the steps after it can act on what was said.
+
+7
+00:01:05,137 --> 00:01:10,157
+This release workflow tests the repo, drafts a plan, and then stops.
+
+8
+00:01:12,837 --> 00:01:15,427
+Paused at the gate. The terminal just waits.
+
+9
+00:01:17,263 --> 00:01:24,555
+In the browser, the plan opens for review: what passed, what ships, and the tag it will create.
+
+10
+00:01:26,072 --> 00:01:29,780
+Approve, and the run picks up where it stopped.
+
+11
+00:01:30,884 --> 00:01:35,152
+Back in the terminal, the run finished, and the tag is real.
+
+12
+00:01:36,304 --> 00:01:47,980
+So nothing you can't undo happens on a model's say so. Policies gate the calls, approval nodes gate the run, and the person's answer goes into the record with everything else.
+
+13
+00:01:48,580 --> 00:01:50,824
+Ask first. Then act.
+
+14
+00:01:53,524 --> 00:01:56,888
+Keelson. Lay the keel, raise the ribs.
+

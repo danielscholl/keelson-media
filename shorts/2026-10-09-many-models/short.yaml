@@ -1,0 +1,103 @@
+fig: "07"
+slug: many-models
+title: Many models
+act: II
+problem: Which model should do which job, and how do you find out without arguing about it?
+docs: [tutorials/frontend-mix, concepts/providers]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: classes, lines: [n1], lead: 0.5, tail: 1.0 }
+    - { id: contract, lines: [n5], lead: 0.4, tail: 1.2 }
+    - { id: why, lines: [n9, n10], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - id: b-classes
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [classes, classes.end]
+    xfade: 0.8
+  - id: pins
+    source: raw/run1.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { grep: 4.1, enter: 11.1, explore: 12.3 }
+    trim: [0.3, enter + 0.2]
+    zoom:
+      - { at: grep + 0.3, until: 99, over: 0.8, box: [0, 20, 1300, 731] }
+  - id: run1
+    source: raw/run1.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { review: 38.2, done: 42.7 }
+    trim: [review - 0.4, done + 0.5]
+    zoom:
+      - { at: -1, until: 99, over: 0.5, box: [0, 20, 1300, 731] }
+  - id: web1
+    source: raw/web1.mp4
+    frame: viewport
+    label: BROWSER
+    marks: source/web1-meta.json
+    trim: [1.4, end]
+    hold: 1.4
+    zoom:
+      - { at: graph + 0.2, until: 99, over: 1.0, box: [930, 280, 990, 557] }
+  - id: b-contract
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [contract, contract.end]
+  - id: swap
+    source: raw/swap.mp4
+    frame: viewport
+    label: TERMINAL
+    marks: { sed: 6.0, grep: 10.2, enter: 17.3, explore: 18.8 }
+    trim: [0.3, grep + 1.4]
+    zoom:
+      - { at: grep + 0.3, until: 99, over: 0.8, box: [0, 20, 1500, 844] }
+  - id: swap-run
+    source: raw/swap.mp4
+    frame: viewport
+    label: TERMINAL
+    xfade: 0.3
+    marks: { enter: 17.3, review: 45.1, done: 56.3 }
+    trim: [done - 2.8, done + 0.6]
+    zoom:
+      - { at: -1, until: 99, over: 0.5, box: [0, 20, 1500, 844] }
+  - id: web2
+    source: raw/web2.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: source/web2-meta.json
+    trim: [1.4, end]
+    hold: 1.6
+    zoom:
+      - { at: graph + 0.2, until: 99, over: 1.0, box: [930, 280, 990, 557] }
+  - id: b-why
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [why, why.end]
+
+lines:
+  - { id: n0, scene: open, at: 2.4, text: "Figure seven. Many models." }
+  - { id: n1, scene: b-classes, at: n1, text: "Which model should do which job? Strong models are slow and costly on grind work, and fast models are careless on judgment calls. In a workflow you don't have to pick one. Each node pins its own model by class, fast, balanced, or deep, and Keelson resolves that class to a real model from your provider's catalog." }
+  - { id: n2, scene: pins, at: 1.8, text: "Here a fast model maps the repo, a deep one plans a change, and a balanced one reviews the plan." }
+  - { id: n3, scene: run1, at: review - 0.2, text: "Three phases, three models, one run." }
+  - { id: n4, scene: web1, at: open - 0.4, text: "The run records which model really answered each node. Haiku explored, Opus planned, and Sonnet reviewed, and called the plan sound." }
+  - { id: n5, scene: b-contract, at: n5, text: "They can be swapped because no node reads another's conversation. Each one writes its conclusions to a markdown file in the run's folder, and the next node opens that file with a fresh context. The file is the contract, so any phase can change models without the others noticing." }
+  - { id: n6, scene: swap, at: 3.4, text: "So try a different reviewer. One line: replace balanced with a model from another vendor." }
+  - { id: n7, scene: swap-run, at: done - 2.6, text: "And run it again." }
+  - { id: n8, scene: web2, at: open - 0.4, text: "Same graph, same handoff. This reviewer, GPT-6 Luna, reads it differently, calls the plan unsound, and names the step it would fix.",
+      ssml: "Same graph, same handoff. This reviewer, GPT six Luna, reads it differently, calls the plan unsound, and names the step it would fix." }
+  - { id: n9, scene: b-why, at: n9, text: "That's the point. Stop arguing about which model is best for a job, and run the experiment. The pins live in the file, the run records what really answered, and a swap is one line." }
+  - { id: n10, scene: b-why, at: n10, text: "Right model, right phase." }
+  - { id: n11, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

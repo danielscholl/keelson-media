@@ -1,0 +1,67 @@
+{
+ "n0": [
+  "Figure eighteen. Did that change help?",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "A workflow that runs isn't a workflow that works. When you change a prompt or a model pin, the only honest answer to did that help is a set of cases, run before and after and graded the same way. In Keelson that's a YAML case set: real inputs, a grader per case, and a train and test split.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "Here's a small triage workflow, with twelve cases, six for train and six held out for test. Run the eval on today's prompt.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "Zero for twelve. Every answer starts the same way: I'll help you, let me explore the repository. The prompt never said what it wanted.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "So change one thing: the prompt. Give it the three labels, what each means, and ask for one word.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "Run the same cases again.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5b": [
+  "Twelve for twelve.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "But a better number isn't a decision. Compare pairs each case before and after, and a permutation test asks whether the change is bigger than chance. Only cases that moved count, so at least six must change before anything leaves within noise. And it keeps the change only if the train and test splits both moved up. A gain on train alone is overfitting, and that reverts.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "Compare the two results files.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7b": [
+  "Improved on both splits, cheaper and faster per case. The decision: keep.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "So the next prompt tweak is measured, not eyeballed. And the hillclimb workflow runs this loop for you: one change per round, the eval, and the verdict deciding keep or revert.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "Measure it. Then keep it.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}
