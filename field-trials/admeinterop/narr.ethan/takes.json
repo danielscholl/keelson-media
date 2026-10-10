@@ -1,0 +1,109 @@
+{
+ "n0": [
+  "Sea trials, one. Seven pages.",
+  null,
+  "en-US-Grant:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "This is the access guide for one ADME instance, shared by about a dozen companies.",
+  "This is the access guide for one Ad Me instance, shared by about a dozen companies.",
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "n2": [
+  "Every time someone is invited or gets a grant, it's rebuilt, and sent to everyone again.",
+  null,
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "n3": [
+  "It's one platform, and every company on it tests its systems against the same data.",
+  null,
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "n4": [
+  "The guide does real work. How to connect. What each role can do. What a 401 means.",
+  "The guide does real work. How to connect. What each role can do. What a four oh one means.",
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "n5": [
+  "Then three pages that are never true for long.",
+  null,
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "n6": [
+  "Who has access, who can reach which seismic subproject, and which object id is which person.",
+  "Who has access, who can reach which seismic subproject, and which object I D is which person.",
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "n7": [
+  "Those pages come from Azure CLI calls, Graph queries and scripts, put together by hand.",
+  "Those pages come from Azure C L I calls, Graph queries and scripts, put together by hand.",
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "n8": [
+  "By the time the guide lands in an inbox, it's already behind.",
+  null,
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "n2b": [
+  "And again.",
+  null,
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "i1": [
+  "Field trials, one. Seven pages.",
+  null,
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "i2": [
+  "A 15% project. Can AI agents do real work on a real, shared platform?",
+  "A fifteen percent project. Can AI agents do real work, on a real, shared platform?",
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "i3": [
+  "So start with one question. Who has access right now?",
+  null,
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "c1": [
+  "Agents propose. People approve. And every answer says how sure it is.",
+  null,
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "c2": [
+  "That's field trial one. The next revision lands when the next piece works.",
+  null,
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "n9": [
+  "So when a partner asks if they have access yet, someone stops and checks by hand.",
+  null,
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "o1": [
+  "On paper, it works.",
+  null,
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ],
+ "s1": [
+  "Field trials. On paper, it works. In the field, it has to.",
+  null,
+  "en-US-Ethan:MAI-Voice-2.1",
+  "happy"
+ ]
+}

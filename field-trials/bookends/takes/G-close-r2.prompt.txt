@@ -1,0 +1,3 @@
+model: sora-2, remix of video_6ac9510626888190b98476ae64c4e543, id video_6ac951c9124c8190a56418d56e28d7d1
+
+Same shot, same slow camera drift, same dawn sky, mist, field, hills and pumpjack. One change: the brass telescope on the surveyor's instrument is turned end for end, so its wide front lens faces right, toward the nodding pumpjack, and its small eyepiece faces left, toward the camera; the instrument is clearly aimed at the pumpjack. Keep open sky between the instrument and the pumpjack all the way to the end. No people, no text, no letters, no numbers, no logos, no markings on the pumpjack or the instrument.

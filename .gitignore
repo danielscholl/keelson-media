@@ -12,3 +12,15 @@ shorts/**/build/filter.txt
 shorts/**/build/cards.json
 shorts/**/raw/plate-*
 tools/.env.local
+# Field Trials: same split as the shorts, plus the bookend scratch (QA stills, review reels).
+field-trials/**/*.mp4
+field-trials/**/*.wav
+field-trials/**/*.mp3
+field-trials/**/frames/
+field-trials/**/raw/
+field-trials/**/build/filter.txt
+field-trials/**/build/cards.json
+field-trials/**/build/*.png
+field-trials/bookends/work/qa-*.png
+field-trials/bookends/review/
+__pycache__/

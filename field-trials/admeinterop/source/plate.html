@@ -1,0 +1,822 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../../tools/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+  :root { --keel:#1e3a5f; --rib:#2f6fb0; --brass:#b5803a; --brass-ink:#8a5a1f; --ink:#0f1b2d; --muted:#51607a; }
+  * { margin:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; }
+  body {
+    font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; color: var(--ink);
+    background:
+      linear-gradient(rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(90deg, rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      linear-gradient(90deg, rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      radial-gradient(circle at 74% 0%, rgba(255,255,255,.9), transparent 700px),
+      linear-gradient(180deg, #f3f5f8 0%, #e6eaf0 100%);
+  }
+  .crop { position:absolute; width:26px; height:26px; border:0 solid rgba(30,58,95,.5); }
+  #header { position:absolute; left:128px; right:128px; top:34px; height:44px; display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1.5px solid rgba(30,58,95,.45); font-family:"JetBrains Mono", monospace; font-size:18px; letter-spacing:.2em; color:var(--keel); }
+  #header .left { display:flex; align-items:center; gap:16px; }
+  #boardName { position:relative; width:420px; height:24px; color:var(--muted); }
+  #boardName span { position:absolute; right:0; top:0; opacity:0; white-space:nowrap; }
+  #titleblock { position:absolute; right:128px; top:838px; display:flex; font-family:"JetBrains Mono", monospace; font-size:20px; font-weight:700;
+    letter-spacing:.16em; border:2px solid var(--keel); }
+  #titleblock div { padding:15px 20px; }
+  #titleblock .strand { background:var(--keel); color:#fff; }
+  #titleblock .rev { background:rgba(255,255,255,.92); color:var(--keel); border-left:2px solid var(--keel); }
+  #titleblock .status { background:#51607a; color:#fff; border-left:2px solid var(--keel); }
+  #powered { position:absolute; right:128px; top:802px; display:flex; align-items:center; gap:10px; font-family:"JetBrains Mono", monospace;
+    font-size:14px; letter-spacing:.2em; color:var(--muted); }
+  #powered b { color:var(--keel); letter-spacing:.24em; }
+  svg text { font-family: Inter, sans-serif; }
+  svg .mono { font-family: "JetBrains Mono", monospace; }
+  .draw { stroke-dasharray:1; stroke-dashoffset:1; }
+</style>
+</head>
+<body>
+<div class="crop" style="left:40px;top:14px;border-left-width:2px;border-top-width:2px"></div>
+<div class="crop" style="right:40px;top:14px;border-right-width:2px;border-top-width:2px"></div>
+<div class="crop" style="left:40px;bottom:14px;border-left-width:2px;border-bottom-width:2px"></div>
+<div class="crop" style="right:40px;bottom:14px;border-right-width:2px;border-bottom-width:2px"></div>
+<div id="header">
+  <div class="left">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="9" stroke="#1e3a5f" stroke-width="2"/><line x1="15" y1="2" x2="15" y2="28" stroke="#1e3a5f" stroke-width="1.6"/><line x1="2" y1="15" x2="28" y2="15" stroke="#1e3a5f" stroke-width="1.6"/><circle cx="15" cy="15" r="3" fill="#b5803a"/></svg>
+    <span><b>OSDU</b> &nbsp;·&nbsp; FIELD TRIAL &nbsp;·&nbsp; ADME INTEROP</span>
+  </div>
+  <div id="boardName"><span id="bn-intro">THE QUESTION</span><span id="bn-outro">TRIAL REPORT</span><span id="bn-guide">THE GUIDE</span><span id="bn-platform">ONE INSTANCE</span><span id="bn-pages">SEVEN PAGES</span><span id="bn-hand">BY HAND</span><span id="bn-wrong">CONFIDENT AND WRONG</span><span id="bn-rig">THE RIG</span></div>
+</div>
+<div id="titleblock"><div class="strand">ADME INTEROP</div><div class="rev">REV 0</div><div class="status">PLATE</div></div>
+<div id="powered"><span>POWERED BY</span><svg width="20" height="20" viewBox="0 0 34 34" fill="none"><line x1="11.5" y1="7" x2="11.5" y2="27" stroke="#1e3a5f" stroke-width="2.4" stroke-linecap="round"/><line x1="22.5" y1="7" x2="22.5" y2="27" stroke="#1e3a5f" stroke-width="2.4" stroke-linecap="round"/><line x1="5" y1="20" x2="29" y2="20" stroke="#b5803a" stroke-width="3" stroke-linecap="round"/></svg><b>KEELSON</b></div>
+
+<svg id="stage" viewBox="0 0 1920 1080" width="1920" height="1080" style="position:absolute;inset:0">
+
+  <!-- THE PLAN: the trial's title block, then the question -->
+  <g id="intro" opacity="0">
+    <g id="ib-root"></g>
+    <g id="iq" opacity="0">
+      <text x="960" y="430" text-anchor="middle" class="mono" font-size="22" letter-spacing="6" fill="#51607a">THE QUESTION</text>
+      <text x="960" y="532" text-anchor="middle" font-size="78" font-weight="600" fill="#1e3a5f">Who has access right now?</text>
+      <line id="iq-line" class="draw" pathLength="1" x1="560" y1="572" x2="1360" y2="572" stroke="#b5803a" stroke-width="4" opacity="0"/>
+    </g>
+  </g>
+
+  <!-- THE REPORT: the same title block, filled in -->
+  <g id="outro" opacity="0"><g id="ob-root"></g></g>
+
+  <!-- THE GUIDE -->
+  <g id="guide" opacity="0">
+    <g id="g-stack" opacity="0" fill="#fff" stroke="#97a3b4" stroke-width="1.5">
+      <rect x="688" y="248" width="380" height="520" rx="6"/><rect x="680" y="240" width="380" height="520" rx="6"/>
+      <rect x="672" y="232" width="380" height="520" rx="6"/><rect x="664" y="224" width="380" height="520" rx="6"/>
+      <rect x="656" y="216" width="380" height="520" rx="6"/><rect x="648" y="208" width="380" height="520" rx="6"/>
+    </g>
+    <g id="g-cover">
+      <rect id="g-coverFill" x="640" y="200" width="380" height="520" rx="6" fill="#fff" opacity="0"/>
+      <rect id="g-coverLine" class="draw" pathLength="1" x="640" y="200" width="380" height="520" rx="6" fill="none" stroke="#1e3a5f" stroke-width="3"/>
+      <g id="g-coverText" opacity="0">
+        <rect x="640" y="200" width="380" height="14" fill="#1e3a5f"/>
+        <text x="676" y="268" class="mono" font-size="22" letter-spacing="4" fill="#1e3a5f">ACCESS GUIDE</text>
+        <text x="676" y="336" font-size="46" font-weight="600" fill="#0f1b2d">Shared ADME</text>
+        <text x="676" y="390" font-size="46" font-weight="600" fill="#0f1b2d">instance</text>
+        <text x="676" y="432" class="mono" font-size="18" fill="#51607a">contoso-adme · sample edition</text>
+        <line x1="676" y1="460" x2="984" y2="460" stroke="#d3dae4" stroke-width="2"/>
+        <g class="mono" font-size="17" fill="#51607a">
+          <text x="676" y="494">1  Get connected</text><text x="676" y="520">2  Your role, first calls</text>
+          <text x="676" y="546">3  Ground rules</text><text x="676" y="572">4  Who has access</text>
+          <text x="676" y="598">5  Seismic grants</text><text x="676" y="624">6  Who is who</text>
+          <text x="676" y="650">7  Building an app</text>
+        </g>
+        <g class="mono" font-size="16" fill="#51607a">
+          <text id="g-up14" x="676" y="694">updated Mon 09:00</text>
+          <text id="g-up15" x="676" y="694" opacity="0">updated Mon 11:20</text>
+          <text id="g-up16" x="676" y="694" opacity="0">updated Mon 15:05</text>
+        </g>
+        <g id="g-ver">
+          <rect id="g-verBox" x="858" y="652" width="146" height="58" rx="6" fill="#f5ead9" stroke="#b5803a" stroke-width="2.5"/>
+          <g class="mono" font-size="36" font-weight="700" fill="#8a5a1f" text-anchor="middle">
+            <text id="g-v14" x="931" y="694">v14</text><text id="g-v15" x="931" y="694" opacity="0">v15</text><text id="g-v16" x="931" y="694" opacity="0">v16</text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <text id="g-rebuilt" x="830" y="772" text-anchor="middle" class="mono" font-size="20" font-weight="700" letter-spacing="3" fill="#8a5a1f" opacity="0">REBUILT BY HAND</text>
+
+    <g id="g-ev1" opacity="0">
+      <rect x="150" y="250" width="340" height="84" rx="12" fill="#fff" stroke="#2f6fb0" stroke-width="2"/>
+      <circle cx="194" cy="282" r="11" fill="#2f6fb0"/><rect x="179" y="297" width="30" height="16" rx="8" fill="#2f6fb0"/>
+      <text x="230" y="285" font-size="24" font-weight="600" fill="#0f1b2d">Hiro Tanaka</text>
+      <text x="230" y="314" class="mono" font-size="17" fill="#51607a">invited</text>
+    </g>
+    <g id="g-ev2" opacity="0">
+      <rect x="150" y="372" width="340" height="84" rx="12" fill="#fff" stroke="#b5803a" stroke-width="2"/>
+      <circle cx="188" cy="414" r="11" fill="none" stroke="#b5803a" stroke-width="4"/>
+      <path d="M199,414 L222,414 M214,414 L214,424 M220,414 L220,421" stroke="#b5803a" stroke-width="4" fill="none"/>
+      <text x="236" y="407" font-size="24" font-weight="600" fill="#0f1b2d">Seismic grant</text>
+      <text x="236" y="436" class="mono" font-size="17" fill="#51607a">alpha · viewer</text>
+    </g>
+    <g id="g-ev3" opacity="0">
+      <rect x="150" y="494" width="340" height="84" rx="12" fill="#fff" stroke="#2f6fb0" stroke-width="2"/>
+      <circle cx="194" cy="526" r="11" fill="#2f6fb0"/><rect x="179" y="541" width="30" height="16" rx="8" fill="#2f6fb0"/>
+      <text x="230" y="529" font-size="24" font-weight="600" fill="#0f1b2d">Lena Fischer</text>
+      <text x="230" y="558" class="mono" font-size="17" fill="#51607a">accepted</text>
+    </g>
+    <g fill="none" stroke="#8a5a1f" stroke-width="3">
+      <path id="g-a1" class="draw" pathLength="1" d="M492,292 C560,292 572,380 630,390" opacity="0"/>
+      <path id="g-a2" class="draw" pathLength="1" d="M492,414 C556,414 580,430 630,432" opacity="0"/>
+      <path id="g-a3" class="draw" pathLength="1" d="M492,536 C560,536 576,480 630,474" opacity="0"/>
+    </g>
+
+    <text id="g-listLbl" x="1146" y="212" class="mono" font-size="18" letter-spacing="3" fill="#51607a" opacity="0">EVERYONE ON THE LIST</text>
+    <g id="g-grid"></g>
+    <g id="g-env"></g>
+  </g>
+
+  <!-- ONE INSTANCE -->
+  <g id="platform" opacity="0">
+    <rect id="p-inst" class="draw" pathLength="1" x="150" y="118" width="1620" height="660" rx="22" fill="none" stroke="#51607a" stroke-width="2.5"/>
+    <rect id="p-instDash" x="150" y="118" width="1620" height="660" rx="22" fill="none" stroke="#51607a" stroke-width="2.5" stroke-dasharray="12 8" opacity="0"/>
+    <text id="p-label" x="186" y="164" class="mono" font-size="20" letter-spacing="2" fill="#51607a" opacity="0"><tspan font-weight="700">contoso-adme</tspan>  ·  ONE ADME INSTANCE</text>
+    <g id="p-links"></g>
+    <g id="p-data" opacity="0" transform="translate(0,-15)">
+      <path d="M810,400 L810,540 A150,34 0 0 0 1110,540 L1110,400" fill="#fff" stroke="#1e3a5f" stroke-width="2.5"/>
+      <ellipse id="p-dataTop" cx="960" cy="400" rx="150" ry="34" fill="#fff" stroke="#1e3a5f" stroke-width="2.5"/>
+      <text x="960" y="482" text-anchor="middle" class="mono" font-size="22" font-weight="700" letter-spacing="2" fill="#1e3a5f">THE SAME DATA</text>
+      <text x="960" y="514" text-anchor="middle" class="mono" font-size="16" fill="#51607a">records · kinds · legal tags</text>
+    </g>
+    <g id="p-tiles"></g>
+    <g id="p-dots"></g>
+  </g>
+
+  <!-- SEVEN PAGES -->
+  <g id="pages" opacity="0">
+    <g id="pg-row"></g>
+    <path id="pg-bracket" class="draw" pathLength="1" d="M682.6,252 L682.6,238 L1564,238 L1564,252" fill="none" stroke="#b5803a" stroke-width="3" opacity="0"/>
+    <text id="pg-bracketLbl" x="1123.3" y="222" text-anchor="middle" class="mono" font-size="22" font-weight="700" letter-spacing="3" fill="#8a5a1f" opacity="0">NEVER TRUE FOR LONG</text>
+    <g id="pg-labels"></g>
+  </g>
+
+  <!-- BY HAND -->
+  <g id="hand" opacity="0">
+    <g id="h-cli" opacity="0">
+      <text x="170" y="196" class="mono" font-size="18" letter-spacing="3" fill="#51607a">AZURE CLI</text>
+      <rect x="170" y="210" width="470" height="110" rx="10" fill="#0d1429"/>
+      <text x="196" y="256" class="mono" font-size="20" fill="#dfe6f0" style="white-space:pre"><tspan fill="#b5803a">$</tspan> az ad user show --id …</text>
+      <text x="196" y="294" class="mono" font-size="20" fill="#dfe6f0" style="white-space:pre"><tspan fill="#b5803a">$</tspan> az role assignment list …</text>
+    </g>
+    <g id="h-graph" opacity="0">
+      <text x="170" y="386" class="mono" font-size="18" letter-spacing="3" fill="#51607a">GRAPH</text>
+      <rect x="170" y="400" width="470" height="110" rx="10" fill="#fff" stroke="#1e3a5f" stroke-width="2"/>
+      <text x="196" y="446" class="mono" font-size="20" fill="#0f1b2d">GET /groups/{id}/members</text>
+      <text x="196" y="484" class="mono" font-size="20" fill="#0f1b2d">GET /users?$filter=…</text>
+    </g>
+    <g id="h-scripts" opacity="0">
+      <text x="170" y="576" class="mono" font-size="18" letter-spacing="3" fill="#51607a">SCRIPTS</text>
+      <rect x="170" y="590" width="470" height="110" rx="10" fill="#fff" stroke="#1e3a5f" stroke-width="2"/>
+      <rect x="194" y="612" width="150" height="38" rx="6" fill="#e3e9f1"/><text x="269" y="638" text-anchor="middle" class="mono" font-size="19" fill="#1e3a5f">grants.sh</text>
+      <rect x="358" y="612" width="120" height="38" rx="6" fill="#e3e9f1"/><text x="418" y="638" text-anchor="middle" class="mono" font-size="19" fill="#1e3a5f">ids.py</text>
+      <text x="196" y="682" class="mono" font-size="17" fill="#51607a">then copy, paste, check</text>
+    </g>
+    <g id="h-pencil" opacity="0">
+      <g transform="translate(762,430) rotate(-35)">
+        <rect x="-14" y="-62" width="28" height="96" rx="3" fill="#f5ead9" stroke="#8a5a1f" stroke-width="3"/>
+        <path d="M-14,34 L0,64 L14,34 Z" fill="#fff" stroke="#8a5a1f" stroke-width="3"/>
+        <rect x="-14" y="-62" width="28" height="16" fill="#8a5a1f"/>
+      </g>
+      <text x="762" y="548" text-anchor="middle" class="mono" font-size="22" font-weight="700" letter-spacing="3" fill="#8a5a1f">BY HAND</text>
+    </g>
+    <g id="h-stack" opacity="0"></g>
+    <g id="h-rows"></g>
+    <g id="h-guide" opacity="0">
+      <rect x="960" y="274" width="230" height="300" rx="6" fill="#fff" stroke="#1e3a5f" stroke-width="3"/>
+      <rect x="960" y="274" width="230" height="12" fill="#1e3a5f"/>
+      <text x="982" y="330" class="mono" font-size="18" letter-spacing="3" fill="#1e3a5f">ACCESS GUIDE</text>
+      <text x="982" y="372" font-size="28" font-weight="600" fill="#0f1b2d">Shared ADME</text>
+      <text x="982" y="406" font-size="28" font-weight="600" fill="#0f1b2d">instance</text>
+      <rect x="1100" y="526" width="72" height="30" rx="4" fill="#f5ead9" stroke="#b5803a" stroke-width="2"/>
+      <text x="1136" y="547" text-anchor="middle" class="mono" font-size="18" font-weight="700" fill="#8a5a1f">v15</text>
+    </g>
+    <g id="h-inbox" opacity="0">
+      <rect x="1300" y="170" width="470" height="452" rx="12" fill="#fff" stroke="#1e3a5f" stroke-width="2"/>
+      <path d="M1300,226 L1300,182 Q1300,170 1312,170 L1758,170 Q1770,170 1770,182 L1770,226 Z" fill="#e3e9f1"/>
+      <line x1="1300" y1="226" x2="1770" y2="226" stroke="#1e3a5f" stroke-width="1.5"/>
+      <text x="1324" y="208" font-size="26" font-weight="600" fill="#0f1b2d">Inbox</text>
+      <g id="h-mail"></g>
+    </g>
+    <g id="h-newMail" opacity="0">
+      <rect x="1312" y="240" width="446" height="64" rx="8" fill="#e3eef9"/>
+      <rect x="1312" y="240" width="6" height="64" fill="#2f6fb0"/>
+      <rect x="1334" y="259" width="34" height="24" rx="3" fill="#fff" stroke="#1e3a5f" stroke-width="2"/><path d="M1334,259 L1351,273 L1368,259" fill="none" stroke="#1e3a5f" stroke-width="2"/>
+      <text x="1384" y="268" font-size="21" font-weight="600" fill="#0f1b2d">ADME access guide · v15</text>
+      <text x="1384" y="293" class="mono" font-size="16" fill="#51607a">ADME operations · 09:00</text>
+    </g>
+    <text id="h-sinceLbl" x="1300" y="650" class="mono" font-size="17" letter-spacing="3" fill="#51607a" opacity="0">SINCE IT WAS SENT</text>
+    <g id="h-since"></g>
+    <g fill="none" stroke="#b5803a" stroke-width="4" opacity="0">
+      <rect id="h-hl1" x="163" y="203" width="484" height="124" rx="13"/>
+      <rect id="h-hl2" x="163" y="393" width="484" height="124" rx="13"/>
+      <rect id="h-hl3" x="163" y="583" width="484" height="124" rx="13"/>
+    </g>
+    <g id="h-ask" opacity="0">
+      <rect x="838" y="168" width="430" height="160" rx="14" fill="#fff" stroke="#2f6fb0" stroke-width="2.5"/>
+      <circle cx="878" cy="206" r="11" fill="#2f6fb0"/><rect x="863" y="221" width="30" height="16" rx="8" fill="#2f6fb0"/>
+      <text x="908" y="212" font-size="22" font-weight="600" fill="#0f1b2d">Rachel Kim</text>
+      <text x="908" y="238" class="mono" font-size="16" fill="#51607a">PacRim Energy</text>
+      <text x="862" y="284" font-size="28" font-weight="600" fill="#1e3a5f">Do I have access yet?</text>
+      <text x="862" y="313" font-size="20" fill="#51607a">Still getting a <tspan class="mono" font-weight="700" fill="#8a5a1f">401</tspan>.</text>
+    </g>
+    <path id="h-askArrow" class="draw" pathLength="1" d="M836,248 C760,248 720,262 652,264" fill="none" stroke="#8a5a1f" stroke-width="3" stroke-dasharray="1" opacity="0"/>
+    <g id="h-stamp" opacity="0" transform="translate(1546,272) rotate(-7)">
+      <rect x="-190" y="-34" width="380" height="68" rx="6" fill="rgba(255,255,255,.85)" stroke="#b5803a" stroke-width="4"/>
+      <text x="0" y="12" text-anchor="middle" class="mono" font-size="32" font-weight="800" letter-spacing="5" fill="#8a5a1f">ALREADY BEHIND</text>
+    </g>
+  </g>
+
+  <!-- CONFIDENT AND WRONG -->
+  <g id="wrong" opacity="0">
+    <g id="w-ask" opacity="0">
+      <rect x="170" y="130" width="250" height="64" rx="32" fill="#fff" stroke="#2f8f5b" stroke-width="2.5"/>
+      <text x="295" y="171" text-anchor="middle" class="mono" font-size="21" font-weight="700" letter-spacing="3" fill="#2f8f5b">AI MODEL</text>
+      <rect x="600" y="130" width="330" height="64" rx="10" fill="#fff" stroke="#51607a" stroke-width="2.5"/>
+      <text x="765" y="171" text-anchor="middle" class="mono" font-size="21" font-weight="700" letter-spacing="3" fill="#51607a">OSDU APIS</text>
+    </g>
+    <path id="w-askArrow" class="draw" pathLength="1" d="M426,162 L592,162" fill="none" stroke="#2f8f5b" stroke-width="3" opacity="0"/>
+    <text id="w-askLbl" x="990" y="171" class="mono" font-size="20" fill="#51607a" opacity="0">“let it answer”</text>
+
+    <g id="w-a" opacity="0">
+      <rect x="170" y="250" width="760" height="270" rx="12" fill="#0d1429"/>
+      <text x="200" y="300" class="mono" font-size="21" fill="#dfe6f0"><tspan fill="#b5803a">$</tspan> POST /api/search/v2/query</text>
+      <text id="w-aQ" x="200" y="346" class="mono" font-size="21" fill="#9fb0c8" style="white-space:pre">  "query": "nested(data.Curves,  Mnemonic:GR)"</text>
+      <text id="w-aResp" x="200" y="440" class="mono" font-size="24" fill="#dfe6f0" opacity="0">← <tspan fill="#5cc28a" font-weight="700">200 OK</tspan> · totalCount: <tspan font-weight="700" fill="#fff">0</tspan></text>
+      <text id="w-aErr" x="200" y="484" class="mono" font-size="19" fill="#7f8ea6" opacity="0">errors: none</text>
+    </g>
+    <g id="w-aMiss" opacity="0">
+      <rect id="w-aBox" x="0" y="324" width="24" height="30" rx="4" fill="none" stroke="#b5803a" stroke-width="3"/>
+      <text id="w-aBoxLbl" x="0" y="392" text-anchor="middle" class="mono" font-size="17" font-weight="700" fill="#e0b070">inner ( ) missing</text>
+    </g>
+    <text id="w-aNote" x="170" y="566" font-size="28" font-weight="600" fill="#8a5a1f" opacity="0">No error. And not the same as no data.</text>
+
+    <g id="w-b" opacity="0">
+      <rect x="990" y="250" width="760" height="270" rx="12" fill="#0d1429"/>
+      <text x="1020" y="300" class="mono" font-size="21" fill="#dfe6f0"><tspan fill="#b5803a">$</tspan> POST /api/search/v2/query</text>
+      <text x="1020" y="346" class="mono" font-size="21" fill="#9fb0c8" style="white-space:pre">  "kind": "osdu:wks:*:*"</text>
+      <text id="w-bResp" x="1020" y="440" class="mono" font-size="24" fill="#dfe6f0" opacity="0">← <tspan fill="#5cc28a" font-weight="700">200 OK</tspan> · totalCount: <tspan id="w-bNum" font-weight="700" fill="#fff">0</tspan></text>
+      <text id="w-bErr" x="1020" y="484" class="mono" font-size="19" fill="#7f8ea6" opacity="0">no flag that it stopped</text>
+    </g>
+    <text id="w-bNote" x="990" y="566" font-size="28" font-weight="600" fill="#8a5a1f" opacity="0">Stopped at ten thousand. Didn’t say so.</text>
+
+    <g id="w-c" opacity="0">
+      <rect x="170" y="626" width="980" height="100" rx="12" fill="#0d1429"/>
+      <text x="200" y="686" class="mono" font-size="21" fill="#dfe6f0"><tspan fill="#b5803a">$</tspan> POST /api/entitlements/v2/groups/users@…/members</text>
+    </g>
+    <g id="w-stamp" opacity="0" transform="translate(1000,676) rotate(-6)">
+      <rect x="-150" y="-34" width="300" height="68" rx="6" fill="rgba(255,255,255,.9)" stroke="#b5803a" stroke-width="4"/>
+      <text x="0" y="12" text-anchor="middle" class="mono" font-size="30" font-weight="800" letter-spacing="4" fill="#8a5a1f">DRY RUN FIRST</text>
+    </g>
+
+    <g id="w-end" opacity="0">
+      <text x="960" y="380" text-anchor="middle" font-size="40" font-weight="400" fill="#51607a">A smarter model isn’t the fix.</text>
+      <text x="960" y="490" text-anchor="middle" font-size="76" font-weight="600" fill="#1e3a5f">Better ground to stand on.</text>
+    </g>
+    <line id="w-ground" class="draw" pathLength="1" x1="520" y1="546" x2="1400" y2="546" stroke="#1e3a5f" stroke-width="4" opacity="0"/>
+    <g id="w-hatch" opacity="0" stroke="#b5803a" stroke-width="3"></g>
+  </g>
+
+  <!-- THE RIG -->
+  <g id="rig" opacity="0">
+    <g id="r-agents" opacity="0">
+      <text x="170" y="122" class="mono" font-size="18" letter-spacing="3" fill="#51607a">AGENTS AND PEOPLE</text>
+      <rect x="170" y="138" width="320" height="64" rx="32" fill="#fff" stroke="#2f8f5b" stroke-width="2.5"/>
+      <text x="330" y="178" text-anchor="middle" font-size="23" font-weight="600" fill="#0f1b2d">GitHub Copilot CLI</text>
+      <rect x="510" y="138" width="250" height="64" rx="32" fill="#fff" stroke="#2f8f5b" stroke-width="2.5"/>
+      <text x="635" y="178" text-anchor="middle" font-size="23" font-weight="600" fill="#0f1b2d">Keelson chat</text>
+      <rect x="780" y="138" width="200" height="64" rx="32" fill="#fff" stroke="#2f8f5b" stroke-width="2.5"/>
+      <circle cx="818" cy="162" r="9" fill="#2f8f5b"/><rect x="806" y="174" width="24" height="13" rx="6.5" fill="#2f8f5b"/>
+      <text x="842" y="178" font-size="23" font-weight="600" fill="#0f1b2d">Operator</text>
+    </g>
+    <g fill="none" stroke="#2f8f5b" stroke-width="3">
+      <path id="r-ak" class="draw" pathLength="1" d="M560,206 L560,262" opacity="0"/>
+      <path id="r-am" class="draw" pathLength="1" d="M330,206 C330,236 1500,224 1500,262" opacity="0"/>
+    </g>
+
+    <rect id="r-kLine" class="draw" pathLength="1" x="170" y="270" width="960" height="250" rx="14" fill="none" stroke="#1e3a5f" stroke-width="3"/>
+    <g id="r-k" opacity="0">
+      <rect x="170" y="270" width="960" height="250" rx="14" fill="rgba(255,255,255,.95)" stroke="#1e3a5f" stroke-width="3"/>
+      <text x="206" y="326" class="mono" font-size="20" letter-spacing="3" fill="#51607a">WORKBENCH FOR AGENTS · ONE MACHINE</text>
+    </g>
+    <g id="r-kName" opacity="0"></g>
+    <g id="r-kChips"></g>
+
+    <rect id="r-rLine" class="draw" pathLength="1" x="230" y="520" width="840" height="120" rx="10" fill="none" stroke="#b5803a" stroke-width="3"/>
+    <g id="r-r" opacity="0">
+      <rect x="230" y="520" width="840" height="120" rx="10" fill="#fdf6ea" stroke="#b5803a" stroke-width="3"/>
+      <text x="262" y="566" class="mono" font-size="20" font-weight="700" letter-spacing="3" fill="#8a5a1f">ADME RIB · KNOWS THIS INSTANCE</text>
+    </g>
+    <g id="r-bolts" opacity="0" fill="#fff" stroke="#8a5a1f" stroke-width="3">
+      <circle cx="270" cy="520" r="10"/><circle cx="650" cy="520" r="10"/><circle cx="1030" cy="520" r="10"/>
+    </g>
+    <g id="r-rChips"></g>
+
+    <rect id="r-mLine" class="draw" pathLength="1" x="1250" y="270" width="500" height="390" rx="14" fill="none" stroke="#2f6fb0" stroke-width="3"/>
+    <g id="r-m" opacity="0">
+      <rect x="1250" y="270" width="500" height="390" rx="14" fill="rgba(255,255,255,.95)" stroke="#2f6fb0" stroke-width="3"/>
+      <text x="1284" y="326" class="mono" font-size="20" font-weight="700" letter-spacing="3" fill="#2f6fb0">OSDU MCP SERVER</text>
+      <text x="1284" y="356" class="mono" font-size="17" fill="#51607a">knows OSDU itself</text>
+    </g>
+    <g id="r-mChips"></g>
+    <g id="r-tools"></g>
+
+    <g id="r-num" class="mono" font-size="40" font-weight="800" fill="#b5803a" opacity="0">
+      <text id="r-n1" x="1094" y="316" text-anchor="middle" opacity="0">1</text>
+      <text id="r-n2" x="1036" y="572" text-anchor="middle" opacity="0">2</text>
+      <text id="r-n3" x="1714" y="316" text-anchor="middle" opacity="0">3</text>
+    </g>
+
+    <g id="r-base" opacity="0">
+      <rect x="170" y="690" width="1150" height="64" rx="8" fill="#e3e9f1" stroke="#51607a" stroke-width="2"/>
+      <text x="200" y="731" class="mono" font-size="20" font-weight="700" letter-spacing="3" fill="#51607a">ADME INSTANCE · OSDU PLATFORM</text>
+    </g>
+    <g fill="none" stroke="#51607a" stroke-width="3">
+      <path id="r-rb" class="draw" pathLength="1" d="M650,644 L650,686" opacity="0"/>
+      <path id="r-mb" class="draw" pathLength="1" d="M1500,664 C1500,680 1300,672 1296,686" opacity="0"/>
+    </g>
+    <g id="r-guide"></g>
+  </g>
+</svg>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+const norm = (w) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
+const C = { keel: "#1e3a5f", rib: "#2f6fb0", brass: "#b5803a", brassInk: "#8a5a1f", ink: "#0f1b2d", muted: "#51607a", line: "#d3dae4", strong: "#97a3b4", green: "#2f8f5b", brassSoft: "#f5ead9" };
+const ORGS = ["Contoso", "PacRim Energy", "Northfield", "Volta Subsurface", "Sahel Geo", "RheinSeis", "Kaiyo Data", "Halden Geo", "Fjordline", "Baltica", "Adriatica", "Vendor Partners"];
+const PEOPLE = [4, 3, 2, 3, 2, 2, 3, 2, 3, 2, 2, 4];
+
+// THE GUIDE: everyone on the list, and one envelope each
+const listTiles = ORGS.map((name, i) => {
+  const x = 1146 + (i % 3) * 210, y = 232 + Math.floor(i / 3) * 84;
+  const g = el("g", { opacity: 0 }, $("g-grid"));
+  const r = el("rect", { x, y, width: 200, height: 68, rx: 8, fill: "#fff", stroke: C.strong, "stroke-width": 1.5 }, g);
+  el("text", { x: x + 16, y: y + 30, "font-size": 20, "font-weight": 600, fill: C.ink }, g, name);
+  const v = ["v14", "v15", "v16"].map((t, k) => el("text", { x: x + 16, y: y + 57, class: "mono", "font-size": 20, "font-weight": k ? 700 : 400, fill: k ? C.brassInk : C.muted, opacity: k ? 0 : 1 }, g, t));
+  return { g, r, v, cx: x + 100, cy: y + 34 };
+});
+const envs = ORGS.map(() => {
+  const g = el("g", { opacity: 0 }, $("g-env"));
+  el("rect", { x: -17, y: -12, width: 34, height: 24, rx: 3, fill: "#fff", stroke: C.keel, "stroke-width": 2 }, g);
+  el("path", { d: "M-17,-12 L0,2 L17,-12", fill: "none", stroke: C.keel, "stroke-width": 2 }, g);
+  return g;
+});
+
+// ONE INSTANCE: a dozen companies around the same data
+const RCY = 455;
+const ring = ORGS.map((name, i) => {
+  const a = (-90 + i * 30) * Math.PI / 180, cx = 960 + 640 * Math.cos(a), cy = RCY + 255 * Math.sin(a);
+  const len = Math.hypot(960 - cx, RCY - cy), dx = (960 - cx) / len, dy = (RCY - cy) / len;
+  const t0 = Math.min(dx ? 105 / Math.abs(dx) : 1e9, dy ? 40 / Math.abs(dy) : 1e9) + 8;
+  const k2 = 1 / Math.hypot(dx / 170, dy / 112);
+  const sx = cx + dx * t0, sy = cy + dy * t0, ex = 960 - dx * k2, ey = RCY - dy * k2;
+  const link = el("line", { x1: sx, y1: sy, x2: ex, y2: ey, pathLength: 1, class: "draw", stroke: C.strong, "stroke-width": 2.5, opacity: 0 }, $("p-links"));
+  const sys = el("rect", { x: sx + (ex - sx) * 0.22 - 9, y: sy + (ey - sy) * 0.22 - 9, width: 18, height: 18, rx: 3, fill: C.keel, opacity: 0 }, $("p-links"));
+  const g = el("g", { opacity: 0 }, $("p-tiles"));
+  el("rect", { x: cx - 105, y: cy - 40, width: 210, height: 80, rx: 10, fill: "#fff", stroke: C.rib, "stroke-width": 2 }, g);
+  el("text", { x: cx, y: cy - 4, "text-anchor": "middle", "font-size": 21, "font-weight": 600, fill: C.ink }, g, name);
+  const n = PEOPLE[i];
+  for (let k = 0; k < n; k++) el("circle", { cx: cx + (k - (n - 1) / 2) * 20, cy: cy + 22, r: 6, fill: C.rib }, g);
+  const dot = el("circle", { cx: sx, cy: sy, r: 7, fill: C.brass, opacity: 0 }, $("p-dots"));
+  return { g, link, sys, dot, ex, ey };
+});
+
+gsap.set($("g-ver"), { svgOrigin: "931 681" });
+
+// SEVEN PAGES
+const PAGES = [["Get", "connected"], ["Your role,", "first calls"], ["Ground rules,", "troubleshooting"], ["Who has", "access"], ["Seismic", "grants"], ["Who is who", "in records"], ["Building", "an app"]];
+const PX = (i) => 153 + i * 234, PY = 300, LIVE = [3, 4, 5];
+const FOCUS = [[165, 354, 0.72], [328.2, 354, 0.72], [491.4, 354, 0.72], [682.6, 270, 1.3], [986.8, 270, 1.3], [1291, 270, 1.3], [1604, 354, 0.72]];
+const pages = PAGES.map(([t1, t2], i) => {
+  const outer = el("g", { opacity: 0 }, $("pg-row"));
+  gsap.set(outer, { svgOrigin: `${PX(i)} ${PY}` });
+  const g = el("g", { transform: `translate(${PX(i)},${PY})` }, outer);
+  const rect = el("rect", { x: 0, y: 0, width: 210, height: 290, rx: 6, fill: "#fff", stroke: C.keel, "stroke-width": 2 }, g);
+  const band = el("rect", { x: 0, y: 0, width: 210, height: 8, fill: C.keel }, g);
+  el("circle", { cx: 32, cy: 38, r: 17, fill: C.keel }, g);
+  el("text", { x: 32, y: 44, "text-anchor": "middle", class: "mono", "font-size": 18, "font-weight": 700, fill: "#fff" }, g, String(i + 1));
+  el("text", { x: 20, y: 92, "font-size": 21, "font-weight": 600, fill: C.ink }, g, t1);
+  el("text", { x: 20, y: 118, "font-size": 21, "font-weight": 600, fill: C.ink }, g, t2);
+  const p = { outer, rect, band, pills: [], extra: null };
+  if (LIVE.includes(i)) {
+    const tones = { 3: [C.green, C.green, C.strong, C.green, C.line], 4: [C.green, C.strong, C.green, C.green, C.line], 5: [C.strong, C.strong, C.strong, C.strong, C.strong] }[i];
+    for (let r = 0; r < 5; r++) {
+      const y = 150 + r * 24;
+      if (i === 5) { el("rect", { x: 20, y, width: 64, height: 9, rx: 4, fill: C.strong }, g); el("path", { d: `M94,${y + 4.5} L108,${y + 4.5}`, stroke: C.muted, "stroke-width": 2 }, g); el("rect", { x: 116, y, width: 74, height: 9, rx: 4, fill: "#c3cddb" }, g); }
+      else { el("rect", { x: 20, y, width: 100, height: 9, rx: 4, fill: "#c3cddb" }, g); p.pills.push(el("rect", { x: 140, y: y - 3, width: 48, height: 15, rx: 7.5, fill: tones[r] }, g)); }
+    }
+    const ex = el("g", { opacity: 0 }, g);
+    el("rect", { x: 12, y: 262, width: 186, height: 22, rx: 5, fill: C.brassSoft }, ex);
+    el("rect", { x: 20, y: 268, width: i === 5 ? 64 : 100, height: 9, rx: 4, fill: C.brass }, ex);
+    if (i === 5) el("rect", { x: 116, y: 268, width: 74, height: 9, rx: 4, fill: C.brass }, ex);
+    else el("rect", { x: 140, y: 265, width: 48, height: 15, rx: 7.5, fill: i === 3 ? C.green : C.brass }, ex);
+    p.extra = ex;
+  } else {
+    [170, 150, 165, 120, 160, 90].forEach((w, r) => el("rect", { x: 20, y: 150 + r * 20, width: w, height: 7, rx: 3.5, fill: C.line }, g));
+  }
+  if (i === 2) {
+    p.chip = el("g", { opacity: 0 }, g);
+    el("rect", { x: 118, y: 20, width: 74, height: 34, rx: 6, fill: C.brassSoft, stroke: C.brass, "stroke-width": 2 }, p.chip);
+    el("text", { x: 155, y: 44, "text-anchor": "middle", class: "mono", "font-size": 20, "font-weight": 700, fill: C.brassInk }, p.chip, "401");
+  }
+  const live = LIVE.includes(i), [fx, fy, fs] = FOCUS[i];
+  p.label = el("text", { x: fx + 105 * fs, y: fy + 290 * fs + (live ? 46 : 30), "text-anchor": "middle", class: "mono", "font-size": live ? 22 : 14, "font-weight": live ? 700 : 400,
+    "letter-spacing": live ? 1 : 1.5, fill: live ? C.brassInk : C.muted, opacity: 0 }, $("pg-labels"), { 3: "+1 accepted", 4: "+1 grant", 5: "+1 new id" }[i] || "RARELY CHANGES");
+  return p;
+});
+
+// BY HAND: pages four to six, the rows that fill them, the inbox
+const stackPages = [0, 1, 2].map((k) => {
+  const x = 900 + k * 30, y = 230 + k * 22;
+  const g = el("g", {}, $("h-stack"));
+  el("rect", { x, y, width: 230, height: 300, rx: 6, fill: "#fff", stroke: C.brass, "stroke-width": 2.5 }, g);
+  el("rect", { x, y, width: 230, height: 8, fill: C.brass }, g);
+  el("circle", { cx: x + 32, cy: y + 38, r: 17, fill: C.keel }, g);
+  el("text", { x: x + 32, y: y + 44, "text-anchor": "middle", class: "mono", "font-size": 18, "font-weight": 700, fill: "#fff" }, g, String(4 + k));
+  return { x, y };
+});
+const front = stackPages[2];
+const rowFills = [], movers = [];
+const SRC = [[640, 265], [640, 455], [640, 645]];
+for (let r = 0; r < 9; r++) {
+  const y = front.y + 84 + r * 22;
+  rowFills.push(el("g", { opacity: 0 }, $("h-rows")));
+  el("rect", { x: front.x + 22, y, width: 112, height: 9, rx: 4, fill: "#c3cddb" }, rowFills[r]);
+  el("rect", { x: front.x + 150, y: y - 3, width: 52, height: 15, rx: 7.5, fill: [C.green, C.strong, C.brass][r % 3] }, rowFills[r]);
+  movers.push(el("rect", { x: -35, y: -5, width: 70, height: 10, rx: 5, fill: [C.keel, C.rib, C.brass][r % 3], opacity: 0 }, $("h-rows")));
+}
+for (let r = 0; r < 4; r++) {
+  const y = 314 + r * 74, g = el("g", {}, $("h-mail"));
+  el("rect", { x: 1334, y: y + 19, width: 34, height: 24, rx: 3, fill: "#fff", stroke: C.strong, "stroke-width": 2 }, g);
+  el("rect", { x: 1384, y: y + 16, width: 220 - r * 14, height: 10, rx: 5, fill: C.line }, g);
+  el("rect", { x: 1384, y: y + 38, width: 300 - r * 22, height: 8, rx: 4, fill: "#e6eaf0" }, g);
+  el("line", { x1: 1312, y1: y + 70, x2: 1758, y2: y + 70, stroke: "#e6eaf0", "stroke-width": 1.5 }, g);
+}
+const since = [["09:40", "2 invited"], ["10:15", "1 accepted"], ["11:02", "1 grant"]].map(([t, what], k) => {
+  const g = el("g", { opacity: 0 }, $("h-since")), y = 664 + k * 42;
+  el("rect", { x: 1300, y, width: 330, height: 34, rx: 6, fill: "#fff", stroke: C.strong, "stroke-width": 1.5 }, g);
+  el("text", { x: 1316, y: y + 23, class: "mono", "font-size": 18, fill: C.muted }, g, t);
+  el("text", { x: 1390, y: y + 23, class: "mono", "font-size": 18, "font-weight": 700, fill: C.brassInk }, g, what);
+  return g;
+});
+
+// FIELD TRIALS title block: the opener's plan and the closer's report share one layout
+const KMARK = (parent, x, y, s) => {
+  const g = el("g", { transform: `translate(${x},${y}) scale(${s})` }, parent);
+  el("line", { x1: 11.5, y1: 7, x2: 11.5, y2: 27, stroke: C.keel, "stroke-width": 2, "stroke-linecap": "round" }, g);
+  el("line", { x1: 22.5, y1: 7, x2: 22.5, y2: 27, stroke: C.keel, "stroke-width": 2, "stroke-linecap": "round" }, g);
+  el("line", { x1: 5, y1: 20, x2: 29, y2: 20, stroke: C.brass, "stroke-width": 2.6, "stroke-linecap": "round" }, g);
+  return g;
+};
+const block = (root, docName, rowH, rows) => {
+  const top = el("g", {}, root);
+  const cells = el("g", { opacity: 0 }, top);
+  el("rect", { x: 360, y: 214, width: 800, height: 96, fill: C.keel }, cells);
+  el("rect", { x: 1160, y: 214, width: 160, height: 96, fill: "#fff" }, cells);
+  el("rect", { x: 1320, y: 214, width: 240, height: 96, fill: C.muted }, cells);
+  el("line", { x1: 1160, y1: 214, x2: 1160, y2: 310, stroke: C.keel, "stroke-width": 3 }, cells);
+  el("line", { x1: 1320, y1: 214, x2: 1320, y2: 310, stroke: C.keel, "stroke-width": 3 }, cells);
+  const line = el("rect", { x: 360, y: 214, width: 1200, height: 96, fill: "none", stroke: C.keel, "stroke-width": 3, pathLength: 1, class: "draw" }, top);
+  const mono = { class: "mono", "font-weight": 700 };
+  const t1 = el("text", { ...mono, x: 392, y: 274, "font-size": 31, "letter-spacing": 4, fill: "#fff", opacity: 0 }, top, "FIELD TRIAL");
+  const t2 = el("text", { ...mono, x: 392, y: 274, "font-size": 31, "letter-spacing": 4, fill: "#c9d3e3", opacity: 0 }, top, "· ADME INTEROP");
+  const rev = el("text", { ...mono, x: 1240, y: 274, "text-anchor": "middle", "font-size": 31, "letter-spacing": 3, fill: C.keel, opacity: 0 }, top, "REV 0");
+  const doc = el("text", { ...mono, x: 1440, y: 271, "text-anchor": "middle", "font-size": 21, "letter-spacing": 3, fill: "#fff", opacity: 0 }, top, docName);
+  const body = el("g", { opacity: 0 }, root), H = rows.length * rowH;
+  el("rect", { x: 360, y: 310, width: 1200, height: H, fill: "rgba(255,255,255,.95)", stroke: C.keel, "stroke-width": 3 }, body);
+  el("line", { x1: 610, y1: 310, x2: 610, y2: 310 + H, stroke: C.strong, "stroke-width": 1.5 }, body);
+  for (let k = 1; k < rows.length; k++) el("line", { x1: 360, y1: 310 + k * rowH, x2: 1560, y2: 310 + k * rowH, stroke: C.line, "stroke-width": 1.5 }, body);
+  const out = rows.map(([label, value, stamp, extra, logo], k) => {
+    const mid = 310 + k * rowH + rowH / 2, g = el("g", { opacity: 0 }, body);
+    let pill = null;
+    if (stamp) {
+      const col = { "AS BUILT": C.green, "IN WORK": C.brass }[stamp];
+      pill = el("g", {}, g);
+      el("rect", { x: 386, y: mid - 17, width: 200, height: 34, rx: 17, fill: col || "#fff", stroke: col || C.keel, "stroke-width": 2, ...(col ? {} : { "stroke-dasharray": "6 4" }) }, pill);
+      el("text", { ...mono, x: 486, y: mid + 6, "text-anchor": "middle", "font-size": 16, "letter-spacing": 3, fill: col ? "#fff" : C.keel }, pill, stamp);
+      gsap.set(pill, { svgOrigin: `486 ${mid}` });
+    } else el("text", { x: 392, y: mid + 6, class: "mono", "font-size": 18, "letter-spacing": 4, fill: C.muted }, g, label);
+    if (value === "KEELSON") {
+      KMARK(g, 634, mid - 21, 1.2);
+      el("text", { x: 684, y: mid + 11, "font-size": 30, "font-weight": 300, "letter-spacing": 9, fill: C.keel }, g, "KEELSON");
+    } else el("text", { x: 640, y: mid + 10, "font-size": 29, "font-weight": 500, fill: C.ink }, g, value);
+    if (extra) el("text", { x: 1532, y: mid + 7, "text-anchor": "end", class: "mono", "font-size": 19, fill: C.muted }, g, extra);
+    if (logo) el("image", { href: logo.src, x: 1532 - logo.w, y: mid - logo.h / 2, width: logo.w, height: logo.h }, g);
+    return { g, pill };
+  });
+  return { top, line, cells, t1, t2, rev, doc, body, rows: out };
+};
+const LOGO = {
+  osdu: { src: "../../../assets/logos/osdu.svg", w: 106, h: 34 },
+  microsoft: { src: "../../../assets/logos/microsoft.png", w: 140, h: 30 },
+};
+const IB = block($("ib-root"), "ALPHA", 72, [
+  ["PROJECT", "OSDU #sig-interop · 15% project", null, null, LOGO.osdu],
+  ["DRAWN BY", "Daniel Scholl · Microsoft", null, null, LOGO.microsoft],
+  ["UNDER TEST", "AI agents doing real work on a shared OSDU platform"],
+  ["SITE", "A shared ADME instance · about a dozen companies"],
+  ["STATUS", "Exploratory · revised as the work lands"],
+]);
+const OB = block($("ob-root"), "TRIAL REPORT", 64, [
+  ["", "Access, data and seismic, measured live", "AS BUILT"],
+  ["", "Why 401: seven checks, one verdict", "AS BUILT"],
+  ["", "OSDU MCP server: one tool today, five designed", "IN WORK"],
+  ["", "An access guide that rewrites itself", "PROPOSED"],
+  ["NEXT REV", "MCP sign-in on CIMPL"],
+  ["PROJECT", "OSDU #sig-interop · 15% project · Daniel Scholl, Microsoft"],
+  ["POWERED BY", "KEELSON", null, "danielscholl.github.io/keelson"],
+]);
+// THE RIG: chips inside each piece, the MCP server's tools, the guide that comes apart
+const chip = (parent, x, y, w, text, col, fill = "#fff") => {
+  const g = el("g", { opacity: 0 }, parent);
+  el("rect", { x, y, width: w, height: 46, rx: 8, fill, stroke: col, "stroke-width": 2 }, g);
+  el("text", { x: x + w / 2, y: y + 30, "text-anchor": "middle", "font-size": 21, "font-weight": 500, fill: C.ink }, g, text);
+  return g;
+};
+const kChips = [["keeps the record", 206, 250], ["workflows", 480, 170], ["approval gates", 674, 210], ["tools over MCP", 908, 190]]
+  .map(([t, x, w]) => chip($("r-kChips"), x, 430, w, t, C.keel));
+const rChips = [["people", 262, 150], ["data", 432, 130], ["seismic subprojects", 582, 250]].map(([t, x, w]) => chip($("r-rChips"), x, 582, w, t, C.brass));
+const mChips = [["bounded answers", 1284, 210], ["says how sure", 1510, 206]].map(([t, x, w]) => chip($("r-mChips"), x, 384, w, t, C.rib));
+const TOOLS = ["osdu_about", "describe", "resolve", "find", "read"];
+const tools = TOOLS.map((t, k) => {
+  const x = 1284 + (k ? (k - 1) % 2 : 0) * 220, y = 450 + (k ? 1 + Math.floor((k - 1) / 2) : 0) * 56, live = k === 0;
+  const g = el("g", { opacity: 0 }, $("r-tools"));
+  el("rect", { x, y, width: 206, height: 42, rx: 21, fill: live ? C.green : "#fff", stroke: live ? C.green : C.brass, "stroke-width": 2, ...(live ? {} : { "stroke-dasharray": "6 4" }) }, g);
+  el("text", { x: x + 103, y: y + 28, "text-anchor": "middle", class: "mono", "font-size": 18, "font-weight": 700, fill: live ? "#fff" : C.brassInk }, g, t);
+  return g;
+});
+const toolLbl = [["RUNS TODAY", C.green], ["IN WORK", C.brassInk]].map(([t, col], k) =>
+  el("text", { x: k ? 1500 : 1510, y: k ? 638 : 477, "text-anchor": k ? "middle" : "start", class: "mono", "font-size": 16, "font-weight": 700, "letter-spacing": 3, fill: col, opacity: 0 }, $("r-tools"), t));
+gsap.set($("r-bolts"), { svgOrigin: "650 520" });
+gsap.set(tools[0], { svgOrigin: "1387 471" });
+const guideBits = Array.from({ length: 7 }, (_, k) => {
+  const g = el("g", { opacity: 0 }, $("r-guide"));
+  el("rect", { x: 0, y: 0, width: 34, height: 44, rx: 3, fill: "#fff", stroke: [3, 4, 5].includes(k) ? C.brass : C.keel, "stroke-width": 2 }, g);
+  el("text", { x: 17, y: 30, "text-anchor": "middle", class: "mono", "font-size": 16, "font-weight": 700, fill: C.keel }, g, String(k + 1));
+  gsap.set(g, { x: 1000, y: 700 });
+  return g;
+});
+KMARK($("r-kName"), 204, 352, 1.3);
+el("text", { x: 256, y: 390, "font-size": 34, "font-weight": 300, "letter-spacing": 10, fill: C.keel }, $("r-kName"), "KEELSON");
+for (let k = 0; k < 22; k++) el("line", { x1: 524 + k * 40, y1: 552, x2: 504 + k * 40, y2: 576 }, $("w-hatch"));
+
+// Set the origin while unscaled; GSAP offsets x/y when an origin changes on a scaled element.
+gsap.set([IB.top, OB.top], { svgOrigin: "360 214" });
+const CORNER = { x: 997, y: 635.6, scale: 0.3625 };
+
+window.setup = (T, words) => {
+  const tl = gsap.timeline({ paused: true });
+  window.tl = tl;
+  const lineAt = {};
+  for (const b of Object.values(T)) for (const [id, l] of Object.entries(b.lines)) lineAt[id] = l.n;
+  const W = (id, phrase, k = 0) => {
+    const ws = words[id], want = phrase.split(/\s+/).map(norm);
+    for (let i = 0, hit = 0; i < ws.length; i++) {
+      if (want.every((w, j) => ws[i + j] && norm(ws[i + j][0]) === w) && hit++ === k) return lineAt[id] + ws[i][1];
+    }
+    throw new Error(`phrase "${phrase}" not in ${id}`);
+  };
+  const show = (e, at, d = 0.4) => tl.to(e, { opacity: 1, duration: d }, at);
+  const hide = (e, at, d = 0.3) => tl.to(e, { opacity: 0, duration: d }, at);
+  const swap = (from, to, at) => { tl.set(from, { opacity: 0 }, at); tl.set(to, { opacity: 1 }, at); };
+  const draw = (e, at, d = 0.8) => { tl.set(e, { opacity: 1 }, at); tl.to(e, { strokeDashoffset: 0, duration: d, ease: "power1.inOut" }, at); };
+  for (const id of Object.keys(T)) {
+    tl.set($(id), { opacity: 1 }, T[id].s); tl.set($(id), { opacity: 0 }, T[id].e);
+    tl.set($(`bn-${id}`), { opacity: 1 }, T[id].s); tl.set($(`bn-${id}`), { opacity: 0 }, T[id].e);
+  }
+
+  // THE GUIDE
+  { const s = T.guide.s, ver = (n, at) => {
+      swap([$("g-v14"), $("g-v15"), $("g-v16")].filter((e) => e.id !== `g-v${n}`), $(`g-v${n}`), at);
+      swap([$("g-up14"), $("g-up15"), $("g-up16")].filter((e) => e.id !== `g-up${n}`), $(`g-up${n}`), at);
+      tl.to($("g-verBox"), { attr: { fill: "#fbe2b8" }, duration: 0.2, yoyo: true, repeat: 1 }, at);
+      tl.fromTo($("g-ver"), { scale: 1.35 }, { scale: 1, duration: 0.4, ease: "back.out(2)", immediateRender: false }, at);
+    };
+    const send = (at, n, step = 0.05, fly = 0.55) => {
+      envs.forEach((e, i) => {
+        const t = listTiles[i], a = at + i * step;
+        tl.set(e, { x: 1030, y: 452, opacity: 1 }, a);
+        tl.to(e, { x: t.cx, y: t.cy, duration: fly, ease: "power2.inOut" }, a);
+        tl.set(e, { opacity: 0 }, a + fly);
+        swap(t.v.filter((_, k) => k !== n - 14), t.v[n - 14], a + fly);
+        tl.to(t.r, { attr: { stroke: C.brass }, duration: 0.15, yoyo: true, repeat: 1 }, a + fly - 0.05);
+      });
+    };
+    draw($("g-coverLine"), s + 0.1, 0.9);
+    show($("g-coverFill"), s + 0.5, 0.5); show($("g-stack"), s + 0.6, 0.5);
+    show($("g-coverText"), W("n1", "access guide") - 0.2, 0.5);
+    show($("g-listLbl"), W("n1", "shared") , 0.4);
+    listTiles.forEach((t, i) => show(t.g, W("n1", "dozen companies") - 0.3 + i * 0.04, 0.3));
+    show($("g-ev1"), W("n2", "invited") - 0.2, 0.3); draw($("g-a1"), W("n2", "invited"), 0.5);
+    show($("g-ev2"), W("n2", "grant") - 0.2, 0.3); draw($("g-a2"), W("n2", "grant"), 0.5);
+    const rb = W("n2", "rebuilt");
+    tl.to($("g-cover"), { y: -26, duration: 0.25, ease: "power1.out" }, rb - 0.15);
+    tl.to($("g-cover"), { y: 0, duration: 0.3, ease: "power1.in" }, rb + 0.2);
+    ver(15, rb + 0.2); show($("g-rebuilt"), rb, 0.3);
+    send(W("n2", "sent to everyone") - 0.1, 15);
+    const c2 = T.guide.lines.n2b.n - 0.35;
+    show($("g-ev3"), c2, 0.3); draw($("g-a3"), c2 + 0.1, 0.45);
+    tl.to($("g-cover"), { y: -26, duration: 0.25, ease: "power1.out" }, c2 + 0.45);
+    tl.to($("g-cover"), { y: 0, duration: 0.3, ease: "power1.in" }, c2 + 0.75);
+    ver(16, c2 + 0.75);
+    send(c2 + 0.9, 16, 0.035, 0.45);
+  }
+
+  // ONE INSTANCE
+  { const s = T.platform.s;
+    draw($("p-inst"), s + 0.1, 1.0); swap($("p-inst"), $("p-instDash"), s + 1.15);
+    show($("p-label"), W("n3", "one platform") - 0.2);
+    const pp = W("n3", "every company");
+    ring.forEach((r, i) => show(r.g, pp + i * 0.07, 0.3));
+    const ts = W("n3", "tests its systems");
+    ring.forEach((r, i) => { draw(r.link, ts - 0.2 + i * 0.03, 0.5); show(r.sys, ts + 0.2 + i * 0.03, 0.25); });
+    show($("p-data"), W("n3", "against") - 0.3, 0.4);
+    const sd = W("n3", "same data");
+    ring.forEach((r, i) => {
+      tl.set(r.dot, { opacity: 1 }, sd - 0.4 + i * 0.03);
+      tl.to(r.dot, { attr: { cx: r.ex, cy: r.ey }, duration: 0.6, ease: "power1.in" }, sd - 0.4 + i * 0.03);
+      tl.set(r.dot, { opacity: 0 }, sd + 0.2 + i * 0.03);
+      tl.to(r.link, { attr: { stroke: C.brass }, duration: 0.3 }, sd - 0.2);
+    });
+    tl.to($("p-dataTop"), { attr: { fill: C.brassSoft, stroke: C.brass }, duration: 0.35 }, sd + 0.2);
+  }
+
+  // SEVEN PAGES
+  { const s = T.pages.s, lift = (i, at, dy = -18) => tl.to(pages[i].outer, { y: dy, duration: 0.3, ease: "power1.out" }, at);
+    pages.forEach((p, i) => { gsap.set(p.outer, { x: PX(3) - PX(i) }); show(p.outer, s + 0.1 + i * 0.04, 0.3); });
+    const rw = W("n4", "real work");
+    pages.forEach((p, i) => tl.to(p.outer, { x: 0, duration: 0.8, ease: "power2.out" }, rw - 0.2 + Math.abs(i - 3) * 0.03));
+    const hc = W("n4", "How to connect"), er = W("n4", "each role"), f1 = W("n4", "401");
+    lift(0, hc - 0.1); lift(0, er - 0.1, 0);
+    lift(1, er - 0.1); lift(1, f1 - 0.1, 0);
+    lift(2, f1 - 0.1); show(pages[2].chip, f1, 0.3);
+    const tp = W("n5", "three pages");
+    pages.forEach((p, i) => tl.to(p.outer, { x: FOCUS[i][0] - PX(i), y: FOCUS[i][1] - PY, scale: FOCUS[i][2], duration: 0.7, ease: "power2.inOut" }, tp - 0.1));
+    [0, 1, 2, 6].forEach((i) => { tl.to(pages[i].outer, { opacity: 0.38, duration: 0.4 }, tp); show(pages[i].label, tp + 0.5, 0.4); });
+    LIVE.forEach((i) => { tl.to(pages[i].rect, { attr: { stroke: C.brass, "stroke-width": 3 }, duration: 0.3 }, tp); tl.to(pages[i].band, { attr: { fill: C.brass }, duration: 0.3 }, tp); });
+    const nt = W("n5", "never true");
+    draw($("pg-bracket"), nt - 0.2, 0.6); show($("pg-bracketLbl"), nt, 0.4);
+    const beat = (i, at) => {
+      show(pages[i].extra, at, 0.3);
+      tl.fromTo(pages[i].extra, { y: 10 }, { y: 0, duration: 0.3, immediateRender: false }, at);
+      show(pages[i].label, at + 0.1, 0.3);
+      tl.to(pages[i].rect, { attr: { fill: "#fdf6ea" }, duration: 0.2, yoyo: true, repeat: 1 }, at);
+    };
+    const wa = W("n6", "Who has access");
+    beat(3, wa); tl.to(pages[3].pills[2], { attr: { fill: C.green }, duration: 0.3 }, wa + 0.3);
+    const ss = W("n6", "seismic subproject");
+    beat(4, ss); tl.to(pages[4].pills[1], { attr: { fill: C.brass }, duration: 0.3 }, ss + 0.3);
+    beat(5, W("n6", "object id"));
+  }
+
+  // BY HAND
+  { const s = T.hand.s;
+    show($("h-stack"), s + 0.15, 0.4);
+    show($("h-cli"), W("n7", "Azure CLI") - 0.3); show($("h-graph"), W("n7", "Graph") - 0.3); show($("h-scripts"), W("n7", "scripts") - 0.3);
+    const bh = W("n7", "put together");
+    show($("h-pencil"), bh - 0.2, 0.3);
+    tl.to($("h-pencil"), { rotation: 6, transformOrigin: "762px 470px", duration: 0.18, yoyo: true, repeat: 7, ease: "sine.inOut" }, bh);
+    movers.forEach((m, r) => {
+      const [sx, sy] = SRC[r % 3], tx = front.x + 78, ty = front.y + 88 + r * 22, a = bh - 0.1 + r * 0.2;
+      tl.set(m, { x: sx, y: sy, opacity: 1 }, a);
+      tl.to(m, { x: 762, y: 440, duration: 0.3, ease: "power1.in" }, a);
+      tl.to(m, { x: tx, y: ty, duration: 0.35, ease: "power1.out" }, a + 0.3);
+      tl.set(m, { opacity: 0 }, a + 0.65); show(rowFills[r], a + 0.62, 0.15);
+    });
+    const g = W("n8", "guide");
+    show($("h-inbox"), s + 0.3, 0.4);
+    show($("h-guide"), g - 0.3, 0.35); hide($("h-rows"), g - 0.1, 0.2); hide($("h-stack"), g - 0.05, 0.3);
+    const ld = W("n8", "lands");
+    tl.to($("h-guide"), { x: 382, y: -10, scale: 0.28, transformOrigin: "960px 274px", duration: 0.7, ease: "power2.inOut" }, ld - 0.55);
+    tl.to($("h-guide"), { opacity: 0, duration: 0.15 }, ld + 0.15);
+    show($("h-newMail"), ld + 0.1, 0.25);
+    const ab = W("n8", "already behind");
+    show($("h-sinceLbl"), ab - 1.0, 0.3);
+    since.forEach((c, k) => show(c, ab - 0.9 + k * 0.25, 0.25));
+    tl.set($("h-stamp"), { opacity: 1, scale: 1.5, transformOrigin: "1546px 272px" }, ab);
+    tl.to($("h-stamp"), { scale: 1, duration: 0.3, ease: "back.out(2)" }, ab);
+    const pa = W("n9", "partner asks");
+    show($("h-ask"), pa - 0.2, 0.35); tl.fromTo($("h-ask"), { y: 14 }, { y: 0, duration: 0.35, immediateRender: false }, pa - 0.2);
+    const ck = W("n9", "someone stops");
+    draw($("h-askArrow"), ck - 0.1, 0.5);
+    tl.set($("h-hl1").parentNode, { opacity: 1 }, ck);
+    ["h-hl1", "h-hl2", "h-hl3"].forEach((id, k) => { gsap.set($(id), { opacity: 0 }); tl.to($(id), { opacity: 1, duration: 0.18, yoyo: true, repeat: 1 }, ck + 0.45 + k * 0.3); });
+    tl.to($("h-pencil"), { rotation: 6, transformOrigin: "762px 470px", duration: 0.18, yoyo: true, repeat: 5, ease: "sine.inOut" }, W("n9", "checks by hand"));
+  }
+
+  // CONFIDENT AND WRONG
+  { const q = $("w-aQ"), x0 = q.getStartPositionOfChar(32).x, cw = q.getStartPositionOfChar(33).x - x0;
+    $("w-aBox").setAttribute("x", x0 - 2); $("w-aBox").setAttribute("width", cw + 4); $("w-aBoxLbl").setAttribute("x", x0 + cw / 2);
+    show($("w-ask"), W("w1", "AI model") - 0.2, 0.35);
+    draw($("w-askArrow"), W("w1", "APIs") - 0.2, 0.5);
+    show($("w-askLbl"), W("w1", "let it answer") - 0.1, 0.35);
+    show($("w-a"), W("w2", "easy") - 0.3, 0.4);
+    show($("w-aMiss"), W("w3", "missing") - 0.1, 0.3);
+    show($("w-aResp"), W("w3", "200") - 0.15, 0.3);
+    show($("w-aErr"), W("w3", "no error") - 0.1, 0.3);
+    show($("w-aNote"), W("w3", "no error") + 0.3, 0.4);
+    const cv = W("w4", "Count every");
+    show($("w-b"), cv - 0.3, 0.4);
+    const n = { v: 0 }, st = W("w4", "stops");
+    show($("w-bResp"), st - 0.6, 0.25);
+    tl.to(n, { v: 10000, duration: 0.55, ease: "power2.out", onUpdate: () => { $("w-bNum").textContent = String(Math.round(n.v)); } }, st - 0.55);
+    tl.to($("w-bNum"), { attr: { fill: "#e0b070" }, duration: 0.2 }, st);
+    show($("w-bErr"), W("w4", "without saying") - 0.1, 0.3);
+    show($("w-bNote"), W("w4", "without saying") + 0.3, 0.4);
+    show($("w-c"), W("w5", "invite anyone") - 0.3, 0.35);
+    const dr = W("w5", "dry run");
+    tl.set($("w-stamp"), { opacity: 1, scale: 1.5, transformOrigin: "1000px 676px" }, dr);
+    tl.to($("w-stamp"), { scale: 1, duration: 0.3, ease: "back.out(2)" }, dr);
+    ["w-ask", "w-askArrow", "w-askLbl", "w-a", "w-aMiss", "w-aNote", "w-b", "w-bNote", "w-c", "w-stamp"].forEach((id) => hide($(id), T.wrong.lines.w6.n - 0.5, 0.4));
+    show($("w-end"), T.wrong.lines.w6.n - 0.1, 0.45);
+    draw($("w-ground"), W("w6", "better ground") - 0.1, 0.6);
+    show($("w-hatch"), W("w6", "stand on") - 0.2, 0.4);
+  }
+
+  // THE RIG
+  { const s = T.rig.s;
+    const tp = W("r1", "three pieces");
+    draw($("r-kLine"), tp - 0.3, 0.6); draw($("r-rLine"), tp - 0.1, 0.6); draw($("r-mLine"), tp + 0.1, 0.6);
+    show($("r-num"), tp - 0.3, 0.01);
+    ["r-n1", "r-n2", "r-n3"].forEach((id, k) => show($(id), tp - 0.2 + k * 0.2, 0.25));
+    show($("r-k"), W("r2", "workbench") - 0.2, 0.4); hide($("r-n1"), W("r2", "workbench") - 0.2, 0.3);
+    show($("r-kName"), W("r2", "Keelson") - 0.15, 0.35);
+    [["keeps the record"], ["workflows"], ["approval gates"], ["MCP"]].forEach(([p], k) => show(kChips[k], W("r2", p) - 0.15, 0.3));
+    show($("r-r"), W("r3", "A rib") - 0.2, 0.4); hide($("r-n2"), W("r3", "A rib") - 0.2, 0.3);
+    const bo = W("r3", "bolted");
+    show($("r-bolts"), bo - 0.05, 0.1); tl.fromTo($("r-bolts"), { scale: 1.6 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, bo - 0.05);
+    ["people", "data", "seismic"].forEach((p, k) => show(rChips[k], W("r3", p) - 0.15, 0.3));
+    show($("r-m"), W("r4", "MCP server") - 0.2, 0.4); hide($("r-n3"), W("r4", "MCP server") - 0.2, 0.3);
+    const ag = W("r4", "an agent");
+    show($("r-agents"), ag - 0.35, 0.35); draw($("r-ak"), ag - 0.1, 0.4); draw($("r-am"), ag, 0.6);
+    show(mChips[0], W("r4", "bounded answers") - 0.15, 0.3); show(mChips[1], W("r4", "how sure") - 0.15, 0.3);
+    const ot = W("r5", "One tool");
+    show(tools[0], ot - 0.1, 0.3); tl.fromTo(tools[0], { scale: 1.3 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, ot - 0.1);
+    show(toolLbl[0], W("r5", "today") - 0.2, 0.3);
+    const fm = W("r5", "Four more");
+    tools.slice(1).forEach((t, k) => show(t, fm - 0.1 + k * 0.12, 0.25));
+    show(toolLbl[1], W("r5", "in work") - 0.1, 0.3);
+    const gd = W("r6", "the guide");
+    show($("r-base"), s + 0.4, 0.4); draw($("r-rb"), s + 0.7, 0.4); draw($("r-mb"), s + 0.8, 0.5);
+    guideBits.forEach((g) => show(g, gd - 0.3, 0.3));
+    const ca = W("r6", "comes apart");
+    guideBits.forEach((g, k) => tl.to(g, { x: 900 + k * 52, y: 700 + ([3, 4, 5].includes(k) ? -8 : 0), duration: 0.6, ease: "power2.out" }, ca - 0.1 + k * 0.03));
+  }
+
+  const chrome = [$("header"), $("titleblock"), $("powered")];
+  const end = (id) => T[id.slice(0, 1) === "i" ? "intro" : "outro"].lines[id].n + T[id.slice(0, 1) === "i" ? "intro" : "outro"].lines[id].d;
+
+  // THE PLAN
+  { const s = T.intro.s, B = IB;
+    tl.set(chrome, { opacity: 0 }, s);
+    B.t2.setAttribute("x", 392 + B.t1.getComputedTextLength() + 22);
+    draw(B.line, s + 0.15, 0.9);
+    const ft = W("i1", "Field trial"), sp = W("i1", "ADME Interop");
+    show(B.cells, ft - 0.3, 0.3); show(B.t1, ft - 0.1, 0.35);
+    show(B.t2, sp - 0.1, 0.35); show(B.rev, sp + 0.35, 0.25); show(B.doc, sp + 0.55, 0.25);
+    show(B.body, T.intro.lines.i2.n - 0.3, 0.35);
+    show($("powered"), T.intro.lines.i2.n, 0.5);
+    const at = [T.intro.lines.i2.n + 0.3, W("i2", "project") + 0.3, W("i2", "Can AI agents") - 0.1,
+                W("i2", "shared platform") - 0.2, end("i2") - 0.05, end("i2") + 0.3];
+    B.rows.forEach((r, k) => { show(r.g, at[k], 0.3); tl.fromTo(r.g, { x: -14 }, { x: 0, duration: 0.3, immediateRender: false }, at[k]); });
+    const go = W("i3", "So start") - 0.1;
+    hide(B.body, go, 0.35);
+    tl.to(B.top, { ...CORNER, duration: 0.9, ease: "power2.inOut" }, go + 0.15);
+    hide(B.top, go + 1.0, 0.25);
+    chrome.forEach((e) => show(e, go + 0.95, 0.35));
+    const q = W("i3", "Who has access");
+    show($("iq"), q - 0.4, 0.4); draw($("iq-line"), q + 0.25, 0.7);
+  }
+
+  // THE REPORT
+  { const s = T.outro.s, B = OB;
+    chrome.forEach((e) => hide(e, s, 0.3));
+    B.t2.setAttribute("x", 392 + B.t1.getComputedTextLength() + 22);
+    gsap.set(B.line, { strokeDashoffset: 0 });
+    gsap.set([B.cells, B.t1, B.t2, B.rev, B.doc], { opacity: 1 });
+    gsap.set(B.top, { ...CORNER, opacity: 0 });
+    show(B.top, s + 0.1, 0.25);
+    tl.to(B.top, { x: 0, y: 0, scale: 1, duration: 0.9, ease: "power2.inOut" }, s + 0.3);
+    show(B.body, s + 1.15, 0.35);
+    const at = [W("c1", "Agents propose"), W("c1", "People approve"), W("c1", "every answer"), W("c1", "how sure"),
+                W("c2", "next revision") - 0.1, end("c2") + 0.1, end("c2") + 0.5];
+    B.rows.forEach((r, k) => {
+      show(r.g, at[k] - 0.1, 0.25);
+      if (r.pill) tl.fromTo(r.pill, { scale: 1.45 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, at[k] - 0.1);
+    });
+  }
+  return tl.duration();
+};
+</script>
+</body>
+</html>

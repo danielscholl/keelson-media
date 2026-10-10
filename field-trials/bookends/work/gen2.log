@@ -1,0 +1,41 @@
+14:58:25 start A-open.v2 -> takes/A-open-2.mp4
+job video_6ac947747a0c81908e432e697e05a441
+takes/A-open-2.mp4
+14:59:41 done takes/A-open-2.mp4
+14:59:41 start B-open.v2 -> takes/B-open-2.mp4
+job video_6ac947affea4819095aff98faa847efd
+takes/B-open-2.mp4
+15:00:41 done takes/B-open-2.mp4
+15:00:41 start A-close.v2 -> takes/A-close-2.mp4
+job video_6ac947ee6ee4819094adba561f3d3128
+takes/A-close-2.mp4
+15:02:28 done takes/A-close-2.mp4
+15:02:28 start C-open.v2 -> takes/C-open-2.mp4
+job video_6ac94857e27881908c8f552cff6e1b7c
+takes/C-open-2.mp4
+15:03:28 done takes/C-open-2.mp4
+15:03:28 start C-close.v2 -> takes/C-close-2.mp4
+job video_6ac94894f99c8190b3d958220cef46b3
+takes/C-close-2.mp4
+15:04:40 done takes/C-close-2.mp4
+15:04:40 start D-open.v2 -> takes/D-open-2.mp4
+job video_6ac948e23df0819094682f94301df4ec
+takes/D-open-2.mp4
+15:05:47 done takes/D-open-2.mp4
+15:05:47 start E-open.v2 -> takes/E-open-2.mp4
+job video_6ac949265cd481909ccf943f2db5961d
+takes/E-open-2.mp4
+15:06:56 done takes/E-open-2.mp4
+15:06:56 start E-close.v2 -> takes/E-close-2.mp4
+job video_6ac949705d5481909bb0ecbe2df1a778
+takes/E-close-2.mp4
+15:08:11 done takes/E-close-2.mp4
+15:08:11 start F-open.v2 -> takes/F-open-2.mp4
+job video_6ac949ae402c81908d626ba71346203d
+takes/F-open-2.mp4
+15:09:12 done takes/F-open-2.mp4
+15:09:12 start F-close.v2 -> takes/F-close-2.mp4
+job video_6ac949f440bc8190b24a2c05364f2be8
+takes/F-close-2.mp4
+15:10:21 done takes/F-close-2.mp4
+ALLDONE

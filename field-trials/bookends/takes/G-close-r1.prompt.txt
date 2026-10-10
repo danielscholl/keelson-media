@@ -1,0 +1,3 @@
+model: sora-2, remix of video_6ac9440e336c8190ac75e8a0e930480c, id video_6ac94faf1bf48190b72f96799856b4ec
+
+Same shot: the same camera, the same misty dawn field and deep navy hills, the same warm light, and the same brass theodolite on its tripod. Add one thing: far across the field on the right, on the horizon where the telescope points, a single old-fashioned oil pumpjack stands alone, its long walking beam and curved horsehead slowly nodding up and down, a dark silhouette in the soft dawn haze. Nothing else changes. No people, no text, no letters, no numbers, no logos, no markings on the pumpjack.

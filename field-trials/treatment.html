@@ -1,0 +1,1034 @@
+<title>ADME Sea Trials</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: one reading column at 1120px; diagrams scroll sideways on phones; storyboard cards wrap to one column. */
+:root{
+  --bg:#f3f5f8; --surface:#ffffff; --surface-2:#e9edf3; --line:#d3dae4; --line-strong:#97a3b4;
+  --ink:#0f1b2d; --ink-2:#45526a; --ink-3:#6c7890;
+  --o1:#1e3a5f; --o1-bg:#e3e9f1; --o1-ink:#1e3a5f;
+  --o2:#b5803a; --o2-bg:#f5ead9; --o2-ink:#8a5a1f;
+  --o3:#0e7c7c; --o3-bg:#dbf0ef; --o3-ink:#0a5a5a;
+  --o4:#2f6fb0; --o4-bg:#e2edf8; --o4-ink:#24578c;
+  --o5:#64748b; --o5-bg:#eceff3; --o5-ink:#475569;
+  --ok:#2f8f5b; --ok-bg:#ddf0e4; --warn:#a86a12; --warn-bg:#f7ebd5;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  /* Storyboard frames depict video frames, so they keep one look in both page themes. */
+  --f-sheet:#f6f8fb; --f-grid:#e0e6ef; --f-paper:#ffffff; --f-paper2:#e9edf2; --f-bar:#c6cedb;
+  --f-ink:#0f1b2d; --f-muted:#51607a; --f-keel:#1e3a5f; --f-keel-soft:#e3e9f1; --f-tbline:#7f9cc4;
+  --f-brass:#b5803a; --f-brass-ink:#8a5a1f; --f-brass-soft:#f3e6d1; --f-brass-light:#e3c48a;
+  --f-blue:#2f6fb0; --f-blue-soft:#e2edf8; --f-teal:#0e7c7c; --f-teal-soft:#dbf0ef; --f-slate:#64748b;
+  --f-okd:#2f8f5b; --f-warnd:#b7791f; --f-baddark:#c2412d; --f-bad-soft:#fbe3de; --f-white:#ffffff;
+  --f-ui:#0d1429; --f-panel:#151e3b; --f-panel2:#1d2850; --f-uline:#2a3760; --f-uink:#e8ecf6; --f-umuted:#8b95ad;
+  --f-accent:#9b8eff; --f-accent-soft:#2a2a5e; --f-on-accent:#0d1429; --f-ok:#4fc38a; --f-warn:#e0b34a;
+  --f-bad:#ef6a52; --f-bad-wash:#3b1f26; --f-bad-ink:#ffb3a6; --f-term:#0a0f1e; --f-tdim:#8fa0bd;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0e131c; --surface:#151c28; --surface-2:#1c2533; --line:#2a3546; --line-strong:#56647a;
+    --ink:#e7ecf4; --ink-2:#b1bccc; --ink-3:#8492a8;
+    --o1:#a9b4ea; --o1-bg:#1c2140; --o1-ink:#d3d9f6;
+    --o2:#d9a85f; --o2-bg:#33261a; --o2-ink:#ecd0a2;
+    --o3:#45bdbd; --o3-bg:#113131; --o3-ink:#a3e3e3;
+    --o4:#4fb3e8; --o4-bg:#0f2a3b; --o4-ink:#b9e3f8;
+    --o5:#94a3b8; --o5-bg:#1f2632; --o5-ink:#cbd5e1;
+    --ok:#7fd1a0; --ok-bg:#163024; --warn:#e3b45a; --warn-bg:#36290f;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0e131c; --surface:#151c28; --surface-2:#1c2533; --line:#2a3546; --line-strong:#56647a;
+  --ink:#e7ecf4; --ink-2:#b1bccc; --ink-3:#8492a8;
+  --o1:#a9b4ea; --o1-bg:#1c2140; --o1-ink:#d3d9f6;
+  --o2:#d9a85f; --o2-bg:#33261a; --o2-ink:#ecd0a2;
+  --o3:#45bdbd; --o3-bg:#113131; --o3-ink:#a3e3e3;
+  --o4:#4fb3e8; --o4-bg:#0f2a3b; --o4-ink:#b9e3f8;
+  --o5:#94a3b8; --o5-bg:#1f2632; --o5-ink:#cbd5e1;
+  --ok:#7fd1a0; --ok-bg:#163024; --warn:#e3b45a; --warn-bg:#36290f;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
+.wrap{max-width:1120px;margin:0 auto;padding-block:32px 72px;padding-inline:20px}
+h1{font-size:clamp(26px,4vw,36px);font-weight:600;letter-spacing:-.01em;margin:0 0 10px;text-wrap:balance}
+h2{font-size:22px;font-weight:600;margin:0 0 8px;text-wrap:balance}
+h3{font-size:15px;font-weight:600;margin:0 0 6px}
+p{margin:0 0 10px;max-width:72ch;color:var(--ink-2)}
+p.lead{font-size:17px;color:var(--ink);max-width:68ch}
+.eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:0 0 6px}
+section{margin-top:48px;padding-top:30px;border-top:1px solid var(--line)}
+section h3{margin-top:22px}
+code{font-family:var(--mono);font-size:.9em}
+:focus-visible{outline:2px solid var(--o4);outline-offset:2px}
+
+.problem{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.problem p{max-width:80ch}
+.problem p:last-child{margin-bottom:0}
+.problem p b{color:var(--ink);font-weight:500}
+
+.legends{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:18px 36px;margin-top:26px}
+.legend{display:flex;flex-direction:column;gap:7px;font-size:13.5px;color:var(--ink-2)}
+.owner{display:inline-flex;align-items:baseline;gap:8px}
+.owner b{font-weight:600;color:var(--c-ink)}
+.owner::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--c);flex:none;transform:translateY(1px)}
+.o-o1{--c:var(--o1);--c-ink:var(--o1-ink)} .o-o2{--c:var(--o2);--c-ink:var(--o2-ink)} .o-o3{--c:var(--o3);--c-ink:var(--o3-ink)}
+.o-o4{--c:var(--o4);--c-ink:var(--o4-ink)} .o-o5{--c:var(--o5);--c-ink:var(--o5-ink)}
+.srow{display:flex;align-items:baseline;gap:10px}
+
+.stamp{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.05em;padding:1px 7px;border-radius:4px;border:1px solid;white-space:nowrap;line-height:1.5}
+.stamp.built{color:var(--ok);background:var(--ok-bg);border-color:var(--ok)}
+.stamp.work{color:var(--warn);background:var(--warn-bg);border-color:var(--warn)}
+.stamp.prop{color:var(--ink-3);background:transparent;border-color:var(--ink-3);border-style:dashed}
+.stamp.plate{color:var(--ink-2);background:var(--surface-2);border-color:var(--line-strong)}
+
+.flow{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 16px;overflow-x:auto}
+.flow svg{display:block;width:100%;height:auto;min-width:820px}
+.flow text{font-family:var(--sans);fill:var(--ink);font-size:12px}
+.flow .t{font-size:14px;font-weight:600}
+.flow .mono{font-family:var(--mono)}
+.flow .sub{fill:var(--ink-2)}
+.flow .tiny{fill:var(--ink-3);font-size:11px}
+.flow .box{rx:8;stroke-width:1.3}
+.flow .b-o1{fill:var(--o1-bg);stroke:var(--o1)} .flow .b-o2{fill:var(--o2-bg);stroke:var(--o2)}
+.flow .b-o3{fill:var(--o3-bg);stroke:var(--o3)} .flow .b-o4{fill:var(--o4-bg);stroke:var(--o4)}
+.flow .b-o5{fill:var(--o5-bg);stroke:var(--o5)}
+.flow .b-mute{fill:var(--surface-2);stroke:var(--line-strong);stroke-dasharray:4 3}
+.flow .grp{fill:var(--surface);stroke:var(--o1);stroke-width:1.5}
+.flow .gate{fill:var(--o4-bg);stroke:var(--o4);stroke-width:1.3}
+.flow .chip2{fill:var(--o2-bg);stroke:var(--o2);stroke-dasharray:4 3;stroke-width:1.1}
+.flow .chip3{fill:var(--o3-bg);stroke:var(--o3);stroke-dasharray:4 3;stroke-width:1.1}
+.flow .chip1{fill:var(--o1-bg);stroke:var(--o1);stroke-dasharray:4 3;stroke-width:1.1}
+.flow .chipt{font-size:11.5px;fill:var(--ink)}
+.flow .arrow{stroke:var(--line-strong);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.flow .arrow.work{stroke:var(--warn);marker-end:url(#ah-work)}
+.flow .arrow.prop{stroke:var(--ink-3);stroke-dasharray:5 4;marker-end:url(#ah-prop)}
+.flow .lanebg{fill:none;stroke:var(--line);stroke-dasharray:3 4}
+.flow .lanelbl{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;fill:var(--ink-3)}
+.flow .pl-built{fill:var(--ok-bg);stroke:var(--ok)} .flow .plt-built{fill:var(--ok)}
+.flow .pl-work{fill:var(--warn-bg);stroke:var(--warn)} .flow .plt-work{fill:var(--warn)}
+.flow .pl-prop{fill:none;stroke:var(--ink-3);stroke-dasharray:3 2} .flow .plt-prop{fill:var(--ink-3)}
+.flow .pl-plate{fill:var(--surface-2);stroke:var(--line-strong)} .flow .plt-plate{fill:var(--ink-2)}
+.flow .plt{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.04em}
+.note{font-size:13px;color:var(--ink-3);margin-top:10px;max-width:90ch}
+
+.tbl{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:14px}
+.tbl th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:600;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.tbl td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td b{color:var(--ink);font-weight:500}
+.tblwrap{overflow-x:auto;margin-top:16px}
+.tblwrap .tbl{min-width:680px}
+.tbl.compact td{padding:8px 12px;font-size:13.5px}
+.tbl td.mono{font-family:var(--mono);font-size:12.5px;color:var(--ink);white-space:nowrap}
+.tbl td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+.tbl td.lean{color:var(--ink)}
+
+.callout{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--o2);border-radius:10px;padding:12px 16px;margin-top:14px;font-size:14.5px;color:var(--ink-2);max-width:90ch}
+.callout b{color:var(--ink)}
+
+.scenes{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,470px),1fr));gap:18px;margin-top:18px}
+.scene{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.scene-head{display:flex;align-items:baseline;gap:6px 10px;flex-wrap:wrap}
+.scene-head .tc{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.scene-head h3{margin:0;font-size:15.5px}
+.scene-head .stamp{margin-left:auto}
+.frame{aspect-ratio:16/9;max-width:100%;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.frame svg{display:block;width:100%;height:100%}
+.frame text{font-family:var(--sans)}
+.frame .fm{font-family:var(--mono)}
+.scene dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:13.5px}
+.scene dt{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);padding-top:3px}
+.scene dd{margin:0;color:var(--ink-2);min-width:0}
+.scene dd q{color:var(--ink)}
+
+.appendix{margin-top:60px;padding-top:30px;border-top:3px solid var(--line)}
+.appendix h2{font-size:18px}
+.appendix section{margin-top:32px;padding-top:22px}
+.say{color:var(--ink)}
+@media (max-width:520px){ .wrap{padding-inline:16px} .scene{padding:12px} }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--line-strong)"/></marker>
+    <marker id="ah-work" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--warn)"/></marker>
+    <marker id="ah-prop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink-3)"/></marker>
+    <marker id="fa-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--f-slate)"/></marker>
+    <marker id="fa-brass" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--f-brass)"/></marker>
+    <marker id="fa-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--f-blue)"/></marker>
+    <marker id="fa-ui" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--f-umuted)"/></marker>
+    <pattern id="fgrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="var(--f-grid)" stroke-width=".6"/></pattern>
+    <symbol id="pgl" viewBox="0 0 32 44"><rect x="5" y="8" width="22" height="2"/><rect x="5" y="14" width="19" height="2"/><rect x="5" y="20" width="22" height="2"/><rect x="5" y="26" width="14" height="2"/><rect x="5" y="32" width="20" height="2"/></symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <p class="eyebrow">Keelson · ADME · video treatment</p>
+  <h1>Sea Trials 01 · Seven Pages</h1>
+  <p class="lead">A treatment for a video of about seven minutes. It shows Keelson, a rib for ADME, an OSDU MCP server and agents doing real work on a shared data platform. What runs today is filmed. What could come next is drawn.</p>
+
+  <div class="problem">
+    <p><b>A shared ADME instance, used by people from about a dozen companies, is run from a seven-page access guide.</b> Three of its pages (who has access, who can reach which seismic subproject, which object id is which person) change with every invitation and grant. So the guide is rebuilt and emailed to everyone again each time. The work that could replace it is spread across repositories few people have seen: a Keelson rib, an OSDU MCP server, and the agent workflows building both.</p>
+    <p><b>This treatment proposes one story that takes the guide apart page by page.</b> Each page is matched to what replaces it in the ADME tab today. The turn shows the factory that built those tools. The last chapter draws what could come next, ending with a guide that republishes itself. Alongside the full video there is a three-minute cut, plus short clips taken from it.</p>
+    <p><b>It does not present vision as product.</b> Every scene carries a status stamp, and proposed work is drawn, never filmed. No real person, company, tenant or object id appears on screen. The rib runs on a sample instance cast from its design spec, and the MCP server runs on the open TNO and Volve datasets.</p>
+  </div>
+
+  <div class="legends">
+    <div>
+      <p class="eyebrow">Colors identify who acts</p>
+      <div class="legend">
+        <span class="owner o-o1"><b>Keelson</b> · the local workbench: chat, workflows, approval gates, MCP endpoint</span>
+        <span class="owner o-o2"><b>ADME rib</b> · knows the instance: people, data, seismic, plans</span>
+        <span class="owner o-o3"><b>OSDU MCP server</b> · knows OSDU: one tool today, five designed, bounded answers</span>
+        <span class="owner o-o4"><b>Agents and people</b> · ask, propose, approve</span>
+        <span class="owner o-o5"><b>Platforms</b> · the ADME instance, Entra, the audit log, the OSDU sample</span>
+      </div>
+    </div>
+    <div>
+      <p class="eyebrow">Stamps say what is real</p>
+      <div class="legend">
+        <span class="srow"><span class="stamp built">AS BUILT</span> runs today and is filmed as it runs</span>
+        <span class="srow"><span class="stamp work">IN WORK</span> being built now; filmed only where it already runs</span>
+        <span class="srow"><span class="stamp prop">PROPOSED</span> not built; drawn on the sheet, never filmed</span>
+        <span class="srow"><span class="stamp plate">PLATE</span> a concept drawing that makes no product claim</span>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <h2>Audience and promise</h2>
+    <p>The first audience is the people around ADME who know the platform and the pain but have not seen this work. That means colleagues who run or support instances, and the leadership they report to. Partner and public versions come later as clips on sample data, once the disclosure decisions below are made.</p>
+    <div class="callout"><b>Logline.</b> A shared ADME instance runs on a seven-page guide that is out of date the day it is sent. Keelson, a rib that knows the instance, an MCP server that knows OSDU, and agents that propose while people approve take the guide apart. Then the video turns around: the same harness is building the tools.</div>
+    <div class="tblwrap">
+      <table class="tbl">
+        <thead><tr><th>Viewer</th><th>Leaves knowing</th></tr></thead>
+        <tbody>
+          <tr><td><b>Colleagues who run or support ADME</b></td><td>The operator's toil is specific, and most of what the guide says can be measured instead of maintained.</td></tr>
+          <tr><td><b>Leadership</b></td><td>Agents can do platform work safely when every change is a plan, a person holds the gate, and each answer states its limits. One engineer built both tools with agents in 18 days, from September 21 to October 9.</td></tr>
+          <tr><td><b>Engineers</b></td><td>Where each piece plugs in: the rib contract, the MCP server's five tool contracts (one registered today), and workflows as the unit of repeatable work.</td></tr>
+          <tr><td><b>Partners, in a later cut</b></td><td>How they will get access, help and answers without waiting on an email.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Story options</h2>
+    <p>There are three ways to tell it. The first is recommended because one object carries the problem, the proof and the vision, and that object belongs to this instance alone.</p>
+    <div class="tblwrap">
+      <table class="tbl">
+        <thead><tr><th>Angle</th><th>Spine</th><th>Strength</th><th>Risk</th></tr></thead>
+        <tbody>
+          <tr><td><b>Seven pages</b><br><span class="stamp built">RECOMMENDED</span></td><td>The access guide, taken apart page by page</td><td>Concrete and specific to this instance. The guide is the before, the tab is the after, and a guide that republishes itself is the next step.</td><td>Needs a sample edition of the guide, because the real one names real people.</td></tr>
+          <tr><td><b>The operator's week</b></td><td>Monday to Friday, one real task a day</td><td>Easy to follow, and every scene is a task.</td><td>Generic. It could describe any admin tool.</td></tr>
+          <tr><td><b>Questions first</b></td><td>Ten questions people ask, each answered today or marked as not yet</td><td>Fast, and suits the short cut.</td><td>Reads as a feature list with little story.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>The arc</h2>
+    <p>The video has four acts. The problem is drawn, the tour and the turn are filmed, and the last act is drawn again because none of it is built. Times are estimates from the narration draft at the series voice's pace.</p>
+    <div class="flow">
+      <svg viewBox="0 0 1100 600" role="img" aria-label="Four acts as lanes. Act one has four drawn scenes, act two six filmed scenes mapped to guide pages, act three the factory, act four the proposed next steps and the close.">
+        <rect x="8" y="8" width="1084" height="136" rx="10" class="lanebg"/>
+        <text x="22" y="30" class="lanelbl">Act I · The problem · drawn on the sheet</text>
+        <rect x="20" y="40" width="256" height="92" class="box b-o1"/>
+        <text x="32" y="62" class="t">Opener</text>
+        <text x="32" y="81" class="sub mono">0:00 to 0:18</text>
+        <text x="32" y="98" class="sub">series bookend and the hook</text>
+        <rect x="32" y="106" width="48" height="16" rx="8" class="pl-plate"/><text x="38" y="117.5" class="plt plt-plate">PLATE</text>
+        <rect x="288" y="40" width="256" height="92" class="box b-o5"/>
+        <text x="300" y="62" class="t">Seven pages</text>
+        <text x="300" y="81" class="sub mono">0:18 to 0:58</text>
+        <text x="300" y="98" class="sub">the instance and its guide</text>
+        <rect x="300" y="106" width="48" height="16" rx="8" class="pl-plate"/><text x="306" y="117.5" class="plt plt-plate">PLATE</text>
+        <rect x="556" y="40" width="256" height="92" class="box b-o4"/>
+        <text x="568" y="62" class="t">Confident and wrong</text>
+        <text x="568" y="81" class="sub mono">0:58 to 1:28</text>
+        <text x="568" y="98" class="sub">a model on the raw APIs</text>
+        <rect x="568" y="106" width="48" height="16" rx="8" class="pl-plate"/><text x="574" y="117.5" class="plt plt-plate">PLATE</text>
+        <rect x="824" y="40" width="256" height="92" class="box b-o1"/>
+        <text x="836" y="62" class="t">The rig</text>
+        <text x="836" y="81" class="sub mono">1:28 to 2:02</text>
+        <text x="836" y="98" class="sub">three pieces, and the agents</text>
+        <rect x="836" y="106" width="48" height="16" rx="8" class="pl-plate"/><text x="842" y="117.5" class="plt plt-plate">PLATE</text>
+
+        <rect x="8" y="154" width="1084" height="136" rx="10" class="lanebg"/>
+        <text x="22" y="176" class="lanelbl">Act II · Taken apart · filmed on sample data</text>
+        <rect x="20" y="186" width="166" height="92" class="box b-o2"/>
+        <text x="32" y="208" class="t">Who has access</text>
+        <text x="32" y="227" class="sub mono">2:02 to 2:42</text>
+        <text x="32" y="244" class="sub">guide page 4</text>
+        <rect x="32" y="252" width="66" height="16" rx="8" class="pl-built"/><text x="38" y="263.5" class="plt plt-built">AS BUILT</text>
+        <rect x="198" y="186" width="166" height="92" class="box b-o2"/>
+        <text x="210" y="208" class="t">Why 401</text>
+        <text x="210" y="227" class="sub mono">2:42 to 3:12</text>
+        <text x="210" y="244" class="sub">guide page 3</text>
+        <rect x="210" y="252" width="66" height="16" rx="8" class="pl-built"/><text x="216" y="263.5" class="plt plt-built">AS BUILT</text>
+        <rect x="376" y="186" width="166" height="92" class="box b-o2"/>
+        <text x="388" y="208" class="t">Who can reach what</text>
+        <text x="388" y="227" class="sub mono">3:12 to 3:47</text>
+        <text x="388" y="244" class="sub">guide page 5</text>
+        <rect x="388" y="252" width="66" height="16" rx="8" class="pl-built"/><text x="394" y="263.5" class="plt plt-built">AS BUILT</text>
+        <rect x="554" y="186" width="166" height="92" class="box b-o2"/>
+        <text x="566" y="208" class="t">What's in it</text>
+        <text x="566" y="227" class="sub mono">3:47 to 4:12</text>
+        <text x="566" y="244" class="sub">not in the guide</text>
+        <rect x="566" y="252" width="66" height="16" rx="8" class="pl-built"/><text x="572" y="263.5" class="plt plt-built">AS BUILT</text>
+        <rect x="732" y="186" width="166" height="92" class="box b-o1"/>
+        <text x="744" y="208" class="t">Ask about it</text>
+        <text x="744" y="227" class="sub mono">4:12 to 4:40</text>
+        <text x="744" y="244" class="sub">Keelson chat, a page</text>
+        <rect x="744" y="252" width="66" height="16" rx="8" class="pl-built"/><text x="750" y="263.5" class="plt plt-built">AS BUILT</text>
+        <rect x="910" y="186" width="166" height="92" class="box b-o3"/>
+        <text x="922" y="208" class="t">Ask the platform</text>
+        <text x="922" y="227" class="sub mono">4:40 to 4:58</text>
+        <text x="922" y="244" class="sub">the MCP server's first tool</text>
+        <rect x="922" y="252" width="60" height="16" rx="8" class="pl-work"/><text x="928" y="263.5" class="plt plt-work">IN WORK</text>
+
+        <rect x="8" y="300" width="1084" height="136" rx="10" class="lanebg"/>
+        <text x="22" y="322" class="lanelbl">Act III · The turn · filmed</text>
+        <rect x="20" y="332" width="1060" height="92" class="box b-o1"/>
+        <text x="32" y="354" class="t">The yard</text>
+        <text x="32" y="373" class="sub"><tspan class="mono">4:58 to 5:50</tspan> · a bead, a plan, an approval gate, code, checks, a pull request, three reviews</text>
+        <text x="32" y="390" class="sub">19 of the MCP server's 23 merged pull requests came from beads-work. Keelson's own workflows wrote 104 of its 791.</text>
+        <rect x="32" y="398" width="66" height="16" rx="8" class="pl-built"/><text x="38" y="409.5" class="plt plt-built">AS BUILT</text>
+
+        <rect x="8" y="446" width="1084" height="146" rx="10" class="lanebg"/>
+        <text x="22" y="468" class="lanelbl">Act IV · Next voyage · drawn, never filmed</text>
+        <rect x="20" y="478" width="840" height="102" class="box b-mute"/>
+        <text x="32" y="500" class="t">Next voyage</text>
+        <text x="32" y="519" class="sub mono">5:50 to 6:40</text>
+        <rect x="32" y="530" width="158" height="22" rx="5" class="chip2"/><text x="42" y="545" class="chipt">Living access guide</text>
+        <rect x="198" y="530" width="158" height="22" rx="5" class="chip3"/><text x="208" y="545" class="chipt">A partner's own agent</text>
+        <rect x="364" y="530" width="158" height="22" rx="5" class="chip2"/><text x="374" y="545" class="chipt">Rib tools for agents</text>
+        <rect x="530" y="530" width="158" height="22" rx="5" class="chip1"/><text x="540" y="545" class="chipt">Weekly program health</text>
+        <rect x="696" y="530" width="158" height="22" rx="5" class="chip3"/><text x="706" y="545" class="chipt">Questions as evals</text>
+        <rect x="32" y="558" width="66" height="16" rx="8" class="pl-prop"/><text x="38" y="569.5" class="plt plt-prop">PROPOSED</text>
+        <rect x="872" y="478" width="208" height="102" class="box b-o1"/>
+        <text x="884" y="500" class="t">Close</text>
+        <text x="884" y="519" class="sub mono">6:40 to 6:55</text>
+        <text x="884" y="536" class="sub">the thesis, the series closer</text>
+        <rect x="884" y="558" width="48" height="16" rx="8" class="pl-plate"/><text x="890" y="569.5" class="plt plt-plate">PLATE</text>
+      </svg>
+    </div>
+    <p class="note">Proposed work appears only in Next voyage, and only as drawings. Ask the platform is the one filmed scene that is still in work, and its frame says so.</p>
+  </section>
+
+  <section>
+    <h2>The guide, page by page</h2>
+    <p>The guide has seven pages. Four explain things and rarely change. The other three describe the instance's current state, so they drift further out of date each day. The rib already measures all three.</p>
+    <div class="tblwrap">
+      <table class="tbl">
+        <thead><tr><th>Guide page</th><th>Changes when</th><th>What replaces it in the ADME tab today</th><th>Status</th><th>Scene</th></tr></thead>
+        <tbody>
+          <tr><td><b>1 · Get connected</b></td><td>the tenant or the app changes</td><td>Stays written. The operator's own sign-in is the rib's first-run journey.</td><td>written once</td><td>Seven pages</td></tr>
+          <tr><td><b>2 · First data calls, what your role lets you do</b></td><td>rarely</td><td>The roles matrix shows every person against the role groups and their effective group count.</td><td><span class="stamp built">AS BUILT</span></td><td>Who has access</td></tr>
+          <tr><td><b>3 · Ground rules, troubleshooting</b></td><td>when a new error shows up</td><td>Why 401/403 runs seven checks for one person and gives a verdict and a note to send.</td><td><span class="stamp built">AS BUILT</span></td><td>Why 401</td></tr>
+          <tr><td><b>4 · Who has access</b></td><td>every invitation, acceptance or quiet week</td><td>Access shows the funnel from invitation to data, who to follow up with, and usage by organization. "Export who has access" writes this page's table with the same columns.</td><td><span class="stamp built">AS BUILT</span></td><td>Who has access</td></tr>
+          <tr><td><b>5 · Seismic data access, per-person grants</b></td><td>every grant</td><td>Seismic shows members by name and what each partner can reach. Grants go through dry-run plans.</td><td><span class="stamp built">AS BUILT</span></td><td>Who can reach what</td></tr>
+          <tr><td><b>6 · Who is who in records</b></td><td>every new person</td><td>The person inspector shows the object id beside the name, and subproject members are listed by name.</td><td><span class="stamp built">AS BUILT</span></td><td>Why 401</td></tr>
+          <tr><td><b>7 · Building an app</b></td><td>rarely</td><td>Stays written.</td><td>written once</td><td>not shown</td></tr>
+          <tr><td><b>The whole guide</b></td><td>any change above</td><td>Written from what the rib measured, shown as a diff, approved, then republished in place.</td><td><span class="stamp prop">PROPOSED</span></td><td>Next voyage</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">What is missing is the last step. Nothing yet assembles the measured pages with the written ones and publishes the result without an email.</p>
+  </section>
+
+  <section>
+    <h2>The rig on screen</h2>
+    <p>The rig plate in Act I draws this picture, and every later frame keeps its colors. Keelson comes first, as a workbench that is useful on its own. The rib attaches to it, and the MCP server runs beside it on the same workstation.</p>
+    <div class="flow">
+      <svg viewBox="0 0 1100 536" role="img" aria-label="People and agents on the left, Keelson with the ADME rib and the OSDU MCP server on the workstation in the middle, platforms and the proposed living guide on the right.">
+        <rect x="8" y="8" width="214" height="520" rx="10" class="lanebg"/>
+        <text x="20" y="30" class="lanelbl">People and agents</text>
+        <rect x="236" y="8" width="500" height="520" rx="10" class="lanebg"/>
+        <text x="250" y="30" class="lanelbl">On the workstation</text>
+        <rect x="750" y="8" width="342" height="520" rx="10" class="lanebg"/>
+        <text x="764" y="30" class="lanelbl">Platforms and pages</text>
+
+        <rect x="20" y="48" width="190" height="76" class="box b-o4"/>
+        <text x="32" y="72" class="t">Operator</text>
+        <text x="32" y="92" class="sub">the ADME tab, in a browser</text>
+        <rect x="20" y="216" width="190" height="76" class="box b-o4"/>
+        <text x="32" y="240" class="t">GitHub Copilot CLI</text>
+        <text x="32" y="260" class="sub">or another MCP client</text>
+        <rect x="20" y="404" width="190" height="96" class="box b-o4"/>
+        <text x="32" y="428" class="t">Partner</text>
+        <text x="32" y="448" class="sub">today: the guide by email</text>
+        <text x="32" y="465" class="sub">next: their own agent</text>
+        <text x="32" y="486" class="tiny">signed in as themselves</text>
+
+        <rect x="248" y="44" width="476" height="360" rx="10" class="grp"/>
+        <text x="262" y="68" class="t">Keelson</text>
+        <text x="326" y="68" class="sub">local workbench for agents</text>
+        <rect x="262" y="80" width="448" height="96" class="box b-o2"/>
+        <text x="274" y="104" class="t">ADME rib</text>
+        <text x="274" y="124" class="sub">Access, Data, Seismic, Why 401/403</text>
+        <text x="274" y="141" class="sub">changes start as dry-run plans</text>
+        <text x="274" y="162" class="tiny">registers no agent tools yet</text>
+        <rect x="262" y="214" width="142" height="92" class="box b-o1"/>
+        <text x="274" y="238" class="t">MCP endpoint</text>
+        <text x="274" y="258" class="sub mono">/api/mcp</text>
+        <text x="274" y="275" class="sub mono">keelson_docs</text>
+        <rect x="415" y="214" width="142" height="92" class="box b-o1"/>
+        <text x="427" y="238" class="t">Chat</text>
+        <text x="427" y="258" class="sub">explore a panel</text>
+        <text x="427" y="275" class="sub">canvas pages</text>
+        <rect x="568" y="214" width="142" height="92" class="box b-o1"/>
+        <text x="580" y="238" class="t">Workflows</text>
+        <text x="580" y="258" class="sub">approval gates</text>
+        <text x="580" y="275" class="sub">a record per run</text>
+        <rect x="262" y="318" width="448" height="76" class="box b-o1"/>
+        <text x="274" y="342" class="t">beads-work, the factory</text>
+        <text x="274" y="362" class="sub">a bead, a plan, an approval gate, a pull request, three reviews</text>
+        <rect x="248" y="418" width="476" height="96" class="box b-o3"/>
+        <text x="260" y="442" class="t">OSDU MCP server</text>
+        <text x="260" y="462" class="sub">osdu_about runs; describe, resolve, find, read in work</text>
+        <text x="260" y="479" class="sub">stdio, signed in as the person</text>
+        <text x="260" y="500" class="tiny">CIMPL is the reference provider, SPI Stack the second; ADME is proposed</text>
+
+        <rect x="762" y="44" width="318" height="96" class="box b-o5"/>
+        <text x="774" y="68" class="t">ADME instance</text>
+        <text x="774" y="88" class="sub">entitlements, legal, storage</text>
+        <text x="774" y="105" class="sub">search, seismic store</text>
+        <text x="774" y="126" class="tiny">one shared partition</text>
+        <rect x="762" y="154" width="318" height="76" class="box b-o5"/>
+        <text x="774" y="178" class="t">Entra and the audit log</text>
+        <text x="774" y="198" class="sub">guests, invitations, data calls</text>
+        <rect x="762" y="244" width="318" height="96" class="box b-mute"/>
+        <text x="774" y="268" class="t">Living access guide</text>
+        <text x="774" y="288" class="sub">written from what the rib measured</text>
+        <text x="774" y="305" class="sub">republished after approval</text>
+        <text x="774" y="326" class="tiny">proposed: replaces the emailed PDF</text>
+        <rect x="762" y="418" width="318" height="96" class="box b-o5"/>
+        <text x="774" y="442" class="t">OSDU sample platform</text>
+        <text x="774" y="462" class="sub">CIMPL with the open TNO</text>
+        <text x="774" y="479" class="sub">and Volve datasets</text>
+        <text x="774" y="500" class="tiny">where the MCP server is proven</text>
+
+        <path d="M210 100 L260 100" class="arrow"/>
+        <path d="M710 110 L760 110" class="arrow"/>
+        <path d="M710 165 L760 165" class="arrow"/>
+        <path d="M210 254 L260 254" class="arrow"/>
+        <path d="M333 212 L333 179" class="arrow prop"/>
+        <text x="341" y="200" class="tiny">rib tools, proposed</text>
+        <path d="M210 282 L229 282 L229 458 L246 458" class="arrow work"/>
+        <path d="M210 488 L246 488" class="arrow prop"/>
+        <path d="M724 466 L760 466" class="arrow work"/>
+        <path d="M710 262 L760 262" class="arrow prop"/>
+        <path d="M486 394 L486 416" class="arrow"/>
+        <text x="494" y="410" class="tiny">builds</text>
+      </svg>
+    </div>
+    <p class="note">Solid arrows run today. Amber arrows are in work. Dashed arrows are proposed and appear only in Next voyage.</p>
+  </section>
+
+  <section>
+    <h2>Storyboard</h2>
+    <p>One card per scene. The frames are sketches on the rib's sample data, drawn to show layout and emphasis. The cut uses real footage for every scene stamped as built or in work. Each frame carries the title block the video will use.</p>
+
+    <div class="scenes">
+
+      <article class="scene">
+        <div class="scene-head"><span class="tc">0:00 to 0:18</span><h3>Opener</h3><span class="stamp plate">PLATE</span></div>
+        <div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="Sketch: the keel laid on the blueprint sheet under the title Seven pages.">
+          <rect width="320" height="180" fill="var(--f-sheet)"/><rect width="320" height="180" fill="url(#fgrid)"/>
+          <text x="18" y="28" class="fm" font-size="7" fill="var(--f-muted)" letter-spacing="1.2">SEA TRIALS · 01</text>
+          <text x="18" y="54" font-size="22" font-weight="600" fill="var(--f-keel)">Seven pages</text>
+          <text x="18" y="70" font-size="7.5" fill="var(--f-muted)">Keelson, a rib, an MCP server and agents on a shared ADME instance</text>
+          <path d="M44 100 Q160 84 276 100" fill="none" stroke="var(--f-keel)" stroke-width="1" stroke-dasharray="3 3" opacity=".55"/>
+          <g fill="none" stroke="var(--f-brass)" stroke-width="2" stroke-linecap="round">
+            <path d="M56 134 Q49 116 56 98"/><path d="M82 134 Q75 114 82 94"/><path d="M108 134 Q101 113 108 92"/><path d="M134 134 Q127 112 134 91"/><path d="M160 134 Q153 112 160 90"/><path d="M186 134 Q179 112 186 91"/><path d="M212 134 Q205 113 212 92"/><path d="M238 134 Q231 114 238 94"/><path d="M264 134 Q257 116 264 98"/>
+          </g>
+          <rect x="36" y="134" width="248" height="5" rx="1" fill="var(--f-keel)"/>
+          <g transform="translate(196 160)"><rect width="116" height="14" fill="var(--f-keel)" stroke="var(--f-tbline)" stroke-width=".6"/><text x="5" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">SEA TRIALS 01</text><rect x="62" width="54" height="14" fill="var(--f-slate)"/><text x="66" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">PLATE</text></g>
+        </svg></div>
+        <dl><dt>On screen</dt><dd>The series opener lays the keel. The title card reads Sea Trials 01, Seven pages.</dd><dt>Line</dt><dd><q>This is the access guide for a shared ADME instance.</q></dd></dl>
+      </article>
+
+      <article class="scene">
+        <div class="scene-head"><span class="tc">0:18 to 0:58</span><h3>Seven pages</h3><span class="stamp plate">PLATE</span></div>
+        <div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="Sketch: seven guide pages in a row, pages four to six highlighted as the ones that change, then rebuilt, emailed again, out of date.">
+          <rect width="320" height="180" fill="var(--f-sheet)"/><rect width="320" height="180" fill="url(#fgrid)"/>
+          <g stroke="var(--f-slate)" stroke-width=".8" fill="var(--f-paper)">
+            <rect x="22" y="30" width="32" height="44" rx="1.5"/><rect x="62" y="30" width="32" height="44" rx="1.5"/><rect x="102" y="30" width="32" height="44" rx="1.5"/><rect x="262" y="30" width="32" height="44" rx="1.5"/>
+          </g>
+          <g stroke="var(--f-brass)" stroke-width="1.2" fill="var(--f-brass-soft)">
+            <rect x="142" y="30" width="32" height="44" rx="1.5"/><rect x="182" y="30" width="32" height="44" rx="1.5"/><rect x="222" y="30" width="32" height="44" rx="1.5"/>
+          </g>
+          <use href="#pgl" x="22" y="30" width="32" height="44" fill="var(--f-bar)"/><use href="#pgl" x="62" y="30" width="32" height="44" fill="var(--f-bar)"/><use href="#pgl" x="102" y="30" width="32" height="44" fill="var(--f-bar)"/><use href="#pgl" x="262" y="30" width="32" height="44" fill="var(--f-bar)"/>
+          <use href="#pgl" x="142" y="30" width="32" height="44" fill="var(--f-brass-light)"/><use href="#pgl" x="182" y="30" width="32" height="44" fill="var(--f-brass-light)"/><use href="#pgl" x="222" y="30" width="32" height="44" fill="var(--f-brass-light)"/>
+          <g class="fm" font-size="7" text-anchor="middle" fill="var(--f-muted)"><text x="38" y="86">1</text><text x="78" y="86">2</text><text x="118" y="86">3</text><text x="278" y="86">7</text></g>
+          <g class="fm" font-size="7" font-weight="600" text-anchor="middle" fill="var(--f-brass-ink)"><text x="158" y="86">4</text><text x="198" y="86">5</text><text x="238" y="86">6</text></g>
+          <path d="M142 92 V97 H254 V92" fill="none" stroke="var(--f-brass)" stroke-width="1"/>
+          <text x="198" y="108" text-anchor="middle" font-size="7.5" fill="var(--f-brass-ink)">change with every invite and grant</text>
+          <rect x="38" y="124" width="78" height="16" rx="8" fill="var(--f-paper)" stroke="var(--f-slate)" stroke-width=".8"/><text x="77" y="134.8" text-anchor="middle" font-size="7" fill="var(--f-ink)">rebuilt by hand</text>
+          <path d="M118 132 L134 132" stroke="var(--f-slate)" stroke-width="1" marker-end="url(#fa-slate)"/>
+          <rect x="138" y="124" width="78" height="16" rx="8" fill="var(--f-paper)" stroke="var(--f-slate)" stroke-width=".8"/><text x="177" y="134.8" text-anchor="middle" font-size="7" fill="var(--f-ink)">emailed again</text>
+          <path d="M218 132 L234 132" stroke="var(--f-slate)" stroke-width="1" marker-end="url(#fa-slate)"/>
+          <rect x="238" y="124" width="66" height="16" rx="8" fill="var(--f-bad-soft)" stroke="var(--f-baddark)" stroke-width=".8"/><text x="271" y="134.8" text-anchor="middle" font-size="7" fill="var(--f-baddark)">out of date</text>
+          <g transform="translate(196 160)"><rect width="116" height="14" fill="var(--f-keel)" stroke="var(--f-tbline)" stroke-width=".6"/><text x="5" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">SEA TRIALS 01</text><rect x="62" width="54" height="14" fill="var(--f-slate)"/><text x="66" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">PLATE</text></g>
+        </svg></div>
+        <dl><dt>On screen</dt><dd>A sample edition of the guide fans out and pages 4 to 6 light up. Then: rebuilt by hand, emailed again, out of date.</dd><dt>Line</dt><dd><q>Then three pages that are never true for long.</q></dd></dl>
+      </article>
+
+      <article class="scene">
+        <div class="scene-head"><span class="tc">0:58 to 1:28</span><h3>Confident and wrong</h3><span class="stamp plate">PLATE</span></div>
+        <div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="Sketch: two OSDU search responses that return 200 and read as answers but are not.">
+          <rect width="320" height="180" fill="var(--f-sheet)"/><rect width="320" height="180" fill="url(#fgrid)"/>
+          <rect x="14" y="16" width="292" height="122" rx="6" fill="var(--f-term)"/>
+          <text x="24" y="33" class="fm" font-size="7" fill="var(--f-tdim)">$ POST /api/search/v2/query</text>
+          <text x="32" y="45" class="fm" font-size="7" fill="var(--f-uink)">query on a nested field, inner ( ) missing</text>
+          <text x="24" y="61" class="fm" font-size="7" fill="var(--f-warn)">← 200 OK · totalCount: 0</text>
+          <text x="32" y="73" font-size="7" fill="var(--f-bad-ink)">no error, and not the same as no data</text>
+          <text x="24" y="93" class="fm" font-size="7" fill="var(--f-tdim)">$ POST /api/search/v2/query</text>
+          <text x="32" y="105" class="fm" font-size="7" fill="var(--f-uink)">count every record of a large kind</text>
+          <text x="24" y="119" class="fm" font-size="7" fill="var(--f-warn)">← 200 OK · totalCount: 10000</text>
+          <text x="32" y="131" font-size="7" fill="var(--f-bad-ink)">stopped at ten thousand, and did not say so</text>
+          <text x="14" y="155" font-size="12" font-weight="600" fill="var(--f-keel)">Confident and wrong</text>
+          <g transform="translate(196 160)"><rect width="116" height="14" fill="var(--f-keel)" stroke="var(--f-tbline)" stroke-width=".6"/><text x="5" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">SEA TRIALS 01</text><rect x="62" width="54" height="14" fill="var(--f-slate)"/><text x="66" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">PLATE</text></g>
+        </svg></div>
+        <dl><dt>On screen</dt><dd>Two real OSDU behaviors, recorded on the CIMPL sample, that look like answers and are not.</dd><dt>Line</dt><dd><q>A smarter model isn't the fix. It needs better ground to stand on.</q></dd></dl>
+      </article>
+
+      <article class="scene">
+        <div class="scene-head"><span class="tc">1:28 to 2:02</span><h3>The rig</h3><span class="stamp plate">PLATE</span></div>
+        <div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="Sketch: agents on top, Keelson with the ADME rib bolted on, the OSDU MCP server beside it, the platform underneath.">
+          <rect width="320" height="180" fill="var(--f-sheet)"/><rect width="320" height="180" fill="url(#fgrid)"/>
+          <rect x="20" y="16" width="196" height="22" rx="4" fill="var(--f-blue-soft)" stroke="var(--f-blue)"/>
+          <text x="28" y="30" font-size="8" fill="var(--f-ink)">Agents: Copilot CLI, Keelson chat</text>
+          <path d="M118 38 L118 48" stroke="var(--f-blue)" stroke-width="1" marker-end="url(#fa-blue)"/>
+          <rect x="20" y="50" width="196" height="36" rx="4" fill="var(--f-keel-soft)" stroke="var(--f-keel)" stroke-width="1.2"/>
+          <text x="28" y="65" font-size="10" font-weight="600" fill="var(--f-keel)">Keelson</text>
+          <text x="28" y="78" font-size="7" fill="var(--f-muted)">workbench · workflows · gates · MCP</text>
+          <g fill="var(--f-keel)"><circle cx="60" cy="91" r="2.2"/><circle cx="118" cy="91" r="2.2"/><circle cx="176" cy="91" r="2.2"/></g>
+          <rect x="20" y="96" width="196" height="30" rx="4" fill="var(--f-brass-soft)" stroke="var(--f-brass)" stroke-width="1.2"/>
+          <text x="28" y="110" font-size="9" font-weight="600" fill="var(--f-brass-ink)">ADME rib</text>
+          <text x="28" y="121" font-size="7" fill="var(--f-muted)">knows the instance</text>
+          <rect x="228" y="50" width="76" height="76" rx="4" fill="var(--f-teal-soft)" stroke="var(--f-teal)" stroke-width="1.2"/>
+          <text x="236" y="66" font-size="9" font-weight="600" fill="var(--f-teal)">OSDU MCP</text>
+          <text x="236" y="78" font-size="7" fill="var(--f-muted)">server</text>
+          <text x="236" y="98" font-size="6.5" fill="var(--f-muted)">knows OSDU</text>
+          <text x="236" y="108" font-size="6.5" fill="var(--f-muted)">one tool today,</text>
+          <text x="236" y="118" font-size="6.5" fill="var(--f-muted)">five designed</text>
+          <path d="M216 27 L266 27 L266 48" fill="none" stroke="var(--f-blue)" stroke-width="1" marker-end="url(#fa-blue)"/>
+          <rect x="20" y="136" width="284" height="16" rx="3" fill="none" stroke="var(--f-slate)" stroke-dasharray="3 2"/>
+          <text x="28" y="147" font-size="7" fill="var(--f-slate)">ADME instance · OSDU platform</text>
+          <path d="M118 126 L118 134" stroke="var(--f-slate)" stroke-width="1" marker-end="url(#fa-slate)"/>
+          <path d="M266 126 L266 134" stroke="var(--f-slate)" stroke-width="1" marker-end="url(#fa-slate)"/>
+          <g transform="translate(196 160)"><rect width="116" height="14" fill="var(--f-keel)" stroke="var(--f-tbline)" stroke-width=".6"/><text x="5" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">SEA TRIALS 01</text><rect x="62" width="54" height="14" fill="var(--f-slate)"/><text x="66" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">PLATE</text></g>
+        </svg></div>
+        <dl><dt>On screen</dt><dd>The pieces bolt together in the legend's colors: agents, Keelson, the ADME rib, the OSDU MCP server, the platform.</dd><dt>Line</dt><dd><q>Then the guide comes apart.</q></dd></dl>
+      </article>
+
+      <article class="scene">
+        <div class="scene-head"><span class="tc">2:02 to 2:42</span><h3>Who has access</h3><span class="stamp built">AS BUILT</span></div>
+        <div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="Sketch: the guide's who-has-access page cuts to the Access panel, a funnel from invitation to data.">
+          <rect width="320" height="180" fill="var(--f-ui)"/>
+          <rect x="12" y="18" width="90" height="132" rx="2" fill="var(--f-paper2)"/>
+          <text x="18" y="31" font-size="7" font-weight="600" fill="var(--f-ink)">Who has access</text>
+          <text x="18" y="40" class="fm" font-size="5.5" fill="var(--f-muted)">updated when sent</text>
+          <g fill="var(--f-bar)"><rect x="18" y="48" width="70" height="2.6"/><rect x="18" y="57.5" width="62" height="2.6"/><rect x="18" y="67" width="54" height="2.6"/><rect x="18" y="76.5" width="70" height="2.6"/><rect x="18" y="86" width="62" height="2.6"/><rect x="18" y="95.5" width="54" height="2.6"/><rect x="18" y="105" width="70" height="2.6"/><rect x="18" y="114.5" width="62" height="2.6"/><rect x="18" y="124" width="54" height="2.6"/><rect x="18" y="133.5" width="70" height="2.6"/></g>
+          <path d="M104 84 L120 84" stroke="var(--f-brass)" stroke-width="1.5" marker-end="url(#fa-brass)"/>
+          <rect x="124" y="14" width="184" height="140" rx="5" fill="var(--f-panel)" stroke="var(--f-uline)"/>
+          <text x="132" y="30" font-size="8.5" font-weight="600" fill="var(--f-uink)">From invitation to data</text>
+          <rect x="238" y="22" width="62" height="11" rx="5.5" fill="var(--f-panel2)"/><text x="243" y="29.8" class="fm" font-size="5.6" fill="var(--f-umuted)">measured 14:05Z</text>
+          <g font-size="6.5" fill="var(--f-umuted)"><text x="132" y="46">Have entitlements</text><text x="132" y="67">Accepted the invitation</text><text x="132" y="88">In users@ with a data role</text><text x="132" y="109">Made a data call</text><text x="132" y="130">Active this week</text></g>
+          <g class="fm" font-size="6.5" text-anchor="end" fill="var(--f-uink)"><text x="300" y="46">32</text><text x="300" y="67">29</text><text x="300" y="88">27</text><text x="300" y="109">?</text><text x="300" y="130">?</text></g>
+          <g fill="var(--f-panel2)"><rect x="132" y="50" width="152" height="5" rx="2"/><rect x="132" y="71" width="152" height="5" rx="2"/><rect x="132" y="92" width="152" height="5" rx="2"/></g>
+          <g fill="var(--f-accent)"><rect x="132" y="50" width="152" height="5" rx="2"/><rect x="132" y="71" width="138" height="5" rx="2"/><rect x="132" y="92" width="128" height="5" rx="2"/></g>
+          <g fill="none" stroke="var(--f-umuted)" stroke-dasharray="2 2" stroke-width=".7"><rect x="132" y="113" width="152" height="5" rx="2"/><rect x="132" y="134" width="152" height="5" rx="2"/></g>
+          <text x="132" y="150" font-size="5.5" fill="var(--f-umuted)">the last two steps read the audit log</text>
+          <g transform="translate(196 160)"><rect width="116" height="14" fill="var(--f-keel)" stroke="var(--f-tbline)" stroke-width=".6"/><text x="5" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">SEA TRIALS 01</text><rect x="62" width="54" height="14" fill="var(--f-okd)"/><text x="66" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">AS BUILT</text></g>
+        </svg></div>
+        <dl><dt>On screen</dt><dd>Guide page 4 cuts to the Access section: the funnel from invitation to data, then who to follow up with, then usage by organization in the guide's own four words.</dd><dt>Line</dt><dd><q>Measured a minute ago, not on the day the PDF went out.</q></dd><dt>Source</dt><dd>Rib 1.10.0 Access section and "Export who has access". The two "?" steps fill in once the sample instance has an audit-log fixture.</dd></dl>
+      </article>
+
+      <article class="scene">
+        <div class="scene-head"><span class="tc">2:42 to 3:12</span><h3>Why 401</h3><span class="stamp built">AS BUILT</span></div>
+        <div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="Sketch: the Why 401/403 inspector for a sample person, three checks pass, users@ fails, three are not reached, verdict 401.">
+          <rect width="320" height="180" fill="var(--f-ui)"/>
+          <text x="14" y="26" font-size="7" font-weight="600" fill="var(--f-umuted)">People</text>
+          <rect x="10" y="31" width="100" height="13" rx="2" fill="var(--f-panel2)" stroke="var(--f-accent)" stroke-width=".8"/>
+          <g><circle cx="16" cy="38" r="2" fill="var(--f-bad)"/><text x="22" y="40" font-size="6.5" fill="var(--f-uink)">Rachel Kim</text><text x="104" y="40" text-anchor="end" class="fm" font-size="6" fill="var(--f-bad)">401</text></g>
+          <g font-size="6.5" fill="var(--f-umuted)">
+            <circle cx="16" cy="53" r="2" fill="var(--f-warn)"/><text x="22" y="55">Ben Whitaker</text>
+            <circle cx="16" cy="68" r="2" fill="var(--f-warn)"/><text x="22" y="70">Amara Diallo</text>
+            <circle cx="16" cy="83" r="2" fill="var(--f-ok)"/><text x="22" y="85">Priya Nair</text>
+            <circle cx="16" cy="98" r="2" fill="var(--f-ok)"/><text x="22" y="100">Marcus Oyelaran</text>
+            <circle cx="16" cy="113" r="2" fill="var(--f-ok)"/><text x="22" y="115">Lena Fischer</text>
+            <circle cx="16" cy="128" r="2" fill="var(--f-ok)"/><text x="22" y="130">Hiro Tanaka</text>
+          </g>
+          <rect x="116" y="10" width="196" height="144" rx="5" fill="var(--f-panel)" stroke="var(--f-uline)"/>
+          <text x="124" y="26" font-size="8.5" font-weight="600" fill="var(--f-uink)">Why 401/403 · Rachel Kim</text>
+          <g font-size="8"><text x="125" y="44" fill="var(--f-ok)">✓</text><text x="125" y="57" fill="var(--f-ok)">✓</text><text x="125" y="70" fill="var(--f-ok)">✓</text><text x="125" y="83" fill="var(--f-bad)">✕</text><text x="125" y="96" fill="var(--f-umuted)">○</text><text x="125" y="109" fill="var(--f-umuted)">○</text><text x="125" y="122" fill="var(--f-umuted)">○</text></g>
+          <g font-size="6.8" fill="var(--f-uink)"><text x="136" y="43">Signed in, invitation accepted</text><text x="136" y="56">Reaches the ADME app</text><text x="136" y="69">data-partition-id is opendes</text><text x="136" y="82" font-weight="600">In users@</text></g>
+          <g font-size="6.8" fill="var(--f-umuted)"><text x="136" y="95">In a role group · not reached</text><text x="136" y="108">Record ACL · needs a record id</text><text x="136" y="121">Seismic ACL · needs a subproject</text></g>
+          <rect x="124" y="130" width="98" height="15" rx="3" fill="var(--f-bad-wash)" stroke="var(--f-bad)" stroke-width=".8"/><text x="130" y="140.5" font-size="7" font-weight="600" fill="var(--f-bad-ink)">401 · not in users@</text>
+          <rect x="230" y="130" width="72" height="15" rx="3" fill="none" stroke="var(--f-accent)" stroke-width=".8"/><text x="238" y="140.5" font-size="7" fill="var(--f-accent)">Copy the note</text>
+          <g transform="translate(196 160)"><rect width="116" height="14" fill="var(--f-keel)" stroke="var(--f-tbline)" stroke-width=".6"/><text x="5" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">SEA TRIALS 01</text><rect x="62" width="54" height="14" fill="var(--f-okd)"/><text x="66" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">AS BUILT</text></g>
+        </svg></div>
+        <dl><dt>On screen</dt><dd>Guide page 3's troubleshooting table becomes one person's checks, in the order the platform applies them. Then the verdict and a note to send.</dd><dt>Line</dt><dd><q>Why does Rachel get a 401?</q></dd><dt>Source</dt><dd>Why 401/403 inspector, read-only. Rachel Kim is a person from the rib's sample cast.</dd></dl>
+      </article>
+
+      <article class="scene">
+        <div class="scene-head"><span class="tc">3:12 to 3:47</span><h3>Who can reach what</h3><span class="stamp built">AS BUILT</span></div>
+        <div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="Sketch: seismic subproject cards with members, a partner's reach with a note to copy, and a grant shown as a dry-run plan.">
+          <rect width="320" height="180" fill="var(--f-ui)"/>
+          <g fill="var(--f-panel)" stroke="var(--f-uline)"><rect x="80" y="14" width="64" height="42" rx="4"/><rect x="12" y="62" width="64" height="42" rx="4"/><rect x="80" y="62" width="64" height="42" rx="4"/></g>
+          <rect x="12" y="14" width="64" height="42" rx="4" fill="var(--f-panel)" stroke="var(--f-accent)" stroke-width="1.2"/>
+          <g class="fm" font-size="7" font-weight="600" fill="var(--f-uink)"><text x="18" y="27">alpha</text><text x="86" y="27">bravo</text><text x="18" y="75">charlie</text><text x="86" y="75">delta</text></g>
+          <g font-size="5.6" fill="var(--f-umuted)"><text x="18" y="38">3 admins</text><text x="18" y="47">4 viewers</text><text x="86" y="38">2 admins</text><text x="86" y="47">3 viewers</text><text x="18" y="86">1 admin</text><text x="18" y="95">6 viewers</text><text x="86" y="86">default ACL</text></g>
+          <rect x="12" y="112" width="132" height="40" rx="4" fill="var(--f-panel)" stroke="var(--f-uline)"/>
+          <text x="18" y="124" font-size="6.5" font-weight="600" fill="var(--f-uink)">What a partner can reach</text>
+          <text x="18" y="135" class="fm" font-size="5.8" fill="var(--f-umuted)">sd://opendes/alpha</text>
+          <text x="18" y="146" font-size="6" fill="var(--f-accent)">Copy access note</text>
+          <rect x="152" y="10" width="160" height="144" rx="5" fill="var(--f-panel)" stroke="var(--f-uline)"/>
+          <text x="160" y="26" font-size="8" font-weight="600" fill="var(--f-uink)">Plan · grant viewer on alpha</text>
+          <g fill="var(--f-panel2)"><rect x="160" y="34" width="46" height="28" rx="3"/><rect x="210" y="34" width="46" height="28" rx="3"/><rect x="260" y="34" width="46" height="28" rx="3"/></g>
+          <g class="fm" font-size="10" font-weight="600" fill="var(--f-uink)"><text x="166" y="50">2</text><text x="216" y="50">1</text><text x="266" y="50">0</text></g>
+          <g font-size="5.4" fill="var(--f-umuted)"><text x="166" y="58">will change</text><text x="216" y="58">already true</text><text x="266" y="58">blocked</text></g>
+          <text x="160" y="76" font-size="6" font-weight="600" fill="var(--f-umuted)">Exact calls</text>
+          <g class="fm" font-size="5.6" fill="var(--f-uink)"><text x="160" y="88">add Lena Fischer · alpha viewer</text><text x="160" y="98">add Hiro Tanaka · alpha viewer</text></g>
+          <text x="160" y="112" font-size="5.8" fill="var(--f-umuted)">dry run as CSV</text>
+          <rect x="160" y="124" width="66" height="15" rx="3" fill="none" stroke="var(--f-umuted)" stroke-dasharray="2 2"/><text x="165" y="134" font-size="6.2" fill="var(--f-umuted)">Apply 2 changes</text>
+          <rect x="230" y="124" width="38" height="15" rx="3" fill="none" stroke="var(--f-uline)"/><text x="236" y="134" font-size="6.2" fill="var(--f-uink)">Recheck</text>
+          <rect x="272" y="124" width="34" height="15" rx="3" fill="none" stroke="var(--f-uline)"/><text x="276" y="134" font-size="6.2" fill="var(--f-uink)">Discard</text>
+          <text x="160" y="149" font-size="5.8" fill="var(--f-brass-light)">apply stays off camera</text>
+          <g transform="translate(196 160)"><rect width="116" height="14" fill="var(--f-keel)" stroke="var(--f-tbline)" stroke-width=".6"/><text x="5" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">SEA TRIALS 01</text><rect x="62" width="54" height="14" fill="var(--f-okd)"/><text x="66" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">AS BUILT</text></g>
+        </svg></div>
+        <dl><dt>On screen</dt><dd>Guide page 5 becomes subprojects with members by name and what one partner can reach. A grant is previewed as a plan.</dd><dt>Line</dt><dd><q>Nothing is written until someone applies it.</q></dd><dt>Source</dt><dd>Seismic section and plan sheet. Applying a plan to a real instance is still being proven, so Apply is not filmed.</dd></dl>
+      </article>
+
+      <article class="scene">
+        <div class="scene-head"><span class="tc">3:47 to 4:12</span><h3>What's in it</h3><span class="stamp built">AS BUILT</span></div>
+        <div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="Sketch: the Data section with record, kind and legal tag tiles, a lens strip, and legal tags ranked with one expiring and one invalid.">
+          <rect width="320" height="180" fill="var(--f-ui)"/>
+          <g fill="var(--f-panel)" stroke="var(--f-uline)"><rect x="12" y="12" width="94" height="28" rx="4"/><rect x="112" y="12" width="94" height="28" rx="4"/><rect x="212" y="12" width="96" height="28" rx="4"/></g>
+          <g class="fm" font-size="9.5" font-weight="600" fill="var(--f-uink)"><text x="19" y="27">1,284,512</text><text x="119" y="27">214</text><text x="219" y="27">15</text></g>
+          <g font-size="5.6" fill="var(--f-umuted)"><text x="19" y="36">records</text><text x="119" y="36">kinds</text><text x="219" y="36">legal tags · 2 need a look</text></g>
+          <rect x="12" y="48" width="50" height="14" rx="7" fill="var(--f-accent-soft)" stroke="var(--f-accent)" stroke-width=".8"/>
+          <g fill="none" stroke="var(--f-uline)"><rect x="66" y="48" width="40" height="14" rx="7"/><rect x="110" y="48" width="40" height="14" rx="7"/><rect x="154" y="48" width="38" height="14" rx="7"/><rect x="196" y="48" width="34" height="14" rx="7"/><rect x="234" y="48" width="42" height="14" rx="7"/></g>
+          <g font-size="6" fill="var(--f-uink)"><text x="17" y="57.5">Tags in use</text><text x="71" y="57.5">Readers</text><text x="115" y="57.5">Owners</text><text x="159" y="57.5">People</text><text x="201" y="57.5">Kinds</text><text x="239" y="57.5">Cleanup</text></g>
+          <text x="12" y="77" font-size="6.5" font-weight="600" fill="var(--f-umuted)">Records by legal tag</text>
+          <g class="fm" font-size="6" fill="var(--f-uink)"><text x="12" y="92">opendes-public-usa-dataset</text><text x="12" y="110">opendes-public-norway</text><text x="12" y="128">opendes-pilot-trial</text><text x="12" y="146">opendes-legacy-training</text></g>
+          <text x="86" y="128" font-size="5.6" fill="var(--f-warn)">expires in 22 d</text>
+          <text x="100" y="146" font-size="5.6" fill="var(--f-bad)">invalid</text>
+          <rect x="150" y="87" width="120" height="5" rx="2" fill="var(--f-accent)"/>
+          <rect x="150" y="105" width="86" height="5" rx="2" fill="var(--f-accent)"/>
+          <rect x="150" y="123" width="30" height="5" rx="2" fill="var(--f-warn)"/>
+          <rect x="150" y="141" width="8" height="5" rx="2" fill="var(--f-bad)"/>
+          <g transform="translate(196 160)"><rect width="116" height="14" fill="var(--f-keel)" stroke="var(--f-tbline)" stroke-width=".6"/><text x="5" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">SEA TRIALS 01</text><rect x="62" width="54" height="14" fill="var(--f-okd)"/><text x="66" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">AS BUILT</text></g>
+        </svg></div>
+        <dl><dt>On screen</dt><dd>The partition map ranks records by legal tag, by readers and by kind, and flags the tags that need a look.</dd><dt>Line</dt><dd><q>The guide never said what data the instance holds. The tab does.</q></dd><dt>Source</dt><dd>Data section, read-only. Sample values from the rib's design screens.</dd></dl>
+      </article>
+
+      <article class="scene">
+        <div class="scene-head"><span class="tc">4:12 to 4:40</span><h3>Ask about it</h3><span class="stamp built">AS BUILT</span></div>
+        <div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="Sketch: the explore button on the Organizations panel opens a chat, and the agent publishes a partner update as a page.">
+          <rect width="320" height="180" fill="var(--f-ui)"/>
+          <rect x="10" y="14" width="92" height="96" rx="4" fill="var(--f-panel)" stroke="var(--f-uline)"/>
+          <text x="16" y="27" font-size="7" font-weight="600" fill="var(--f-uink)">Organizations</text>
+          <circle cx="92" cy="24" r="7" fill="var(--f-accent)"/>
+          <path d="M92 18.5 L93.5 22.5 L97.5 24 L93.5 25.5 L92 29.5 L90.5 25.5 L86.5 24 L90.5 22.5 Z" fill="var(--f-on-accent)"/>
+          <g font-size="5.8" fill="var(--f-umuted)"><text x="16" y="42">pacrim-energy</text><text x="16" y="55">northfield</text><text x="16" y="68">sahelgeo</text><text x="16" y="81">fjordline</text><text x="16" y="94">halden-geo</text></g>
+          <g fill="var(--f-accent)"><rect x="16" y="45" width="70" height="3.5" rx="1.5"/><rect x="16" y="58" width="52" height="3.5" rx="1.5"/><rect x="16" y="71" width="30" height="3.5" rx="1.5"/><rect x="16" y="84" width="18" height="3.5" rx="1.5"/><rect x="16" y="97" width="44" height="3.5" rx="1.5"/></g>
+          <text x="12" y="124" font-size="5.8" fill="var(--f-brass-light)">explore seeds a chat</text>
+          <text x="12" y="132" font-size="5.8" fill="var(--f-brass-light)">with what this panel measured</text>
+          <path d="M104 60 L113 60" stroke="var(--f-umuted)" stroke-width="1" marker-end="url(#fa-ui)"/>
+          <rect x="116" y="14" width="94" height="140" rx="4" fill="var(--f-panel)" stroke="var(--f-uline)"/>
+          <rect x="122" y="22" width="82" height="34" rx="4" fill="var(--f-accent-soft)"/>
+          <g font-size="6" fill="var(--f-uink)"><text x="127" y="32">Draft this week's</text><text x="127" y="41">partner update from</text><text x="127" y="50">this panel.</text></g>
+          <rect x="122" y="64" width="60" height="11" rx="3" fill="var(--f-panel2)"/><text x="126" y="71.5" class="fm" font-size="5.4" fill="var(--f-umuted)">canvas_publish</text>
+          <text x="122" y="88" font-size="6" fill="var(--f-uink)">Published a page:</text>
+          <text x="122" y="97" font-size="6" font-weight="600" fill="var(--f-accent)">Partner update</text>
+          <text x="122" y="112" font-size="5.6" fill="var(--f-umuted)">from the Organizations</text>
+          <text x="122" y="120" font-size="5.6" fill="var(--f-umuted)">panel, measured 14:05Z</text>
+          <path d="M211 60 L217 60" stroke="var(--f-umuted)" stroke-width="1" marker-end="url(#fa-ui)"/>
+          <rect x="220" y="14" width="90" height="140" rx="3" fill="var(--f-paper2)"/>
+          <text x="227" y="29" font-size="8" font-weight="600" fill="var(--f-ink)">Partner update</text>
+          <text x="227" y="38" font-size="5.5" fill="var(--f-muted)">sample instance · this week</text>
+          <g fill="var(--f-keel)"><rect x="230" y="62" width="9" height="30"/><rect x="244" y="70" width="9" height="22"/><rect x="258" y="78" width="9" height="14"/><rect x="272" y="84" width="9" height="8"/></g>
+          <rect x="286" y="74" width="9" height="18" fill="var(--f-brass)"/>
+          <g fill="var(--f-bar)"><rect x="227" y="104" width="70" height="2.4"/><rect x="227" y="112" width="64" height="2.4"/><rect x="227" y="120" width="58" height="2.4"/><rect x="227" y="128" width="66" height="2.4"/><rect x="227" y="136" width="44" height="2.4"/></g>
+          <g transform="translate(196 160)"><rect width="116" height="14" fill="var(--f-keel)" stroke="var(--f-tbline)" stroke-width=".6"/><text x="5" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">SEA TRIALS 01</text><rect x="62" width="54" height="14" fill="var(--f-okd)"/><text x="66" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">AS BUILT</text></g>
+        </svg></div>
+        <dl><dt>On screen</dt><dd>The explore button on a panel opens a chat seeded with that panel. The agent writes a partner update as a page in the canvas drawer.</dd><dt>Line</dt><dd><q>Ask for this week's partner update, and the agent writes it as a page.</q></dd><dt>Source</dt><dd>Keelson core: explore in chat and <code>canvas_publish</code>. Both need a check on the stage with the rib before capture.</dd></dl>
+      </article>
+
+      <article class="scene">
+        <div class="scene-head"><span class="tc">4:40 to 4:58</span><h3>Ask the platform</h3><span class="stamp work">IN WORK</span></div>
+        <div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="Sketch: GitHub Copilot CLI calls osdu_about for identity and health; the four tools still in work are shown greyed.">
+          <rect width="320" height="180" fill="var(--f-term)"/>
+          <text x="14" y="20" font-size="6.5" fill="var(--f-umuted)">GitHub Copilot CLI</text>
+          <g class="fm" font-size="6.6">
+            <text x="14" y="36" fill="var(--f-uink)">&gt; Who am I on this platform, and is it healthy?</text>
+            <text x="14" y="52" fill="var(--f-accent)">● osdu · osdu_about (topic: identity)</text>
+            <text x="22" y="63" fill="var(--f-umuted)">└ pinned member · local user · reachable</text>
+            <text x="14" y="79" fill="var(--f-accent)">● osdu · osdu_about (topic: health)</text>
+            <text x="22" y="90" fill="var(--f-umuted)">└ search, indexer, storage: answered now</text>
+          </g>
+          <text x="14" y="108" font-size="7" fill="var(--f-uink)">You're signed in as the demo person. Search, indexer</text>
+          <text x="14" y="118" font-size="7" fill="var(--f-uink)">and storage all answered just now.</text>
+          <rect x="14" y="128" width="182" height="16" rx="3" fill="none" stroke="var(--f-umuted)" stroke-dasharray="2 2"/>
+          <text x="20" y="139" class="fm" font-size="6" fill="var(--f-umuted)">describe · resolve · find · read · in work</text>
+          <g transform="translate(196 160)"><rect width="116" height="14" fill="var(--f-keel)" stroke="var(--f-tbline)" stroke-width=".6"/><text x="5" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">SEA TRIALS 01</text><rect x="62" width="54" height="14" fill="var(--f-warnd)"/><text x="66" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">IN WORK</text></g>
+        </svg></div>
+        <dl><dt>On screen</dt><dd>GitHub Copilot CLI calls the OSDU MCP server's one registered tool for identity and health. The four tools still in work show greyed.</dd><dt>Line</dt><dd><q>Four more tools are on the way.</q></dd><dt>Source</dt><dd><code>osdu_about</code> is built and verified offline. The live sign-in on the CIMPL sample is still pending. Until it lands, this scene is drawn.</dd></dl>
+      </article>
+
+      <article class="scene">
+        <div class="scene-head"><span class="tc">4:58 to 5:50</span><h3>The yard</h3><span class="stamp built">AS BUILT</span></div>
+        <div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="Sketch: six beads-work runs started minutes apart, each passing a plan gate, with three review lenses and 19 of 23 merged PRs.">
+          <rect width="320" height="180" fill="var(--f-ui)"/>
+          <text x="12" y="22" font-size="7.5" font-weight="600" fill="var(--f-uink)">beads-work runs · six at once</text>
+          <g fill="var(--f-accent)" opacity=".8"><rect x="20" y="32" width="48" height="8" rx="2"/><rect x="21.6" y="47" width="187.2" height="8" rx="2"/><rect x="23.2" y="62" width="201.6" height="8" rx="2"/><rect x="24.8" y="77" width="137.6" height="8" rx="2"/><rect x="31.2" y="92" width="222.4" height="8" rx="2"/><rect x="32.8" y="107" width="257.6" height="8" rx="2"/></g>
+          <g fill="var(--f-warn)"><polygon points="34.4,32 38.4,36 34.4,40 30.4,36"/><polygon points="77.8,47 81.8,51 77.8,55 73.8,51"/><polygon points="83.7,62 87.7,66 83.7,70 79.7,66"/><polygon points="66.1,77 70.1,81 66.1,85 62.1,81"/><polygon points="97.9,92 101.9,96 97.9,100 93.9,96"/><polygon points="110.1,107 114.1,111 110.1,115 106.1,111"/></g>
+          <text x="12" y="128" font-size="5.6" fill="var(--f-umuted)">real start times and run lengths; diamonds mark the plan gate</text>
+          <g fill="none" stroke="var(--f-uline)"><rect x="12" y="136" width="54" height="13" rx="6.5"/><rect x="70" y="136" width="54" height="13" rx="6.5"/><rect x="128" y="136" width="44" height="13" rx="6.5"/></g>
+          <g font-size="5.8" fill="var(--f-uink)"><text x="17" y="145">correctness</text><text x="75" y="145">conventions</text><text x="133" y="145">coverage</text></g>
+          <text x="308" y="135" text-anchor="end" font-size="5.6" fill="var(--f-umuted)">merged PRs from beads-work</text>
+          <text x="308" y="151" text-anchor="end" class="fm" font-size="13" font-weight="600" fill="var(--f-uink)">19 / 23</text>
+          <g transform="translate(196 160)"><rect width="116" height="14" fill="var(--f-keel)" stroke="var(--f-tbline)" stroke-width=".6"/><text x="5" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">SEA TRIALS 01</text><rect x="62" width="54" height="14" fill="var(--f-okd)"/><text x="66" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">AS BUILT</text></g>
+        </svg></div>
+        <dl><dt>On screen</dt><dd>The bead graph, then real beads-work runs side by side, then one plan gate up close, three reviews, the Copilot code review the workflow requests on each pull request, and the merged PR list.</dd><dt>Line</dt><dd><q>Nineteen of the server's twenty-three merged pull requests came out of that workflow.</q></dd><dt>Source</dt><dd>The bars are the six runs started on the evening of October 7, between 8:56 and 9:04 pm Central. Their lengths come from the run store; the gate positions are drawn.</dd></dl>
+      </article>
+
+      <article class="scene">
+        <div class="scene-head"><span class="tc">5:50 to 6:40</span><h3>Next voyage</h3><span class="stamp prop">PROPOSED</span></div>
+        <div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="Sketch in dashed lines: the guide written from measured state, a diff, an approval gate, republished in place; a partner asking their own agent; three more proposed items.">
+          <rect width="320" height="180" fill="var(--f-sheet)"/><rect width="320" height="180" fill="url(#fgrid)"/>
+          <rect x="16" y="22" width="64" height="84" rx="2" fill="var(--f-paper)" stroke="var(--f-slate)" stroke-dasharray="3 2"/>
+          <g fill="var(--f-bar)"><rect x="22" y="32" width="48" height="2.4"/><rect x="22" y="40" width="40" height="2.4"/><rect x="22" y="84" width="48" height="2.4"/><rect x="22" y="92" width="36" height="2.4"/></g>
+          <g transform="rotate(-12 48 64)"><rect x="24" y="56" width="48" height="13" rx="2" fill="none" stroke="var(--f-brass)" stroke-width="1.2"/><text x="48" y="65.5" text-anchor="middle" class="fm" font-size="6.5" fill="var(--f-brass)">MEASURED</text></g>
+          <path d="M82 52 L94 52" stroke="var(--f-slate)" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#fa-slate)"/>
+          <rect x="96" y="24" width="92" height="52" rx="3" fill="var(--f-paper)" stroke="var(--f-slate)" stroke-dasharray="3 2"/>
+          <text x="102" y="36" font-size="6.5" font-weight="600" fill="var(--f-ink)">What changed</text>
+          <text x="102" y="47" font-size="6" fill="var(--f-okd)">+ 2 invited</text>
+          <text x="102" y="57" font-size="6" fill="var(--f-okd)">+ 1 now active</text>
+          <text x="102" y="67" font-size="6" fill="var(--f-ink)">+ 1 seismic grant</text>
+          <path d="M190 50 L202 50" stroke="var(--f-slate)" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#fa-slate)"/>
+          <polygon points="222,36 240,50 222,64 204,50" fill="none" stroke="var(--f-blue)" stroke-width="1.2" stroke-dasharray="3 2"/>
+          <text x="222" y="52.5" text-anchor="middle" font-size="6" fill="var(--f-ink)">approve</text>
+          <path d="M241 50 L252 50" stroke="var(--f-slate)" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#fa-slate)"/>
+          <rect x="254" y="30" width="54" height="40" rx="3" fill="var(--f-paper)" stroke="var(--f-slate)" stroke-dasharray="3 2"/>
+          <text x="260" y="44" font-size="6.5" font-weight="600" fill="var(--f-ink)">Republished</text>
+          <text x="260" y="54" font-size="6" fill="var(--f-muted)">in place,</text>
+          <text x="260" y="63" font-size="6" fill="var(--f-muted)">one link</text>
+          <rect x="16" y="118" width="128" height="22" rx="11" fill="none" stroke="var(--f-blue)" stroke-dasharray="3 2"/>
+          <text x="24" y="132" font-size="6.3" fill="var(--f-ink)">Can I reach alpha? If not, why?</text>
+          <path d="M146 129 L160 129" stroke="var(--f-slate)" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#fa-slate)"/>
+          <rect x="162" y="118" width="66" height="22" rx="3" fill="none" stroke="var(--f-teal)" stroke-dasharray="3 2"/>
+          <text x="168" y="132" font-size="6.3" fill="var(--f-teal)">MCP, as them</text>
+          <g fill="none" stroke="var(--f-slate)" stroke-dasharray="3 2"><rect x="236" y="80" width="72" height="18" rx="3"/><rect x="236" y="102" width="72" height="18" rx="3"/><rect x="236" y="124" width="72" height="18" rx="3"/></g>
+          <g font-size="6" fill="var(--f-ink)"><text x="241" y="92">weekly health run</text><text x="241" y="114">rib tools for agents</text><text x="241" y="136">questions as evals</text></g>
+          <g transform="translate(196 160)"><rect width="116" height="14" fill="var(--f-keel)" stroke="var(--f-tbline)" stroke-width=".6"/><text x="5" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">SEA TRIALS 01</text><rect x="62" width="54" height="14" fill="var(--f-sheet)" stroke="var(--f-slate)" stroke-dasharray="2 1.5" stroke-width=".8"/><text x="66" y="9.8" class="fm" font-size="6.2" fill="var(--f-slate)">PROPOSED</text></g>
+        </svg></div>
+        <dl><dt>On screen</dt><dd>Drawn, never filmed: the guide written from measured state, shown as a diff, approved and republished in place. Then a partner's agent asks as themselves, an agent stages a grant as a plan, a weekly program-health run, and questions as evals.</dd><dt>Line</dt><dd><q>Here's where it could go. Drawn, not built.</q></dd></dl>
+      </article>
+
+      <article class="scene">
+        <div class="scene-head"><span class="tc">6:40 to 6:55</span><h3>Close</h3><span class="stamp plate">PLATE</span></div>
+        <div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="Sketch: the thesis on the sheet beside a boat on the water.">
+          <rect width="320" height="180" fill="var(--f-sheet)"/><rect width="320" height="180" fill="url(#fgrid)"/>
+          <text x="24" y="58" font-size="18" font-weight="600" fill="var(--f-keel)">Agents propose.</text>
+          <text x="24" y="84" font-size="18" font-weight="600" fill="var(--f-keel)">People approve.</text>
+          <text x="24" y="108" font-size="11" font-weight="500" fill="var(--f-brass-ink)">Every answer says how sure it is.</text>
+          <path d="M266 114 L266 72" stroke="var(--f-keel)" stroke-width="1.5"/>
+          <path d="M268 74 L298 110 L268 110 Z" fill="var(--f-brass-soft)" stroke="var(--f-brass)" stroke-width="1"/>
+          <path d="M226 114 L306 114 Q300 132 270 134 L246 134 Q232 130 226 114 Z" fill="var(--f-keel)"/>
+          <path d="M210 138 Q220 134 230 138 T250 138 T270 138 T290 138 T310 138" fill="none" stroke="var(--f-blue)" stroke-width="1.2"/>
+          <g transform="translate(196 160)"><rect width="116" height="14" fill="var(--f-keel)" stroke="var(--f-tbline)" stroke-width=".6"/><text x="5" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">SEA TRIALS 01</text><rect x="62" width="54" height="14" fill="var(--f-slate)"/><text x="66" y="9.8" class="fm" font-size="6.2" fill="var(--f-white)">PLATE</text></g>
+        </svg></div>
+        <dl><dt>On screen</dt><dd>The thesis on the sheet, then the series closer raises the ribs.</dd><dt>Line</dt><dd><q>Agents propose. People approve. And every answer says how sure it is.</q></dd></dl>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>What runs today</h2>
+    <p>The status of each capability as of October 9, and where it appears. This table sets every stamp in the storyboard.</p>
+    <div class="tblwrap">
+      <table class="tbl compact">
+        <thead><tr><th>Capability</th><th>Status</th><th>Evidence</th><th>In the video</th></tr></thead>
+        <tbody>
+          <tr><td><b>Keelson: chat, workflows, approval gates, MCP endpoint, explore in chat, canvas pages</b></td><td><span class="stamp built">AS BUILT</span></td><td>v0.126.0</td><td>throughout</td></tr>
+          <tr><td><b>ADME rib: Access, Data, Seismic, Why 401/403, dry-run plans</b></td><td><span class="stamp built">AS BUILT</span></td><td>v1.10.0, works against a live instance</td><td>Who has access through What's in it</td></tr>
+          <tr><td><b>"Export who has access", the guide's page 4 as a table</b></td><td><span class="stamp built">AS BUILT</span></td><td>rib action <code>export-access-guide</code></td><td>Who has access</td></tr>
+          <tr><td><b>Applying a plan to a real instance</b></td><td><span class="stamp work">IN WORK</span></td><td>rib README: still being proven</td><td>not filmed; plans are previewed only</td></tr>
+          <tr><td><b>OSDU MCP server: <code>osdu_about</code> identity and health</b></td><td><span class="stamp work">IN WORK</span></td><td>the only registered tool; live sign-in pending</td><td>Ask the platform</td></tr>
+          <tr><td><b>OSDU MCP server: describe, resolve, find, read</b></td><td><span class="stamp work">IN WORK</span></td><td>Search and Storage clients built; tools not registered</td><td>shown greyed, then drawn</td></tr>
+          <tr><td><b>The factory: beads-work building the MCP server</b></td><td><span class="stamp built">AS BUILT</span></td><td>19 of 23 merged pull requests</td><td>The yard</td></tr>
+          <tr><td><b>Living access guide</b></td><td><span class="stamp prop">PROPOSED</span></td><td>nothing beyond the page 4 export</td><td>Next voyage</td></tr>
+          <tr><td><b>A partner's own agent on the MCP server</b></td><td><span class="stamp prop">PROPOSED</span></td><td>the server targets CIMPL and SPI Stack; no ADME profile yet</td><td>Next voyage</td></tr>
+          <tr><td><b>Rib tools for agents, so an agent can stage a plan</b></td><td><span class="stamp prop">PROPOSED</span></td><td>the rib registers no tools yet; its <code>registerTools</code> seam is in place and returns an empty list</td><td>Next voyage</td></tr>
+          <tr><td><b>Weekly program-health run, with cross-checks such as a tag expiring before a cohort's passes end</b></td><td><span class="stamp prop">PROPOSED</span></td><td>both halves are built, pass ends per cohort and tags expiring within 30 days; the join is not</td><td>Next voyage</td></tr>
+          <tr><td><b>Questions as evals, graded against expected answers</b></td><td><span class="stamp prop">PROPOSED</span></td><td>journeys and expected answers are frozen; none runs as an eval yet; Keelson has an eval runner</td><td>Next voyage</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>The factory turn</h2>
+    <p>The turn comes after the tour, when the video shows that agents built the tools on screen, most of them through Keelson. The scene films one real beads-work run on the demo stage, then shows the numbers. FIG. 15 of the Keelson series explains the MCP wiring, and FIG. 14, still planned, will explain the factory. This scene shows both at work and points there for the mechanics.</p>
+    <div class="flow">
+      <svg viewBox="0 0 1100 300" role="img" aria-label="One beads-work run: a ready bead, claim and brief, investigate and plan, a plan approval gate, then implement, project checks, a draft pull request, three reviews, CI, a Copilot code review and a merge by a person.">
+        <rect x="8" y="8" width="1084" height="284" rx="10" class="lanebg"/>
+        <text x="22" y="30" class="lanelbl">One beads-work run · 47 nodes in one workflow file</text>
+        <rect x="24" y="50" width="210" height="76" class="box b-o5"/>
+        <text x="36" y="74" class="t">A ready bead</text>
+        <text x="36" y="94" class="sub">every dependency closed</text>
+        <rect x="264" y="50" width="210" height="76" class="box b-o1"/>
+        <text x="276" y="74" class="t">Claim and brief</text>
+        <text x="276" y="94" class="sub">the bead and its criteria</text>
+        <rect x="504" y="50" width="210" height="76" class="box b-o1"/>
+        <text x="516" y="74" class="t">Investigate and plan</text>
+        <text x="516" y="94" class="sub">writes the plan</text>
+        <polygon points="844,48 944,88 844,128 744,88" class="gate"/>
+        <text x="844" y="86" text-anchor="middle" class="t" font-size="13">plan approved?</text>
+        <text x="844" y="103" text-anchor="middle" class="sub mono" font-size="11">approve-plan</text>
+        <path d="M234 88 L262 88" class="arrow"/>
+        <path d="M474 88 L502 88" class="arrow"/>
+        <path d="M714 88 L742 88" class="arrow"/>
+        <path d="M844 128 L844 150 L120 150 L120 170" class="arrow"/>
+        <text x="852" y="145" class="tiny">approved</text>
+        <rect x="24" y="172" width="192" height="96" class="box b-o1"/>
+        <text x="36" y="196" class="t">Implement</text>
+        <text x="36" y="216" class="sub">in its own worktree</text>
+        <text x="36" y="233" class="sub">on its own branch</text>
+        <rect x="234" y="172" width="192" height="96" class="box b-o1"/>
+        <text x="246" y="196" class="t">Project checks</text>
+        <text x="246" y="216" class="sub">found and run</text>
+        <text x="246" y="233" class="sub">failures fixed, rerun</text>
+        <rect x="444" y="172" width="192" height="96" class="box b-o1"/>
+        <text x="456" y="196" class="t">Draft pull request</text>
+        <text x="456" y="216" class="sub">created as a draft</text>
+        <text x="456" y="233" class="sub">dependencies audited</text>
+        <rect x="654" y="172" width="192" height="96" class="box b-o1"/>
+        <text x="666" y="196" class="t">Three reviews</text>
+        <text x="666" y="216" class="sub">correctness, conventions,</text>
+        <text x="666" y="233" class="sub">coverage; fixes re-reviewed</text>
+        <rect x="864" y="172" width="192" height="96" class="box b-o4"/>
+        <text x="876" y="196" class="t">CI, then merge</text>
+        <text x="876" y="216" class="sub">CI failures triaged</text>
+        <text x="876" y="233" class="sub">Copilot code review</text>
+        <text x="876" y="250" class="sub">a person merges</text>
+        <path d="M216 220 L232 220" class="arrow"/>
+        <path d="M426 220 L442 220" class="arrow"/>
+        <path d="M636 220 L652 220" class="arrow"/>
+        <path d="M846 220 L862 220" class="arrow"/>
+      </svg>
+    </div>
+    <p class="note">The plan gate is the one stop before code is written, and the merge is the other. Review nodes use different provider mappings from the nodes they review, so no node reviews its own output.</p>
+    <div class="tblwrap">
+      <table class="tbl">
+        <thead><tr><th>Repository</th><th>Merged PRs</th><th>From Keelson workflows</th></tr></thead>
+        <tbody>
+          <tr><td><b>OSDU MCP server</b></td><td class="n">23</td><td>19, all beads-work</td></tr>
+          <tr><td><b>Keelson</b></td><td class="n">791</td><td>104: fix-issue 97, beads-work 5, plan-act-evaluate 2</td></tr>
+          <tr><td><b>Swarm rib</b></td><td class="n">134</td><td>20: beads-work 19, swarm 1</td></tr>
+          <tr><td><b>ADME rib</b></td><td class="n">47</td><td>none. A clickable mockup on sample data came first, then releases 1.0.0 to 1.10.0 between October 7 and 9.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">A pull request counts when a Keelson workflow created its branch (<code>keelson/&lt;workflow&gt;/…</code>), as of October 9. The run store on the operator's machine holds 15 beads-work runs for the MCP server from October 7 and 8. 14 succeeded, taking 30 to 192 minutes each, and up to six ran at once.</p>
+  </section>
+
+  <section>
+    <h2>Data on screen</h2>
+    <p>The live instance, the current guide and the operator's own Keelson all show real people. None of them is filmed.</p>
+    <div class="tblwrap">
+      <table class="tbl compact">
+        <thead><tr><th>Source</th><th>What could leak</th><th>How it stays off screen</th></tr></thead>
+        <tbody>
+          <tr><td><b>The access guide</b></td><td>names, emails, object ids, tenant and app ids, the instance host</td><td>A sample edition in the same layout, filled from the rib's sample cast.</td></tr>
+          <tr><td><b>The ADME tab</b></td><td>people and companies on the live instance</td><td>Sample-instance mode, which serves the cast from the rib's design spec through its real composers with a sample-data chip. The cast is contoso-adme: 32 people from 12 organizations, 4 apps, cohorts Pilot, Vendor and Permanent, and 13 subprojects.</td></tr>
+          <tr><td><b>The MCP server</b></td><td>host names, the signed-in identity</td><td>The CIMPL sample with the open TNO and Volve datasets, a demo identity and example host names.</td></tr>
+          <tr><td><b>Keelson</b></td><td>chat and run history, internal model names</td><td>The isolated demo stage on port 7979. Model pickers stay closed.</td></tr>
+          <tr><td><b>The yard</b></td><td>a private repository's name, bead and PR titles</td><td>Follows decision 7 below. Public cuts use a public repository's runs.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Before anyone sees a cut, the QA pass checks every frame for real names or emails, company domains, object, tenant, app or subscription ids, instance host names, internal model names, home paths and tokens.</p>
+  </section>
+
+  <section>
+    <h2>Production</h2>
+    <h3>Form and devices</h3>
+    <p>Acts I and IV are plates, drawn on the blueprint sheet with the series renderer. Acts II and III are real footage from the demo stage.</p>
+    <p>The signature device is the page-to-panel cut. A page of the sample guide lifts off the sheet and lands as the live panel that replaces it. The cut runs three times in Act II. It runs once in reverse in Next voyage, where the panels assemble into a guide that publishes itself.</p>
+    <p>Every frame carries a title block in its lower right corner with the strand name and a status: as built, in work, proposed, or plate. The words come from engineering drawing practice, which suits the blueprint identity.</p>
+    <h3>Strand</h3>
+    <p>The working title borrows the step after a hull is built. Sea trials take a ship into open water to prove it under real conditions. This would open a strand beside the numbered figures, with SEA TRIALS 01 on the title card and the same keel and ribs bookends.</p>
+    <h3>Voice</h3>
+    <p>Harper narrates, as in the series. A second voice reads the partner's side: an email that says every call returns 401, and a question to their own agent. That makes the partner a person on screen, not a row in a table.</p>
+    <h3>Capture</h3>
+    <p>The rig is the series rig. It uses an isolated Keelson home on port 7979 and a CDP screencast of the browser with the injected cursor. GitHub Copilot CLI is captured in the terminal, with the OSDU MCP server in its MCP config. Narration goes through <code>tts.py</code>, <code>compose.py</code> cuts the video, and <code>qa.sh</code> makes the contact sheet and a phone-width frame.</p>
+    <h3>Enablers before capture</h3>
+    <div class="tblwrap">
+      <table class="tbl compact">
+        <thead><tr><th>Enabler</th><th>Needed for</th><th>Size</th></tr></thead>
+        <tbody>
+          <tr><td><b>1 · Sample-instance mode in the rib.</b> The design spec's cast (32 people from 12 organizations, 4 apps, 13 subprojects) plus an audit-log fixture, served through the real composers, with a sample-data chip. The test fixtures hold only 18 people and 7 subprojects, so the mode serves the spec's cast and the footage, plates and narration share one set of numbers.</td><td>every Act II scene</td><td>M</td></tr>
+          <tr><td><b>2 · A sample edition of the access guide</b> in the same layout, with the sample cast.</td><td>Seven pages and the page-to-panel cuts</td><td>S</td></tr>
+          <tr><td><b>3 · The demo stage</b> with rib-adme and rib-beads installed and the MCP server repository registered.</td><td>capture without personal history</td><td>S</td></tr>
+          <tr><td><b>4 · Live sign-in for the MCP server</b> on the CIMPL sample, registered in Copilot CLI's MCP config.</td><td>Ask the platform as real footage</td><td>S, owner</td></tr>
+          <tr><td><b>5 · One real bead</b> ready to run during the take.</td><td>The yard</td><td>S</td></tr>
+          <tr><td><b>6 · A check</b> that explore and canvas pages work on an ADME panel.</td><td>Ask about it</td><td>S</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Enabler 1 would make a good first bead for the factory. If beads-work builds it, The yard films a run that serves this video.</p>
+    <h3>Cuts</h3>
+    <div class="tblwrap">
+      <table class="tbl compact">
+        <thead><tr><th>Cut</th><th>Length</th><th>For</th><th>Built from</th></tr></thead>
+        <tbody>
+          <tr><td><b>Feature</b></td><td>about 7 minutes</td><td>colleagues and leadership</td><td>every scene</td></tr>
+          <tr><td><b>Short cut</b></td><td>about 3 minutes</td><td>leadership</td><td>Seven pages, The rig, Who has access, Why 401, the numbers from The yard, Next voyage</td></tr>
+          <tr><td><b>Clip: Seven pages</b></td><td>about 60 seconds</td><td>public, sample data</td><td>Seven pages, Who has access, the living-guide sketch</td></tr>
+          <tr><td><b>Clip: Why 401</b></td><td>about 45 seconds</td><td>partners</td><td>Why 401</td></tr>
+          <tr><td><b>Clip: The tool that builds the tools</b></td><td>about 90 seconds</td><td>public, if decision 7 allows</td><td>The yard</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Decisions to align on</h2>
+    <div class="tblwrap">
+      <table class="tbl compact">
+        <thead><tr><th>Decision</th><th>Options</th><th>Leaning</th></tr></thead>
+        <tbody>
+          <tr><td><b>1 · Audience</b></td><td>internal only; internal with public clips; public series</td><td class="lean">internal feature, public clips on sample data</td></tr>
+          <tr><td><b>2 · Spine</b></td><td>seven pages; the operator's week; questions first</td><td class="lean">seven pages</td></tr>
+          <tr><td><b>3 · Length</b></td><td>about 7 minutes plus a 3-minute cut; one 4-minute cut</td><td class="lean">both cuts</td></tr>
+          <tr><td><b>4 · Vision reach</b></td><td>any of the five proposed items</td><td class="lean">all five, drawn, in one chapter under a minute</td></tr>
+          <tr><td><b>5 · Data on screen</b></td><td>sample-instance mode; a sandbox instance with synthetic guests; masked live capture</td><td class="lean">sample-instance mode</td></tr>
+          <tr><td><b>6 · Strand</b></td><td>Sea Trials 01 with the keel and ribs bookends; standalone, no bookends; a numbered FIG</td><td class="lean">Sea Trials 01 with the bookends</td></tr>
+          <tr><td><b>7 · The yard</b></td><td>private repository names and PR titles on screen; public repositories only</td><td class="lean">follows decision 1</td></tr>
+          <tr><td><b>8 · Voice</b></td><td>Harper alone; Harper with a second voice for partners</td><td class="lean">Harper with a second voice</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="appendix">
+    <p class="eyebrow">Appendix · reference material</p>
+    <h2>Reference detail</h2>
+
+    <section>
+      <h3>A · Narration draft</h3>
+      <p>About 780 words, about five and a half minutes of speech, with the rest of the running time held for footage. Spoken forms are in appendix D.</p>
+      <div class="tblwrap">
+        <table class="tbl compact">
+          <thead><tr><th>Time</th><th>Scene</th><th>Narration</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">0:00</td><td><b>Opener</b></td><td class="say">Sea trials, one. Seven pages. This is the access guide for a shared ADME instance. Every time someone is invited or gets a grant, it's rebuilt, and sent to everyone again.</td></tr>
+            <tr><td class="mono">0:18</td><td><b>Seven pages</b></td><td class="say">The instance is one platform where people from about a dozen companies test their systems against the same data. The guide does real work. How to connect. What each role can do. What a 401 means. Then three pages that are never true for long: who has access, who can reach which seismic subproject, and which object id is which person. Those pages come from Azure CLI calls, Graph queries and scripts, put together by hand. By the time the guide lands in an inbox, it's already behind.</td></tr>
+            <tr><td class="mono">0:58</td><td><b>Confident and wrong</b></td><td class="say">So why not point an AI model at the APIs and let it answer? Because the platform makes it easy to be confidently wrong. A malformed search comes back two hundred, with zero results and no error. Counts stop at ten thousand without saying so. And no model should invite anyone without a dry run. A smarter model isn't the fix. It needs better ground to stand on.</td></tr>
+            <tr><td class="mono">1:28</td><td><b>The rig</b></td><td class="say">So, three pieces. Keelson, a workbench for agents that runs locally. It keeps the record, runs workflows with approval gates, and serves its tools over MCP. A rib for ADME, bolted onto Keelson, that knows this instance: its people, its data, its seismic subprojects. And an MCP server that knows OSDU itself, so an agent gets bounded answers that say how sure they are. Then the guide comes apart.</td></tr>
+            <tr><td class="mono">2:02</td><td><b>Who has access</b></td><td class="say">Page four, who has access, is now the top of the ADME tab. From invitation to data: thirty-two people with entitlements, twenty-nine accepted, twenty-seven who can actually use it. The audit log adds who made a data call, company by company, in the guide's own words: invited, not used, idle, active. Measured a minute ago, not on the day the PDF went out. And when someone still wants the table, the rib writes it.</td></tr>
+            <tr><td class="mono">2:42</td><td><b>Why 401</b></td><td class="say">Page three's troubleshooting table turns into a question about one person. Why does Rachel get a 401? The rib walks the checks in the order the platform applies them. Signed in. Right app. Right partition. Not in users at. There's the verdict, and a note to send her.</td></tr>
+            <tr><td class="mono">3:12</td><td><b>Who can reach what</b></td><td class="say">Page five, seismic access, becomes subprojects with their members by name. Pick a partner, and the rib lists exactly which subprojects they can read, with a note to copy. A grant starts as a dry-run plan: what changes, what's already true, what's blocked. Nothing is written until someone applies it.</td></tr>
+            <tr><td class="mono">3:47</td><td><b>What's in it</b></td><td class="say">The guide never said what data the instance holds. The tab does: records by legal tag, by the groups that can read them, and by kind, with the tags that need a look.</td></tr>
+            <tr><td class="mono">4:12</td><td><b>Ask about it</b></td><td class="say">Every panel has an explore button. It opens a chat that starts from what the panel measured. Ask for this week's partner update, and the agent writes it as a page.</td></tr>
+            <tr><td class="mono">4:40</td><td><b>Ask the platform</b></td><td class="say">In GitHub Copilot, the OSDU MCP server answers its first question: who am I on this platform, and is it healthy? Four more tools are on the way.</td></tr>
+            <tr><td class="mono">4:58</td><td><b>The yard</b></td><td class="say">So where did these tools come from? The MCP server is being built by Keelson. Each piece of work is a bead, with its dependencies. A workflow claims one, plans it, and stops at a gate until the plan is approved. Then it writes the code, runs the project's checks, opens a pull request, and three reviewers check correctness, conventions and coverage. Up to six run at once. Nineteen of the server's twenty-three merged pull requests came out of that workflow, and Keelson's own workflows wrote a hundred and four of Keelson's. The rib took another road: a clickable mockup first, then version one point oh to one point ten in three days.</td></tr>
+            <tr><td class="mono">5:50</td><td><b>Next voyage</b></td><td class="say">Here's where it could go. Drawn, not built. The guide stops being a PDF. A workflow writes it from what the rib measured, shows what changed, waits for approval, and republishes it in place. Nobody gets it emailed again. A partner's own agent asks the MCP server, signed in as them: can I reach this subproject, and if not, why? The rib already has a seam for agent tools. Fill it, and an agent can stage a grant as a plan for the operator to apply. A weekly run joins facts the rib already measures but no single page holds, like a legal tag that expires before a cohort's passes end. And every question becomes an eval. A correct "I can't tell" passes. An invented answer fails.</td></tr>
+            <tr><td class="mono">6:40</td><td><b>Close</b></td><td class="say">Agents propose. People approve. And every answer says how sure it is. Keelson. Lay the keel, raise the ribs.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h3>B · Evidence ledger</h3>
+      <p>Every number and claim in the narration, and where it comes from. Repository paths are relative to each repository.</p>
+      <div class="tblwrap">
+        <table class="tbl compact">
+          <thead><tr><th>Claim</th><th>Source</th></tr></thead>
+          <tbody>
+            <tr><td>The guide has seven pages, and pages 4 to 6 describe current state</td><td>the current access guide, not reproduced here</td></tr>
+            <tr><td>People from about a dozen companies</td><td>email domains in the current guide, not reproduced here</td></tr>
+            <tr><td>The rib covers Access, Data and Seismic, previews plans, and applying to a real instance is still being proven</td><td>keelson-rib-adme <code>README.md</code></td></tr>
+            <tr><td>"Export who has access" writes Name, Email, Status, Granted, Last active</td><td>keelson-rib-adme <code>src/boards/people.ts</code></td></tr>
+            <tr><td>Why 401/403 runs seven checks in the platform's order</td><td>keelson-rib-adme <code>src/access/explain.ts</code></td></tr>
+            <tr><td>The rib registers no agent tools yet; its <code>registerTools</code> hook returns an empty list</td><td>keelson-rib-adme <code>src/index.ts</code></td></tr>
+            <tr><td>Funnel of 32, 29 and 27; 36 identities; 13 subprojects</td><td>keelson-rib-adme <code>design/spec.md</code> and <code>design/README.md</code>, sample data</td></tr>
+            <tr><td>1,284,512 records, 214 kinds, 15 legal tags</td><td>keelson-rib-adme <code>design/screens/data.png</code>, sample data</td></tr>
+            <tr><td>Both halves of the legal tag versus pass end check are built; the join exists only in the mockup</td><td>keelson-rib-adme <code>src/tracker.ts</code> (pass end per cohort), <code>src/data/legal.ts</code> (30-day expiry window), <code>design/screens/data.png</code></td></tr>
+            <tr><td>A malformed nested search returns 200 with zero results; the default count stops at 10,000</td><td>MCP server <code>journeys.md</code>, J8a and J5, measured on a CIMPL sample with TNO and Volve</td></tr>
+            <tr><td>Only <code>osdu_about</code> is registered, and the live sign-in is pending</td><td>MCP server <code>WORK_STATE.md</code>, October 8</td></tr>
+            <tr><td>19 of 23 merged MCP server pull requests came from beads-work</td><td>GitHub pull requests with <code>keelson/beads-work/…</code> branches</td></tr>
+            <tr><td>15 runs; the 14 that succeeded took 30 to 192 minutes; up to six at once</td><td>the Keelson run store on the operator's machine</td></tr>
+            <tr><td>47 nodes, one plan gate, three reviews, then a Copilot code review request (<code>request-review-bot</code>)</td><td>keelson-rib-beads <code>workflows/beads-work.yml</code></td></tr>
+            <tr><td>60 beads for the MCP server, 32 closed</td><td>the server's local beads tracker, October 9</td></tr>
+            <tr><td>104 of 791 merged Keelson pull requests came from its own workflows</td><td>GitHub pull requests with <code>keelson/…</code> branches</td></tr>
+            <tr><td>Rib releases 1.0.0 to 1.10.0 between October 7 and 9</td><td>keelson-rib-adme <code>CHANGELOG.md</code></td></tr>
+            <tr><td>Explore in chat and canvas pages</td><td>keelson <code>apps/web/src/lib/exploreSeed.ts</code>, <code>apps/server/src/canvas-tools.ts</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h3>C · Alternatives not chosen</h3>
+      <div class="tblwrap">
+        <table class="tbl compact">
+          <thead><tr><th>Alternative</th><th>Why not</th></tr></thead>
+          <tbody>
+            <tr><td><b>A screen-recorded tour of the tab</b></td><td>It shows features without the problem, so the viewer has no reason to care.</td></tr>
+            <tr><td><b>Filming proposed features with mocked UI</b></td><td>It breaks the series rule that footage is always the real product, and it reads as a promise.</td></tr>
+            <tr><td><b>Capturing the live instance with blur</b></td><td>Blur misses things, looks like hiding, and has to be redone on every re-cut.</td></tr>
+            <tr><td><b>Leading with the MCP server</b></td><td>Four of its five tools are not registered yet. The rib carries the proof today.</td></tr>
+            <tr><td><b>A general Keelson explainer</b></td><td>The series already explains Keelson. This video is about real work on a real system.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h3>D · Spoken forms</h3>
+      <div class="tblwrap">
+        <table class="tbl compact">
+          <thead><tr><th>Written</th><th>Spoken</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">ADME</td><td>"Ad-Me"</td><td>the team's pronunciation; the spoken form is <code>Ad Me</code></td></tr>
+            <tr><td class="mono">OSDU</td><td>"oz-doo"</td><td>confirm</td></tr>
+            <tr><td class="mono">users@</td><td>"users at"</td><td></td></tr>
+            <tr><td class="mono">401, 403</td><td>"four oh one", "four oh three"</td><td></td></tr>
+            <tr><td class="mono">osdu_about</td><td>"OSDU about"</td><td></td></tr>
+            <tr><td class="mono">1.0 to 1.10</td><td>"one point oh to one point ten"</td><td></td></tr>
+            <tr><td class="mono">MCP, TNO</td><td>letters</td><td></td></tr>
+            <tr><td class="mono">Volve</td><td>"VOL-veh"</td><td>Norwegian field name; confirm</td></tr>
+            <tr><td class="mono">beads-work</td><td>"beads work"</td><td></td></tr>
+            <tr><td class="mono">Copilot</td><td>"Co Pilot"</td><td>the series' fix; Harper misreads the single word</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h3>E · Other ideas</h3>
+      <div class="tblwrap">
+        <table class="tbl compact">
+          <thead><tr><th>Idea</th><th>Where it could go</th></tr></thead>
+          <tbody>
+            <tr><td><b>A split screen: the guide edited by hand on the left, the panel updating on the right</b></td><td>Seven pages, if the page-to-panel cut feels slow</td></tr>
+            <tr><td><b>One partner question traced two ways.</b> Today: partner, email, operator, scripts, PDF. Next: partner, their agent, MCP server, platform.</td><td>Next voyage, as one drawing</td></tr>
+            <tr><td><b>The guide's four status words as the color code</b> for everyone on screen</td><td>Who has access</td></tr>
+            <tr><td><b>The partner's email as a cold open</b></td><td>considered and dropped: the series removed cold opens, so the hook rides the opener's narration</td></tr>
+            <tr><td><b>Sea Trials 02 on another rib</b>, once this one is reviewed</td><td>a later strand entry</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>

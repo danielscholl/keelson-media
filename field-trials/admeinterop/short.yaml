@@ -1,0 +1,131 @@
+fig: "01"
+slug: field-trials-01-admeinterop
+title: ADME Interop
+act: I
+strand: Field Trials
+problem: Why does a shared ADME instance need more than a guide that is rebuilt by hand and re-sent after every change?
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: field-trials, close: field-trials, xfade: 1.0 }
+crossfade: 0.5
+captions: true
+caption_tone: light
+viewport_header: "<b>FIELD TRIAL</b> &nbsp;·&nbsp; ADME INTEROP &nbsp;·&nbsp; ALPHA"
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: intro, lines: [i1, i2, i3], lead: 1.4, gap: 0.6, gaps: { i3: 2.6 }, tail: 1.6 }
+    - { id: guide, lines: [n1, n2, n2b], lead: 0.6, gap: 0.5, tail: 1.0 }
+    - { id: platform, lines: [n3], lead: 0.5, tail: 1.4 }
+    - { id: pages, lines: [n4, n5, n6], lead: 0.5, gap: 0.5, tail: 1.6 }
+    - { id: hand, lines: [n7, n8, n9], lead: 0.5, gap: 0.6, tail: 1.6 }
+    - { id: wrong, lines: [w1, w2, w3, w4, w5, w6], lead: 0.6, gap: 0.5, gaps: { w2: 0.3, w6: 0.9 }, tail: 1.4 }
+    - { id: rig, lines: [r1, r2, r3, r4, r5, r6], lead: 0.6, gap: 0.5, gaps: { r5: 0.3, r6: 0.8 }, tail: 1.6 }
+    - { id: outro, lines: [c1, c2], lead: 1.3, gap: 0.7, tail: 3.2 }
+
+scenes:
+  - { id: b-intro, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [intro + 0.05, intro.end], xfade: 1.0 }
+  - { id: b-guide, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [guide, guide.end], xfade: 0.8 }
+  - { id: b-platform, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [platform, platform.end] }
+  - { id: b-pages, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [pages, pages.end] }
+  - { id: b-hand, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [hand, hand.end] }
+  - { id: b-wrong, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [wrong, wrong.end] }
+  - { id: b-rig, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [rig, rig.end] }
+  - id: f-access
+    source: raw/f-access.mp4
+    marks: source/f-access-marks.json
+    frame: viewport
+    label: "GUIDE P.4 → ADME TAB · SAMPLE INSTANCE · AS BUILT"
+    trim: [start, end]
+    xfade: 0.8
+    zoom:
+      - { at: a2 + 0.2, until: a3 + 0.9, over: 0.9, box: [30, 300, 1320, 742] }
+      - { at: a3 + 0.9, until: a4 + 0.2, over: 0.7, box: [20, 0, 960, 540] }
+  - id: f-why
+    source: raw/f-why.mp4
+    marks: source/f-why-marks.json
+    frame: viewport
+    label: "GUIDE P.3 → WHY 401/403 · SAMPLE INSTANCE · AS BUILT"
+    trim: [start, end - 0.6]
+    zoom:
+      - { at: b2 + 2.6, until: b3 + 0.4, over: 0.9, box: [1190, 250, 730, 411] }
+      - { at: b3 + 0.4, until: end + 5, over: 0.8, box: [1190, 300, 730, 411] }
+  - id: f-seismic
+    source: raw/f-seismic.mp4
+    marks: source/f-seismic-marks.json
+    frame: viewport
+    label: "GUIDE P.5 → SEISMIC · SAMPLE INSTANCE · AS BUILT"
+    trim: [start, end - 0.6]
+    zoom:
+      - { at: d3 + 4.3, until: d4, over: 0.9, box: [1190, 120, 730, 411] }
+      - { at: d4, until: end + 5, over: 0.8, box: [1190, 669, 730, 411] }
+  - id: f-data
+    source: raw/f-data.mp4
+    marks: source/f-data-marks.json
+    frame: viewport
+    label: "NOT IN THE GUIDE → DATA · SAMPLE INSTANCE · AS BUILT"
+    trim: [start, end - 0.6]
+    zoom:
+      - { at: e2 + 3.4, until: end + 5, over: 0.9, box: [0, 0, 1280, 720] }
+  - { id: b-outro, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [outro, outro.end], xfade: 0.8 }
+
+cards:
+  - { kind: figtag, text: "FIELD TRIAL · ADME INTEROP", top: 92 }
+  - { kind: sheet, text: "TRIAL · ALPHA", series: "FIELD TRIALS · OSDU #SIG-INTEROP", from: 4.2 }
+
+lines:
+  - { id: o1, scene: open, at: 1.9, text: "On paper, it works." }
+  - { id: i1, scene: b-intro, at: i1, caption: false, text: "Field trial. ADME Interop.", ssml: "Field trial. Ad Me interop." }
+  - { id: i2, scene: b-intro, at: i2, caption: false, text: "A 15% project. Can AI agents do real work on a real, shared platform?",
+      ssml: "A fifteen percent project. Can AI agents do real work, on a real, shared platform?" }
+  - { id: i3, scene: b-intro, at: i3, caption: false, text: "So start with one question. Who has access right now?" }
+  - { id: n1, scene: b-guide, at: n1, text: "This is the access guide for one ADME instance, shared by about a dozen companies.",
+      ssml: "This is the access guide for one Ad Me instance, shared by about a dozen companies." }
+  - { id: n2, scene: b-guide, at: n2, text: "Every time someone is invited or gets a grant, it's rebuilt, and sent to everyone again." }
+  - { id: n2b, scene: b-guide, at: n2b, text: "And again." }
+  - { id: n3, scene: b-platform, at: n3, text: "It's one platform, and every company on it tests its systems against the same data." }
+  - { id: n4, scene: b-pages, at: n4, text: "The guide does real work. How to connect. What each role can do. What a 401 means.",
+      ssml: "The guide does real work. How to connect. What each role can do. What a four oh one means." }
+  - { id: n5, scene: b-pages, at: n5, text: "Then three pages that are never true for long." }
+  - { id: n6, scene: b-pages, at: n6, text: "Who has access, who can reach which seismic subproject, and which object id is which person.",
+      ssml: "Who has access, who can reach which seismic subproject, and which object I D is which person." }
+  - { id: n7, scene: b-hand, at: n7, text: "Those pages come from Azure CLI calls, Graph queries and scripts, put together by hand.",
+      ssml: "Those pages come from Azure C L I calls, Graph queries and scripts, put together by hand." }
+  - { id: n8, scene: b-hand, at: n8, text: "By the time the guide lands in an inbox, it's already behind." }
+  - { id: n9, scene: b-hand, at: n9, text: "So when a partner asks if they have access yet, someone stops and checks by hand." }
+  - { id: w1, scene: b-wrong, at: w1, text: "So why not point an AI model at the APIs and let it answer?" }
+  - { id: w2, scene: b-wrong, at: w2, text: "Because the platform makes it easy to be confidently wrong." }
+  - { id: w3, scene: b-wrong, at: w3, text: "A search missing one parenthesis comes back 200. Zero results, no error.",
+      ssml: "A search missing one parenthesis comes back two hundred. Zero results, no error." }
+  - { id: w4, scene: b-wrong, at: w4, text: "Count every record of a big kind, and it stops at 10,000 without saying so.",
+      ssml: "Count every record of a big kind, and it stops at ten thousand without saying so." }
+  - { id: w5, scene: b-wrong, at: w5, text: "And no model should invite anyone without a dry run." }
+  - { id: w6, scene: b-wrong, at: w6, text: "A smarter model isn't the fix. It needs better ground to stand on." }
+  - { id: r1, scene: b-rig, at: r1, text: "So, three pieces." }
+  - { id: r2, scene: b-rig, at: r2, text: "A workbench for agents, running on one machine. That's Keelson. It keeps the record, runs workflows with approval gates, and serves its tools over MCP." }
+  - { id: r3, scene: b-rig, at: r3, text: "A rib, bolted onto it, that knows this ADME instance: its people, its data, its seismic subprojects.",
+      ssml: "A rib, bolted onto it, that knows this Ad Me instance: its people, its data, its seismic subprojects." }
+  - { id: r4, scene: b-rig, at: r4, text: "And an MCP server that knows OSDU itself, so an agent gets bounded answers that say how sure they are.",
+      ssml: "And an MCP server that knows O S D U itself, so an agent gets bounded answers that say how sure they are." }
+  - { id: r5, scene: b-rig, at: r5, text: "One tool runs today. Four more are in work." }
+  - { id: r6, scene: b-rig, at: r6, text: "Next, the guide comes apart, page by page." }
+  - { id: a1, scene: f-access, at: a1, text: "Page four. Who has access." }
+  - { id: a2, scene: f-access, at: a2, text: "Here it's measured, not written. Thirty-two people from twelve companies, and how far each one got." }
+  - { id: a3, scene: f-access, at: a3, text: "Twenty-nine accepted. Only three have made a data call. That's who to follow up with." }
+  - { id: a4, scene: f-access, at: a4, text: "Measured a minute ago, not on the day the PDF went out." }
+  - { id: b1, scene: f-why, at: b1, text: "Page three is troubleshooting. So, why does Rachel get a 401?",
+      ssml: "Page three is troubleshooting. So, why does Rachel get a four oh one?" }
+  - { id: b2, scene: f-why, at: b2, text: "The rib runs the platform's checks in the order it applies them. She's an editor, but she isn't in users@, so every call stops there.",
+      ssml: "The rib runs the platform's checks in the order it applies them. She's an editor, but she isn't in users at, so every call stops there." }
+  - { id: b3, scene: f-why, at: b3, text: "The fix is one change, and there's a note ready to send her." }
+  - { id: d1, scene: f-seismic, at: d1, text: "Page five. Who can reach which seismic subproject." }
+  - { id: d2, scene: f-seismic, at: d2, text: "Thirteen subprojects. Two are open to anyone with a data role. One has no members at all." }
+  - { id: d3, scene: f-seismic, at: d3, text: "Give Lena viewer on alpha, and it's a dry run first: the exact calls, and what will change." }
+  - { id: d4, scene: f-seismic, at: d4, text: "Nothing is written until someone applies it." }
+  - { id: e1, scene: f-data, at: e1, text: "And the guide never said what data the instance holds. The tab does." }
+  - { id: e2, scene: f-data, at: e2, text: "1.28 million records under four legal tags. One expires in twenty-two days, four days before the pilot pass ends.",
+      ssml: "One point two eight million records under four legal tags. One expires in twenty-two days, four days before the pilot pass ends." }
+  - { id: c1, scene: b-outro, at: c1, text: "Agents propose. People approve. And every answer says how sure it is." }
+  - { id: c2, scene: b-outro, at: c2, text: "That's the alpha. The next revision lands when the next piece works." }
+  - { id: s1, scene: close, at: 2.2, text: "Field trials. On paper, it works. In the field, it has to." }

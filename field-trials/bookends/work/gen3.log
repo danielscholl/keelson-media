@@ -1,0 +1,17 @@
+15:32:47 start G-open.remix -> takes/G-open-r1.mp4
+job video_6ac94f7207608190bb360b50bb61ad42
+takes/G-open-r1.mp4
+15:33:48 done takes/G-open-r1.mp4
+15:33:48 start G-close.remix -> takes/G-close-r1.mp4
+job video_6ac94faf1bf48190b72f96799856b4ec
+takes/G-close-r1.mp4
+15:34:46 done takes/G-close-r1.mp4
+15:34:46 start G-open -> takes/G-open-1.mp4
+job video_6ac94fe7e43881909e1b43cf5d829edc
+takes/G-open-1.mp4
+15:35:45 done takes/G-open-1.mp4
+15:35:45 start G-close -> takes/G-close-1.mp4
+job video_6ac9502383188190b1c4df358fe604c0
+takes/G-close-1.mp4
+15:37:27 done takes/G-close-1.mp4
+ALLDONE

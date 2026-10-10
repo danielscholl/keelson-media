@@ -1,0 +1,3 @@
+model: sora-2, 4s, 1280x720
+
+Macro dolly shot across a drafting table in warm late-afternoon light. A long cylindrical rock core sample is the subject, lying lengthwise across the frame in sharp focus on a pale blue-white blueprint sheet, filling the lower half of the frame; the stone is banded in clear layers of grey, sand and dark brown. Faint navy cross-section lines on the paper beneath it run parallel to the bands. No tools, no instruments, nothing else on the sheet. The camera glides slowly along the core from one end toward the other and comes to rest. Calm, precise, quietly crafted, shallow depth of field, palette of navy, brass and off-white. The last second is calm and still. No people, no hands, no text, no letters, no numbers, no logos.

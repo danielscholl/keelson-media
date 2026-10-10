@@ -1,0 +1,3 @@
+model: sora-2, 4s, 1280x720
+
+Slow pull-back from directly above a pale blue-white blueprint sheet pinned flat on a dark wooden drafting table at dusk. On the sheet, twelve navy ink lines run in from its edges to a brass circle at the center, and small points of warm brass light travel steadily along every line toward the center, like signals arriving. As the camera rises, a brass desk lamp, a pair of brass dividers and a mechanical pencil come into frame beside the sheet; behind, a soft out-of-focus window wash of evening blue. Calm, crafted, quietly satisfying, muted navy and brass color grade. The pull-back eases to a stop and the last second is calm. No people, no hands, no text, no letters, no numbers, no logos.
