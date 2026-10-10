@@ -20,7 +20,9 @@ fig: "04"
 title: First workflow
 act: II                       # the sheet card reads SHEET 04 · ACT II
 voice: en-US-Harper:MAI-Voice-2.1
-bookends: { open: lay-the-keel, close: raise-the-ribs }   # assets/bookends/{open,close}-<name>.mp4; omit for none
+style: happy                  # optional mstts:express-as style (Ethan and Harper take styles)
+max_pause: 0.55               # optional: shorten pauses inside a line before word timing
+bookends: { open: lay-the-keel, close: raise-the-ribs }   # assets/bookends/{open,close}-<name>.mp4; omit for none; xfade sets the dissolve into the closer (s)
 crossfade: 0.5                # default; a scene's xfade overrides the fade into it
 captions: true                # burned-in captions for scene lines (bookend lines never get one)
 caption_tone: light           # light (the plate's panel) or dark

@@ -1,7 +1,8 @@
 // The one card renderer: every overlay a short uses, in the docs blueprint palette and type.
 // Usage: node cards.mjs <spec.json>   spec = { "out": dir, "cards": [{ "file", "kind", ... }] }
 // Kinds: viewport (sheet + header + frame behind demo footage), figtag, sheet (closer title block),
-// caption, callout, open-title and close-card (the shared bookends; rebuilt by assets/bookends/source/bookends.sh).
+// caption, callout, open-title and close-card (the shared bookends; rebuilt by assets/bookends/source/bookends.sh),
+// field-open and field-close (the Field Trials bookends; assets/bookends/source/field-trials.py).
 import { chromium } from "playwright";
 import { readFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
@@ -17,6 +18,7 @@ linear-gradient(rgba(30,58,95,.028) 1px,transparent 1px) 0 0/18px 18px,linear-gr
 radial-gradient(circle at 74% 0%,rgba(255,255,255,.9),transparent 700px),linear-gradient(180deg,#f3f5f8 0%,#e6eaf0 100%)}
 .crop{position:absolute;width:26px;height:26px;border:0 solid rgba(30,58,95,.5)}</style>`;
 const mark = (rib, s = 56) => `<svg width="${s}" height="${s}" viewBox="0 0 34 34" fill="none"><line x1="11.5" y1="7" x2="11.5" y2="27" stroke="${rib}" stroke-width="2" stroke-linecap="round"/><line x1="22.5" y1="7" x2="22.5" y2="27" stroke="${rib}" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="20" x2="29" y2="20" stroke="${C.brass}" stroke-width="2.6" stroke-linecap="round"/></svg>`;
+const bench = (c, s = 56) => `<svg width="${s}" height="${s}" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="9" stroke="${c}" stroke-width="2"/><line x1="15" y1="2" x2="15" y2="28" stroke="${c}" stroke-width="1.6"/><line x1="2" y1="15" x2="28" y2="15" stroke="${c}" stroke-width="1.6"/><circle cx="15" cy="15" r="3" fill="${C.brass}"/></svg>`;
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
 
 const kinds = {
@@ -29,10 +31,10 @@ const kinds = {
       <div style="display:flex;align-items:center;gap:16px">${mark(C.keel, 30)}<span>${header}</span></div><span style="color:${C.muted}">${esc(label)}</span></div>
     <div style="position:absolute;left:${x - 8}px;top:${y - 8}px;width:${w + 16}px;height:${h + 16}px;border:2px solid ${C.keel};background:#0d1429"></div>`,
 
-  figtag: ({ text }) => `<div class="mono" style="position:absolute;right:140px;top:104px;padding:12px 22px;background:${C.keel};color:#fff;font-size:24px;font-weight:700;letter-spacing:.18em">${esc(text)}</div>`,
+  figtag: ({ text, top = 104 }) => `<div class="mono" style="position:absolute;right:140px;top:${top}px;padding:12px 22px;background:${C.keel};color:#fff;font-size:24px;font-weight:700;letter-spacing:.18em">${esc(text)}</div>`,
 
-  sheet: ({ text, title = "" }) => `<div class="mono" style="position:absolute;right:96px;bottom:72px;min-width:440px;background:rgba(243,245,248,.94);border:2px solid ${C.keel};color:${C.keel}">
-    <div style="padding:10px 20px;border-bottom:1.5px solid rgba(30,58,95,.45);font-size:16px;letter-spacing:.24em;color:${C.muted}">KEELSON · THE SERIES</div>
+  sheet: ({ text, title = "", series = "KEELSON · THE SERIES" }) => `<div class="mono" style="position:absolute;right:96px;bottom:72px;min-width:440px;background:rgba(243,245,248,.94);border:2px solid ${C.keel};color:${C.keel}">
+    <div style="padding:10px 20px;border-bottom:1.5px solid rgba(30,58,95,.45);font-size:16px;letter-spacing:.24em;color:${C.muted}">${esc(series)}</div>
     <div style="padding:14px 20px 4px;font-size:32px;font-weight:700;letter-spacing:.16em">${esc(text)}</div>
     <div style="padding:0 20px 14px;font-size:18px;letter-spacing:.2em;color:${C.brassInk}">${esc(title.toUpperCase())}</div></div>`,
 
@@ -64,6 +66,24 @@ const kinds = {
     <div class="mono" style="margin-top:46px;align-self:flex-start;padding:22px 30px;background:rgba(15,27,45,.92);border:1px solid rgba(181,128,58,.55);font-size:24px;color:#dfe6f0;white-space:nowrap">
       <span style="color:${C.brass}">$</span> curl -fsSL https://github.com/danielscholl/keelson/releases/latest/download/install.sh | sh</div>
     <div class="mono" style="margin-top:36px;font-size:28px;letter-spacing:.06em;color:#b9c6d8">danielscholl.github.io/keelson</div></div>`,
+
+  blank: () => `<div class="sheet"></div>
+    <div class="crop" style="left:40px;top:14px;border-left-width:2px;border-top-width:2px"></div>
+    <div class="crop" style="right:40px;top:14px;border-right-width:2px;border-top-width:2px"></div>
+    <div class="crop" style="left:40px;bottom:14px;border-left-width:2px;border-bottom-width:2px"></div>
+    <div class="crop" style="right:40px;bottom:14px;border-right-width:2px;border-bottom-width:2px"></div>`,
+
+  "field-open": ({ title = "On paper, it works." }) => `<div style="position:absolute;left:140px;top:92px;color:${C.keel}">
+    <div class="brand">${bench(C.keel)}FIELD TRIALS</div>
+    <div class="h1" style="margin-top:26px;font-size:72px">${esc(title)}</div>
+    <div class="rule" style="margin-top:24px"></div></div>`,
+
+  "field-close": ({ lead = "On paper, it works.", lines = ["In the field,", "it has to."] }) => `<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,27,45,.93) 0,rgba(15,27,45,.86) 46%,rgba(15,27,45,0) 74%)"></div>
+    <div style="position:absolute;left:140px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;color:${C.paper}">
+    <div class="brand">${bench("#dfe6f0")}FIELD TRIALS</div>
+    <div class="h1" style="margin-top:40px;font-size:34px;letter-spacing:.2em;color:#b9c6d8">${esc(lead)}</div>
+    <div class="h1" style="margin-top:16px;font-size:92px">${lines.map(esc).join("<br>")}</div>
+    <div class="rule" style="margin-top:34px"></div></div>`,
 };
 
 const b = await chromium.launch({ channel: "chrome" });

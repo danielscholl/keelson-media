@@ -4,6 +4,8 @@
 Usage: tts.py <short-dir or short.yaml or script.json> [--only n3,n6 | --changed] [--align-only] [--voice ...] [--style ...]
 Lines come from short.yaml `lines` (or a script.json list): {"id", "text", optional "ssml", "voice", "style"}.
 "style" (or a top-level `style:`) wraps the line in mstts:express-as; on MAI voices only Ethan and Harper take one.
+`max_pause:` (or --max-pause) shortens any pause inside a line to that many seconds and trims the ends,
+before the words are timed; it is idempotent, so --align-only applies it to existing WAVs.
 "ssml" replaces the <voice> body verbatim when a line needs a respelling, phonemes, or breaks; "text"
 stays what the captions and the word times use.
 Writes narr/<id>.wav, narr/durations.json, and narr/words.json ({id: [[word, start, end], ...]}).
@@ -37,6 +39,7 @@ p.add_argument("--changed", action="store_true")
 p.add_argument("--mark", action="store_true")
 p.add_argument("--voice")
 p.add_argument("--style")
+p.add_argument("--max-pause", type=float)
 p.add_argument("--region", default=os.environ.get("AZURE_AI_REGION", "eastus2"))
 p.add_argument("--resource", default=os.environ.get("AZURE_AI_RESOURCE"))
 p.add_argument("--group", default=os.environ.get("AZURE_AI_GROUP"))
@@ -49,8 +52,9 @@ if src.endswith((".yaml", ".yml")):
     import yaml
     man = yaml.safe_load(open(src))
     lines, voice, style = man["lines"], a.voice or man.get("voice"), a.style or man.get("style")
+    max_pause = a.max_pause or man.get("max_pause")
 else:
-    lines, voice, style = json.load(open(src)), a.voice, a.style
+    lines, voice, style, max_pause = json.load(open(src)), a.voice, a.style, a.max_pause
 voice = voice or "en-US-Harper:MAI-Voice-2.1"
 only = set(filter(None, a.only.split(",")))
 narr = os.path.join(root, "narr")
@@ -116,6 +120,40 @@ def transcribe(path):
             for ph in d.get("phrases", []) for w in ph.get("words", [])]
 
 
+def tighten(path, cap, lead=0.1, tail=0.15, floor_db=-42.0, hop=0.01):
+    import wave
+    import numpy as np
+    with wave.open(path) as w:
+        params, sr = w.getparams(), w.getframerate()
+        x = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32)
+    n = int(sr * hop)
+    m = len(x) // n
+    loud = 20 * np.log10(np.sqrt((x[:m * n].reshape(m, n) ** 2).mean(1)) / 32768 + 1e-9) > floor_db
+    if not loud.any():
+        return
+    first, last = int(np.argmax(loud)), m - 1 - int(np.argmax(loud[::-1]))
+    segs, cur, j = [], max(0, first * n - int(lead * sr)), first
+    while j <= last:
+        if loud[j]:
+            j += 1
+            continue
+        k = j
+        while k <= last and not loud[k]:
+            k += 1
+        if (k - j) * hop > cap:
+            segs.append((cur, j * n + int(cap / 2 * sr)))
+            cur = k * n - int(cap / 2 * sr)
+        j = k
+    segs.append((cur, min(len(x), (last + 1) * n + int(tail * sr))))
+    fade, out = int(0.01 * sr), x[segs[0][0]:segs[0][1]]
+    for s, e in segs[1:]:
+        ramp = np.linspace(0, 1, fade)
+        out = np.concatenate([out[:-fade], out[-fade:] * (1 - ramp) + x[s:s + fade] * ramp, x[s + fade:e]])
+    with wave.open(path, "wb") as w:
+        w.setparams(params)
+        w.writeframes(np.clip(out, -32768, 32767).astype(np.int16).tobytes())
+
+
 norm = lambda w: re.sub(r"[^a-z0-9]", "", w.lower())
 
 
@@ -150,6 +188,8 @@ for line in lines:
     if not a.align_only:
         synth(line, path)
         takes[line["id"]] = take_of(line)
+    if max_pause:
+        tighten(path, float(max_pause))
     d = probe(path)
     durations[line["id"]] = round(d, 3)
     words[line["id"]], missed = align(line["text"], transcribe(path), d)

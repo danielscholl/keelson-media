@@ -56,7 +56,8 @@ for s in M["scenes"]:
     if not s.get("cold"):
         segs.append({**s, "source": here(s["source"])})
 if book.get("close"):
-    segs.append({"id": "close", "source": f"{LIB}/assets/bookends/close-{book['close']}.mp4", "frame": "full", "bookend": True})
+    segs.append({"id": "close", "source": f"{LIB}/assets/bookends/close-{book['close']}.mp4", "frame": "full", "bookend": True,
+                 **({"xfade": book["xfade"]} if "xfade" in book else {})})
 by_id = {s["id"]: s for s in segs}
 
 for s in segs:
@@ -136,7 +137,8 @@ render = [figtag, sheet]
 for s in segs:
     if s.get("frame") == "viewport":
         render.append({"kind": "viewport", "file": f"viewport-{s['id']}.png", "rect": VP,
-                       "header": f"<b>KEELSON</b> &nbsp;·&nbsp; FIG. {fig} &nbsp;·&nbsp; {title.upper()}", "label": s.get("label", "")})
+                       "header": M.get("viewport_header", f"<b>KEELSON</b> &nbsp;·&nbsp; FIG. {fig} &nbsp;·&nbsp; {title.upper()}"),
+                       "label": s.get("label", "")})
 tone = M.get("caption_tone", "light")
 for k, ln in enumerate(lines):
     if not ln["caption"]:

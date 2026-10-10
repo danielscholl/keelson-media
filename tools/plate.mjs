@@ -1,6 +1,6 @@
 // Render a short's plate boards (motion graphics on the blueprint sheet) to one video.
 // Usage: node plate.mjs <short-dir> [--only t1,t2,...]   (--only writes PNG stills to raw/plate-stills for checking)
-// short.yaml `plate`: { html, out, boards: [{ id, lines: [ids], lead, gap, tail }] }. Each board lasts
+// short.yaml `plate`: { html, out, boards: [{ id, lines: [ids], lead, gap, gaps: { lineId: s }, tail }] }. Each board lasts
 // lead + its lines (with gap between) + tail, so narration sets the pacing. The page gets
 // window.setup(T, words) and must build a paused GSAP timeline on window.tl; T[board] = { s, e, lines: { id: { n, d } } }
 // in plate seconds, words[id] = [[word, start, end], ...] relative to the line. Writes source/plate-marks.json
@@ -26,7 +26,7 @@ for (const b of M.plate.boards) {
   let n = s + (b.lead ?? 0.6);
   const lines = {};
   for (const [k, id] of b.lines.entries()) {
-    if (k) n += b.gap ?? 0.6;
+    if (k) n += b.gaps?.[id] ?? b.gap ?? 0.6;
     lines[id] = { n: +n.toFixed(3), d: dur[id] };
     marks[id] = +n.toFixed(3);
     n += dur[id];

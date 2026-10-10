@@ -1,0 +1,5 @@
+{ "out": "cards", "cards": [
+  { "file": "field-sheet.png", "kind": "blank" },
+  { "file": "field-open.png", "kind": "field-open", "title": "On paper, it works." },
+  { "file": "field-close.png", "kind": "field-close", "lead": "On paper, it works.", "lines": ["In the field,", "it has to."] }
+] }
