@@ -213,5 +213,45 @@
   "1.28 million records under four legal tags. One expires in twenty-two days, four days before the pilot pass ends.",
   "One point two eight million records under four legal tags. One expires in twenty-two days, four days before the pilot pass ends.",
   "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "g1": [
+  "Every panel has an explore button.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "g2": [
+  "It opens a chat that starts from what the panel measured.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "g3": [
+  "Ask for this week's partner update, and the agent writes it as a page.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "g4": [
+  "Same numbers as the panel. And where they don't add up, it says so before anyone sends it.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "p1": [
+  "Agents outside Keelson can ask the platform too. Here, GitHub Copilot calls the MCP server.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "p2": [
+  "Its first tool answers two questions. Who am I here? And is each service up?",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "p3": [
+  "Audit isn't set up on this one, and the answer says so instead of leaving it out.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "p4": [
+  "This scene is drawn. The tool passes its checks offline. Live sign-in is next, then four more tools.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
  ]
 }

@@ -21,6 +21,7 @@ field-trials/**/raw/
 field-trials/**/build/filter.txt
 field-trials/**/build/cards.json
 field-trials/**/build/*.png
+field-trials/**/build/*.log
 field-trials/bookends/work/qa-*.png
 field-trials/bookends/review/
 __pycache__/

@@ -155,14 +155,46 @@ And the guide never said what data the instance holds. The tab does.
 1.28 million records under four legal tags. One expires in twenty-two days, four days before the pilot pass ends.
 
 40
-00:03:49,400 --> 00:03:55,300
-Agents propose. People approve. And every answer says how sure it is.
+00:03:49,000 --> 00:03:51,020
+Every panel has an explore button.
 
 41
-00:03:56,000 --> 00:04:00,302
-That's the alpha. The next revision lands when the next piece works.
+00:03:51,603 --> 00:03:54,623
+It opens a chat that starts from what the panel measured.
 
 42
-00:04:04,702 --> 00:04:10,842
+00:03:56,040 --> 00:04:00,180
+Ask for this week's partner update, and the agent writes it as a page.
+
+43
+00:04:03,602 --> 00:04:09,470
+Same numbers as the panel. And where they don't add up, it says so before anyone sends it.
+
+44
+00:04:10,077 --> 00:04:17,001
+Agents outside Keelson can ask the platform too. Here, GitHub Copilot calls the MCP server.
+
+45
+00:04:17,501 --> 00:04:23,225
+Its first tool answers two questions. Who am I here? And is each service up?
+
+46
+00:04:23,725 --> 00:04:28,379
+Audit isn't set up on this one, and the answer says so instead of leaving it out.
+
+47
+00:04:29,179 --> 00:04:35,993
+This scene is drawn. The tool passes its checks offline. Live sign-in is next, then four more tools.
+
+48
+00:04:38,093 --> 00:04:43,993
+Agents propose. People approve. And every answer says how sure it is.
+
+49
+00:04:44,693 --> 00:04:48,995
+That's the alpha. The next revision lands when the next piece works.
+
+50
+00:04:53,395 --> 00:04:59,535
 Field trials. On paper, it works. In the field, it has to.
 

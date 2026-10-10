@@ -47,9 +47,9 @@
     <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="9" stroke="#1e3a5f" stroke-width="2"/><line x1="15" y1="2" x2="15" y2="28" stroke="#1e3a5f" stroke-width="1.6"/><line x1="2" y1="15" x2="28" y2="15" stroke="#1e3a5f" stroke-width="1.6"/><circle cx="15" cy="15" r="3" fill="#b5803a"/></svg>
     <span><b>OSDU</b> &nbsp;·&nbsp; FIELD TRIAL &nbsp;·&nbsp; ADME INTEROP</span>
   </div>
-  <div id="boardName"><span id="bn-intro">THE QUESTION</span><span id="bn-outro">TRIAL REPORT</span><span id="bn-guide">THE GUIDE</span><span id="bn-platform">ONE INSTANCE</span><span id="bn-pages">SEVEN PAGES</span><span id="bn-hand">BY HAND</span><span id="bn-wrong">CONFIDENT AND WRONG</span><span id="bn-rig">THE RIG</span></div>
+  <div id="boardName"><span id="bn-intro">THE QUESTION</span><span id="bn-outro">TRIAL REPORT</span><span id="bn-guide">THE GUIDE</span><span id="bn-platform">ONE INSTANCE</span><span id="bn-pages">SEVEN PAGES</span><span id="bn-hand">BY HAND</span><span id="bn-wrong">CONFIDENT AND WRONG</span><span id="bn-rig">THE RIG</span><span id="bn-ask">ASK THE PLATFORM</span></div>
 </div>
-<div id="titleblock"><div class="strand">ADME INTEROP</div><div class="rev">REV 0</div><div class="status">PLATE</div></div>
+<div id="titleblock"><div class="strand">ADME INTEROP</div><div class="rev">REV 0</div><div class="status" id="tb-status"><span id="tb-plate">PLATE</span><span id="tb-work" style="display:none">IN WORK</span></div></div>
 <div id="powered"><span>POWERED BY</span><svg width="20" height="20" viewBox="0 0 34 34" fill="none"><line x1="11.5" y1="7" x2="11.5" y2="27" stroke="#1e3a5f" stroke-width="2.4" stroke-linecap="round"/><line x1="22.5" y1="7" x2="22.5" y2="27" stroke="#1e3a5f" stroke-width="2.4" stroke-linecap="round"/><line x1="5" y1="20" x2="29" y2="20" stroke="#b5803a" stroke-width="3" stroke-linecap="round"/></svg><b>KEELSON</b></div>
 
 <svg id="stage" viewBox="0 0 1920 1080" width="1920" height="1080" style="position:absolute;inset:0">
@@ -345,6 +345,55 @@
     </g>
     <g id="r-guide"></g>
   </g>
+  <!-- ASK THE PLATFORM: drawn from the osdu_about contract, not yet run live -->
+  <g id="ask" opacity="0">
+    <g id="k-term" opacity="0">
+      <rect x="150" y="112" width="1090" height="640" rx="14" fill="#0d1429"/>
+      <path d="M150,160 L150,126 Q150,112 164,112 L1226,112 Q1240,112 1240,126 L1240,160 Z" fill="#1a2645"/>
+      <circle cx="182" cy="136" r="7" fill="#3a4767"/><circle cx="206" cy="136" r="7" fill="#3a4767"/><circle cx="230" cy="136" r="7" fill="#3a4767"/>
+      <text x="262" y="142" class="mono" font-size="18" fill="#9fb0c8">GitHub Copilot CLI</text>
+      <text x="1214" y="142" text-anchor="end" class="mono" font-size="15" font-weight="700" letter-spacing="2" fill="#e0b070">DRAWN FROM THE CONTRACT</text>
+    </g>
+    <text id="k-prompt" x="186" y="216" class="mono" font-size="24" xml:space="preserve" style="white-space:pre" fill="#dfe6f0"><tspan fill="#e0b070">&gt; </tspan><tspan id="k-promptText"></tspan></text>
+    <text id="k-call1" x="186" y="276" class="mono" font-size="24" xml:space="preserve" style="white-space:pre" fill="#7fb6ea" opacity="0">● osdu · osdu_about  <tspan fill="#9fb0c8">topic: identity</tspan></text>
+    <g id="k-id" opacity="0" fill="#9fb0c8">
+      <text x="186" y="312" class="mono" font-size="24" xml:space="preserve" style="white-space:pre">  └ effectiveCaller  <tspan fill="#dfe6f0">operator@cimpl.example</tspan></text>
+      <text x="186" y="348" class="mono" font-size="24" xml:space="preserve" style="white-space:pre">    reachability     <tspan fill="#5cc28a" font-weight="700">reachable</tspan></text>
+    </g>
+    <text id="k-call2" x="186" y="406" class="mono" font-size="24" xml:space="preserve" style="white-space:pre" fill="#7fb6ea" opacity="0">● osdu · osdu_about  <tspan fill="#9fb0c8">topic: health</tspan></text>
+    <g fill="#9fb0c8">
+      <text id="k-d1" x="186" y="442" class="mono" font-size="24" xml:space="preserve" style="white-space:pre" opacity="0">  └ search       <tspan fill="#5cc28a" font-weight="700">enabled</tspan></text>
+      <text id="k-d2" x="186" y="478" class="mono" font-size="24" xml:space="preserve" style="white-space:pre" opacity="0">    indexer      <tspan fill="#5cc28a" font-weight="700">enabled</tspan></text>
+      <text id="k-d3" x="186" y="514" class="mono" font-size="24" xml:space="preserve" style="white-space:pre" opacity="0">    storage      <tspan fill="#5cc28a" font-weight="700">enabled</tspan></text>
+      <text id="k-d4" x="186" y="550" class="mono" font-size="24" xml:space="preserve" style="white-space:pre" opacity="0">    accounting   <tspan fill="#5cc28a" font-weight="700">enabled</tspan></text>
+      <text id="k-d5" x="186" y="586" class="mono" font-size="24" xml:space="preserve" style="white-space:pre" opacity="0">    audit        <tspan fill="#e0b070" font-weight="700">not_configured</tspan></text>
+    </g>
+    <rect id="k-auditBox" x="0" y="560" width="0" height="38" rx="6" fill="none" stroke="#b5803a" stroke-width="3" opacity="0"/>
+    <g font-size="25" fill="#dfe6f0">
+      <text id="k-a1" x="186" y="644" opacity="0">You're signed in as operator@cimpl.example, and the platform answered.</text>
+      <text id="k-a2" x="186" y="680" opacity="0">Search, indexer, storage and accounting are up.</text>
+      <text id="k-a3" x="186" y="716" opacity="0"><tspan fill="#e0b070" font-weight="600">Audit isn't configured on this deployment.</tspan></text>
+    </g>
+
+    <g id="k-mcp" opacity="0">
+      <rect x="1300" y="112" width="470" height="370" rx="14" fill="rgba(255,255,255,.95)" stroke="#2f6fb0" stroke-width="3"/>
+      <text x="1334" y="166" class="mono" font-size="20" font-weight="700" letter-spacing="3" fill="#2f6fb0">OSDU MCP SERVER</text>
+      <text x="1334" y="196" class="mono" font-size="17" fill="#51607a">one tool registered</text>
+    </g>
+    <g id="k-tools"></g>
+    <path id="k-wire" class="draw" pathLength="1" d="M1240,268 C1272,268 1290,248 1332,248" fill="none" stroke="#2f8f5b" stroke-width="3" opacity="0"/>
+
+    <g id="k-status" opacity="0">
+      <rect x="1300" y="510" width="470" height="242" rx="14" fill="rgba(255,255,255,.95)" stroke="#97a3b4" stroke-width="2"/>
+      <text x="1334" y="554" class="mono" font-size="17" letter-spacing="3" fill="#51607a">WHERE IT STANDS</text>
+    </g>
+    <g id="k-steps"></g>
+
+    <g id="k-stamp" opacity="0" transform="translate(1070,712) rotate(-6)">
+      <rect x="-130" y="-34" width="260" height="68" rx="6" fill="rgba(13,20,41,.85)" stroke="#b5803a" stroke-width="4"/>
+      <text x="0" y="12" text-anchor="middle" class="mono" font-size="32" font-weight="800" letter-spacing="5" fill="#e0b070">IN WORK</text>
+    </g>
+  </g>
 </svg>
 
 <script>
@@ -570,6 +619,24 @@ KMARK($("r-kName"), 204, 352, 1.3);
 el("text", { x: 256, y: 390, "font-size": 34, "font-weight": 300, "letter-spacing": 10, fill: C.keel }, $("r-kName"), "KEELSON");
 for (let k = 0; k < 22; k++) el("line", { x1: 524 + k * 40, y1: 552, x2: 504 + k * 40, y2: 576 }, $("w-hatch"));
 
+// ASK THE PLATFORM: the MCP server's tools and where they stand
+const kTools = TOOLS.map((t, k) => {
+  const x = k ? 1334 + ((k - 1) % 2) * 212 : 1334, y = k ? 300 + Math.floor((k - 1) / 2) * 58 : 226, live = k === 0;
+  const g = el("g", { opacity: 0 }, $("k-tools"));
+  el("rect", { x, y, width: live ? 260 : 200, height: 44, rx: 22, fill: live ? C.green : "#fff", stroke: live ? C.green : C.brass, "stroke-width": 2, ...(live ? {} : { "stroke-dasharray": "6 4" }) }, g);
+  el("text", { x: x + (live ? 130 : 100), y: y + 29, "text-anchor": "middle", class: "mono", "font-size": 19, "font-weight": 700, fill: live ? "#fff" : C.brassInk }, g, t);
+  gsap.set(g, { svgOrigin: `${x + (live ? 130 : 100)} ${y + 22}` });
+  return g;
+});
+const kLbl = [["REGISTERED", C.green, 1610, 254], ["IN WORK · NOT REGISTERED", C.brassInk, 1334, 452]].map(([t, col, x, y]) =>
+  el("text", { x, y, class: "mono", "font-size": 15, "font-weight": 700, "letter-spacing": 2, fill: col, opacity: 0 }, $("k-tools"), t));
+const kSteps = [["✓", "Checks pass offline", C.green], ["○", "Live sign-in on CIMPL · next", C.brassInk], ["○", "describe, resolve, find, read", C.brassInk]].map(([m, t, col], k) => {
+  const g = el("g", { opacity: 0 }, $("k-steps")), y = 610 + k * 50;
+  el("text", { x: 1336, y, class: "mono", "font-size": 22, "font-weight": 700, fill: col }, g, m);
+  el("text", { x: 1370, y, "font-size": 24, "font-weight": 500, fill: C.ink }, g, t);
+  return g;
+});
+
 // Set the origin while unscaled; GSAP offsets x/y when an origin changes on a scaled element.
 gsap.set([IB.top, OB.top], { svgOrigin: "360 214" });
 const CORNER = { x: 997, y: 635.6, scale: 0.3625 };
@@ -771,6 +838,51 @@ window.setup = (T, words) => {
     guideBits.forEach((g) => show(g, gd - 0.3, 0.3));
     const ca = W("r6", "comes apart");
     guideBits.forEach((g, k) => tl.to(g, { x: 900 + k * 52, y: 700 + ([3, 4, 5].includes(k) ? -8 : 0), duration: 0.6, ease: "power2.out" }, ca - 0.1 + k * 0.03));
+  }
+
+  // ASK THE PLATFORM
+  { const s = T.ask.s, L = T.ask.lines;
+    tl.set($("tb-plate"), { display: "none" }, s); tl.set($("tb-work"), { display: "inline" }, s);
+    tl.set($("tb-status"), { backgroundColor: C.brass }, s);
+    tl.set($("tb-plate"), { display: "inline" }, T.ask.e); tl.set($("tb-work"), { display: "none" }, T.ask.e);
+    tl.set($("tb-status"), { backgroundColor: C.muted }, T.ask.e);
+    show($("k-term"), s + 0.1, 0.45);
+    show($("k-mcp"), s + 0.35, 0.4); kTools.forEach((g, k) => tl.to(g, { opacity: k ? 0.45 : 1, duration: 0.3 }, s + 0.55 + k * 0.06));
+    show(kLbl[0], s + 0.7, 0.3); show(kLbl[1], s + 0.9, 0.3);
+    const Q = "Who am I on this platform, and is every service up?", typed = { v: 0 }, pt = $("k-promptText");
+    pt.textContent = "";
+    const ty = W("p1", "GitHub Copilot") - 0.1;
+    tl.to(typed, { v: Q.length, duration: 1.7, ease: "none", onUpdate: () => { pt.textContent = Q.slice(0, Math.round(typed.v)); } }, ty);
+    const ms = W("p1", "MCP server");
+    tl.to($("k-mcp").firstElementChild, { attr: { "stroke-width": 6 }, duration: 0.2, yoyo: true, repeat: 1 }, ms - 0.1);
+    const call = (g, at) => {
+      show(g, at, 0.25); draw($("k-wire"), at, 0.35);
+      tl.fromTo(kTools[0], { scale: 1.25 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, at + 0.2);
+    };
+    call($("k-call1"), W("p2", "first tool") - 0.1);
+    show($("k-id"), W("p2", "Who am I") - 0.1, 0.3);
+    call($("k-call2"), W("p2", "And is") - 0.2);
+    const es = W("p2", "each service");
+    ["k-d1", "k-d2", "k-d3", "k-d4", "k-d5"].forEach((id, k) => show($(id), es - 0.2 + k * 0.14, 0.2));
+    { const d = $("k-d5"), x0 = d.getStartPositionOfChar(4).x, x1 = d.getEndPositionOfChar(d.getNumberOfChars() - 1).x;
+      $("k-auditBox").setAttribute("x", x0 - 10); $("k-auditBox").setAttribute("width", x1 - x0 + 20); }
+    const au = W("p3", "Audit");
+    show($("k-auditBox"), au - 0.1, 0.3);
+    show($("k-a1"), au + 0.3, 0.3); show($("k-a2"), au + 0.6, 0.3);
+    show($("k-a3"), W("p3", "says so") - 0.15, 0.3);
+    tl.to($("k-auditBox"), { attr: { "stroke-width": 5 }, duration: 0.2, yoyo: true, repeat: 1 }, W("p3", "says so") - 0.15);
+    const dr = W("p4", "drawn");
+    show($("k-status"), L.p4.n - 0.3, 0.35);
+    tl.set($("k-stamp"), { opacity: 1, scale: 1.5, transformOrigin: "1070px 712px" }, dr - 0.05);
+    tl.to($("k-stamp"), { scale: 1, duration: 0.3, ease: "back.out(2)" }, dr - 0.05);
+    show(kSteps[0], W("p4", "passes") - 0.1, 0.3);
+    show(kSteps[1], W("p4", "Live") - 0.1, 0.3);
+    const fm = W("p4", "four more");
+    show(kSteps[2], fm - 0.1, 0.3);
+    kTools.slice(1).forEach((g, k) => {
+      tl.to(g, { opacity: 1, duration: 0.2 }, fm + k * 0.1);
+      tl.fromTo(g, { scale: 1.18 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, fm + k * 0.1);
+    });
   }
 
   const chrome = [$("header"), $("titleblock"), $("powered")];

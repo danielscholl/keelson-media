@@ -22,6 +22,7 @@ plate:
     - { id: hand, lines: [n7, n8, n9], lead: 0.5, gap: 0.6, tail: 1.6 }
     - { id: wrong, lines: [w1, w2, w3, w4, w5, w6], lead: 0.6, gap: 0.5, gaps: { w2: 0.3, w6: 0.9 }, tail: 1.4 }
     - { id: rig, lines: [r1, r2, r3, r4, r5, r6], lead: 0.6, gap: 0.5, gaps: { r5: 0.3, r6: 0.8 }, tail: 1.6 }
+    - { id: ask, lines: [p1, p2, p3, p4], lead: 0.7, gap: 0.5, gaps: { p4: 0.8 }, tail: 1.6 }
     - { id: outro, lines: [c1, c2], lead: 1.3, gap: 0.7, tail: 3.2 }
 
 scenes:
@@ -68,6 +69,33 @@ scenes:
     trim: [start, end - 0.6]
     zoom:
       - { at: e2 + 3.4, until: end + 5, over: 0.9, box: [0, 0, 1280, 720] }
+  - id: f-ask1
+    source: raw/f-ask.mp4
+    marks: source/f-ask-marks.json
+    frame: viewport
+    label: "PANEL → CHAT · GITHUB COPILOT · SAMPLE INSTANCE · AS BUILT"
+    trim: [g1 - 0.6, kdone + 0.6]
+    zoom:
+      - { at: g2 + 0.5, until: end + 60, over: 0.8, box: [380, 90, 1440, 810] }
+  - id: f-ask2
+    source: raw/f-ask.mp4
+    marks: source/f-ask-marks.json
+    frame: viewport
+    label: "PANEL → CHAT · GITHUB COPILOT · SAMPLE INSTANCE · AS BUILT"
+    trim: [g3 - 0.6, sent + 2.4]
+    xfade: 0.3
+    zoom:
+      - { at: start, until: end + 60, over: 0.1, box: [400, 270, 1440, 810] }
+  - id: f-ask3
+    source: raw/f-ask.mp4
+    marks: source/f-ask-marks.json
+    frame: viewport
+    label: "CHAT → PAGE · GITHUB COPILOT · SAMPLE INSTANCE · AS BUILT"
+    trim: [page - 0.2, pend]
+    xfade: 0.4
+    zoom:
+      - { at: page + 0.5, until: end + 60, over: 0.8, box: [240, 40, 1440, 810] }
+  - { id: b-ask, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [ask, ask.end], xfade: 0.8 }
   - { id: b-outro, source: raw/plate.mp4, marks: source/plate-marks.json, frame: full, trim: [outro, outro.end], xfade: 0.8 }
 
 cards:
@@ -126,6 +154,14 @@ lines:
   - { id: e1, scene: f-data, at: e1, text: "And the guide never said what data the instance holds. The tab does." }
   - { id: e2, scene: f-data, at: e2, text: "1.28 million records under four legal tags. One expires in twenty-two days, four days before the pilot pass ends.",
       ssml: "One point two eight million records under four legal tags. One expires in twenty-two days, four days before the pilot pass ends." }
+  - { id: g1, scene: f-ask1, at: g1, text: "Every panel has an explore button." }
+  - { id: g2, scene: f-ask1, at: g2, text: "It opens a chat that starts from what the panel measured." }
+  - { id: g3, scene: f-ask2, at: g3, text: "Ask for this week's partner update, and the agent writes it as a page." }
+  - { id: g4, scene: f-ask3, at: page + 2.4, text: "Same numbers as the panel. And where they don't add up, it says so before anyone sends it." }
+  - { id: p1, scene: b-ask, at: p1, text: "Agents outside Keelson can ask the platform too. Here, GitHub Copilot calls the MCP server." }
+  - { id: p2, scene: b-ask, at: p2, text: "Its first tool answers two questions. Who am I here? And is each service up?" }
+  - { id: p3, scene: b-ask, at: p3, text: "Audit isn't set up on this one, and the answer says so instead of leaving it out." }
+  - { id: p4, scene: b-ask, at: p4, text: "This scene is drawn. The tool passes its checks offline. Live sign-in is next, then four more tools." }
   - { id: c1, scene: b-outro, at: c1, text: "Agents propose. People approve. And every answer says how sure it is." }
   - { id: c2, scene: b-outro, at: c2, text: "That's the alpha. The next revision lands when the next piece works." }
   - { id: s1, scene: close, at: 2.2, text: "Field trials. On paper, it works. In the field, it has to." }

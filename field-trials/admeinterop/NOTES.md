@@ -45,3 +45,15 @@ that expires in 22 days, 4 days before the pilot pass ends).
 - Not yet filmed: Ask about it (explore into chat, canvas page) and Ask the platform (drawn, IN WORK).
 - Known: the Activity chart's y-axis shows fractional people (0.63, 1.3, 1.9); a "seis-read ✓" toast
   is dismissed before recording.
+
+## Act II: Ask about it, filmed live (2026-10-09)
+
+- One live take on the :7980 sample stage (`source/rec-ask.mjs`): ✦ on Organizations, the seeded chat, the typed ask "Draft this week's partner update from this panel as a page.", and the canvas page GitHub Copilot publishes. Marks log events (click, reply, send, page) rather than narration, and three scenes (`f-ask1..3`) cut the model's wait.
+- The dry run found the seed cut off: the board's indented JSON was 12.9 KB against a 6.8 KB cap, so the agent saw 6 of 12 organizations and said so. Fixed in keelson#1064 (compact JSON fence, 5.2 KB); the stage serves that build via `KEELSON_WEB_DIR=~/keelson/keelson-explore-seed/apps/web/dist` until it merges and releases.
+- `cursor.js` injects into the page's sandboxed iframe too, which leaves two cursors on the page. The recorder injects it in the top frame only and hides it once the page opens.
+- Takes are live AI output, so check every number before keeping one. Take 2 said "8 organizations have no active person" (it is 9; Pacrim Energy was left out). Take 3 is the one in the cut: "3 of 32 partner people are active; 9 of 12 organizations have none", and it flags that Baltica's bar counts one active while neither listed person is marked active. g4 is written to that ("where they don't add up, it says so"), so a reshoot needs the line checked against the new page.
+- Takes 1 and 2 are kept in `raw/scout3/`.
+
+## Act II: Ask the platform, drawn (2026-10-09)
+
+Still drawn, because the MCP server's state hasn't changed: `WORK_STATE.md` (2026-10-08) says only `osdu_about` is registered, checks pass offline, and both owners' live logins (`oms-p9h.15`) are pending. The board (`ask`, between the live chat scenes and the trial report) draws GitHub Copilot CLI calling `osdu_about` for identity and then health, with the field names and status values from the Stage 1 projection in `docs/contracts/tools/about.md`: `effectiveCaller`, `reachability`, and five domains where audit is `not_configured` under D9. The caller `operator@cimpl.example` is a placeholder, and no group count is drawn because the contract only reports one after a real self-groups read. The terminal's title bar says DRAWN FROM THE CONTRACT, an IN WORK stamp lands on "drawn", and the title block's status cell reads IN WORK for the length of the board. Lines p1 to p4 end on "Live sign-in is next, then four more tools." Refilm this as a live take once sign-in works on CIMPL, and keep the audit line only if a live health answer still says `not_configured`.
