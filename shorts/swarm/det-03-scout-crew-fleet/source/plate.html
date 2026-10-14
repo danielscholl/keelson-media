@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../../../tools/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+  :root { --keel:#1e3a5f; --rib:#2f6fb0; --brass:#b5803a; --brass-ink:#8a5a1f; --ink:#0f1b2d; --muted:#51607a; --green:#2f8f5b; }
+  * { margin:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; }
+  body {
+    font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; color: var(--ink);
+    background:
+      linear-gradient(rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(90deg, rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      linear-gradient(90deg, rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      radial-gradient(circle at 74% 0%, rgba(255,255,255,.9), transparent 700px),
+      linear-gradient(180deg, #f3f5f8 0%, #e6eaf0 100%);
+  }
+  .crop { position:absolute; width:26px; height:26px; border:0 solid rgba(30,58,95,.5); }
+  #header { position:absolute; left:128px; right:128px; top:34px; height:44px; display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1.5px solid rgba(30,58,95,.45); font-family:"JetBrains Mono", monospace; font-size:18px; letter-spacing:.2em; color:var(--keel); }
+  #header .left { display:flex; align-items:center; gap:16px; }
+  #boardName { position:relative; width:520px; height:24px; color:var(--muted); }
+  #boardName span { position:absolute; right:0; top:0; opacity:0; white-space:nowrap; }
+  svg text { font-family: Inter, sans-serif; }
+  svg .mono { font-family: "JetBrains Mono", monospace; white-space: pre; }
+  .draw { stroke-dasharray:1; stroke-dashoffset:1; }
+</style>
+</head>
+<body>
+<div class="crop" style="left:40px;top:14px;border-left-width:2px;border-top-width:2px"></div>
+<div class="crop" style="right:40px;top:14px;border-right-width:2px;border-top-width:2px"></div>
+<div class="crop" style="left:40px;bottom:14px;border-left-width:2px;border-bottom-width:2px"></div>
+<div class="crop" style="right:40px;bottom:14px;border-right-width:2px;border-bottom-width:2px"></div>
+<div id="header">
+  <div class="left">
+    <svg width="30" height="30" viewBox="0 0 34 34" fill="none"><line x1="11.5" y1="7" x2="11.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="22.5" y1="7" x2="22.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="20" x2="29" y2="20" stroke="#b5803a" stroke-width="2.6" stroke-linecap="round"/></svg>
+    <span><b>KEELSON</b> &nbsp;·&nbsp; SWARM &nbsp;·&nbsp; DET. 03 &nbsp;·&nbsp; SCOUT, CREW, FLEET</span>
+  </div>
+  <div id="boardName"><span id="bn-plans">THREE PLANS</span><span id="bn-pick">PICK BY THE QUESTION</span></div>
+</div>
+<svg id="stage" viewBox="0 0 1920 1080" width="1920" height="1080" style="position:absolute;inset:0">
+  <g id="plans" opacity="0">
+    <text x="960" y="215" text-anchor="middle" class="mono" font-size="24" letter-spacing="3" fill="#51607a">SEATS · TOKEN CEILING · DOLLAR CEILING (LIST PRICE)</text>
+    <g id="p1" opacity="0"><rect x="170" y="270" width="500" height="470" rx="16" fill="#fff" stroke="#2f6fb0" stroke-width="3"/>
+      <text x="420" y="335" text-anchor="middle" font-size="40" font-weight="600" fill="#0f1b2d">Scout</text><circle cx="386.0" cy="420" r="13" fill="#fff8ec" stroke="#b5803a" stroke-width="3"/><circle cx="420.0" cy="420" r="13" fill="#fff" stroke="#2f6fb0" stroke-width="3"/><circle cx="454.0" cy="420" r="13" fill="#fff" stroke="#2f6fb0" stroke-width="3"/>
+      <text x="420" y="485" text-anchor="middle" class="mono" font-size="22" fill="#51607a">3 agents</text>
+      <text x="420" y="560" text-anchor="middle" font-size="44" font-weight="600" fill="#2f6fb0">150k</text><text x="420" y="592" text-anchor="middle" class="mono" font-size="18" fill="#51607a">fresh tokens</text>
+      <text x="420" y="652" text-anchor="middle" font-size="34" font-weight="600" fill="#0f1b2d">$1 · 15 min</text>
+      <text x="420" y="705" text-anchor="middle" class="mono" font-size="17" fill="#51607a">lead sonnet-5.5 · workers gpt-6-luna</text></g>
+    <g id="p2" opacity="0"><rect x="710" y="270" width="500" height="470" rx="16" fill="#fff" stroke="#2f8f5b" stroke-width="3"/>
+      <text x="960" y="335" text-anchor="middle" font-size="40" font-weight="600" fill="#0f1b2d">Crew</text><circle cx="892.0" cy="420" r="13" fill="#fff8ec" stroke="#b5803a" stroke-width="3"/><circle cx="926.0" cy="420" r="13" fill="#fff" stroke="#2f8f5b" stroke-width="3"/><circle cx="960.0" cy="420" r="13" fill="#fff" stroke="#2f8f5b" stroke-width="3"/><circle cx="994.0" cy="420" r="13" fill="#fff" stroke="#2f8f5b" stroke-width="3"/><circle cx="1028.0" cy="420" r="13" fill="#fff" stroke="#2f8f5b" stroke-width="3"/>
+      <text x="960" y="485" text-anchor="middle" class="mono" font-size="22" fill="#51607a">5 agents</text>
+      <text x="960" y="560" text-anchor="middle" font-size="44" font-weight="600" fill="#2f8f5b">1M</text><text x="960" y="592" text-anchor="middle" class="mono" font-size="18" fill="#51607a">fresh tokens</text>
+      <text x="960" y="652" text-anchor="middle" font-size="34" font-weight="600" fill="#0f1b2d">$10 · 30 min</text>
+      <text x="960" y="705" text-anchor="middle" class="mono" font-size="17" fill="#51607a">lead sonnet-5.5 · workers gpt-6-sol</text></g>
+    <g id="p3" opacity="0"><rect x="1250" y="270" width="500" height="470" rx="16" fill="#fff" stroke="#8a5a1f" stroke-width="3"/>
+      <text x="1500" y="335" text-anchor="middle" font-size="40" font-weight="600" fill="#0f1b2d">Fleet</text><circle cx="1381.0" cy="420" r="13" fill="#fff8ec" stroke="#b5803a" stroke-width="3"/><circle cx="1415.0" cy="420" r="13" fill="#fff" stroke="#8a5a1f" stroke-width="3"/><circle cx="1449.0" cy="420" r="13" fill="#fff" stroke="#8a5a1f" stroke-width="3"/><circle cx="1483.0" cy="420" r="13" fill="#fff" stroke="#8a5a1f" stroke-width="3"/><circle cx="1517.0" cy="420" r="13" fill="#fff" stroke="#8a5a1f" stroke-width="3"/><circle cx="1551.0" cy="420" r="13" fill="#fff" stroke="#8a5a1f" stroke-width="3"/><circle cx="1585.0" cy="420" r="13" fill="#fff" stroke="#8a5a1f" stroke-width="3"/><circle cx="1619.0" cy="420" r="13" fill="#fff" stroke="#8a5a1f" stroke-width="3"/>
+      <text x="1500" y="485" text-anchor="middle" class="mono" font-size="22" fill="#51607a">8 agents</text>
+      <text x="1500" y="560" text-anchor="middle" font-size="44" font-weight="600" fill="#8a5a1f">3M</text><text x="1500" y="592" text-anchor="middle" class="mono" font-size="18" fill="#51607a">fresh tokens</text>
+      <text x="1500" y="652" text-anchor="middle" font-size="34" font-weight="600" fill="#0f1b2d">$60 · 60 min</text>
+      <text x="1500" y="705" text-anchor="middle" class="mono" font-size="17" fill="#51607a">lead opus-5.5 · workers gpt-6.1-sol</text></g>
+  </g>
+  <g id="pick" opacity="0">
+    <g id="k1" opacity="0"><rect x="300" y="240" width="1320" height="120" rx="14" fill="#fff" stroke="#2f6fb0" stroke-width="3"/><text x="350" y="314" font-size="40" font-weight="600" fill="#2f6fb0">Scout</text><text x="620" y="314" font-size="32" fill="#0f1b2d">a narrow question, or a first pass</text></g>
+    <g id="k2" opacity="0"><rect x="300" y="390" width="1320" height="120" rx="14" fill="#fff" stroke="#2f8f5b" stroke-width="3"/><text x="350" y="464" font-size="40" font-weight="600" fill="#2f8f5b">Crew</text><text x="620" y="464" font-size="32" fill="#0f1b2d">most questions: investigate, debate, decide</text></g>
+    <g id="k3" opacity="0"><rect x="300" y="540" width="1320" height="120" rx="14" fill="#fff" stroke="#8a5a1f" stroke-width="3"/><text x="350" y="614" font-size="40" font-weight="600" fill="#8a5a1f">Fleet</text><text x="620" y="614" font-size="32" fill="#0f1b2d">wide problems worth the spend</text><text x="1590" y="614" text-anchor="end" class="mono" font-size="22" fill="#51607a">see FIG. 14</text></g>
+    <g id="k-next" opacity="0"><rect x="420" y="730" width="1080" height="110" fill="rgba(243,245,248,.96)" stroke="#1e3a5f" stroke-width="2"/>
+      <text x="960" y="798" text-anchor="middle" font-size="38" font-weight="300" letter-spacing="6" fill="#1e3a5f">NEXT · DET. 04 · WHO WAKES</text></g>
+  </g>
+</svg>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+const norm = (w) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+window.setup = (T, words) => {
+  const tl = gsap.timeline({ paused: true });
+  window.tl = tl;
+  const lineAt = {};
+  for (const b of Object.values(T)) for (const [id, l] of Object.entries(b.lines)) lineAt[id] = l.n;
+  const W = (id, phrase, k = 0) => {
+    const ws = words[id], want = phrase.split(/\s+/).map(norm);
+    for (let i = 0, hit = 0; i < ws.length; i++) {
+      if (want.every((w, j) => ws[i + j] && norm(ws[i + j][0]) === w) && hit++ === k) return lineAt[id] + ws[i][1];
+    }
+    throw new Error(`phrase "${phrase}" not in ${id}`);
+  };
+  const show = (e, at, d = 0.4) => tl.to(e, { opacity: 1, duration: d }, at);
+  for (const id of Object.keys(T)) {
+    tl.set($(id), { opacity: 1 }, T[id].s); tl.set($(id), { opacity: 0 }, T[id].e);
+    tl.set($(`bn-${id}`), { opacity: 1 }, T[id].s); tl.set($(`bn-${id}`), { opacity: 0 }, T[id].e);
+  }
+
+  { show($("p1"), W("n1", "Scout") - 0.2); show($("p2"), W("n1", "Crew") - 0.2); show($("p3"), W("n1", "Fleet") - 0.2); }
+  { show($("k1"), W("n10", "Scout") - 0.2); show($("k2"), W("n10", "Crew") - 0.2); show($("k3"), W("n10", "Fleet") - 0.2); show($("k-next"), W("n11", "Next") - 0.3); }
+  return tl.duration();
+};
+</script>
+</body>
+</html>

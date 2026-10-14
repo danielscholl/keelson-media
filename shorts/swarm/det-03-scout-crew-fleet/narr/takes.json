@@ -1,0 +1,67 @@
+{
+ "n0": [
+  "Swarm detail three. Scout, Crew, Fleet. How much team does a question need?",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "Three plans set the team and its ceilings. Scout: three agents, a hundred fifty thousand tokens, a dollar. Crew: five, a million, ten dollars. Fleet: eight, three million, sixty.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "The lead and the workers get separate model pickers. The lead plans and judges, so it gets the stronger model. The workers carry the volume.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "First, a Postgres question on Scout: one reviewer per option, as far as the seats allow.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "Then the same question, word for word, on Crew.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "Scout has three seats, and the lead takes one. So two reviewers fit: replicas and cache. Nobody argues for the bigger instance.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "Crew has room. One reviewer per option, and a seat still open.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "Side by side: ten turns each. Scout took thirty four seconds and about nine cents. Crew took forty six seconds and about twenty seven cents. Three times the cost, for one more voice.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "Scout's lead says so itself: the bigger instance didn't fit, so it covered that option alone.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "Crew's three reviewers land on the same advice: tune first, then size up. Here the extra seat bought a voice, not a new answer.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "So pick by the question. Scout for a narrow one, or a first pass. Crew for most: investigate, debate, decide. Fleet for wide problems worth the spend, like the factory in figure fourteen.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n11": [
+  "Next, who a message wakes.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n12": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}

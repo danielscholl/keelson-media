@@ -1,0 +1,1 @@
+A 5-person team's Postgres runs at 80% CPU at peak. Read replicas, a cache layer, or a bigger instance? Spawn one reviewer per option, as far as your seats allow, have them challenge each other's reasoning by name, and end with one recommendation plus what would change it.

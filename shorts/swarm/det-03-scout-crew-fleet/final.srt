@@ -1,0 +1,52 @@
+1
+00:00:01,000 --> 00:00:08,660
+Swarm detail three. Scout, Crew, Fleet. How much team does a question need?
+
+2
+00:00:08,700 --> 00:00:26,184
+Three plans set the team and its ceilings. Scout: three agents, a hundred fifty thousand tokens, a dollar. Crew: five, a million, ten dollars. Fleet: eight, three million, sixty.
+
+3
+00:00:26,761 --> 00:00:35,429
+The lead and the workers get separate model pickers. The lead plans and judges, so it gets the stronger model. The workers carry the volume.
+
+4
+00:00:35,695 --> 00:00:41,739
+First, a Postgres question on Scout: one reviewer per option, as far as the seats allow.
+
+5
+00:00:44,788 --> 00:00:48,184
+Then the same question, word for word, on Crew.
+
+6
+00:00:49,484 --> 00:00:59,368
+Scout has three seats, and the lead takes one. So two reviewers fit: replicas and cache. Nobody argues for the bigger instance.
+
+7
+00:01:00,484 --> 00:01:04,944
+Crew has room. One reviewer per option, and a seat still open.
+
+8
+00:01:06,984 --> 00:01:20,084
+Side by side: ten turns each. Scout took thirty four seconds and about nine cents. Crew took forty six seconds and about twenty seven cents. Three times the cost, for one more voice.
+
+9
+00:01:20,484 --> 00:01:26,288
+Scout's lead says so itself: the bigger instance didn't fit, so it covered that option alone.
+
+10
+00:01:28,284 --> 00:01:37,674
+Crew's three reviewers land on the same advice: tune first, then size up. Here the extra seat bought a voice, not a new answer.
+
+11
+00:01:38,184 --> 00:01:52,020
+So pick by the question. Scout for a narrow one, or a first pass. Crew for most: investigate, debate, decide. Fleet for wide problems worth the spend, like the factory in figure fourteen.
+
+12
+00:01:52,620 --> 00:01:54,672
+Next, who a message wakes.
+
+13
+00:01:57,372 --> 00:02:00,920
+Keelson. Lay the keel, raise the ribs.
+

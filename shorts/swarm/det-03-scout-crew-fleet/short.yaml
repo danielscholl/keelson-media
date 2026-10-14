@@ -1,0 +1,106 @@
+series: swarm
+prefix: det
+fig: "03"
+slug: scout-crew-fleet
+title: Scout, Crew, Fleet
+act: I
+problem: How much team does a question need?
+thumb: 78.5
+docs: [guides/run-a-swarm, concepts/agents-and-swarms#which-model-runs-each-agent, reference/limits-and-statuses]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+viewport_header: "<b>KEELSON</b> &nbsp;·&nbsp; SWARM &nbsp;·&nbsp; DET. 03 &nbsp;·&nbsp; SCOUT, CREW, FLEET"
+
+cards:
+  - { kind: figtag, text: "DET. 03 · SCOUT, CREW, FLEET" }
+  - { kind: sheet, text: "DETAIL 03 · SWARM · ACT I" }
+  - { kind: callout, scene: rows, at: 6.0, text: "CREW · 4 OF 5 SEATS", anchor: [945, 300], label: [440, 230] }
+  - { kind: callout, scene: rows, at: 6.0, text: "SCOUT · 3 OF 3 SEATS", anchor: [945, 372], label: [440, 420] }
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: plans, lines: [n1], lead: 1.4, tail: 0.8 }
+    - { id: pick, lines: [n10, n11], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - id: b-plans
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [plans, plans.end]
+    xfade: 0.8
+  - id: launch
+    source: raw/launch.mp4
+    frame: viewport
+    label: BROWSER
+    marks: raw/launch-meta.json
+    trim: [7.6, 30.4]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [40, 420, 1300, 731] }
+  - id: scout
+    source: raw/live.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.4
+    trim: [0.0, 11.6]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [20, 380, 1100, 619] }
+  - id: crew
+    source: raw/live.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.4
+    trim: [22.5, 29.5]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [20, 380, 1100, 619] }
+  - id: rows
+    source: raw/list.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.4
+    trim: [2.6, 9.0]
+    hold: 7.5
+    zoom:
+      - { at: -1, until: 5.0, over: 0.5, box: [0, 330, 1920, 1080] }
+      - { at: 5.0, until: 9999, over: 0.9, box: [1000, 330, 900, 506] }
+  - id: sview
+    source: raw/views.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.4
+    trim: [4.6, 12.4]
+    hold: 0.4
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 60, 1280, 720] }
+  - id: cview
+    source: raw/views.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.4
+    trim: [90.2, 99.0]
+    hold: 1.5
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 60, 1280, 720] }
+  - id: b-pick
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [pick, pick.end]
+
+lines:
+  - { id: n0, scene: open, at: 1.0, text: "Swarm detail three. Scout, Crew, Fleet. How much team does a question need?" }
+  - { id: n1, scene: b-plans, at: n1, text: "Three plans set the team and its ceilings. Scout: three agents, a hundred fifty thousand tokens, a dollar. Crew: five, a million, ten dollars. Fleet: eight, three million, sixty." }
+  - { id: n2, scene: launch, at: lead-picker - 1.4, text: "The lead and the workers get separate model pickers. The lead plans and judges, so it gets the stronger model. The workers carry the volume." }
+  - { id: n3, scene: launch, at: summary + 0.3, text: "First, a Postgres question on Scout: one reviewer per option, as far as the seats allow." }
+  - { id: n4, scene: launch, at: typed2 + 0.4, text: "Then the same question, word for word, on Crew." }
+  - { id: n5, scene: scout, at: 0.6, text: "Scout has three seats, and the lead takes one. So two reviewers fit: replicas and cache. Nobody argues for the bigger instance." }
+  - { id: n6, scene: crew, at: 22.9, text: "Crew has room. One reviewer per option, and a seat still open." }
+  - { id: n7, scene: rows, at: 2.9, text: "Side by side: ten turns each. Scout took thirty four seconds and about nine cents. Crew took forty six seconds and about twenty seven cents. Three times the cost, for one more voice." }
+  - { id: n8, scene: sview, at: 4.9, text: "Scout's lead says so itself: the bigger instance didn't fit, so it covered that option alone." }
+  - { id: n9, scene: cview, at: 90.5, text: "Crew's three reviewers land on the same advice: tune first, then size up. Here the extra seat bought a voice, not a new answer." }
+  - { id: n10, scene: b-pick, at: n10, text: "So pick by the question. Scout for a narrow one, or a first pass. Crew for most: investigate, debate, decide. Fleet for wide problems worth the spend, like the factory in figure fourteen." }
+  - { id: n11, scene: b-pick, at: n11, text: "Next, who a message wakes." }
+  - { id: n12, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }
