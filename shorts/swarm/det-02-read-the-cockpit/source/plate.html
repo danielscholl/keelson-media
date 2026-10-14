@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../../../tools/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+  :root { --keel:#1e3a5f; --rib:#2f6fb0; --brass:#b5803a; --brass-ink:#8a5a1f; --ink:#0f1b2d; --muted:#51607a; --green:#2f8f5b; }
+  * { margin:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; }
+  body {
+    font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; color: var(--ink);
+    background:
+      linear-gradient(rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(90deg, rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      linear-gradient(90deg, rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      radial-gradient(circle at 74% 0%, rgba(255,255,255,.9), transparent 700px),
+      linear-gradient(180deg, #f3f5f8 0%, #e6eaf0 100%);
+  }
+  .crop { position:absolute; width:26px; height:26px; border:0 solid rgba(30,58,95,.5); }
+  #header { position:absolute; left:128px; right:128px; top:34px; height:44px; display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1.5px solid rgba(30,58,95,.45); font-family:"JetBrains Mono", monospace; font-size:18px; letter-spacing:.2em; color:var(--keel); }
+  #header .left { display:flex; align-items:center; gap:16px; }
+  #boardName { position:relative; width:520px; height:24px; color:var(--muted); }
+  #boardName span { position:absolute; right:0; top:0; opacity:0; white-space:nowrap; }
+  svg text { font-family: Inter, sans-serif; }
+  svg .mono { font-family: "JetBrains Mono", monospace; white-space: pre; }
+  .draw { stroke-dasharray:1; stroke-dashoffset:1; }
+</style>
+</head>
+<body>
+<div class="crop" style="left:40px;top:14px;border-left-width:2px;border-top-width:2px"></div>
+<div class="crop" style="right:40px;top:14px;border-right-width:2px;border-top-width:2px"></div>
+<div class="crop" style="left:40px;bottom:14px;border-left-width:2px;border-bottom-width:2px"></div>
+<div class="crop" style="right:40px;bottom:14px;border-right-width:2px;border-bottom-width:2px"></div>
+<div id="header">
+  <div class="left">
+    <svg width="30" height="30" viewBox="0 0 34 34" fill="none"><line x1="11.5" y1="7" x2="11.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="22.5" y1="7" x2="22.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="20" x2="29" y2="20" stroke="#b5803a" stroke-width="2.6" stroke-linecap="round"/></svg>
+    <span><b>KEELSON</b> &nbsp;·&nbsp; SWARM &nbsp;·&nbsp; DET. 02 &nbsp;·&nbsp; READ THE COCKPIT</span>
+  </div>
+  <div id="boardName"><span id="bn-legend">A FACE PER AGENT</span><span id="bn-glance">THE RECORD AND THE GLANCE</span></div>
+</div>
+<style>@keyframes pulse { 0%,100% { opacity:.25 } 50% { opacity:.9 } }</style>
+<svg id="stage" viewBox="0 0 1920 1080" width="1920" height="1080" style="position:absolute;inset:0">
+  <g id="legend" opacity="0"><g transform="translate(0,90)">
+    <text x="960" y="230" text-anchor="middle" class="mono" font-size="24" letter-spacing="3" fill="#51607a">THE LIVE CARD · ONE FACE PER AGENT</text>
+    <g id="f1" opacity="0"><circle cx="300" cy="420" r="58" fill="none" stroke="#7c5cc4" stroke-width="3"/><circle cx="300" cy="420" r="44" fill="#fff" stroke="#7c5cc4" stroke-width="4"/><text x="300" y="431" text-anchor="middle" class="mono" font-size="30" fill="#7c5cc4">L</text>
+      <text x="300" y="540" text-anchor="middle" font-size="28" font-weight="600" fill="#0f1b2d">double ring</text><text x="300" y="578" text-anchor="middle" class="mono" font-size="20" fill="#51607a">the lead</text></g>
+    <g id="f2" opacity="0"><circle cx="630" cy="420" r="44" fill="none" stroke="#9aa6b8" stroke-width="3" stroke-dasharray="8 7"/><text x="630" y="432" text-anchor="middle" class="mono" font-size="40" fill="#9aa6b8">+</text>
+      <text x="630" y="540" text-anchor="middle" font-size="28" font-weight="600" fill="#0f1b2d">dashed plus</text><text x="630" y="578" text-anchor="middle" class="mono" font-size="20" fill="#51607a">an open seat</text></g>
+    <g id="f3" opacity="0"><circle cx="960" cy="420" r="60" fill="none" stroke="#2f6fb0" stroke-width="8" style="animation:pulse 1.2s infinite"/><circle cx="960" cy="420" r="44" fill="#fff" stroke="#2f6fb0" stroke-width="4"/><text x="960" y="431" text-anchor="middle" class="mono" font-size="30" fill="#2f6fb0">Sr</text>
+      <text x="960" y="540" text-anchor="middle" font-size="28" font-weight="600" fill="#0f1b2d">bright ring</text><text x="960" y="578" text-anchor="middle" class="mono" font-size="20" fill="#51607a">taking a turn</text></g>
+    <g id="f4" opacity="0"><circle cx="1290" cy="420" r="44" fill="#fff" stroke="#2f8f8f" stroke-width="4"/><text x="1290" y="431" text-anchor="middle" class="mono" font-size="30" fill="#2f8f8f">Se</text><circle cx="1322" cy="386" r="13" fill="#f2a63a" stroke="#fff" stroke-width="3"/>
+      <text x="1290" y="540" text-anchor="middle" font-size="28" font-weight="600" fill="#0f1b2d">amber dot</text><text x="1290" y="578" text-anchor="middle" class="mono" font-size="20" fill="#51607a">messages waiting</text></g>
+    <g id="f5" opacity="0"><g opacity="0.35"><circle cx="1620" cy="420" r="44" fill="#fff" stroke="#b5456b" stroke-width="4"/><text x="1620" y="431" text-anchor="middle" class="mono" font-size="30" fill="#b5456b">C</text></g>
+      <text x="1620" y="540" text-anchor="middle" font-size="28" font-weight="600" fill="#0f1b2d">faded</text><text x="1620" y="578" text-anchor="middle" class="mono" font-size="20" fill="#51607a">idle · costs nothing</text></g>
+  </g>
+  </g><g id="glance" opacity="0"><g transform="translate(0,-70)">
+    <g id="g-chan" opacity="0"><text x="520" y="250" text-anchor="middle" class="mono" font-size="24" letter-spacing="3" fill="#51607a">THE CHANNEL</text>
+      <rect x="220" y="285" width="600" height="380" rx="12" fill="#0d1429"/>
+      <g class="mono" font-size="17" fill="#9aa3c0"><text x="245" y="330"><tspan fill="#e58aa8">cost-skeptic</tspan> @security Challenge: You propose</text><text x="245" y="356">mapping cardholder flows before…</text>
+        <text x="245" y="400"><tspan fill="#5fc9c9">security</tspan> @cost-skeptic Answer: Provider-</text><text x="245" y="426">hosted collection/tokenization…</text>
+        <text x="245" y="470"><tspan fill="#e58aa8">cost-skeptic</tspan> Cost skeptic report: Recommend no</text><text x="245" y="496">billing-service extraction this year…</text>
+        <text x="245" y="540"><tspan fill="#5fc9c9">security</tspan> Correction/update: @cost-skeptic</text><text x="245" y="566">challenged my PCI-scope/cost gate…</text></g>
+      <text x="520" y="720" text-anchor="middle" font-size="28" fill="#0f1b2d">the record: every word</text></g>
+    <g id="g-cock" opacity="0"><text x="1400" y="250" text-anchor="middle" class="mono" font-size="24" letter-spacing="3" fill="#8a5a1f">THE COCKPIT</text>
+      <rect x="1100" y="285" width="600" height="380" rx="12" fill="#fff" stroke="#c8d2e0" stroke-width="2"/>
+      <g transform="translate(1160,340) scale(.5)"><circle cx="0" cy="0" r="44" fill="#fff" stroke="#7c5cc4" stroke-width="4"/><text x="0" y="11" text-anchor="middle" class="mono" font-size="30" fill="#7c5cc4">L</text><circle cx="0" cy="0" r="58" fill="none" stroke="#7c5cc4" stroke-width="3"/></g>
+      <g transform="translate(1250,340) scale(.5)"><circle cx="0" cy="0" r="44" fill="#fff" stroke="#2f6fb0" stroke-width="4"/><text x="0" y="11" text-anchor="middle" class="mono" font-size="30" fill="#2f6fb0">Sr</text></g>
+      <g transform="translate(1340,340) scale(.5)"><circle cx="0" cy="0" r="44" fill="#fff" stroke="#b5803a" stroke-width="4"/><text x="0" y="11" text-anchor="middle" class="mono" font-size="30" fill="#b5803a">P</text></g>
+      <g transform="translate(1430,340) scale(.5)"><circle cx="0" cy="0" r="44" fill="#fff" stroke="#2f8f8f" stroke-width="4"/><text x="0" y="11" text-anchor="middle" class="mono" font-size="30" fill="#2f8f8f">Se</text><circle cx="32" cy="-34" r="13" fill="#f2a63a" stroke="#fff" stroke-width="3"/></g>
+      <g transform="translate(1520,340) scale(.5)" opacity=".35"><circle cx="0" cy="0" r="44" fill="#fff" stroke="#b5456b" stroke-width="4"/><text x="0" y="11" text-anchor="middle" class="mono" font-size="30" fill="#b5456b">C</text></g>
+      <g class="mono" font-size="17" fill="#51607a"><text x="1135" y="430">turns</text><text x="1135" y="480">time</text><text x="1135" y="530">fresh tokens</text><text x="1135" y="580">cost</text></g>
+      <g fill="#e2e7ef"><rect x="1300" y="418" width="360" height="12" rx="6"/><rect x="1300" y="468" width="360" height="12" rx="6"/><rect x="1300" y="518" width="360" height="12" rx="6"/><rect x="1300" y="568" width="360" height="12" rx="6"/></g>
+      <g fill="#7c5cc4"><rect x="1300" y="418" width="200" height="12" rx="6"/><rect x="1300" y="468" width="30" height="12" rx="6"/><rect x="1300" y="518" width="60" height="12" rx="6"/></g><rect x="1300" y="568" width="26" height="12" rx="6" fill="#e8845a"/>
+      <text x="1400" y="720" text-anchor="middle" font-size="28" fill="#0f1b2d">the glance</text></g>
+    <g id="g-q" opacity="0"><g class="mono" font-size="24" fill="#1e3a5f" text-anchor="middle"><text id="q1" x="660" y="830" opacity="0">who's working</text><text id="q2" x="960" y="830" opacity="0">who's waiting</text><text id="q3" x="1260" y="830" opacity="0">what it's costing</text></g></g>
+    <g id="g-next" opacity="0"><rect x="420" y="880" width="1080" height="110" fill="rgba(243,245,248,.96)" stroke="#1e3a5f" stroke-width="2"/>
+      <text x="960" y="948" text-anchor="middle" font-size="38" font-weight="300" letter-spacing="6" fill="#1e3a5f">NEXT · DET. 03 · SCOUT, CREW, FLEET</text></g>
+  </g></g>
+</svg>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+const norm = (w) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+window.setup = (T, words) => {
+  const tl = gsap.timeline({ paused: true });
+  window.tl = tl;
+  const lineAt = {};
+  for (const b of Object.values(T)) for (const [id, l] of Object.entries(b.lines)) lineAt[id] = l.n;
+  const W = (id, phrase, k = 0) => {
+    const ws = words[id], want = phrase.split(/\s+/).map(norm);
+    for (let i = 0, hit = 0; i < ws.length; i++) {
+      if (want.every((w, j) => ws[i + j] && norm(ws[i + j][0]) === w) && hit++ === k) return lineAt[id] + ws[i][1];
+    }
+    throw new Error(`phrase "${phrase}" not in ${id}`);
+  };
+  const show = (e, at, d = 0.4) => tl.to(e, { opacity: 1, duration: d }, at);
+  for (const id of Object.keys(T)) {
+    tl.set($(id), { opacity: 1 }, T[id].s); tl.set($(id), { opacity: 0 }, T[id].e);
+    tl.set($(`bn-${id}`), { opacity: 1 }, T[id].s); tl.set($(`bn-${id}`), { opacity: 0 }, T[id].e);
+  }
+
+  { show($("f1"), W("n1", "double ring") - 0.2); show($("f2"), W("n1", "dashed plus") - 0.2); show($("f3"), W("n1", "bright ring") - 0.2);
+    show($("f4"), W("n1", "amber dot") - 0.2); show($("f5"), W("n1", "faded face") - 0.2); }
+  { show($("g-chan"), W("n11", "The channel") - 0.3); show($("g-cock"), W("n11", "The cockpit") - 0.3); show($("g-q"), W("n11", "working") - 0.4, 0.1);
+    show($("q1"), W("n11", "working") - 0.3); show($("q2"), W("n11", "waiting") - 0.3); show($("q3"), W("n11", "costing") - 0.3);
+    show($("g-next"), W("n12", "Next") - 0.3); }
+  return tl.duration();
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+WEBVTT
+
+00:00.800 --> 00:09.470
+Swarm detail two. Read the cockpit. Five agents talking at once is noise, unless you can see who's doing what.
+
+00:09.600 --> 00:22.732
+So every agent gets a face on the live card. A double ring is the lead, a dashed plus an open seat. A bright ring is on a turn, an amber dot has messages waiting, and a faded face is idle.
+
+00:23.232 --> 00:28.572
+This is a Crew: a lead, up to four workers, and a ten dollar ceiling.
+
+00:29.932 --> 00:39.080
+The question is whether a five person team should split billing out of its Rails monolith. The lead takes the first turn, then fills its four seats.
+
+00:40.532 --> 00:52.080
+Security and the cost skeptic wear amber dots: the lead addressed them, so their turns are queued. When the lead's turn ends, its face fades. Idle costs nothing.
+
+00:53.632 --> 01:00.348
+Then a worker's answer names the lead. An amber dot lands, and the lead lights up for its next turn.
+
+01:01.332 --> 01:10.208
+Beside the faces, four meters run toward the plan's ceilings: turns, time, fresh tokens, and cost, with the burn rate per minute.
+
+01:11.332 --> 01:19.488
+The Map tab draws who addressed whom. The lead fans out to every worker, and the crossings are workers challenging each other.
+
+01:21.832 --> 01:30.436
+A minute and a half in, the lead concludes. The outcome stays on top: keep billing in the monolith, and draw the boundary inside Rails.
+
+01:31.232 --> 01:36.014
+Spend splits the sixty four cents by agent. Produced holds the report.
+
+01:36.932 --> 01:46.848
+Activity is every turn and how long it took. About keeps the task and the transcript. And Agents gives each one's role, turns and cost.
+
+01:48.032 --> 01:55.596
+The channel is the record. The cockpit is what you check at a glance: who's working, who's waiting, and what it's costing.
+
+01:56.196 --> 01:58.802
+Next, how big a crew a question needs.
+
+02:01.502 --> 02:05.484
+Keelson. Lay the keel, raise the ribs.

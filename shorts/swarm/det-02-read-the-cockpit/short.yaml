@@ -1,0 +1,109 @@
+series: swarm
+prefix: det
+fig: "02"
+slug: read-the-cockpit
+title: Read the cockpit
+act: I
+problem: Five agents talking at once is noise unless you can see who is doing what.
+docs: [guides/swarms-tab]
+thumb: 44.0
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+viewport_header: "<b>KEELSON</b> &nbsp;·&nbsp; SWARM &nbsp;·&nbsp; DET. 02 &nbsp;·&nbsp; READ THE COCKPIT"
+
+cards:
+  - { kind: figtag, text: "DET. 02 · READ THE COCKPIT" }
+  - { kind: sheet, text: "DETAIL 02 · SWARM · ACT I" }
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: legend, lines: [n1], lead: 2.3, tail: 0.8 }
+    - { id: glance, lines: [n11, n12], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - id: b-legend
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [legend, legend.end]
+    xfade: 0.8
+  - id: launch
+    source: raw/live.mp4
+    frame: viewport
+    label: BROWSER
+    trim: [10.4, 17.0]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [40, 280, 1360, 765] }
+  - id: spawn
+    source: raw/live.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    trim: [17.0, 41.0]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [20, 330, 940, 529] }
+  - id: wake
+    source: raw/live.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.4
+    trim: [47.9, 56.2]
+    zoom:
+      - { at: -1, until: 9999, over: 0.6, box: [40, 425, 760, 428] }
+  - id: meters
+    source: raw/live.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.4
+    trim: [59.5, 70.0]
+    zoom:
+      - { at: -1, until: 9999, over: 0.6, box: [800, 505, 1090, 613] }
+  - id: map
+    source: raw/live.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.4
+    trim: [101.6, 112.5]
+    zoom:
+      - { at: -1, until: 9999, over: 0.6, box: [600, 380, 1300, 731] }
+  - id: ended
+    source: raw/ended.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.4
+    trim: [5.8, 21.0]
+    zoom:
+      - { at: -1, until: 12.4, over: 0.6, box: [0, 130, 1280, 720] }
+      - { at: 12.4, until: 9999, over: 0.8, box: [0, 540, 1600, 900] }
+  - id: tabs
+    source: raw/ended.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    trim: [81.4, 93.2]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [0, 560, 1100, 619] }
+  - id: b-glance
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [glance, glance.end]
+
+lines:
+  - { id: n0, scene: open, at: 0.8, text: "Swarm detail two. Read the cockpit. Five agents talking at once is noise, unless you can see who's doing what." }
+  - { id: n1, scene: b-legend, at: n1, text: "So every agent gets a face on the live card. A double ring is the lead, a dashed plus an open seat. A bright ring is on a turn, an amber dot has messages waiting, and a faded face is idle." }
+  - { id: n2, scene: launch, at: 10.6, text: "This is a Crew: a lead, up to four workers, and a ten dollar ceiling." }
+  - { id: n3, scene: spawn, at: 17.6, text: "The question is whether a five person team should split billing out of its Rails monolith. The lead takes the first turn, then fills its four seats." }
+  - { id: n4, scene: spawn, at: 28.2, text: "Security and the cost skeptic wear amber dots: the lead addressed them, so their turns are queued. When the lead's turn ends, its face fades. Idle costs nothing." }
+  - { id: n5, scene: wake, at: 48.6, text: "Then a worker's answer names the lead. An amber dot lands, and the lead lights up for its next turn." }
+  - { id: n6, scene: meters, at: 60.0, text: "Beside the faces, four meters run toward the plan's ceilings: turns, time, fresh tokens, and cost, with the burn rate per minute." }
+  - { id: n7, scene: map, at: 102.0, text: "The Map tab draws who addressed whom. The lead fans out to every worker, and the crossings are workers challenging each other." }
+  - { id: n8, scene: ended, at: 6.2, text: "A minute and a half in, the lead concludes. The outcome stays on top: keep billing in the monolith, and draw the boundary inside Rails." }
+  - { id: n9, scene: ended, at: 15.6, text: "Spend splits the sixty four cents by agent. Produced holds the report." }
+  - { id: n10, scene: tabs, at: 82.0, text: "Activity is every turn and how long it took. About keeps the task and the transcript. And Agents gives each one's role, turns and cost." }
+  - { id: n11, scene: b-glance, at: n11, text: "The channel is the record. The cockpit is what you check at a glance: who's working, who's waiting, and what it's costing." }
+  - { id: n12, scene: b-glance, at: n12, text: "Next, how big a crew a question needs." }
+  - { id: n13, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

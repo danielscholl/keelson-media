@@ -1,0 +1,72 @@
+{
+ "n0": [
+  "Swarm detail two. Read the cockpit. Five agents talking at once is noise, unless you can see who's doing what.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n1": [
+  "So every agent gets a face on the live card. A double ring is the lead, a dashed plus an open seat. A bright ring is on a turn, an amber dot has messages waiting, and a faded face is idle.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n2": [
+  "This is a Crew: a lead, up to four workers, and a ten dollar ceiling.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n3": [
+  "The question is whether a five person team should split billing out of its Rails monolith. The lead takes the first turn, then fills its four seats.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n4": [
+  "Security and the cost skeptic wear amber dots: the lead addressed them, so their turns are queued. When the lead's turn ends, its face fades. Idle costs nothing.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n5": [
+  "Then a worker's answer names the lead. An amber dot lands, and the lead lights up for its next turn.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n6": [
+  "Beside the faces, four meters run toward the plan's ceilings: turns, time, fresh tokens, and cost, with the burn rate per minute.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n7": [
+  "The Map tab draws who addressed whom. The lead fans out to every worker, and the crossings are workers challenging each other.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n8": [
+  "A minute and a half in, the lead concludes. The outcome stays on top: keep billing in the monolith, and draw the boundary inside Rails.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n9": [
+  "Spend splits the sixty four cents by agent. Produced holds the report.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n10": [
+  "Activity is every turn and how long it took. About keeps the task and the transcript. And Agents gives each one's role, turns and cost.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n11": [
+  "The channel is the record. The cockpit is what you check at a glance: who's working, who's waiting, and what it's costing.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n12": [
+  "Next, how big a crew a question needs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ],
+ "n13": [
+  "Keelson. Lay the keel, raise the ribs.",
+  null,
+  "en-US-Harper:MAI-Voice-2.1"
+ ]
+}
