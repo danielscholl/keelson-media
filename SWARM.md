@@ -21,7 +21,7 @@ Everything in `SERIES.md` holds (standing rules, demo stage only, review after e
 |---|---|---|---|---|---|
 | **Act I · the crew** | | | | | |
 | 01 | What a swarm is | mostly boards | Two advocate faces appear on the card while the channel fills | concepts/agents-and-swarms, concepts/index, tutorials/your-first-swarm | cut, 121 s, -16.0 LUFS, a real Scout swarm s9s2p on the demo stage (44 s, 12 turns, $0.10); approved by Daniel |
-| 02 | Read the cockpit | mostly demo | A face goes from pulsing to an amber dot as a peer addresses it, while the Map draws the edge | guides/swarms-tab | cut, 128 s, -16.1 LUFS, a real Crew swarm stsog on the demo stage (99 s, 22 turns, $0.64); with Daniel for review |
+| 02 | Read the cockpit | mostly demo | A face goes from pulsing to an amber dot as a peer addresses it, while the Map draws the edge | guides/swarms-tab | cut, 128 s, -16.1 LUFS, a real Crew swarm stsog on the demo stage (99 s, 22 turns, $0.64); approved by Daniel |
 | 03 | Scout, Crew, Fleet | mixed | Two Done rows side by side: the same question, two crew sizes, two bills | guides/run-a-swarm, concepts/agents-and-swarms#which-model-runs-each-agent, reference/limits-and-statuses | planned |
 | **Act II · the channel** | | | | | |
 | 04 | Who wakes | mixed | Three messages in one channel light three different sets of faces | concepts/routing, design/guardrails#the-routing-table-is-a-guardrail | planned |
