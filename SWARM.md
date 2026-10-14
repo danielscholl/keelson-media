@@ -20,7 +20,7 @@ Everything in `SERIES.md` holds (standing rules, demo stage only, review after e
 | Det | Title | Form | The money shot | Docs pages | Status |
 |---|---|---|---|---|---|
 | **Act I · the crew** | | | | | |
-| 01 | What a swarm is | mostly boards | Two advocate faces appear on the card while the channel fills | concepts/agents-and-swarms, concepts/index, tutorials/your-first-swarm | cut, 121 s, -16.0 LUFS, a real Scout swarm s9s2p on the demo stage (44 s, 12 turns, $0.10); with Daniel for review |
+| 01 | What a swarm is | mostly boards | Two advocate faces appear on the card while the channel fills | concepts/agents-and-swarms, concepts/index, tutorials/your-first-swarm | cut, 121 s, -16.0 LUFS, a real Scout swarm s9s2p on the demo stage (44 s, 12 turns, $0.10); approved by Daniel |
 | 02 | Read the cockpit | mostly demo | A face goes from pulsing to an amber dot as a peer addresses it, while the Map draws the edge | guides/swarms-tab | planned |
 | 03 | Scout, Crew, Fleet | mixed | Two Done rows side by side: the same question, two crew sizes, two bills | guides/run-a-swarm, concepts/agents-and-swarms#which-model-runs-each-agent, reference/limits-and-statuses | planned |
 | **Act II · the channel** | | | | | |
