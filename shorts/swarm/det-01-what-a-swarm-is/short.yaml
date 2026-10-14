@@ -1,0 +1,89 @@
+series: swarm
+prefix: det
+fig: "01"
+slug: what-a-swarm-is
+title: What a swarm is
+act: I
+problem: One agent on a big question answers alone, and you can't watch it think.
+docs: [concepts/agents-and-swarms, concepts/index, tutorials/your-first-swarm]
+voice: en-US-Harper:MAI-Voice-2.1
+bookends: { open: lay-the-keel, close: raise-the-ribs }
+crossfade: 0.5
+viewport_header: "<b>KEELSON</b> &nbsp;·&nbsp; SWARM &nbsp;·&nbsp; DET. 01 &nbsp;·&nbsp; WHAT A SWARM IS"
+
+cards:
+  - { kind: figtag, text: "DET. 01 · WHAT A SWARM IS" }
+  - { kind: sheet, text: "DETAIL 01 · SWARM · ACT I" }
+
+plate:
+  html: source/plate.html
+  out: raw/plate.mp4
+  boards:
+    - { id: crew, lines: [n1], lead: 1.1, tail: 1.0 }
+    - { id: agent, lines: [n2], lead: 0.4, tail: 1.2 }
+    - { id: team, lines: [n7, n8], lead: 0.4, gap: 0.6, tail: 1.6 }
+
+scenes:
+  - id: b-crew
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [crew, crew.end]
+    xfade: 0.8
+  - id: b-agent
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [agent, agent.end]
+  - id: launch
+    source: raw/live.mp4
+    frame: viewport
+    label: BROWSER
+    marks: raw/live-meta.json
+    trim: [0.0, startclick + 0.6]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [40, 280, 1360, 765] }
+  - id: live
+    source: raw/live.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.3
+    marks: { faces: 19.5 }
+    trim: [13.6, 27.6]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [20, 330, 940, 529] }
+  - id: chan
+    source: raw/chan-read.mp4
+    frame: viewport
+    label: CLICKCLACK
+    xfade: 0.4
+    trim: [2.0, 16.0]
+    zoom:
+      - { at: -1, until: 9999, over: 0.5, box: [400, 70, 1200, 675] }
+  - id: done
+    source: raw/done.mp4
+    frame: viewport
+    label: BROWSER
+    xfade: 0.4
+    trim: [4.4, 24.5]
+    zoom:
+      - { at: -1, until: 9.4, over: 0.6, box: [760, 340, 1160, 653] }
+      - { at: 9.4, until: 9999, over: 0.9, box: [0, 130, 1280, 720] }
+  - id: b-team
+    source: raw/plate.mp4
+    marks: source/plate-marks.json
+    frame: full
+    trim: [team, team.end]
+
+lines:
+  - { id: n0, scene: open, at: 1.0, text: "Swarm detail one. What a swarm is. One agent on a big question answers alone, and you can't watch it think." }
+  - { id: n1, scene: b-crew, at: n1, text: "A swarm is a small team instead. A lead that owns the outcome. Workers it spawns as the work calls for them. And a channel they all talk in, which you can read along." }
+  - { id: n2, scene: b-agent, at: n2, text: "An agent here is not a running process. It's an identity, an inbox, and a session that can be resumed. Nothing sits waiting. Only the dispatcher runs: when a message reaches an agent, it wakes it for one turn on that resumed session." }
+  - { id: n3, scene: launch, at: 0.3, text: "Here's a real one. Which job queue should a five person team use? Scout is the smallest plan: three agents, a one dollar ceiling, and no project, so it can only talk." }
+  - { id: n4, scene: live, at: 13.9, text: "Start it, and the lead is the only face on the card." }
+  - { id: n4b, scene: live, at: faces - 0.4, text: "Then it spawns two advocates, and there they are. One for Postgres, one for Redis and SQS." }
+  - { id: n5, scene: chan, at: 2.6, text: "In the channel, each advocate makes its case and goes after the other's weak spots. Every message names who it's for, and only that agent wakes to answer. You read the whole argument, as it happens." }
+  - { id: n6, scene: done, at: 5.0, text: "Forty four seconds, twelve turns, about ten cents. The outcome is one recommendation: start on Postgres, and move to SQS when benchmarks say the database is hurting. It names what it couldn't check, and even that both advocates drifted toward SQS." }
+  - { id: n7, scene: b-team, at: n7, text: "That's a team, not a pipeline. A workflow runs steps you already chose. A swarm decides who it needs, lets them disagree, and shows you the argument." }
+  - { id: n8, scene: b-team, at: n8, text: "Next, how to read one while it runs." }
+  - { id: n9, scene: close, at: 1.6, text: "Keelson. Lay the keel, raise the ribs." }

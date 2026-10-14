@@ -1,0 +1,44 @@
+1
+00:00:01,000 --> 00:00:08,068
+Swarm detail one. What a swarm is. One agent on a big question answers alone, and you can't watch it think.
+
+2
+00:00:08,400 --> 00:00:19,948
+A swarm is a small team instead. A lead that owns the outcome. Workers it spawns as the work calls for them. And a channel they all talk in, which you can read along.
+
+3
+00:00:20,848 --> 00:00:36,620
+An agent here is not a running process. It's an identity, an inbox, and a session that can be resumed. Nothing sits waiting. Only the dispatcher runs: when a message reaches an agent, it wakes it for one turn on that resumed session.
+
+4
+00:00:37,620 --> 00:00:50,224
+Here's a real one. Which job queue should a five person team use? Scout is the smallest plan: three agents, a one dollar ceiling, and no project, so it can only talk.
+
+5
+00:00:50,860 --> 00:00:54,568
+Start it, and the lead is the only face on the card.
+
+6
+00:00:56,060 --> 00:01:03,384
+Then it spawns two advocates, and there they are. One for Postgres, one for Redis and SQS.
+
+7
+00:01:04,760 --> 00:01:16,484
+In the channel, each advocate makes its case and goes after the other's weak spots. Every message names who it's for, and only that agent wakes to answer. You read the whole argument, as it happens.
+
+8
+00:01:18,360 --> 00:01:36,756
+Forty four seconds, twelve turns, about ten cents. The outcome is one recommendation: start on Postgres, and move to SQS when benchmarks say the database is hurting. It names what it couldn't check, and even that both advocates drifted toward SQS.
+
+9
+00:01:37,760 --> 00:01:48,460
+That's a team, not a pipeline. A workflow runs steps you already chose. A swarm decides who it needs, lets them disagree, and shows you the argument.
+
+10
+00:01:49,060 --> 00:01:51,592
+Next, how to read one while it runs.
+
+11
+00:01:54,292 --> 00:01:57,746
+Keelson. Lay the keel, raise the ribs.
+

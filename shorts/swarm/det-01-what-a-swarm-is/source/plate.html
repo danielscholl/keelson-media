@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="../../../../tools/node_modules/gsap/dist/gsap.min.js"></script>
+<style>
+  :root { --keel:#1e3a5f; --rib:#2f6fb0; --brass:#b5803a; --brass-ink:#8a5a1f; --ink:#0f1b2d; --muted:#51607a; --green:#2f8f5b; }
+  * { margin:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; }
+  body {
+    font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; color: var(--ink);
+    background:
+      linear-gradient(rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(90deg, rgba(30,58,95,.07) 1px, transparent 1px) 0 0/72px 72px,
+      linear-gradient(rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      linear-gradient(90deg, rgba(30,58,95,.028) 1px, transparent 1px) 0 0/18px 18px,
+      radial-gradient(circle at 74% 0%, rgba(255,255,255,.9), transparent 700px),
+      linear-gradient(180deg, #f3f5f8 0%, #e6eaf0 100%);
+  }
+  .crop { position:absolute; width:26px; height:26px; border:0 solid rgba(30,58,95,.5); }
+  #header { position:absolute; left:128px; right:128px; top:34px; height:44px; display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1.5px solid rgba(30,58,95,.45); font-family:"JetBrains Mono", monospace; font-size:18px; letter-spacing:.2em; color:var(--keel); }
+  #header .left { display:flex; align-items:center; gap:16px; }
+  #boardName { position:relative; width:520px; height:24px; color:var(--muted); }
+  #boardName span { position:absolute; right:0; top:0; opacity:0; white-space:nowrap; }
+  svg text { font-family: Inter, sans-serif; }
+  svg .mono { font-family: "JetBrains Mono", monospace; white-space: pre; }
+  .draw { stroke-dasharray:1; stroke-dashoffset:1; }
+</style>
+</head>
+<body>
+<div class="crop" style="left:40px;top:14px;border-left-width:2px;border-top-width:2px"></div>
+<div class="crop" style="right:40px;top:14px;border-right-width:2px;border-top-width:2px"></div>
+<div class="crop" style="left:40px;bottom:14px;border-left-width:2px;border-bottom-width:2px"></div>
+<div class="crop" style="right:40px;bottom:14px;border-right-width:2px;border-bottom-width:2px"></div>
+<div id="header">
+  <div class="left">
+    <svg width="30" height="30" viewBox="0 0 34 34" fill="none"><line x1="11.5" y1="7" x2="11.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="22.5" y1="7" x2="22.5" y2="27" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="20" x2="29" y2="20" stroke="#b5803a" stroke-width="2.6" stroke-linecap="round"/></svg>
+    <span><b>KEELSON</b> &nbsp;·&nbsp; SWARM &nbsp;·&nbsp; DET. 01 &nbsp;·&nbsp; WHAT A SWARM IS</span>
+  </div>
+  <div id="boardName"><span id="bn-crew">ONE AGENT OR A CREW</span><span id="bn-agent">WHAT AN AGENT IS</span><span id="bn-team">A TEAM, NOT A PIPELINE</span></div>
+</div>
+
+<svg id="stage" viewBox="0 0 1920 1080" width="1920" height="1080" style="position:absolute;inset:0">
+  <defs><marker id="ah" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#8a5a1f"/></marker>
+    <marker id="ab" markerWidth="12" markerHeight="12" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2f6fb0"/></marker></defs>
+
+  <g id="crew" opacity="0">
+    <g id="c-one"><text x="380" y="250" text-anchor="middle" class="mono" font-size="24" letter-spacing="3" fill="#51607a">ONE AGENT</text>
+      <rect x="230" y="380" width="300" height="130" rx="14" fill="#fff" stroke="#51607a" stroke-width="2.5"/>
+      <text x="380" y="440" text-anchor="middle" font-size="28" font-weight="600" fill="#0f1b2d">agent</text>
+      <text x="380" y="478" text-anchor="middle" class="mono" font-size="18" fill="#51607a">answers alone</text>
+      <rect x="230" y="560" width="300" height="70" rx="10" fill="none" stroke="#c8d2e0" stroke-width="2" stroke-dasharray="8 8"/>
+      <text x="380" y="603" text-anchor="middle" class="mono" font-size="18" fill="#9aa6b8">nothing to read along</text></g>
+    <line id="c-div" x1="720" y1="230" x2="720" y2="820" stroke="rgba(30,58,95,.25)" stroke-width="2" opacity="0"/>
+    <g id="c-head" opacity="0"><text x="1290" y="250" text-anchor="middle" class="mono" font-size="24" letter-spacing="3" fill="#8a5a1f">A SWARM</text></g>
+    <g id="c-lead" opacity="0"><rect x="1150" y="300" width="280" height="120" rx="14" fill="#fff8ec" stroke="#b5803a" stroke-width="3.5"/>
+      <text x="1290" y="355" text-anchor="middle" font-size="28" font-weight="600" fill="#0f1b2d">lead</text><text x="1290" y="392" text-anchor="middle" class="mono" font-size="18" fill="#8a5a1f">owns the outcome</text></g>
+    <g id="c-w1" opacity="0"><path d="M1230,425 L1050,505" stroke="#c8d2e0" stroke-width="2.5"/><rect x="860" y="510" width="300" height="100" rx="12" fill="#fff" stroke="#2f6fb0" stroke-width="2.5"/>
+      <text x="885" y="552" font-size="24" font-weight="600" fill="#0f1b2d">worker</text><text x="885" y="586" class="mono" font-size="17" fill="#2f6fb0">spawned by the lead</text></g>
+    <g id="c-w2" opacity="0"><path d="M1350,425 L1530,505" stroke="#c8d2e0" stroke-width="2.5"/><rect x="1420" y="510" width="300" height="100" rx="12" fill="#fff" stroke="#2f6fb0" stroke-width="2.5"/>
+      <text x="1445" y="552" font-size="24" font-weight="600" fill="#0f1b2d">worker</text><text x="1445" y="586" class="mono" font-size="17" fill="#2f6fb0">spawned by the lead</text></g>
+    <g id="c-chan" opacity="0"><rect x="860" y="680" width="860" height="62" rx="12" fill="#0d1429"/><text x="890" y="719" class="mono" font-size="22" fill="#9aa3c0"># swarm-channel · they all talk here</text>
+      <g stroke="#2f6fb0" stroke-width="2" stroke-dasharray="5 6"><line x1="1010" y1="612" x2="1010" y2="678"/><line x1="1570" y1="612" x2="1570" y2="678"/></g></g>
+    <g id="c-you" opacity="0"><circle cx="1290" cy="815" r="26" fill="#fff" stroke="#2f8f5b" stroke-width="2.5"/><text x="1290" y="823" text-anchor="middle" class="mono" font-size="20" fill="#2f8f5b">you</text>
+      <line x1="1290" y1="744" x2="1290" y2="788" stroke="#2f8f5b" stroke-width="2.5" stroke-dasharray="5 6"/><text x="1330" y="823" class="mono" font-size="18" fill="#2f8f5b">read along</text></g>
+  </g>
+
+  <g id="agent" opacity="0">
+    <g id="a-proc" opacity="0"><rect x="660" y="190" width="600" height="110" rx="12" fill="#fff" stroke="#51607a" stroke-width="2.5"/>
+      <text x="960" y="240" text-anchor="middle" class="mono" font-size="24" fill="#0f1b2d">process · always running</text>
+      <text x="960" y="276" text-anchor="middle" class="mono" font-size="18" fill="#51607a">waits in memory for something to do</text>
+      <g id="a-x" opacity="0" stroke="#b5452b" stroke-width="6" stroke-linecap="round"><line x1="680" y1="205" x2="1240" y2="285"/><line x1="680" y1="285" x2="1240" y2="205"/></g></g>
+    <g id="a-id" opacity="0"><rect x="420" y="390" width="340" height="190" rx="14" fill="#fff" stroke="#2f6fb0" stroke-width="2.5"/>
+      <text x="445" y="432" class="mono" font-size="20" letter-spacing="3" fill="#2f6fb0">IDENTITY</text><text x="445" y="482" font-size="26" font-weight="600" fill="#0f1b2d">@pg-advocate</text><text x="445" y="520" class="mono" font-size="17" fill="#51607a">a handle and a role</text></g>
+    <g id="a-in" opacity="0"><rect x="790" y="390" width="340" height="190" rx="14" fill="#fff" stroke="#8a5a1f" stroke-width="2.5"/>
+      <text x="815" y="432" class="mono" font-size="20" letter-spacing="3" fill="#8a5a1f">INBOX</text><text x="815" y="482" font-size="26" font-weight="600" fill="#0f1b2d">messages to it</text><text x="815" y="520" class="mono" font-size="17" fill="#51607a">addressed in the channel</text>
+      <circle id="a-dot" cx="1105" cy="415" r="11" fill="#f2a63a" opacity="0"/></g>
+    <g id="a-ses" opacity="0"><rect x="1160" y="390" width="340" height="190" rx="14" fill="#fff" stroke="#2f8f5b" stroke-width="2.5"/>
+      <text x="1185" y="432" class="mono" font-size="20" letter-spacing="3" fill="#2f8f5b">SESSION</text><text x="1185" y="482" font-size="26" font-weight="600" fill="#0f1b2d">resumable</text><text id="a-turn" x="1185" y="520" class="mono" font-size="17" fill="#51607a">turns so far: 2</text>
+      <text id="a-turn2" x="1185" y="520" class="mono" font-size="17" fill="#2f8f5b" opacity="0">turns so far: 3 · asleep again</text></g>
+    <g id="a-zz" opacity="0"><text x="960" y="350" text-anchor="middle" class="mono" font-size="22" fill="#51607a">nothing sits waiting</text></g>
+    <g id="a-disp" opacity="0"><rect x="560" y="720" width="800" height="100" rx="14" fill="#0d1429"/>
+      <text x="960" y="765" text-anchor="middle" class="mono" font-size="24" fill="#f2c66d">dispatcher · the only thing running</text>
+      <text x="960" y="800" text-anchor="middle" class="mono" font-size="18" fill="#9aa3c0">a message reaches an agent → one turn on its resumed session</text></g>
+    <path id="a-msg" d="M960,718 L960,585" stroke="#8a5a1f" stroke-width="3" marker-end="url(#ah)" opacity="0"/>
+    <path id="a-wake" d="M1140,700 C1260,690 1320,640 1330,588" fill="none" stroke="#2f8f5b" stroke-width="3" marker-end="url(#ah)" opacity="0"/>
+  </g>
+
+  <g id="team" opacity="0">
+    <g id="t-cols">
+      <g id="t-pipe" opacity="0"><text x="480" y="260" text-anchor="middle" class="mono" font-size="24" letter-spacing="3" fill="#51607a">A WORKFLOW</text>
+        <g fill="#fff" stroke="#51607a" stroke-width="2.5"><rect x="230" y="300" width="500" height="70" rx="10"/><rect x="230" y="400" width="500" height="70" rx="10"/><rect x="230" y="500" width="500" height="70" rx="10"/></g>
+        <g class="mono" font-size="22" fill="#0f1b2d" text-anchor="middle"><text x="480" y="343">step one</text><text x="480" y="443">step two</text><text x="480" y="543">step three</text></g>
+        <g stroke="#51607a" stroke-width="2.5"><line x1="480" y1="372" x2="480" y2="398"/><line x1="480" y1="472" x2="480" y2="498"/></g>
+        <text x="480" y="640" text-anchor="middle" font-size="26" fill="#0f1b2d">steps you already chose</text></g>
+      <g id="t-swarm" opacity="0"><text x="1440" y="260" text-anchor="middle" class="mono" font-size="24" letter-spacing="3" fill="#8a5a1f">A SWARM</text>
+        <rect x="1320" y="300" width="240" height="90" rx="12" fill="#fff8ec" stroke="#b5803a" stroke-width="3"/><text x="1440" y="354" text-anchor="middle" font-size="26" font-weight="600" fill="#0f1b2d">lead</text>
+        <g id="t-adv" opacity="0"><rect x="1150" y="470" width="250" height="90" rx="12" fill="#fff" stroke="#2f6fb0" stroke-width="2.5"/><text x="1275" y="523" text-anchor="middle" class="mono" font-size="20" fill="#0f1b2d">pg-advocate</text>
+          <rect x="1480" y="470" width="270" height="90" rx="12" fill="#fff" stroke="#2f6fb0" stroke-width="2.5"/><text x="1615" y="523" text-anchor="middle" class="mono" font-size="20" fill="#0f1b2d">redis-sqs-advocate</text>
+          <g stroke="#c8d2e0" stroke-width="2.5"><line x1="1400" y1="392" x2="1290" y2="468"/><line x1="1480" y1="392" x2="1600" y2="468"/></g></g>
+        <g id="t-arg" opacity="0"><path d="M1405,500 L1472,500" stroke="#2f6fb0" stroke-width="3" marker-end="url(#ab)"/><path d="M1475,532 L1408,532" stroke="#2f6fb0" stroke-width="3" marker-end="url(#ab)"/></g>
+        <g id="t-show" opacity="0"><rect x="1150" y="600" width="600" height="56" rx="10" fill="#0d1429"/><text x="1450" y="636" text-anchor="middle" class="mono" font-size="20" fill="#9aa3c0"># the argument, in the open</text></g></g>
+    </g>
+    <g id="t-next" opacity="0"><rect x="420" y="780" width="1080" height="110" fill="rgba(243,245,248,.96)" stroke="#1e3a5f" stroke-width="2"/>
+      <text x="960" y="848" text-anchor="middle" font-size="38" font-weight="300" letter-spacing="6" fill="#1e3a5f">NEXT · DET. 02 · READ THE COCKPIT</text></g>
+  </g>
+</svg>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+const norm = (w) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+window.setup = (T, words) => {
+  const tl = gsap.timeline({ paused: true });
+  window.tl = tl;
+  const lineAt = {};
+  for (const b of Object.values(T)) for (const [id, l] of Object.entries(b.lines)) lineAt[id] = l.n;
+  const W = (id, phrase, k = 0) => {
+    const ws = words[id], want = phrase.split(/\s+/).map(norm);
+    for (let i = 0, hit = 0; i < ws.length; i++) {
+      if (want.every((w, j) => ws[i + j] && norm(ws[i + j][0]) === w) && hit++ === k) return lineAt[id] + ws[i][1];
+    }
+    throw new Error(`phrase "${phrase}" not in ${id}`);
+  };
+  const show = (e, at, d = 0.4) => tl.to(e, { opacity: 1, duration: d }, at);
+  for (const id of Object.keys(T)) {
+    tl.set($(id), { opacity: 1 }, T[id].s); tl.set($(id), { opacity: 0 }, T[id].e);
+    tl.set($(`bn-${id}`), { opacity: 1 }, T[id].s); tl.set($(`bn-${id}`), { opacity: 0 }, T[id].e);
+  }
+
+  { show($("c-div"), W("n1", "small team") - 0.3); show($("c-head"), W("n1", "small team") - 0.3);
+    tl.to($("c-one"), { opacity: 0.35, duration: 0.5 }, W("n1", "small team"));
+    show($("c-lead"), W("n1", "A lead") - 0.2);
+    show($("c-w1"), W("n1", "Workers it spawns") - 0.2); show($("c-w2"), W("n1", "Workers it spawns") + 0.3);
+    show($("c-chan"), W("n1", "a channel") - 0.2);
+    show($("c-you"), W("n1", "read along") - 0.3);
+  }
+  { show($("a-proc"), W("n2", "running process") - 0.6); show($("a-x"), W("n2", "process") + 0.3, 0.25);
+    tl.to($("a-proc"), { opacity: 0.35, duration: 0.5 }, W("n2", "identity") - 0.2);
+    show($("a-id"), W("n2", "identity") - 0.2); show($("a-in"), W("n2", "inbox") - 0.2); show($("a-ses"), W("n2", "session") - 0.2);
+    show($("a-zz"), W("n2", "Nothing sits") - 0.2);
+    show($("a-disp"), W("n2", "Only the dispatcher") - 0.2);
+    show($("a-msg"), W("n2", "message reaches") - 0.2); show($("a-dot"), W("n2", "an agent") - 0.1, 0.2);
+    show($("a-wake"), W("n2", "wakes it") - 0.2);
+    tl.to($("a-turn"), { opacity: 0, duration: 0.3 }, W("n2", "one turn")); show($("a-turn2"), W("n2", "one turn"), 0.3);
+    tl.to($("a-dot"), { opacity: 0, duration: 0.3 }, W("n2", "resumed session"));
+  }
+  { show($("t-pipe"), W("n7", "A workflow") - 0.3);
+    show($("t-swarm"), W("n7", "A swarm decides") - 0.3); show($("t-adv"), W("n7", "who it needs") - 0.1);
+    show($("t-arg"), W("n7", "disagree") - 0.3); show($("t-show"), W("n7", "shows you") - 0.2);
+    show($("t-next"), W("n8", "Next") - 0.3);
+  }
+  return tl.duration();
+};
+</script>
+</body>
+</html>

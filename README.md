@@ -7,6 +7,7 @@ The method lives in the `demo-shorts` skill (`skills/demo-shorts`; link it into 
 ```
 assets/          reusable pieces: intro clips, voice auditions, anything worth using twice
 shorts/<act>/fig-NN-<slug>/   one folder per act (act-0-the-plate ... act-4-raise-the-ribs, codas), one per figure inside
+shorts/swarm/det-NN-<slug>/   the swarm detail series (see SWARM.md)
   final.mp4      the master cut (local only; media/ holds the web encode)
   script.json    narration lines, in order
   narr/ cards/   rendered narration clips and overlay cards
@@ -16,8 +17,10 @@ shorts/<act>/fig-NN-<slug>/   one folder per act (act-0-the-plate ... act-4-rais
 short.yaml       (per short) the manifest tools/compose.py cuts from
 tools/           the shared production line: tts, compose, cards, qa (see tools/README.md)
 LEDGER.md        one row per short: the choices, so the next one can differ
+SWARM.md         the swarm series bible: ten detail sheets, acts, conventions
 SERIES.md        the series bible: the figure map in viewing order, the docs page each answers for, the spoken form, phases
 media/fig-NN/    what Pages serves: fig-NN.mp4, poster.jpg, captions.vtt (tools/publish.sh writes them)
+media/swarm/det-NN/   the same for the swarm series (a manifest with series: swarm, prefix: det)
 skills/          the demo-shorts skill
 .keelson/        project workflows (cut-a-short)
 PROPOSAL.html    the framework proposal the bible came from (rig, docs embed, hosting); the live copy is the claude.ai artifact linked in SERIES.md

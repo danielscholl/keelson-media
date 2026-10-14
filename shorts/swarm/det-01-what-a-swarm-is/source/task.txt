@@ -1,0 +1,1 @@
+Job queue for a 5-person team: Postgres SKIP LOCKED vs Redis vs SQS. Spawn two advocates, have each argue a side and find the weak spots in the other's case, then give one recommendation plus what would change it.
